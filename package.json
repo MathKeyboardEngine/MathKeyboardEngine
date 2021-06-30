@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "test": "nyc ./node_modules/.bin/_mocha 'tests/**/*.test.ts'"
+    }
+}
