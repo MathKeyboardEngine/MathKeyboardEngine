@@ -12,5 +12,12 @@ npm install --save-dev typescript
 
 === The Mocha unit testing framework with TypeScript===
 
-npm install chai mocha ts-node @types/chai @types/mocha --save-dev
+npm install --dev ts-node mocha @testdeck/mocha nyc chai ts-mockito
 resulted in creatubg the package-lock.json and downloading stuff into a new node_modules folder, but I've added "node_modules/*" to ".gitignore".
+
+    ts-node: allow to run .ts file by transpiling them on the fly.
+    mocha: we’ll use it as the test runner.
+    @testdeck/mocha: it will allow mocha to interpret TypeScript classes as test suites.
+    nyc: it will generate the coverage report.
+    chai: the expectation library we’ll use.
+    ts-mockito: a supercool stubbing and mocking library inspired by mockito for Java.
