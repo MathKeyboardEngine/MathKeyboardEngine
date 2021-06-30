@@ -2,8 +2,8 @@
 
 1. Install Node.js
 
-2. Open the Node.js command prompt and run:
-npm install -g typescript
+2. Open the Node.js command prompt or VS Code Terminal and run:
+npm install --save-dev typescript
 
 3. Restart VS Code.
 
