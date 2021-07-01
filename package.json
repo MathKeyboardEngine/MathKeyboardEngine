@@ -1,5 +1,35 @@
 {
-    "scripts": {
-        "test": "nyc ./node_modules/.bin/_mocha 'tests/**/*.test.ts'"
-    }
+  "scripts": {
+    "test": "nyc ./node_modules/.bin/_mocha 'tests/**/*.test.ts'"
+  },
+  "name": "typescriptfiddle",
+  "description": "=== Transpile TypeScript into JavaScript automatically ===",
+  "version": "1.0.0",
+  "main": "register.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "@testdeck/mocha": "^0.1.2",
+    "@types/chai": "^4.2.19",
+    "@types/mocha": "^8.2.2",
+    "chai": "^4.3.4",
+    "nyc": "^15.1.0",
+    "ts-mockito": "^2.6.1",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "mocha": "^9.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SymboLinker/TypeScriptFiddle.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SymboLinker/TypeScriptFiddle/issues"
+  },
+  "homepage": "https://github.com/SymboLinker/TypeScriptFiddle#readme"
 }
