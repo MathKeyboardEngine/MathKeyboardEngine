@@ -25,3 +25,7 @@ resulted in creatubg the package-lock.json and downloading stuff into a new node
 
 === Create a package.json file when the node_modules folder is full of packages ===
 npm init
+
+The package.json AND the package-lock.json should be checked into source control.
+Now, if you clone this repository and have no node_modules folder, you can download all required packages via the following command:
+npm ci
