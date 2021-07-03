@@ -14,4 +14,13 @@ import f1 = require('../src/file1');
         .equal('hello hello');
       });
     });
+    describe('double the number via a a class', () =>
+    {
+      it ('should be able to use the class name' , () =>
+      {
+        expect(f1.SomeClass.multiplyBy2(4))
+        .to
+        .equal(8);
+      });
+    });
   });

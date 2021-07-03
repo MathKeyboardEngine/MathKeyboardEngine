@@ -1,7 +1,7 @@
 {
   "scripts": {
     "test": "nyc ./node_modules/.bin/_mocha 'tests/**/*.test.ts'",
-    "build": "esbuild src/file1.ts --bundle --minify --outfile=dist/typescriptfiddle.min.js"
+    "build": "esbuild src/file1.ts --bundle --minify-syntax --minify-whitespace --outfile=dist/typescriptfiddle.min.js"
   },
   "name": "typescriptfiddle",
   "description": "=== Transpile TypeScript into JavaScript automatically ===",
