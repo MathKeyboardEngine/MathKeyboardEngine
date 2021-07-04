@@ -22,9 +22,6 @@ resulted in creatubg the package-lock.json and downloading stuff into a new node
     chai: the expectation library we’ll use.
     ts-mockito: a supercool stubbing and mocking library inspired by mockito for Java.
 
-Run the tests via the command
-npm test
-
 
 === Create a package.json file when the node_modules folder is full of packages ===
 npm init
@@ -42,8 +39,3 @@ npm run build
 the following script from package.json will be executed:
     "build": "esbuild src/file1.ts --bundle --minify --outfile=dist/typescriptfiddle.min.js"
 and a minified file will be created in the dist folder.
-You can maintain class names and method names etc by only minifying other stuff. Use
---minify-syntax --minify-whitespace
-instead of
---minify
-I don't know a way to NOT minify class names and methods AND DO minify local variables etc.
