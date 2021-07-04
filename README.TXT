@@ -29,13 +29,3 @@ npm init
 The package.json AND the package-lock.json should be checked into source control.
 Now, if you clone this repository and have no node_modules folder, you can download all required packages via the following command:
 npm ci
-
-=== bundle and minify for distribution ===
-
-npm install esbuild --save-dev
-
-Now, whenever you do 
-npm run build
-the following script from package.json will be executed:
-    "build": "esbuild src/file1.ts --bundle --minify --outfile=dist/typescriptfiddle.min.js"
-and a minified file will be created in the dist folder.
