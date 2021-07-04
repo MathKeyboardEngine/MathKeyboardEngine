@@ -1,6 +1,6 @@
 import { describe } from 'mocha';
 import { expect } from 'chai';
-import f1 = require('../src/file1');
+import * as f1 from '../src/file1';
 
 
   describe('DummyTest', () =>

@@ -1,8 +1,10 @@
 {
     "compilerOptions": {
       "target": "es6",
-      "module": "commonjs",
-      "sourceMap": true
+      "module": "AMD",
+      "strict": true,
+      "noEmitOnError": true,
+      "outFile": "./dist/outFile.js"
     },
     "exclude": [
     "./node_modules"
