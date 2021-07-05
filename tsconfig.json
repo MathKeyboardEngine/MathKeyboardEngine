@@ -1,10 +1,10 @@
 {
     "compilerOptions": {
-      "target": "es6",
-      "module": "AMD",
+      "target": "es2017",
+      "module": "ES2015",
       "strict": true,
       "noEmitOnError": true,
-      "outFile": "./dist/outFile.js"
+      "outDir": "./dist"
     },
     "exclude": [
     "./node_modules"

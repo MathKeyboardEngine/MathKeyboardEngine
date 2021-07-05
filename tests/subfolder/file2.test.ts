@@ -2,7 +2,7 @@ import { describe } from 'mocha';
 import { expect } from 'chai';
 import * as f2 from '../../src/subfolder/file2';
 
-  describe('SubFolderClass', () =>
+  describe('file2.SubFolderClass', () =>
   {
     describe('call uses 2 files', () =>
     {
@@ -21,5 +21,11 @@ import * as f2 from '../../src/subfolder/file2';
         .to
         .equal('booh');
       });
+    });
+  });
+  describe('file2.notInClass', () =>{
+    it('should work', () =>{
+      expect(f2.notInClass("hi"))
+      .equal('hi hi');
     });
   });
