@@ -1,17 +1,15 @@
 import { describe } from 'mocha';
 import { expect } from 'chai';
-import * as f1 from '../src/file1';
 
-
-  describe('DummyTest', () =>
+  describe('bla', () =>
   {
-    describe('doubleWord', () =>
+    describe('nested bla', () =>
     {
-      it('should return twice the input separated by a space', () =>
+      it('should...', () =>
       {
-        expect(f1.doubleWord('hello'))
+        expect('hello world')
         .to
-        .equal('hello hello');
+        .equal('hello world');
       });
     });
   });
