@@ -14,7 +14,7 @@ function handlesEncapsulation(atom : Atom | IEncapsulateCurrentAtomOnInsert) : a
 }
     
 
-function Insert(k: KeyboardMemory, newAtom: Atom) {
+export function Insert(k: KeyboardMemory, newAtom: Atom) {
     if (k.Current instanceof Placeholder) {
         k.Current.Atoms.unshift(newAtom);
         newAtom.ParentPlaceholder = k.Current;
@@ -27,8 +27,9 @@ function Insert(k: KeyboardMemory, newAtom: Atom) {
             let parent : Placeholder = k.Current.ParentPlaceholder;
             let indexOfCurrent = parent.Atoms.indexOf(k.Current);
             parent.Atoms.splice(indexOfCurrent + 1, 0, newAtom);
+            newAtom.ParentPlaceholder = parent;
         }
-        MoveRight(k);
     }
+    MoveRight(k);
 }
     
