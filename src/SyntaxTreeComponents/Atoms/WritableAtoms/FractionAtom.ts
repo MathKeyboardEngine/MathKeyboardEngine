@@ -1,9 +1,9 @@
-import { IEncapsulateCurrentAtomOnInsert } from "../../KeyboardEngine/Functions/Insert";
-import { KeyboardMemory } from "../../KeyboardEngine/KeyboardMemory";
-import { LatexConfiguration } from "../../LatexConfiguration";
-import { Placeholder } from "../Placeholders/Placeholder";
-import { Atom } from "./Base/Atom";
-import { WritableAtom } from "./Base/WritableAtom";
+import { IEncapsulateCurrentAtomOnInsert } from "../../../KeyboardEngine/Functions/Insert";
+import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
+import { LatexConfiguration } from "../../../LatexConfiguration";
+import { Placeholder } from "../../Placeholders/Placeholder";
+import { Atom } from "../Base/Atom";
+import { WritableAtom } from "../Base/WritableAtom";
 
 export class FractionAtom extends WritableAtom implements IEncapsulateCurrentAtomOnInsert {
     override getLatex(latexConfiguration: LatexConfiguration, keyboardMemory : KeyboardMemory): string {

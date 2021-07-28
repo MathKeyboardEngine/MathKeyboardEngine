@@ -1,7 +1,7 @@
 ﻿class LatexConfiguration {
     activePlaceholderNucleus : string = '⬛';
     activePlaceholderColor? : string;
-    passivePlaceholderNucleus : string = '\square';
+    passivePlaceholderNucleus : string = '\\square';
     passivePlaceholderColor? : string;
 }
 

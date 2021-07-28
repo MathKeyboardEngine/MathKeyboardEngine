@@ -4,7 +4,7 @@ import { KeyboardMemory } from '../src/KeyboardEngine/KeyboardMemory'
 import { Placeholder } from '../src/SyntaxTreeComponents/Placeholders/Placeholder';
 import { DeleteCurrent } from '../src/KeyboardEngine/Functions/DeleteCurrent'
 import { Insert } from '../src/KeyboardEngine/Functions/Insert';
-import { FractionAtom } from '../src/SyntaxTreeComponents/Atoms/FractionAtom'
+import { FractionAtom } from '../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom'
 
 describe('SyntaxTreeRoot', () =>
 {
