@@ -2,7 +2,7 @@ import { WritableAtom } from "../../SyntaxTreeComponents/Atoms/Base/WritableAtom
 import { Placeholder } from "../../SyntaxTreeComponents/Placeholders/Placeholder";
 import { KeyboardMemory } from "../KeyboardMemory";
 
-export function MoveDown(k : KeyboardMemory) {
+export function MoveUp(k : KeyboardMemory) {
     let moveFromPlaceholder = k.Current instanceof Placeholder ? k.Current : k.Current.ParentPlaceholder;
     let suggestingAtom : WritableAtom;
     while (true) {
@@ -11,7 +11,7 @@ export function MoveDown(k : KeyboardMemory) {
         }
         suggestingAtom = moveFromPlaceholder.ParentAtom
         if (suggestingAtom instanceof WritableAtom){
-            let suggestion = suggestingAtom.GetMoveDownSuggestion(moveFromPlaceholder);
+            let suggestion = suggestingAtom.GetMoveUpSuggestion(moveFromPlaceholder);
             if (suggestion != null)
             {
                 k.Current = suggestion;
