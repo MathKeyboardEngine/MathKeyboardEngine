@@ -1,5 +1,5 @@
 import { WritableAtom } from "../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
-import { Placeholder } from "../../SyntaxTreeComponents/Placeholders/Placeholder";
+import { Placeholder } from "../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../KeyboardMemory";
 
 export function MoveDown(k : KeyboardMemory) {

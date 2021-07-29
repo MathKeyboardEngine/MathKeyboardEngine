@@ -1,6 +1,6 @@
 import { Atom } from "../../SyntaxTreeComponents/Atoms/Base/Atom";
 import { WritableAtom } from "../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
-import { Placeholder } from "../../SyntaxTreeComponents/Placeholders/Placeholder";
+import { Placeholder } from "../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../KeyboardMemory";
 import { MoveRight } from "./MoveRight";
 

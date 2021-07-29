@@ -1,7 +1,7 @@
 import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../src/KeyboardEngine/KeyboardMemory'
-import { Placeholder } from '../src/SyntaxTreeComponents/Placeholders/Placeholder';
+import { Placeholder } from '../src/SyntaxTreeComponents/Placeholder/Placeholder';
 import { DeleteCurrent } from '../src/KeyboardEngine/Functions/DeleteCurrent'
 import { Insert } from '../src/KeyboardEngine/Functions/Insert';
 import { FractionAtom } from '../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom'

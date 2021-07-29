@@ -1,6 +1,6 @@
-import { Placeholder } from "../../SyntaxTreeComponents/Placeholders/Placeholder";
+import { Placeholder } from "../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../KeyboardMemory";
-import { GetFirstNonEmptyOnLeftOf } from "../../SyntaxTreeComponents/Placeholders/GetFirstNonEmptyOnLeftOf";
+import { GetFirstNonEmptyOnLeftOf } from "../../SyntaxTreeComponents/Placeholder/GetFirstNonEmptyOnLeftOf";
 import { lastOrNull } from "../../helpers/arrayhelpers/lastOrNull";
 import { firstBefore } from "../../helpers/arrayhelpers/firstBefore";
 import { remove } from "../../helpers/arrayhelpers/remove";

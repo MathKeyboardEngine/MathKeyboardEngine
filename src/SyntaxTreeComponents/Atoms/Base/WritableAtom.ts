@@ -1,5 +1,5 @@
 import { Atom } from "./Atom";
-import { Placeholder } from "../../Placeholders/Placeholder";
+import { Placeholder } from "../../Placeholder/Placeholder";
 
 export abstract class WritableAtom extends Atom {
     Placeholders : Placeholder[];

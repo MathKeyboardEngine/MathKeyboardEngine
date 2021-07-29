@@ -1,6 +1,6 @@
 import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
 import { LatexConfiguration } from "../../../LatexConfiguration";
-import { Placeholder } from "../../Placeholders/Placeholder";
+import { Placeholder } from "../../Placeholder/Placeholder";
 
 export abstract class Atom {
     ParentPlaceholder! : Placeholder;
