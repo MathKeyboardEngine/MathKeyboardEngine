@@ -23,7 +23,7 @@ describe('PowerAtom', () =>
     expect('3^{4}').to.equal(latex);
   });
 
-  it('frac 3 down 4', () =>
+  it('pow 3 up 4', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new PowerAtom());
