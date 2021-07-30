@@ -15,7 +15,7 @@ export class Placeholder {
                 return latexConfiguration.activePlaceholderNucleus + this.Atoms.map(atom => atom.getLatex(latexConfiguration, keyboardMemory)).join("");
             }
         } else if (this.Atoms.length == 0) {
-            return latexConfiguration.activePlaceholderNucleus;
+            return latexConfiguration.passivePlaceholderNucleus;
         } else {
             return this.Atoms.map(atom => atom.getLatex(latexConfiguration, keyboardMemory)).join("");
         }
