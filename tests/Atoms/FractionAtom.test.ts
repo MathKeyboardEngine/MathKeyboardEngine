@@ -83,21 +83,20 @@ describe('FractionAtom', () =>
     expectLatex('◼', k);
   });
 
-  it.only('deleting a non-empty frac cannot be done at once, should delete parts first', () =>
+  it('deleting frac from denominator releases non-empty numerator', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new FractionAtom());
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom(2));
     MoveDown(k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom(3));
     MoveRight(k);
-    expectLatex('\\frac{3}{4}◼', k);
+    expectLatex('\\frac{12}{3}◼', k);
 
     DeleteCurrent(k);
-    expectLatex('\\frac{3}{◼}', k);
+    expectLatex('\\frac{12}{◼}', k);
     DeleteCurrent(k);
-    expectLatex('\\frac{◼}{◻}', k);
-    DeleteCurrent(k);
-    expectLatex('◼', k);
+    expectLatex('12◼', k);
   });
 });
