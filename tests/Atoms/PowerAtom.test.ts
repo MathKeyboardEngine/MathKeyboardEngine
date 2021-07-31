@@ -37,7 +37,7 @@ describe('PowerAtom', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(3));
-    TryEncapsulateCurrentBy(k, new PowerAtom().Base);
+    assert.ok(TryEncapsulateCurrentBy(k, new PowerAtom().Base));
     expectLatex('3^{◼}', k);
   });
 
