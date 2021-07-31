@@ -23,9 +23,7 @@ export function MoveRight(k: KeyboardMemory) {
             let ancestorAtom = k.Current.ParentPlaceholder.ParentAtom;
             if  (ancestorAtom != null) {
                 let nextPlaceholder : Placeholder | null = firstAfter(ancestorAtom.Placeholders, k.Current.ParentPlaceholder);
-                if (nextPlaceholder != null) {
-                    k.Current = nextPlaceholder;
-                }
+                k.Current = nextPlaceholder ?? ancestorAtom;
             }
         }
     }

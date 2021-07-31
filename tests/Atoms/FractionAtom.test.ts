@@ -8,6 +8,7 @@ import { MoveRight } from '../../src/KeyboardEngine/Functions/MoveRight';
 import { MoveDown } from '../../src/KeyboardEngine/Functions/MoveDown';
 import { TryEncapsulateCurrentBy } from '../../src/KeyboardEngine/Functions/TryEncapsulateCurrentBy';
 import { expectLatex } from '../TestHelpers/expectLatex';
+import { DeleteCurrent } from '../../src/KeyboardEngine/Functions/DeleteCurrent';
 
 describe('FractionAtom', () =>
 {
@@ -50,5 +51,53 @@ describe('FractionAtom', () =>
     Insert(k, new DigitAtom(3));
     TryEncapsulateCurrentBy(k, new FractionAtom().Numerator);
     expectLatex('\\frac{3}{◼}', k);
+  });
+
+  it('delete empty frac from numerator', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new FractionAtom());
+    expectLatex('\\frac{◼}{◻}', k);
+    DeleteCurrent(k);
+    expectLatex('◼', k);
+  });
+
+  it('delete empty frac from denominator', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new FractionAtom());
+    MoveDown(k);
+    expectLatex('\\frac{◻}{◼}', k);
+    DeleteCurrent(k);
+    expectLatex('◼', k);
+  });
+
+  it('delete empty frac from the right', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new FractionAtom());
+    MoveDown(k);
+    MoveRight(k);
+    expectLatex('\\frac{◻}{◻}◼', k);
+    DeleteCurrent(k);
+    expectLatex('◼', k);
+  });
+
+  it.only('deleting a non-empty frac cannot be done at once, should delete parts first', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new FractionAtom());
+    Insert(k, new DigitAtom(3));
+    MoveDown(k);
+    Insert(k, new DigitAtom(4));
+    MoveRight(k);
+    expectLatex('\\frac{3}{4}◼', k);
+
+    DeleteCurrent(k);
+    expectLatex('\\frac{3}{◼}', k);
+    DeleteCurrent(k);
+    expectLatex('\\frac{◼}{◻}', k);
+    DeleteCurrent(k);
+    expectLatex('◼', k);
   });
 });

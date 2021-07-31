@@ -9,9 +9,8 @@ import { WritableAtom } from "../../SyntaxTreeComponents/Atoms/Base/WritableAtom
 import { last } from "../../helpers/arrayhelpers/last";
 
 export function DeleteCurrent(k : KeyboardMemory) {
-
     if (k.Current instanceof Placeholder) {
-        if (k.Current.ParentAtom == null){
+        if (k.Current.ParentAtom == null) {
             return;
         } else {
             let nonEmptyPlaceholderOnLeft : Placeholder | null = GetFirstNonEmptyOnLeftOf(k.Current.ParentAtom.Placeholders, k.Current);
@@ -28,14 +27,13 @@ export function DeleteCurrent(k : KeyboardMemory) {
     } else {
         if (k.Current instanceof WritableAtom && k.Current.Placeholders.some(ph => ph.Atoms.length > 0)) {
             let lastPlaceholderWithContent! : Placeholder;
-            for (let i = k.Current.Placeholders.length - 1; i == 0; i--) {
+            for (let i = k.Current.Placeholders.length - 1; i >= 0; i--) {
                 let ph = k.Current.Placeholders[i];
                 if (ph.Atoms.length > 0){
                     lastPlaceholderWithContent = ph;
                     break;
                 }
             }
-
             lastPlaceholderWithContent.Atoms.pop();
             k.Current = lastPlaceholderWithContent.Atoms.length == 0 ? lastPlaceholderWithContent : last(lastPlaceholderWithContent.Atoms);
         } else {
