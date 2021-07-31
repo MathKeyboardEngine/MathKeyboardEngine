@@ -45,7 +45,7 @@ ________________________________
 npm ci
 This loads all dependencies from the tree as specified in package-lock.json.
 
-3. In the same terminal, to test whether the installation succeded, run:
+3. In the same terminal, to test whether the installation was successful, run:
 npm test
 This executes all the unit tests. (TypeScript is transpiled into JavaScript just before the tests execute.)
 
