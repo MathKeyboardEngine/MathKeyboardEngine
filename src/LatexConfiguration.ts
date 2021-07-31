@@ -3,6 +3,7 @@
     activePlaceholderColor? : string;
     passivePlaceholderNucleus : string = '◻';
     passivePlaceholderColor? : string;
+    decimalSeparator : '.' | '{,}' = '.';
 
     getActivePlaceholderLatex() {
         if (this.activePlaceholderColor == null){

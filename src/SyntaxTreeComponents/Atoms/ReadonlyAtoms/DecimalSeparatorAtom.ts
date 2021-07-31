@@ -3,14 +3,9 @@ import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
 import { LatexConfiguration } from "../../../LatexConfiguration";
 import { ReadonlyAtom } from "../Base/ReadonlyAtom";
 
-export class DigitAtom extends ReadonlyAtom implements IEncapsulationPart {
-    value : number;
-    constructor(digit : number) {
-        super();
-        this.value = digit;
-    }
+export class DecimalSeparatorAtom extends ReadonlyAtom implements IEncapsulationPart {
     EncapsulationWhole: string = `numberpart`;
     override provideLatex(latexConfiguration: LatexConfiguration, keyboardMemory: KeyboardMemory): string {
-        return this.value.toString();
+        return latexConfiguration.decimalSeparator;
     }
 }

@@ -9,6 +9,12 @@ import { Insert } from '../../src/KeyboardEngine/Functions/Insert';
 import { MatrixAtom } from '../../src/SyntaxTreeComponents/Atoms/WritableAtoms/MatrixAtom';
 import { MoveRight } from '../../src/KeyboardEngine/Functions/MoveRight';
 import { DigitAtom } from '../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
+import { DecimalSeparatorAtom } from '../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom';
+import { PlusOperatorAtom } from '../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/PlusOperatorAtom';
+import { FractionAtom } from '../../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom';
+import { MoveLeft } from '../../src/KeyboardEngine/Functions/MoveLeft';
+import { DeleteCurrent } from '../../src/KeyboardEngine/Functions/DeleteCurrent';
+import { MoveUp } from '../../src/KeyboardEngine/Functions/MoveUp';
 
 describe('TryEncapsulateCurrentBy', () =>
 {
@@ -40,5 +46,44 @@ describe('TryEncapsulateCurrentBy', () =>
     Insert(k, new DigitAtom(1));
     assert.ok(TryEncapsulateCurrentBy(k, new PowerAtom().Base));
     expectLatex('\\\\begin{pmatrix}1^{◼} & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}', k);
+  });
+
+  it('can encapsulate multiple digits', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom(2));
+    assert.ok(TryEncapsulateCurrentBy(k, new FractionAtom().Numerator));
+    expectLatex('\\frac{12}{◼}', k);
+  });
+
+  it('can encapsulate a decimal number', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom(2));
+    Insert(k, new DecimalSeparatorAtom());
+    Insert(k, new DigitAtom(3));
+
+    assert.ok(TryEncapsulateCurrentBy(k, new PowerAtom().Base));
+    expectLatex('12.3^{◼}', k);
+    MoveLeft(k);
+    expectLatex('12.3◼^{◻}', k);
+    DeleteCurrent(k);
+    DeleteCurrent(k);
+    expectLatex('12◼^{◻}', k);
+    MoveUp(k);
+    expectLatex('12^{◼}', k);
+  });
+
+  it('does not encapsulate more than it should', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new DigitAtom(1));
+    Insert(k, new PlusOperatorAtom());
+    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom(3));
+    assert.ok(TryEncapsulateCurrentBy(k, new FractionAtom().Numerator));
+    expectLatex('1+\\frac{23}{◼}', k);
   });
 });
