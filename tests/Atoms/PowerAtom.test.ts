@@ -9,6 +9,7 @@ import { MoveUp } from '../../src/KeyboardEngine/Functions/MoveUp';
 import { TryEncapsulateCurrentBy } from '../../src/KeyboardEngine/Functions/TryEncapsulateCurrentBy';
 import { expectLatex } from '../TestHelpers/expectLatex';
 import { MoveDown } from '../../src/KeyboardEngine/Functions/MoveDown';
+import { MoveLeft } from '../../src/KeyboardEngine/Functions/MoveLeft';
 
 describe('PowerAtom', () =>
 {
@@ -49,6 +50,17 @@ describe('PowerAtom', () =>
     Insert(k, new DigitAtom(4));
     MoveDown(k);
     expectLatex('3◼^{4}', k);
+  });
+
+  it('pow can be left empty, moving out and back in', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new PowerAtom());
+    expectLatex('◼^{◻}', k);
+    MoveLeft(k);
+    expectLatex('◼◻^{◻}', k);
+    MoveRight(k);
+    expectLatex('◼^{◻}', k);
   });
 
   it('impossible up/down requests in empty power should not throw', () =>

@@ -18,7 +18,11 @@ export function MoveRight(k: KeyboardMemory) {
     } else {
         let nextAtom : Atom | null = firstAfter(k.Current.ParentPlaceholder.Atoms, k.Current);
         if (nextAtom != null) {
-            k.Current = nextAtom;
+            if (nextAtom instanceof WritableAtom){
+                k.Current = nextAtom.Placeholders[0];
+            } else {
+                k.Current = nextAtom;
+            }
         } else {
             let ancestorAtom = k.Current.ParentPlaceholder.ParentAtom;
             if  (ancestorAtom != null) {
