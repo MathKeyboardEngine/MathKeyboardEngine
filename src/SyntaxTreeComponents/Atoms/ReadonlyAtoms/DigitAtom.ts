@@ -8,7 +8,7 @@ export class DigitAtom extends ReadonlyAtom {
         super();
         this.value = digit;
     }
-    getLatex(latexConfiguration: LatexConfiguration, keyboardMemory: KeyboardMemory): string {
+    override provideLatex(latexConfiguration: LatexConfiguration, keyboardMemory: KeyboardMemory): string {
         return this.value.toString();
     }
 

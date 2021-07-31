@@ -5,7 +5,7 @@ import { Atom } from "../Base/Atom";
 import { WritableAtom } from "../Base/WritableAtom";
 
 export class MatrixAtom extends WritableAtom {
-    override getLatex(latexConfiguration: LatexConfiguration, keyboardMemory : KeyboardMemory): string {
+    override provideLatex(latexConfiguration: LatexConfiguration, keyboardMemory : KeyboardMemory): string {
         let latex = `\\\\begin{${this.MatrixType}}`;
         latex += this.Grid.map(row => row.map(placeholder => placeholder.getLatex(latexConfiguration, keyboardMemory)).join(' & ')).join(` \\\\ `);
         latex += `\\\\end{${this.MatrixType}}`;

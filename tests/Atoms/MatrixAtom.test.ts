@@ -27,7 +27,7 @@ describe('MatrixAtom', () =>
     MoveDown(k);
     Insert(k, new DigitAtom(6));
     let latex = k.SyntaxTreeRoot.getLatex(defaultLatexConfiguration, k);
-    expect(`\\\\begin{pmatrix}1 & 2 \\\\ ${defaultLatexConfiguration.passivePlaceholderNucleus} & 4 \\\\ ${defaultLatexConfiguration.passivePlaceholderNucleus} & 6\\\\end{pmatrix}`)
+    expect(`\\\\begin{pmatrix}1 & 2 \\\\ ${defaultLatexConfiguration.passivePlaceholderNucleus} & 4 \\\\ ${defaultLatexConfiguration.passivePlaceholderNucleus} & 6⬛\\\\end{pmatrix}`)
       .to.equal(latex);
   });
 });

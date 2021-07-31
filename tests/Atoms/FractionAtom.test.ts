@@ -20,7 +20,7 @@ describe('Fractions', () =>
     MoveRight(k);
     Insert(k, new DigitAtom(4));
     let latex = k.SyntaxTreeRoot.getLatex(defaultLatexConfiguration, k);
-    expect('\\frac{3}{4}').to.equal(latex);
+    expect('\\frac{3}{4⬛}').to.equal(latex);
   });
 
   it('frac 3 down 4', () =>
@@ -31,7 +31,7 @@ describe('Fractions', () =>
     MoveDown(k);
     Insert(k, new DigitAtom(4));
     let latex = k.SyntaxTreeRoot.getLatex(defaultLatexConfiguration, k);
-    expect('\\frac{3}{4}').to.equal(latex);
+    expect('\\frac{3}{4⬛}').to.equal(latex);
   });
 
   it('3 encapsulatedBy(frac.Numerator) 4', () =>
@@ -41,6 +41,6 @@ describe('Fractions', () =>
     TryEncapsulateCurrentBy(k, new FractionAtom().Numerator);
     Insert(k, new DigitAtom(4));
     let latex = k.SyntaxTreeRoot.getLatex(defaultLatexConfiguration, k);
-    expect('\\frac{3}{4}').to.equal(latex);
+    expect('\\frac{3}{4⬛}').to.equal(latex);
   });
 });

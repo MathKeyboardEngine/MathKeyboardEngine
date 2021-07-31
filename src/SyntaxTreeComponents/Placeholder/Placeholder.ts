@@ -10,12 +10,12 @@ export class Placeholder {
     getLatex(latexConfiguration : LatexConfiguration, keyboardMemory : KeyboardMemory) : string {
         if (this === keyboardMemory.Current ) {
             if (this.Atoms.length == 0) {
-                return latexConfiguration.activePlaceholderNucleus;
+                return latexConfiguration.getActivePlaceholderLatex();
             } else {
-                return latexConfiguration.activePlaceholderNucleus + this.Atoms.map(atom => atom.getLatex(latexConfiguration, keyboardMemory)).join("");
+                return latexConfiguration.getActivePlaceholderLatex() + this.Atoms.map(atom => atom.getLatex(latexConfiguration, keyboardMemory)).join("");
             }
         } else if (this.Atoms.length == 0) {
-            return latexConfiguration.passivePlaceholderNucleus;
+            return latexConfiguration.getPassivePlaceholderLatex();
         } else {
             return this.Atoms.map(atom => atom.getLatex(latexConfiguration, keyboardMemory)).join("");
         }

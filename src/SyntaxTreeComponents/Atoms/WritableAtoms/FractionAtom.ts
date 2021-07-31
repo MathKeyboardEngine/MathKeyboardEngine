@@ -5,7 +5,7 @@ import { Atom } from "../Base/Atom";
 import { WritableAtom } from "../Base/WritableAtom";
 
 export class FractionAtom extends WritableAtom {
-    override getLatex(latexConfiguration: LatexConfiguration, keyboardMemory : KeyboardMemory): string {
+    override provideLatex(latexConfiguration: LatexConfiguration, keyboardMemory : KeyboardMemory): string {
         return `\\frac{${this.Numerator.getLatex(latexConfiguration, keyboardMemory)}}{${this.Denominator.getLatex(latexConfiguration, keyboardMemory)}}`;
     }
 

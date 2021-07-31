@@ -20,7 +20,7 @@ describe('PowerAtom', () =>
     MoveRight(k);
     Insert(k, new DigitAtom(4));
     let latex = k.SyntaxTreeRoot.getLatex(defaultLatexConfiguration, k);
-    expect('3^{4}').to.equal(latex);
+    expect('3^{4⬛}').to.equal(latex);
   });
 
   it('pow 3 up 4', () =>
@@ -32,7 +32,7 @@ describe('PowerAtom', () =>
 
     Insert(k, new DigitAtom(4));
     let latex = k.SyntaxTreeRoot.getLatex(defaultLatexConfiguration, k);
-    expect('3^{4}').to.equal(latex);
+    expect('3^{4⬛}').to.equal(latex);
   });
 
   it('3 encapsulatedBy(pow.Base) 4', () =>
@@ -42,6 +42,6 @@ describe('PowerAtom', () =>
     TryEncapsulateCurrentBy(k, new PowerAtom().Base);
     Insert(k, new DigitAtom(4));
     let latex = k.SyntaxTreeRoot.getLatex(defaultLatexConfiguration, k);
-    expect('3^{4}').to.equal(latex);
+    expect('3^{4⬛}').to.equal(latex);
   });
 });

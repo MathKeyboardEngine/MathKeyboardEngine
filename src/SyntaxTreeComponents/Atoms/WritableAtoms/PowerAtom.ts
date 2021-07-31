@@ -15,7 +15,7 @@ export class PowerAtom extends WritableAtom {
         this.Exponent = this.Placeholders[1];
     }
 
-    override getLatex(latexConfiguration: LatexConfiguration, keyboardInfo: KeyboardMemory) : string {
+    override provideLatex(latexConfiguration: LatexConfiguration, keyboardInfo: KeyboardMemory) : string {
         return `${this.Base.getLatex(latexConfiguration, keyboardInfo)}^{${this.Exponent.getLatex(latexConfiguration, keyboardInfo)}}`;
     }
 
