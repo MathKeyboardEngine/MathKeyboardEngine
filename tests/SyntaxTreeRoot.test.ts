@@ -5,6 +5,7 @@ import { Placeholder } from '../src/SyntaxTreeComponents/Placeholder/Placeholder
 import { DeleteCurrent } from '../src/KeyboardEngine/Functions/DeleteCurrent'
 import { Insert } from '../src/KeyboardEngine/Functions/Insert';
 import { FractionAtom } from '../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom'
+import { expectLatex } from './TestHelpers/expectLatex';
 
 describe('SyntaxTreeRoot', () =>
 {
@@ -13,6 +14,7 @@ describe('SyntaxTreeRoot', () =>
     let k = new KeyboardMemory();
     assert.isNotNull(k.Current);
     assert.isTrue(k.Current instanceof Placeholder);
+    expectLatex('◼', k);
   });
 
   it('cannot be deleted', () =>

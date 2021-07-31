@@ -1,7 +1,7 @@
 ﻿export class LatexConfiguration {
-    activePlaceholderNucleus : string = '⬛';
+    activePlaceholderNucleus : string = '◼';
     activePlaceholderColor? : string;
-    passivePlaceholderNucleus : string = '\\square';
+    passivePlaceholderNucleus : string = '◻';
     passivePlaceholderColor? : string;
 
     getActivePlaceholderLatex() {

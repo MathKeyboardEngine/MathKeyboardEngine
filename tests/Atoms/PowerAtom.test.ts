@@ -7,9 +7,8 @@ import { DigitAtom } from '../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/Di
 import { MoveRight } from '../../src/KeyboardEngine/Functions/MoveRight';
 import { MoveUp } from '../../src/KeyboardEngine/Functions/MoveUp';
 import { TryEncapsulateCurrentBy } from '../../src/KeyboardEngine/Functions/TryEncapsulateCurrentBy';
-import { LatexConfiguration } from '../../src/LatexConfiguration';
+import { expectLatex } from '../TestHelpers/expectLatex';
 
-const defaultLatexConfiguration = new LatexConfiguration();
 describe('PowerAtom', () =>
 {
   it('pow 3 right 4', () =>
@@ -19,8 +18,7 @@ describe('PowerAtom', () =>
     Insert(k, new DigitAtom(3));
     MoveRight(k);
     Insert(k, new DigitAtom(4));
-    let latex = k.SyntaxTreeRoot.getLatex(defaultLatexConfiguration, k);
-    expect('3^{4⬛}').to.equal(latex);
+    expectLatex('3^{4◼}', k);
   });
 
   it('pow 3 up 4', () =>
@@ -29,19 +27,15 @@ describe('PowerAtom', () =>
     Insert(k, new PowerAtom());
     Insert(k, new DigitAtom(3));
     MoveUp(k);
-
     Insert(k, new DigitAtom(4));
-    let latex = k.SyntaxTreeRoot.getLatex(defaultLatexConfiguration, k);
-    expect('3^{4⬛}').to.equal(latex);
+    expectLatex('3^{4◼}', k);
   });
 
-  it('3 encapsulatedBy(pow.Base) 4', () =>
+  it('3 encapsulatedBy(pow.Base)', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(3));
     TryEncapsulateCurrentBy(k, new PowerAtom().Base);
-    Insert(k, new DigitAtom(4));
-    let latex = k.SyntaxTreeRoot.getLatex(defaultLatexConfiguration, k);
-    expect('3^{4⬛}').to.equal(latex);
+    expectLatex('3^{◼}', k);
   });
 });

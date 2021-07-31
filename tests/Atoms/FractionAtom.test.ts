@@ -7,11 +7,23 @@ import { DigitAtom } from '../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/Di
 import { MoveRight } from '../../src/KeyboardEngine/Functions/MoveRight';
 import { MoveDown } from '../../src/KeyboardEngine/Functions/MoveDown';
 import { TryEncapsulateCurrentBy } from '../../src/KeyboardEngine/Functions/TryEncapsulateCurrentBy';
-import { LatexConfiguration } from '../../src/LatexConfiguration';
+import { expectLatex } from '../TestHelpers/expectLatex';
 
-const defaultLatexConfiguration = new LatexConfiguration();
-describe('Fractions', () =>
+describe('FractionAtom', () =>
 {
+  it('frac right right', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new FractionAtom());
+    expectLatex('\\frac{◼}{◻}', k);
+
+    MoveRight(k);
+    expectLatex('\\frac{◻}{◼}', k);
+
+    MoveRight(k);
+    expectLatex('\\frac{◻}{◻}◼', k);
+  });
+
   it('frac 3 right 4', () =>
   {
     let k = new KeyboardMemory();
@@ -19,8 +31,7 @@ describe('Fractions', () =>
     Insert(k, new DigitAtom(3));
     MoveRight(k);
     Insert(k, new DigitAtom(4));
-    let latex = k.SyntaxTreeRoot.getLatex(defaultLatexConfiguration, k);
-    expect('\\frac{3}{4⬛}').to.equal(latex);
+    expectLatex('\\frac{3}{4◼}', k);
   });
 
   it('frac 3 down 4', () =>
@@ -30,17 +41,14 @@ describe('Fractions', () =>
     Insert(k, new DigitAtom(3));
     MoveDown(k);
     Insert(k, new DigitAtom(4));
-    let latex = k.SyntaxTreeRoot.getLatex(defaultLatexConfiguration, k);
-    expect('\\frac{3}{4⬛}').to.equal(latex);
+    expectLatex('\\frac{3}{4◼}', k);
   });
 
-  it('3 encapsulatedBy(frac.Numerator) 4', () =>
+  it('3 encapsulatedBy(frac.Numerator)', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(3));
     TryEncapsulateCurrentBy(k, new FractionAtom().Numerator);
-    Insert(k, new DigitAtom(4));
-    let latex = k.SyntaxTreeRoot.getLatex(defaultLatexConfiguration, k);
-    expect('\\frac{3}{4⬛}').to.equal(latex);
+    expectLatex('\\frac{3}{◼}', k);
   });
 });
