@@ -9,6 +9,7 @@ import { MoveDown } from '../../src/KeyboardEngine/Functions/MoveDown';
 import { TryEncapsulateCurrentBy } from '../../src/KeyboardEngine/Functions/TryEncapsulateCurrentBy';
 import { expectLatex } from '../TestHelpers/expectLatex';
 import { DeleteCurrent } from '../../src/KeyboardEngine/Functions/DeleteCurrent';
+import { MoveUp } from '../../src/KeyboardEngine/Functions/MoveUp';
 
 describe('FractionAtom', () =>
 {
@@ -98,5 +99,30 @@ describe('FractionAtom', () =>
     expectLatex('\\frac{12}{◼}', k);
     DeleteCurrent(k);
     expectLatex('12◼', k);
+  });
+
+  it('up in filled fraction', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new FractionAtom());
+    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom(2));
+    MoveDown(k);
+    Insert(k, new DigitAtom(3));
+    expectLatex('\\frac{12}{3◼}', k);
+
+    MoveUp(k);
+    expectLatex('\\frac{◼12}{3}', k);
+  });
+
+  it('up in empty fraction', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new FractionAtom());
+    MoveDown(k);
+    expectLatex('\\frac{◻}{◼}', k);
+
+    MoveUp(k);
+    expectLatex('\\frac{◼}{◻}', k);
   });
 });
