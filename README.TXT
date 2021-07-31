@@ -12,21 +12,21 @@ ________________________
 | made with             |    to create a "What you see is what you get" keyboard.
 | HTML, CSS, SVG images |
  ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞    
-    |
-    |       Each virtual key press should call something of the MathKeyboardEngine,
-    |       for example one key calls Insert(FractionAtom()) and another Insert(DigitAtom(3))
-    |       or MoveUp(), DeleteCurrent(), etc.
-    |
+   ||
+   ||       Each virtual key press should call something of the MathKeyboardEngine,
+   ||       for example one key calls Insert(FractionAtom()) and another Insert(DigitAtom(3))
+   ||       or MoveUp(), DeleteCurrent(), etc.
+   \/
 ____________________________ 
 | The MathKeyboardEngine    |   This library is easily extendible
 | uses a simple             |   without knowledge of typesetting.
 | abstract syntax tree      |   Also: you can choose what modules you use.
  ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞͞ ͞ 
-    |
-    |       Calling getLatex(config) outputs the Latex you "typed",
-    |       for example \frac{3}{4},
-    |       which you then feed to KaTeX or MathJax to display it.
-    |
+    ||
+    ||       Calling getLatex(config) outputs the Latex you "typed",
+    ||       for example \frac{3}{4},
+    ||       which you then feed to KaTeX or MathJax to display it.
+    \/
 ________________________________
 | Display LaTeX output and get  |
 | the experience of typing      |   Even the cursor and placeholders can be customized :)
