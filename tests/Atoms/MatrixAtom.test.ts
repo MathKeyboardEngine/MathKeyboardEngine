@@ -9,6 +9,7 @@ import { MoveDown } from '../../src/KeyboardEngine/Functions/MoveDown';
 import { MoveLeft } from '../../src/KeyboardEngine/Functions/MoveLeft';
 import { expectLatex } from '../TestHelpers/expectLatex';
 import { MoveUp } from '../../src/KeyboardEngine/Functions/MoveUp';
+import { DeleteCurrent } from '../../src/KeyboardEngine/Functions/DeleteCurrent';
 
 describe('MatrixAtom', () =>
 {
@@ -29,6 +30,34 @@ describe('MatrixAtom', () =>
     MoveDown(k);
     Insert(k, new DigitAtom(6));
     expectLatex(`\\\\begin{pmatrix}1 & 2 \\\\ ◻ & 4 \\\\ ◻ & 6◼\\\\end{pmatrix}`, k);
+  });
+
+  it('pmatrix(2*2) delete content', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new MatrixAtom({
+        matrixType: "pmatrix",
+        height: 2,
+        width: 2
+    }));
+    Insert(k, new DigitAtom(1));
+    MoveRight(k);
+    Insert(k, new DigitAtom(2));
+    MoveRight(k);      
+    Insert(k, new DigitAtom(3));
+    MoveRight(k);
+    Insert(k, new DigitAtom(4));
+    expectLatex(`\\\\begin{pmatrix}1 & 2 \\\\ 3 & 4◼\\\\end{pmatrix}`, k);
+    DeleteCurrent(k);
+    expectLatex(`\\\\begin{pmatrix}1 & 2 \\\\ 3 & ◼\\\\end{pmatrix}`, k);
+    DeleteCurrent(k);
+    expectLatex(`\\\\begin{pmatrix}1 & 2 \\\\ ◼ & ◻\\\\end{pmatrix}`, k);
+    DeleteCurrent(k);
+    expectLatex(`\\\\begin{pmatrix}1 & ◼ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    DeleteCurrent(k);
+    expectLatex(`\\\\begin{pmatrix}◼ & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    DeleteCurrent(k);
+    expectLatex(`◼`, k);
   });
 
   it('pmatrix(2*2) right down left up', () =>

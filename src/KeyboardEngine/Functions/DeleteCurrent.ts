@@ -15,7 +15,7 @@ export function DeleteCurrent(k : KeyboardMemory) {
         } else {
             let nonEmptyPlaceholderOnLeft : Placeholder | null = GetFirstNonEmptyOnLeftOf(k.Current.ParentAtom.Placeholders, k.Current);
             if (nonEmptyPlaceholderOnLeft) {
-                if (nonEmptyPlaceholderOnLeft === k.Current.ParentAtom.Placeholders[0] && k.Current.ParentAtom.Placeholders.slice(1).every(ph => ph.Atoms.length == 0)) {
+                if (nonEmptyPlaceholderOnLeft === k.Current.ParentAtom.Placeholders[0] && k.Current.ParentAtom.Placeholders.length == 2 && k.Current.ParentAtom.Placeholders[1].Atoms.length == 0) {
                     k.Current.ParentAtom.ParentPlaceholder.Atoms.pop();
                     for(let atom of nonEmptyPlaceholderOnLeft.Atoms){
                         k.Current.ParentAtom.ParentPlaceholder.Atoms.push(atom);
