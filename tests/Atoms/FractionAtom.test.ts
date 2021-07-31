@@ -10,18 +10,20 @@ import { TryEncapsulateCurrentBy } from '../../src/KeyboardEngine/Functions/TryE
 import { expectLatex } from '../TestHelpers/expectLatex';
 import { DeleteCurrent } from '../../src/KeyboardEngine/Functions/DeleteCurrent';
 import { MoveUp } from '../../src/KeyboardEngine/Functions/MoveUp';
+import { MoveLeft } from '../../src/KeyboardEngine/Functions/MoveLeft';
 
 describe('FractionAtom', () =>
 {
-  it('frac right right', () =>
+  it('frac left right right right', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new FractionAtom());
+    MoveLeft(k);
+    expectLatex('◼\\frac{◻}{◻}', k);
+    MoveRight(k);
     expectLatex('\\frac{◼}{◻}', k);
-
     MoveRight(k);
     expectLatex('\\frac{◻}{◼}', k);
-
     MoveRight(k);
     expectLatex('\\frac{◻}{◻}◼', k);
   });
@@ -115,13 +117,32 @@ describe('FractionAtom', () =>
     expectLatex('\\frac{◼12}{3}', k);
   });
 
-  it('up in empty fraction', () =>
+  it('impossible up/down requests in filled fraction should not throw', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new FractionAtom());
+    Insert(k, new DigitAtom(1));
+    expectLatex('\\frac{1◼}{◻}', k);
+    MoveUp(k);
+    expectLatex('\\frac{1◼}{◻}', k);
+
+    MoveDown(k);
+    Insert(k, new DigitAtom(2));
+    expectLatex('\\frac{1}{2◼}', k);
+    MoveDown(k);
+    expectLatex('\\frac{1}{2◼}', k);
+  });
+
+  it('impossible up/down requests in empty fraction should not throw', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new FractionAtom());
     MoveDown(k);
     expectLatex('\\frac{◻}{◼}', k);
-
+    MoveDown(k);
+    expectLatex('\\frac{◻}{◼}', k);
+    MoveUp(k);
+    expectLatex('\\frac{◼}{◻}', k);
     MoveUp(k);
     expectLatex('\\frac{◼}{◻}', k);
   });

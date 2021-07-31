@@ -50,7 +50,7 @@ describe('MatrixAtom', () =>
     expectLatex(`\\\\begin{pmatrix}◼ & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
   });
 
-  it('pmatrix(2*2) down right up left', () =>
+  it('impossible up/down requests in empty pmatrix(2*2) should not throw', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new MatrixAtom({
@@ -61,11 +61,41 @@ describe('MatrixAtom', () =>
     expectLatex(`\\\\begin{pmatrix}◼ & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
     MoveDown(k);
     expectLatex(`\\\\begin{pmatrix}◻ & ◻ \\\\ ◼ & ◻\\\\end{pmatrix}`, k);
+    MoveDown(k);
+    expectLatex(`\\\\begin{pmatrix}◻ & ◻ \\\\ ◼ & ◻\\\\end{pmatrix}`, k);
     MoveRight(k);
     expectLatex(`\\\\begin{pmatrix}◻ & ◻ \\\\ ◻ & ◼\\\\end{pmatrix}`, k);
     MoveUp(k);
     expectLatex(`\\\\begin{pmatrix}◻ & ◼ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    MoveUp(k);
+    expectLatex(`\\\\begin{pmatrix}◻ & ◼ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
     MoveLeft(k);
     expectLatex(`\\\\begin{pmatrix}◼ & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+  });
+
+  it('impossible up/down requests in filled pmatrix(2*2) should not throw', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new MatrixAtom({
+        matrixType: "pmatrix",
+        height: 2,
+        width: 2
+    }));
+    Insert(k, new DigitAtom(1));
+    MoveRight(k);
+    Insert(k, new DigitAtom(2));
+    MoveRight(k);      
+    Insert(k, new DigitAtom(3));
+    MoveRight(k);
+    Insert(k, new DigitAtom(4));
+    expectLatex(`\\\\begin{pmatrix}1 & 2 \\\\ 3 & 4◼\\\\end{pmatrix}`, k);
+    MoveDown(k);
+    expectLatex(`\\\\begin{pmatrix}1 & 2 \\\\ 3 & 4◼\\\\end{pmatrix}`, k);
+    MoveUp(k);
+    expectLatex(`\\\\begin{pmatrix}1 & ◼2 \\\\ 3 & 4\\\\end{pmatrix}`, k);
+    MoveRight(k);
+    expectLatex(`\\\\begin{pmatrix}1 & 2◼ \\\\ 3 & 4\\\\end{pmatrix}`, k);
+    MoveUp(k);
+    expectLatex(`\\\\begin{pmatrix}1 & 2◼ \\\\ 3 & 4\\\\end{pmatrix}`, k);
   });
 });

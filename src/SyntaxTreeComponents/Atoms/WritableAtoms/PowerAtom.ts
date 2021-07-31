@@ -1,3 +1,4 @@
+import { lastOrNull } from "../../../helpers/arrayhelpers/lastOrNull";
 import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
 import { LatexConfiguration } from "../../../LatexConfiguration";
 import { Placeholder } from "../../Placeholder/Placeholder";
@@ -21,7 +22,7 @@ export class PowerAtom extends WritableAtom {
 
     override GetMoveDownSuggestion(current : Atom | Placeholder) : Atom | Placeholder | null {
         if (current === this.Exponent || current instanceof Atom && this.Exponent === current.ParentPlaceholder) {
-            return this.Base;
+            return lastOrNull(this.Base.Atoms) ?? this.Base;
         } else {
             return null;
         }
