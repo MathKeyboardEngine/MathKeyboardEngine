@@ -4,6 +4,8 @@
     passivePlaceholderNucleus : string = '◻';
     passivePlaceholderColor? : string;
     decimalSeparator : '.' | '{,}' = '.';
+    selectionHightlightStart : string = "\\colorbox{#ADD8E6}{";
+    selectionHightlightEnd : string = "}";
 
     getActivePlaceholderLatex() {
         if (this.activePlaceholderColor == null){

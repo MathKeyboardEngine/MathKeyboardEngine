@@ -8,10 +8,20 @@ export abstract class Atom {
     abstract provideLatex(latexConfiguration : LatexConfiguration, keyboardMemory : KeyboardMemory) : string;
     getLatex(latexConfiguration : LatexConfiguration, keyboardMemory : KeyboardMemory) : string {
         let latex = this.provideLatex(latexConfiguration, keyboardMemory);
-        if (this === keyboardMemory.Current){
-            return latex + latexConfiguration.getActivePlaceholderLatex();
-        } else {
+        if (keyboardMemory.SelectionDiff != null && keyboardMemory.SelectionDiff != 0) {
+            if (keyboardMemory.InclusiveSelectionLeftBorder === this) {
+                latex = latexConfiguration.selectionHightlightStart + latex;
+            }
+            if (keyboardMemory.InclusiveSelectionRightBorder === this) {
+                latex = latex + latexConfiguration.selectionHightlightEnd;
+            }
             return latex;
+        } else {
+            if (keyboardMemory.Current === this){
+                return latex + latexConfiguration.getActivePlaceholderLatex();
+            } else {
+                return latex;
+            }
         }
     }
 }

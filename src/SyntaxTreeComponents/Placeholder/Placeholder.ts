@@ -8,7 +8,9 @@ export class Placeholder {
     Atoms : Atom[] = [];
     
     getLatex(latexConfiguration : LatexConfiguration, keyboardMemory : KeyboardMemory) : string {
-        if (this === keyboardMemory.Current ) {
+        if (keyboardMemory.InclusiveSelectionLeftBorder === this) {
+                return latexConfiguration.selectionHightlightStart + this.Atoms.map(atom => atom.getLatex(latexConfiguration, keyboardMemory)).join("");
+        } else if (this === keyboardMemory.Current ) {
             if (this.Atoms.length == 0) {
                 return latexConfiguration.getActivePlaceholderLatex();
             } else {
