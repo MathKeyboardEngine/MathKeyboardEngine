@@ -184,8 +184,6 @@ describe(MatrixAtom.name, () =>
     MoveDown(k);
     expectLatex(`\\\\begin{pmatrix}1 & 2 \\\\ 3 & 4◼\\\\end{pmatrix}`, k);
     MoveUp(k);
-    expectLatex(`\\\\begin{pmatrix}1 & ◼2 \\\\ 3 & 4\\\\end{pmatrix}`, k);
-    MoveRight(k);
     expectLatex(`\\\\begin{pmatrix}1 & 2◼ \\\\ 3 & 4\\\\end{pmatrix}`, k);
     MoveUp(k);
     expectLatex(`\\\\begin{pmatrix}1 & 2◼ \\\\ 3 & 4\\\\end{pmatrix}`, k);

@@ -20,16 +20,16 @@ export class PowerAtom extends WritableAtom {
         return `${this.Base.getLatex(latexConfiguration, keyboardInfo)}^{${this.Exponent.getLatex(latexConfiguration, keyboardInfo)}}`;
     }
 
-    override GetMoveDownSuggestion(current : Atom | Placeholder) : Atom | Placeholder | null {
-        if (current === this.Exponent || current instanceof Atom && this.Exponent === current.ParentPlaceholder) {
-            return lastOrNull(this.Base.Atoms) ?? this.Base;
+    override GetMoveDownSuggestion(current : Placeholder) : Placeholder | null {
+        if (current === this.Exponent) {
+            return this.Base;
         } else {
             return null;
         }
     }
     
-    override GetMoveUpSuggestion(current : Atom | Placeholder) : Atom | Placeholder | null {
-        if (current === this.Base || current instanceof Atom && this.Base === current.ParentPlaceholder) {
+    override GetMoveUpSuggestion(current : Placeholder) : Placeholder | null {
+        if (current === this.Base) {
             return this.Exponent;
         } else {
             return null;

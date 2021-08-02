@@ -1,3 +1,4 @@
+import { lastOrNull } from "../../../helpers/arrayhelpers/lastOrNull";
 import { WritableAtom } from "../../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
@@ -14,7 +15,7 @@ export function MoveUp(k : KeyboardMemory) {
             let suggestion = suggestingAtom.GetMoveUpSuggestion(moveFromPlaceholder);
             if (suggestion != null)
             {
-                k.Current = suggestion;
+                k.Current = lastOrNull(suggestion.Atoms) ?? suggestion;
                 return;
             }
         }

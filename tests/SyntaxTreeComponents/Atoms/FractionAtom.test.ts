@@ -114,7 +114,7 @@ describe(FractionAtom.name, () =>
     expectLatex('\\frac{12}{3◼}', k);
 
     MoveUp(k);
-    expectLatex('\\frac{◼12}{3}', k);
+    expectLatex('\\frac{12◼}{3}', k);
   });
 
   it('impossible up/down requests in filled fraction should not throw', () =>

@@ -47,9 +47,8 @@ export class MatrixAtom extends WritableAtom {
         this.MatrixType = args.matrixType;
     }
     
-    override GetMoveDownSuggestion(current : Atom | Placeholder) : Atom | Placeholder | null {
-        let placeholder = current instanceof Placeholder ? current : current.ParentPlaceholder;
-        let {rowNumber, indexInRow } = this.GetPositionOf(placeholder);
+    override GetMoveDownSuggestion(current : Placeholder) : Placeholder | null {
+        let {rowNumber, indexInRow } = this.GetPositionOf(current);
         if (rowNumber + 1 < this.Grid.length){
             return this.Grid[rowNumber + 1][indexInRow];
         } else {
@@ -57,9 +56,8 @@ export class MatrixAtom extends WritableAtom {
         }
     }
     
-    override GetMoveUpSuggestion(current : Atom | Placeholder) : Atom | Placeholder | null {
-        let placeholder = current instanceof Placeholder ? current : current.ParentPlaceholder;
-        let {rowNumber, indexInRow } = this.GetPositionOf(placeholder);
+    override GetMoveUpSuggestion(current : Placeholder) : Placeholder | null {
+        let {rowNumber, indexInRow } = this.GetPositionOf(current);
         if (rowNumber - 1 >= 0){
             return this.Grid[rowNumber - 1][indexInRow];
         } else {

@@ -18,16 +18,16 @@ export class FractionAtom extends WritableAtom {
         this.Denominator = this.Placeholders[1];
     }
     
-    override GetMoveDownSuggestion(current : Atom | Placeholder) : Atom | Placeholder | null {
-        if (current === this.Numerator || current instanceof Atom && this.Numerator === current.ParentPlaceholder) {
+    override GetMoveDownSuggestion(current : Placeholder) : Placeholder | null {
+        if (current === this.Numerator) {
             return this.Denominator;
         } else {
             return null;
         }
     }
     
-    override GetMoveUpSuggestion(current : Atom | Placeholder) : Atom | Placeholder | null {
-        if (current === this.Denominator || current instanceof Atom && this.Denominator === current.ParentPlaceholder) {
+    override GetMoveUpSuggestion(current : Placeholder) : Placeholder | null {
+        if (current === this.Denominator) {
             return this.Numerator;
         } else {
             return null;

@@ -12,11 +12,11 @@ export abstract class WritableAtom extends Atom {
         });
     }
     
-    GetMoveDownSuggestion(from : Atom | Placeholder) : Atom | Placeholder | null {
+    GetMoveDownSuggestion(from : Placeholder) : Placeholder | null {
         return null;
     }
     
-    GetMoveUpSuggestion(from : Atom | Placeholder) : Atom | Placeholder | null {
+    GetMoveUpSuggestion(from : Placeholder) : Placeholder | null {
         return null;
     }
 }
