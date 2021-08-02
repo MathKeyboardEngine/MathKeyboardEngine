@@ -9,7 +9,7 @@ import { TryInsertWithEncapsulateSelection } from '../../../src/KeyboardEngine/F
 import { FractionAtom } from '../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom';
 
 
-describe('TryInsertWithEncapsulateSelection', () =>
+describe(TryInsertWithEncapsulateSelection.name, () =>
 {
   it('a single Atom, with left border is Atom', () =>
   {

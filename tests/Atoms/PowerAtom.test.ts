@@ -6,12 +6,12 @@ import { PowerAtom } from '../../src/SyntaxTreeComponents/Atoms/WritableAtoms/Po
 import { DigitAtom } from '../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
 import { MoveRight } from '../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { MoveUp } from '../../src/KeyboardEngine/Functions/Navigation/MoveUp';
-import { TryInsertWithEncapsulateCurrentBy } from '../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
+import { TryInsertWithEncapsulateCurrent } from '../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
 import { expectLatex } from '../TestHelpers/expectLatex';
 import { MoveDown } from '../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 import { MoveLeft } from '../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 
-describe('PowerAtom', () =>
+describe(PowerAtom.name, () =>
 {
   it('pow 3 right 4', () =>
   {
@@ -37,7 +37,7 @@ describe('PowerAtom', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(3));
-    assert.ok(TryInsertWithEncapsulateCurrentBy(k, new PowerAtom().Base));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new PowerAtom().Base));
     expectLatex('3^{◼}', k);
   });
 

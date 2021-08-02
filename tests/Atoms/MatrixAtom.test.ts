@@ -11,7 +11,7 @@ import { expectLatex } from '../TestHelpers/expectLatex';
 import { MoveUp } from '../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { DeleteCurrent } from '../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 
-describe('MatrixAtom', () =>
+describe(MatrixAtom.name, () =>
 {
   it('pmatrix(width=2,height=3) 1 right 2 down 4 down 6', () =>
   {

@@ -7,7 +7,7 @@ import { DigitAtom } from '../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms
 import { SelectLeft } from '../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
 
 
-describe('SelectLeft', () =>
+describe(SelectLeft.name, () =>
 {
   it('a single Atom, with left border is Atom', () =>
   {

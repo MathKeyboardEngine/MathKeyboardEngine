@@ -5,10 +5,9 @@ import { expectLatex } from '../../TestHelpers/expectLatex';
 import { Insert } from '../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitAtom } from '../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
 import { MoveLeft } from '../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
-import { SelectLeft } from '../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
 import { SelectRight} from '../../../src/KeyboardEngine/Functions/Selection/SelectRight';
 
-describe('SelectRight', () =>
+describe(SelectRight.name, () =>
 {
   it('a single Atom, with left border is Atom', () =>
   {

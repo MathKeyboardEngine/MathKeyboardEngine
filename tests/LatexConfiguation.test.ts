@@ -7,7 +7,7 @@ import { PowerAtom } from '../src/SyntaxTreeComponents/Atoms/WritableAtoms/Power
 import { DigitAtom } from '../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
 import { DecimalSeparatorAtom } from '../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom';
 
-describe('LatexConfiguration', () =>
+describe(LatexConfiguration.name, () =>
 {
   it('allows customizing the shape of the "cursor" and placeholders', () =>
   {

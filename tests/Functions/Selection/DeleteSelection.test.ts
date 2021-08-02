@@ -9,7 +9,7 @@ import { SelectLeft } from '../../../src/KeyboardEngine/Functions/Selection/Sele
 import { DeleteSelection } from '../../../src/KeyboardEngine/Functions/Delete/DeleteSelection';
 
 
-describe('SelectLeft', () =>
+describe(DeleteSelection.name, () =>
 {
   it('a single Atom, with left border is Atom', () =>
   {

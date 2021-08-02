@@ -9,7 +9,7 @@ import { Placeholder } from '../../../src/SyntaxTreeComponents/Placeholder/Place
 import { MoveUp } from '../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { MoveDown } from '../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 
-describe('WritableAtom', () =>
+describe(WritableAtom.name, () =>
 {
   it('calling MoveDown does not throw even if not implemented', () =>
   {

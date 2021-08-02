@@ -6,7 +6,7 @@ import { Insert } from '../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitAtom } from '../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
 import { MoveLeft } from '../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 
-describe('Insert', () =>
+describe(Insert.name, () =>
 {
   it('inserts at the start of an Atom[] - it prepends - if Current is a Placeholder', () =>
   {

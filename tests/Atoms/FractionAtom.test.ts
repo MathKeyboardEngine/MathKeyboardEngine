@@ -6,13 +6,13 @@ import { FractionAtom } from '../../src/SyntaxTreeComponents/Atoms/WritableAtoms
 import { DigitAtom } from '../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
 import { MoveRight } from '../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { MoveDown } from '../../src/KeyboardEngine/Functions/Navigation/MoveDown';
-import { TryInsertWithEncapsulateCurrentBy } from '../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
+import { TryInsertWithEncapsulateCurrent } from '../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
 import { expectLatex } from '../TestHelpers/expectLatex';
 import { DeleteCurrent } from '../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 import { MoveUp } from '../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { MoveLeft } from '../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 
-describe('FractionAtom', () =>
+describe(FractionAtom.name, () =>
 {
   it('frac left right right right', () =>
   {
@@ -52,7 +52,7 @@ describe('FractionAtom', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(3));
-    TryInsertWithEncapsulateCurrentBy(k, new FractionAtom().Numerator);
+    TryInsertWithEncapsulateCurrent(k, new FractionAtom().Numerator);
     expectLatex('\\frac{3}{◼}', k);
   });
 
