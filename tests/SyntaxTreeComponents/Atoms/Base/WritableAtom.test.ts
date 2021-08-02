@@ -1,13 +1,13 @@
 import { describe } from 'mocha';
 import { assert, expect } from 'chai';
-import { KeyboardMemory } from '../../../src/KeyboardEngine/KeyboardMemory'
-import { expectLatex } from '../../TestHelpers/expectLatex';
-import { Insert } from '../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { WritableAtom } from '../../../src/SyntaxTreeComponents/Atoms/Base/WritableAtom';
-import { LatexConfiguration } from '../../../src/LatexConfiguration';
-import { Placeholder } from '../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
-import { MoveUp } from '../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
-import { MoveDown } from '../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
+import { KeyboardMemory } from '../../../../src/KeyboardEngine/KeyboardMemory'
+import { expectLatex } from '../../../TestHelpers/expectLatex';
+import { Insert } from '../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { WritableAtom } from '../../../../src/SyntaxTreeComponents/Atoms/Base/WritableAtom';
+import { LatexConfiguration } from '../../../../src/LatexConfiguration';
+import { Placeholder } from '../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
+import { MoveUp } from '../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
+import { MoveDown } from '../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 
 describe(WritableAtom.name, () =>
 {

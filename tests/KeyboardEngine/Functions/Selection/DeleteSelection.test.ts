@@ -1,13 +1,14 @@
 import { describe } from 'mocha';
 import { assert, expect } from 'chai';
-import { KeyboardMemory } from '../../../src/KeyboardEngine/KeyboardMemory'
-import { expectLatex } from '../../TestHelpers/expectLatex';
-import { Insert } from '../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { DigitAtom } from '../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
-import { SelectLeft } from '../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
+import { KeyboardMemory } from '../../../../src/KeyboardEngine/KeyboardMemory'
+import { expectLatex } from '../../../TestHelpers/expectLatex';
+import { Insert } from '../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { DigitAtom } from '../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
+import { SelectLeft } from '../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
+import { DeleteSelection } from '../../../../src/KeyboardEngine/Functions/Delete/DeleteSelection';
 
 
-describe(SelectLeft.name, () =>
+describe(DeleteSelection.name, () =>
 {
   it('a single Atom, with left border is Atom', () =>
   {
@@ -17,6 +18,9 @@ describe(SelectLeft.name, () =>
     expectLatex('12◼', k);
     SelectLeft(k);
     expectLatex('1\\colorbox{blue}{2}', k);
+    DeleteSelection(k);
+    expectLatex('1◼', k);
+
   });
 
   it('a single Atom, with left border is Placeholder', () =>
@@ -26,6 +30,8 @@ describe(SelectLeft.name, () =>
     expectLatex('1◼', k);
     SelectLeft(k);
     expectLatex('\\colorbox{blue}{1}', k);
+    DeleteSelection(k);
+    expectLatex('◼', k);
   });
 
   it('multiple Atoms, with left border is Atom', () =>
@@ -38,6 +44,8 @@ describe(SelectLeft.name, () =>
     SelectLeft(k);
     SelectLeft(k);
     expectLatex('1\\colorbox{blue}{23}', k);
+    DeleteSelection(k);
+    expectLatex('1◼', k);
   });
 
   it('multiple Atoms, with left border is Placeholder', () =>
@@ -49,5 +57,7 @@ describe(SelectLeft.name, () =>
     SelectLeft(k);
     SelectLeft(k);
     expectLatex('\\colorbox{blue}{12}', k);
+    DeleteSelection(k);
+    expectLatex('◼', k);
   });
 });
