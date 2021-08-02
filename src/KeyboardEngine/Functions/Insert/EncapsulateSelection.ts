@@ -1,8 +1,8 @@
 import { last } from "../../../helpers/arrayhelpers/last";
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
-import { MoveRight } from "../MoveRight";
-import { popSelection } from "./helpers/popSelection";
+import { MoveRight } from "../Navigation/MoveRight";
+import { popSelection } from "../Selection/helpers/popSelection";
 
 export function EncapsulateSelection(k: KeyboardMemory, encapsulatingPlaceholder: Placeholder) {
     let atoms = popSelection(k, {andInsert: encapsulatingPlaceholder.ParentAtom!});

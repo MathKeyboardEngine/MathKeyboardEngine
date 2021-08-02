@@ -2,14 +2,14 @@ import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../src/KeyboardEngine/KeyboardMemory'
 import { Placeholder } from '../src/SyntaxTreeComponents/Placeholder/Placeholder';
-import { DeleteCurrent } from '../src/KeyboardEngine/Functions/DeleteCurrent'
-import { Insert } from '../src/KeyboardEngine/Functions/Insert';
+import { DeleteCurrent } from '../src/KeyboardEngine/Functions/Delete/DeleteCurrent'
+import { Insert } from '../src/KeyboardEngine/Functions/Insert/Insert';
 import { FractionAtom } from '../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom'
 import { expectLatex } from './TestHelpers/expectLatex';
-import { MoveLeft } from '../src/KeyboardEngine/Functions/MoveLeft';
-import { MoveDown } from '../src/KeyboardEngine/Functions/MoveDown';
-import { MoveUp } from '../src/KeyboardEngine/Functions/MoveUp';
-import { MoveRight } from '../src/KeyboardEngine/Functions/MoveRight';
+import { MoveLeft } from '../src/KeyboardEngine/Functions/Navigation/MoveLeft';
+import { MoveDown } from '../src/KeyboardEngine/Functions/Navigation/MoveDown';
+import { MoveUp } from '../src/KeyboardEngine/Functions/Navigation/MoveUp';
+import { MoveRight } from '../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { DigitAtom } from '../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
 
 describe('SyntaxTreeRoot', () =>

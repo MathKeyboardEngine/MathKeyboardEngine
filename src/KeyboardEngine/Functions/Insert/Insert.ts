@@ -1,7 +1,7 @@
-import { Atom } from "../../SyntaxTreeComponents/Atoms/Base/Atom";
-import { Placeholder } from "../../SyntaxTreeComponents/Placeholder/Placeholder";
-import { KeyboardMemory } from "../KeyboardMemory";
-import { MoveRight } from "./MoveRight";
+import { Atom } from "../../../SyntaxTreeComponents/Atoms/Base/Atom";
+import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
+import { KeyboardMemory } from "../../KeyboardMemory";
+import { MoveRight } from "../Navigation/MoveRight";
 
 export function Insert(k: KeyboardMemory, newAtom: Atom) {
     if (k.Current instanceof Placeholder) {

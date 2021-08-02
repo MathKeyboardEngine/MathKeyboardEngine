@@ -1,9 +1,9 @@
-import { remove } from "../../helpers/arrayhelpers/remove";
-import { Atom } from "../../SyntaxTreeComponents/Atoms/Base/Atom";
-import { WritableAtom } from "../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
-import { Placeholder } from "../../SyntaxTreeComponents/Placeholder/Placeholder";
-import { KeyboardMemory } from "../KeyboardMemory";
-import { MoveRight } from "./MoveRight";
+import { remove } from "../../../helpers/arrayhelpers/remove";
+import { Atom } from "../../../SyntaxTreeComponents/Atoms/Base/Atom";
+import { WritableAtom } from "../../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
+import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
+import { KeyboardMemory } from "../../KeyboardMemory";
+import { MoveRight } from "../Navigation/MoveRight";
 
 export function TryEncapsulateCurrentBy(k: KeyboardMemory, encapsulatingPlaceholder: Placeholder) : boolean {
     let newAtom : WritableAtom = encapsulatingPlaceholder.ParentAtom as WritableAtom;

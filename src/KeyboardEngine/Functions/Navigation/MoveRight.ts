@@ -1,8 +1,8 @@
-import { Placeholder } from "../../SyntaxTreeComponents/Placeholder/Placeholder";
-import { KeyboardMemory } from "../KeyboardMemory";
-import { WritableAtom } from "../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
-import { Atom } from "../../SyntaxTreeComponents/Atoms/Base/Atom";
-import { firstAfter } from "../../helpers/arrayhelpers/firstAfter";
+import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
+import { KeyboardMemory } from "../../KeyboardMemory";
+import { WritableAtom } from "../../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
+import { Atom } from "../../../SyntaxTreeComponents/Atoms/Base/Atom";
+import { firstAfter } from "../../../helpers/arrayhelpers/firstAfter";
 
 export function MoveRight(k: KeyboardMemory) {
     if (k.Current instanceof Placeholder)

@@ -1,6 +1,6 @@
-import { WritableAtom } from "../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
-import { Placeholder } from "../../SyntaxTreeComponents/Placeholder/Placeholder";
-import { KeyboardMemory } from "../KeyboardMemory";
+import { WritableAtom } from "../../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
+import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
+import { KeyboardMemory } from "../../KeyboardMemory";
 
 export function MoveUp(k : KeyboardMemory) {
     let moveFromPlaceholder = k.Current instanceof Placeholder ? k.Current : k.Current.ParentPlaceholder;

@@ -1,7 +1,7 @@
 import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../src/KeyboardEngine/KeyboardMemory'
-import { Insert } from '../src/KeyboardEngine/Functions/Insert';
+import { Insert } from '../src/KeyboardEngine/Functions/Insert/Insert';
 import { LatexConfiguration } from '../src/LatexConfiguration';
 import { PowerAtom } from '../src/SyntaxTreeComponents/Atoms/WritableAtoms/PowerAtom';
 import { DigitAtom } from '../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';

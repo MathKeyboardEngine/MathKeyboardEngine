@@ -1,12 +1,12 @@
-import { Placeholder } from "../../SyntaxTreeComponents/Placeholder/Placeholder";
-import { KeyboardMemory } from "../KeyboardMemory";
-import { GetFirstNonEmptyOnLeftOf } from "../../SyntaxTreeComponents/Placeholder/GetFirstNonEmptyOnLeftOf";
-import { lastOrNull } from "../../helpers/arrayhelpers/lastOrNull";
-import { firstBefore } from "../../helpers/arrayhelpers/firstBefore";
-import { remove } from "../../helpers/arrayhelpers/remove";
-import { Atom } from "../../SyntaxTreeComponents/Atoms/Base/Atom";
-import { WritableAtom } from "../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
-import { last } from "../../helpers/arrayhelpers/last";
+import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
+import { KeyboardMemory } from "../../KeyboardMemory";
+import { GetFirstNonEmptyOnLeftOf } from "../../../SyntaxTreeComponents/Placeholder/GetFirstNonEmptyOnLeftOf";
+import { lastOrNull } from "../../../helpers/arrayhelpers/lastOrNull";
+import { firstBefore } from "../../../helpers/arrayhelpers/firstBefore";
+import { remove } from "../../../helpers/arrayhelpers/remove";
+import { Atom } from "../../../SyntaxTreeComponents/Atoms/Base/Atom";
+import { WritableAtom } from "../../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
+import { last } from "../../../helpers/arrayhelpers/last";
 
 export function DeleteCurrent(k : KeyboardMemory) {
     if (k.Current instanceof Placeholder) {
