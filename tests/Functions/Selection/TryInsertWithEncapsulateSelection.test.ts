@@ -4,13 +4,12 @@ import { KeyboardMemory } from '../../../src/KeyboardEngine/KeyboardMemory'
 import { expectLatex } from '../../TestHelpers/expectLatex';
 import { Insert } from '../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitAtom } from '../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
-import { MoveLeft } from '../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 import { SelectLeft } from '../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
-import { EncapsulateSelection } from '../../../src/KeyboardEngine/Functions/Insert/EncapsulateSelection';
+import { TryInsertWithEncapsulateSelection } from '../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateSelection';
 import { FractionAtom } from '../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom';
 
 
-describe('EncapsulateSelection', () =>
+describe('TryInsertWithEncapsulateSelection', () =>
 {
   it('a single Atom, with left border is Atom', () =>
   {
@@ -20,7 +19,7 @@ describe('EncapsulateSelection', () =>
     expectLatex('12◼', k);
     SelectLeft(k);
     expectLatex('1\\colorbox{blue}{2}', k);
-    EncapsulateSelection(k, new FractionAtom().Numerator);
+    TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
     expectLatex('1\\frac{2}{◼}', k);
 
   });
@@ -32,7 +31,7 @@ describe('EncapsulateSelection', () =>
     expectLatex('1◼', k);
     SelectLeft(k);
     expectLatex('\\colorbox{blue}{1}', k);
-    EncapsulateSelection(k, new FractionAtom().Numerator);
+    TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
     expectLatex('\\frac{1}{◼}', k);
   });
 
@@ -46,7 +45,7 @@ describe('EncapsulateSelection', () =>
     SelectLeft(k);
     SelectLeft(k);
     expectLatex('1\\colorbox{blue}{23}', k);
-    EncapsulateSelection(k, new FractionAtom().Numerator);
+    TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
     expectLatex('1\\frac{23}{◼}', k);
   });
 
@@ -59,7 +58,7 @@ describe('EncapsulateSelection', () =>
     SelectLeft(k);
     SelectLeft(k);
     expectLatex('\\colorbox{blue}{12}', k);
-    EncapsulateSelection(k, new FractionAtom().Numerator);
+    TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
     expectLatex('\\frac{12}{◼}', k);
   });
 });

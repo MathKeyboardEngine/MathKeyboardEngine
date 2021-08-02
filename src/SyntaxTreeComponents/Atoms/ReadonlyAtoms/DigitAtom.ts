@@ -1,4 +1,4 @@
-import { IEncapsulationPart } from "../../../KeyboardEngine/Functions/Insert/TryEncapsulateCurrentBy";
+import { IEncapsulationPart } from "../../../KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent";
 import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
 import { LatexConfiguration } from "../../../LatexConfiguration";
 import { ReadonlyAtom } from "../Base/ReadonlyAtom";

@@ -4,15 +4,17 @@ import { KeyboardMemory } from "../../KeyboardMemory";
 import { MoveRight } from "../Navigation/MoveRight";
 import { popSelection } from "../Selection/helpers/popSelection";
 
-export function EncapsulateSelection(k: KeyboardMemory, encapsulatingPlaceholder: Placeholder) {
+export function TryInsertWithEncapsulateSelection(k: KeyboardMemory, encapsulatingPlaceholder: Placeholder) : boolean {
     let atoms = popSelection(k, {andInsert: encapsulatingPlaceholder.ParentAtom!});
     if (atoms.length == 0) {
-        return
+        return false;
+    } else {
+        for (let atom of atoms) {
+            atom.ParentPlaceholder = encapsulatingPlaceholder;
+            encapsulatingPlaceholder.Atoms.push(atom);
+        }
+        k.Current = last(atoms);
+        MoveRight(k);
+        return true;
     }
-    for (let atom of atoms) {
-        atom.ParentPlaceholder = encapsulatingPlaceholder;
-        encapsulatingPlaceholder.Atoms.push(atom);
-    }
-    k.Current = last(atoms);
-    MoveRight(k);
 }

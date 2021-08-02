@@ -2,7 +2,7 @@ import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../src/KeyboardEngine/KeyboardMemory'
 import { PowerAtom } from '../../src/SyntaxTreeComponents/Atoms/WritableAtoms/PowerAtom';
-import { TryEncapsulateCurrentBy } from '../../src/KeyboardEngine/Functions/Insert/TryEncapsulateCurrentBy';
+import { TryInsertWithEncapsulateCurrentBy } from '../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
 import { expectLatex } from '../TestHelpers/expectLatex';
 import { Placeholder } from '../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 import { Insert } from '../../src/KeyboardEngine/Functions/Insert/Insert';
@@ -23,7 +23,7 @@ describe('TryEncapsulateCurrentBy', () =>
     let k = new KeyboardMemory();
     assert.isTrue(k.Current instanceof Placeholder);
     expectLatex('◼', k);
-    assert.notOk(TryEncapsulateCurrentBy(k, new PowerAtom().Base));
+    assert.notOk(TryInsertWithEncapsulateCurrentBy(k, new PowerAtom().Base));
     expectLatex('◼', k);
   });
 
@@ -35,7 +35,7 @@ describe('TryEncapsulateCurrentBy', () =>
         Insert(k, new DigitAtom(i));
         MoveRight(k);    
     }
-    assert.ok(TryEncapsulateCurrentBy(k, new PowerAtom().Base));
+    assert.ok(TryInsertWithEncapsulateCurrentBy(k, new PowerAtom().Base));
     expectLatex('\\\\begin{pmatrix}1 & 2 \\\\ 3 & 4\\\\end{pmatrix}^{◼}', k);
   });
 
@@ -44,7 +44,7 @@ describe('TryEncapsulateCurrentBy', () =>
     let k = new KeyboardMemory();
     Insert(k, new MatrixAtom({matrixType: "pmatrix", height:2, width:2}));
     Insert(k, new DigitAtom(1));
-    assert.ok(TryEncapsulateCurrentBy(k, new PowerAtom().Base));
+    assert.ok(TryInsertWithEncapsulateCurrentBy(k, new PowerAtom().Base));
     expectLatex('\\\\begin{pmatrix}1^{◼} & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}', k);
   });
 
@@ -53,7 +53,7 @@ describe('TryEncapsulateCurrentBy', () =>
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(1));
     Insert(k, new DigitAtom(2));
-    assert.ok(TryEncapsulateCurrentBy(k, new FractionAtom().Numerator));
+    assert.ok(TryInsertWithEncapsulateCurrentBy(k, new FractionAtom().Numerator));
     expectLatex('\\frac{12}{◼}', k);
   });
 
@@ -65,7 +65,7 @@ describe('TryEncapsulateCurrentBy', () =>
     Insert(k, new DecimalSeparatorAtom());
     Insert(k, new DigitAtom(3));
 
-    assert.ok(TryEncapsulateCurrentBy(k, new PowerAtom().Base));
+    assert.ok(TryInsertWithEncapsulateCurrentBy(k, new PowerAtom().Base));
     expectLatex('12.3^{◼}', k);
     MoveLeft(k);
     expectLatex('12.3◼^{◻}', k);
@@ -83,7 +83,7 @@ describe('TryEncapsulateCurrentBy', () =>
     Insert(k, new PlusOperatorAtom());
     Insert(k, new DigitAtom(2));
     Insert(k, new DigitAtom(3));
-    assert.ok(TryEncapsulateCurrentBy(k, new FractionAtom().Numerator));
+    assert.ok(TryInsertWithEncapsulateCurrentBy(k, new FractionAtom().Numerator));
     expectLatex('1+\\frac{23}{◼}', k);
   });
 });

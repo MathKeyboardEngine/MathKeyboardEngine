@@ -5,7 +5,7 @@ import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placehold
 import { KeyboardMemory } from "../../KeyboardMemory";
 import { MoveRight } from "../Navigation/MoveRight";
 
-export function TryEncapsulateCurrentBy(k: KeyboardMemory, encapsulatingPlaceholder: Placeholder) : boolean {
+export function TryInsertWithEncapsulateCurrentBy(k: KeyboardMemory, encapsulatingPlaceholder: Placeholder) : boolean {
     let newAtom : WritableAtom = encapsulatingPlaceholder.ParentAtom as WritableAtom;
     if (k.Current instanceof Atom) {
         let siblingAtoms = k.Current.ParentPlaceholder.Atoms;
