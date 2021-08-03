@@ -12,12 +12,14 @@ import { EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex } from "../Insert/Tr
 
 export function DeleteCurrent(k : KeyboardMemory) {
     if (k.Current instanceof Placeholder) {
-        if (k.Current.ParentAtom == null) {
+        if (k.Current.ParentAtom == null || k.Current.Atoms.length > 0) {
             return;
         } else {
             let nonEmptyPlaceholderOnLeft : Placeholder | null = GetFirstNonEmptyOnLeftOf(k.Current.ParentAtom.Placeholders, k.Current);
             if (nonEmptyPlaceholderOnLeft) {
-                if (nonEmptyPlaceholderOnLeft === k.Current.ParentAtom.Placeholders[0] && k.Current.ParentAtom.Placeholders.length == 2 && k.Current.ParentAtom.Placeholders[1].Atoms.length == 0) {
+                if (k.Current.ParentAtom.Placeholders.length == 2
+                    && k.Current === k.Current.ParentAtom.Placeholders[1]
+                    && k.Current.Atoms.length == 0) {
                     k.Current.ParentAtom.ParentPlaceholder.Atoms.pop();
                     for(let atom of nonEmptyPlaceholderOnLeft.Atoms){
                         k.Current.ParentAtom.ParentPlaceholder.Atoms.push(atom);
