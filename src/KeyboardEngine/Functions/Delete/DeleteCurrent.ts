@@ -7,6 +7,8 @@ import { remove } from "../../../helpers/arrayhelpers/remove";
 import { Atom } from "../../../SyntaxTreeComponents/Atoms/Base/Atom";
 import { WritableAtom } from "../../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
 import { last } from "../../../helpers/arrayhelpers/last";
+import { PartOfNumberWithDigits } from "../../../SyntaxTreeComponents/Atoms/ReadonlyAtoms/Base/PartOfNumberWithDigits";
+import { EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex } from "../Insert/TryInsertWithEncapsulateCurrent";
 
 export function DeleteCurrent(k : KeyboardMemory) {
     if (k.Current instanceof Placeholder) {
@@ -30,6 +32,12 @@ export function DeleteCurrent(k : KeyboardMemory) {
                 let previousAtom = firstBefore(ancestorPlaceholder.Atoms, k.Current.ParentAtom);
                 remove(ancestorPlaceholder.Atoms, k.Current.ParentAtom);
                 k.Current = previousAtom ?? ancestorPlaceholder;
+            } else if (k.Current.ParentAtom.Placeholders[0] == k.Current 
+            && k.Current.Atoms.length == 0 
+            && k.Current.ParentAtom.Placeholders.some(ph => ph.Atoms.length != 0)) {
+                if (TryEncapsulatePreviousInto(k.Current)) {
+                    k.Current = last(k.Current.Atoms);
+                }
             }
         }
     } else {
@@ -50,4 +58,21 @@ export function DeleteCurrent(k : KeyboardMemory) {
             k.Current = previousAtom ?? k.Current.ParentPlaceholder;
         }
     }
+}
+
+function TryEncapsulatePreviousInto(targetPlaceholder : Placeholder) {
+    let previousPlaceholder = firstBefore(targetPlaceholder.ParentAtom!.Placeholders, targetPlaceholder);
+    if (previousPlaceholder != null){
+        let previousAtom = previousPlaceholder.Atoms.pop();
+        if (previousAtom != null) {
+            targetPlaceholder.Atoms.push(previousAtom);
+            previousAtom.ParentPlaceholder = targetPlaceholder;
+            if (previousAtom instanceof PartOfNumberWithDigits){
+                EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(previousPlaceholder.Atoms.length, previousPlaceholder.Atoms, targetPlaceholder);
+            }
+            return true;
+        }
+    }
+
+    return false;
 }

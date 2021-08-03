@@ -1,6 +1,7 @@
 import { remove } from "../../../helpers/arrayhelpers/remove";
 import { Atom } from "../../../SyntaxTreeComponents/Atoms/Base/Atom";
 import { WritableAtom } from "../../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
+import { PartOfNumberWithDigits } from "../../../SyntaxTreeComponents/Atoms/ReadonlyAtoms/Base/PartOfNumberWithDigits";
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
 import { MoveRight } from "../Navigation/MoveRight";
@@ -13,18 +14,8 @@ export function TryInsertWithEncapsulateCurrent(k: KeyboardMemory, encapsulating
         siblingAtoms[currentIndex] =  newAtom;
         encapsulatingPlaceholder.Atoms.push(k.Current);
         k.Current.ParentPlaceholder = encapsulatingPlaceholder;
-        if (isEncapsulationPart(k.Current)) {
-            let encapsulationWhole = k.Current.EncapsulationWhole;
-            for (let i = currentIndex - 1; i >=0; i--) {
-                let siblingAtom = siblingAtoms[i];
-                if (isEncapsulationPart(siblingAtom) && siblingAtom.EncapsulationWhole === encapsulationWhole){
-                    remove(siblingAtoms, siblingAtom);
-                    encapsulatingPlaceholder.Atoms.unshift(siblingAtom);
-                    siblingAtom.ParentPlaceholder = encapsulatingPlaceholder;
-                } else{
-                    break;
-                }
-            }
+        if (k.Current instanceof PartOfNumberWithDigits) {
+            EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(currentIndex, siblingAtoms, encapsulatingPlaceholder);
         }
         MoveRight(k);
         return true;
@@ -33,9 +24,15 @@ export function TryInsertWithEncapsulateCurrent(k: KeyboardMemory, encapsulating
     }
 }
 
-export interface IEncapsulationPart {
-    EncapsulationWhole : string;
-}
-function isEncapsulationPart(it: any) : it is IEncapsulationPart {
-    return it.EncapsulationWhole != undefined;
+export function EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(exclusiveRightIndex : number, siblingAtoms : Atom[], toPlaceholder : Placeholder) {
+    for (let i = exclusiveRightIndex - 1; i >=0; i--) {
+        let siblingAtom = siblingAtoms[i];
+        if (siblingAtom instanceof PartOfNumberWithDigits) {
+            remove(siblingAtoms, siblingAtom);
+            toPlaceholder.Atoms.unshift(siblingAtom);
+            siblingAtom.ParentPlaceholder = toPlaceholder;
+        } else{
+            break;
+        }
+    }
 }

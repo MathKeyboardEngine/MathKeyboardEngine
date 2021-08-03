@@ -1,10 +1,8 @@
-import { IEncapsulationPart } from "../../../KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent";
 import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
 import { LatexConfiguration } from "../../../LatexConfiguration";
-import { ReadonlyAtom } from "../Base/ReadonlyAtom";
+import { PartOfNumberWithDigits } from "./Base/PartOfNumberWithDigits";
 
-export class DecimalSeparatorAtom extends ReadonlyAtom implements IEncapsulationPart {
-    EncapsulationWhole: string = `numberpart`;
+export class DecimalSeparatorAtom extends PartOfNumberWithDigits {
     override provideLatex(latexConfiguration: LatexConfiguration, keyboardMemory: KeyboardMemory): string {
         return latexConfiguration.decimalSeparator;
     }
