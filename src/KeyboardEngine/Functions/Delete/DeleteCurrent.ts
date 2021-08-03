@@ -32,7 +32,7 @@ export function DeleteCurrent(k : KeyboardMemory) {
                 let previousAtom = firstBefore(ancestorPlaceholder.Atoms, k.Current.ParentAtom);
                 remove(ancestorPlaceholder.Atoms, k.Current.ParentAtom);
                 k.Current = previousAtom ?? ancestorPlaceholder;
-            } else if (k.Current.ParentAtom.Placeholders[0] == k.Current 
+            } else if (k.Current.ParentAtom.Placeholders[0] === k.Current 
             && k.Current.Atoms.length == 0 
             && k.Current.ParentAtom.Placeholders.some(ph => ph.Atoms.length != 0)) {
                 if (TryEncapsulatePreviousInto(k.Current)) {
@@ -61,17 +61,15 @@ export function DeleteCurrent(k : KeyboardMemory) {
 }
 
 function TryEncapsulatePreviousInto(targetPlaceholder : Placeholder) {
-    let previousPlaceholder = firstBefore(targetPlaceholder.ParentAtom!.Placeholders, targetPlaceholder);
-    if (previousPlaceholder != null){
-        let previousAtom = previousPlaceholder.Atoms.pop();
-        if (previousAtom != null) {
-            targetPlaceholder.Atoms.push(previousAtom);
-            previousAtom.ParentPlaceholder = targetPlaceholder;
-            if (previousAtom instanceof PartOfNumberWithDigits){
-                EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(previousPlaceholder.Atoms.length, previousPlaceholder.Atoms, targetPlaceholder);
-            }
-            return true;
+    let previousAtom = firstBefore(targetPlaceholder.ParentAtom!.ParentPlaceholder.Atoms, targetPlaceholder.ParentAtom);
+    if (previousAtom != null) {
+        remove(targetPlaceholder.ParentAtom!.ParentPlaceholder.Atoms, previousAtom);
+        targetPlaceholder.Atoms.push(previousAtom);
+        previousAtom.ParentPlaceholder = targetPlaceholder;
+        if (previousAtom instanceof PartOfNumberWithDigits){
+            EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(previousAtom.ParentPlaceholder.Atoms.length, previousAtom.ParentPlaceholder.Atoms, targetPlaceholder);
         }
+        return true;
     }
 
     return false;

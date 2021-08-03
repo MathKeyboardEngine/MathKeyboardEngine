@@ -12,6 +12,7 @@ export function TryInsertWithEncapsulateCurrent(k: KeyboardMemory, encapsulating
         let siblingAtoms = k.Current.ParentPlaceholder.Atoms;
         let currentIndex = siblingAtoms.indexOf(k.Current);
         siblingAtoms[currentIndex] =  newAtom;
+        newAtom.ParentPlaceholder = k.Current.ParentPlaceholder;
         encapsulatingPlaceholder.Atoms.push(k.Current);
         k.Current.ParentPlaceholder = encapsulatingPlaceholder;
         if (k.Current instanceof PartOfNumberWithDigits) {
