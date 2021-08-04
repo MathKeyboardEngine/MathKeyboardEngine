@@ -36,7 +36,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
         MoveRight(k);    
     }
     assert.ok(TryInsertWithEncapsulateCurrent(k, new PowerAtom().Base));
-    expectLatex('\\\\begin{pmatrix}1 & 2 \\\\ 3 & 4\\\\end{pmatrix}^{◼}', k);
+    expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & 4\end{pmatrix}^{◼}`, k);
   });
 
   it('can also be used inside (for example) a matrix', () =>
@@ -45,7 +45,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     Insert(k, new MatrixAtom({matrixType: "pmatrix", height:2, width:2}));
     Insert(k, new DigitAtom(1));
     assert.ok(TryInsertWithEncapsulateCurrent(k, new PowerAtom().Base));
-    expectLatex('\\\\begin{pmatrix}1^{◼} & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}', k);
+    expectLatex(String.raw`\begin{pmatrix}1^{◼} & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
   });
 
   it('can encapsulate multiple digits', () =>
@@ -54,7 +54,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     Insert(k, new DigitAtom(1));
     Insert(k, new DigitAtom(2));
     assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom().Numerator));
-    expectLatex('\\frac{12}{◼}', k);
+    expectLatex(String.raw`\frac{12}{◼}`, k);
   });
 
   it('can encapsulate a decimal number', () =>
@@ -84,6 +84,6 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     Insert(k, new DigitAtom(2));
     Insert(k, new DigitAtom(3));
     assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom().Numerator));
-    expectLatex('1+\\frac{23}{◼}', k);
+    expectLatex(String.raw`1+\frac{23}{◼}`, k);
   });
 });

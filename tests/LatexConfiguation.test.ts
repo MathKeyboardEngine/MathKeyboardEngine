@@ -30,7 +30,7 @@ describe(LatexConfiguration.name, () =>
 
         let k = new KeyboardMemory();
         Insert(k, new PowerAtom());
-        expect('\\color{orange}{◼}^{\\color{gray}{◼}}').to.equal(k.getLatex(myLatexConfiguration));
+        expect(String.raw`\color{orange}{◼}^{\color{gray}{◼}}`).to.equal(k.getLatex(myLatexConfiguration));
     });
 
     it('allows customizing the decimal separator', () =>

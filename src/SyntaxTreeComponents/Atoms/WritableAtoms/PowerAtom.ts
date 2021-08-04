@@ -1,8 +1,6 @@
-import { lastOrNull } from "../../../helpers/arrayhelpers/lastOrNull";
 import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
 import { LatexConfiguration } from "../../../LatexConfiguration";
 import { Placeholder } from "../../Placeholder/Placeholder";
-import { Atom } from "../Base/Atom";
 import { WritableAtom } from "../Base/WritableAtom";
 
 export class PowerAtom extends WritableAtom {

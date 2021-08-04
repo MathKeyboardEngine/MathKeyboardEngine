@@ -4,14 +4,14 @@
     passivePlaceholderNucleus : string = '◻';
     passivePlaceholderColor? : string;
     decimalSeparator : '.' | '{,}' = '.';
-    selectionHightlightStart : string = "\\colorbox{#ADD8E6}{";
-    selectionHightlightEnd : string = "}";
+    selectionHightlightStart : string = String.raw`\colorbox{#ADD8E6}{`;
+    selectionHightlightEnd : string = '}';
 
     getActivePlaceholderLatex() {
         if (this.activePlaceholderColor == null){
             return this.activePlaceholderNucleus;
         } else{
-            return `\\color{${this.activePlaceholderColor}}{${this.activePlaceholderNucleus}}`;
+            return String.raw`\color{${this.activePlaceholderColor}}{${this.activePlaceholderNucleus}}`;
         }
     }
 
@@ -19,7 +19,7 @@
         if (this.passivePlaceholderColor == null){
             return this.passivePlaceholderNucleus;
         } else{
-            return `\\color{${this.passivePlaceholderColor}}{${this.passivePlaceholderNucleus}}`;
+            return String.raw`\color{${this.passivePlaceholderColor}}{${this.passivePlaceholderNucleus}}`;
         }
     }
 }

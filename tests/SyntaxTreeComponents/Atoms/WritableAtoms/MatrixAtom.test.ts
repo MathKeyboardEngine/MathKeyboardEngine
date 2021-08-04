@@ -21,7 +21,7 @@ describe(MatrixAtom.name, () =>
         height: 3,
         width: 2
     }));
-    expectLatex(`\\\\begin{pmatrix}◼ & ◻ \\\\ ◻ & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◼ & ◻ \\ ◻ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
     Insert(k, new DigitAtom(1));
     MoveRight(k);
     Insert(k, new DigitAtom(2));
@@ -29,7 +29,7 @@ describe(MatrixAtom.name, () =>
     Insert(k, new DigitAtom(4));
     MoveDown(k);
     Insert(k, new DigitAtom(6));
-    expectLatex(`\\\\begin{pmatrix}1 & 2 \\\\ ◻ & 4 \\\\ ◻ & 6◼\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ ◻ & 4 \\ ◻ & 6◼\end{pmatrix}`, k);
   });
 
   it('move with left and right through all cells of the pmatrix(2*2)', () =>
@@ -46,37 +46,37 @@ describe(MatrixAtom.name, () =>
     Insert(k, new DigitAtom(3));
     MoveRight(k);
     Insert(k, new DigitAtom(4));
-    expectLatex(`\\\\begin{pmatrix}1 & ◻ \\\\ 3 & 4◼\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ 3 & 4◼\end{pmatrix}`, k);
     MoveLeft(k);
-    expectLatex(`\\\\begin{pmatrix}1 & ◻ \\\\ 3 & ◼4\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ 3 & ◼4\end{pmatrix}`, k);
     MoveLeft(k);
-    expectLatex(`\\\\begin{pmatrix}1 & ◻ \\\\ 3◼ & 4\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ 3◼ & 4\end{pmatrix}`, k);
     MoveLeft(k);
-    expectLatex(`\\\\begin{pmatrix}1 & ◻ \\\\ ◼3 & 4\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ ◼3 & 4\end{pmatrix}`, k);
     MoveLeft(k);
-    expectLatex(`\\\\begin{pmatrix}1 & ◼ \\\\ 3 & 4\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & ◼ \\ 3 & 4\end{pmatrix}`, k);
     MoveLeft(k);
-    expectLatex(`\\\\begin{pmatrix}1◼ & ◻ \\\\ 3 & 4\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1◼ & ◻ \\ 3 & 4\end{pmatrix}`, k);
     MoveLeft(k);
-    expectLatex(`\\\\begin{pmatrix}◼1 & ◻ \\\\ 3 & 4\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◼1 & ◻ \\ 3 & 4\end{pmatrix}`, k);
     MoveLeft(k);
-    expectLatex(`◼\\\\begin{pmatrix}1 & ◻ \\\\ 3 & 4\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`◼\begin{pmatrix}1 & ◻ \\ 3 & 4\end{pmatrix}`, k);
     MoveRight(k);
-    expectLatex(`\\\\begin{pmatrix}◼1 & ◻ \\\\ 3 & 4\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◼1 & ◻ \\ 3 & 4\end{pmatrix}`, k);
     MoveRight(k);
-    expectLatex(`\\\\begin{pmatrix}1◼ & ◻ \\\\ 3 & 4\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1◼ & ◻ \\ 3 & 4\end{pmatrix}`, k);
     MoveRight(k);
-    expectLatex(`\\\\begin{pmatrix}1 & ◼ \\\\ 3 & 4\\\\end{pmatrix}`, k);       
+    expectLatex(String.raw`\begin{pmatrix}1 & ◼ \\ 3 & 4\end{pmatrix}`, k);       
     MoveRight(k);
-    expectLatex(`\\\\begin{pmatrix}1 & ◻ \\\\ ◼3 & 4\\\\end{pmatrix}`, k);    
+    expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ ◼3 & 4\end{pmatrix}`, k);    
     MoveRight(k);
-    expectLatex(`\\\\begin{pmatrix}1 & ◻ \\\\ 3◼ & 4\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ 3◼ & 4\end{pmatrix}`, k);
     MoveRight(k);
-    expectLatex(`\\\\begin{pmatrix}1 & ◻ \\\\ 3 & ◼4\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ 3 & ◼4\end{pmatrix}`, k);
     MoveRight(k);
-    expectLatex(`\\\\begin{pmatrix}1 & ◻ \\\\ 3 & 4◼\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ 3 & 4◼\end{pmatrix}`, k);
     MoveRight(k);
-    expectLatex(`\\\\begin{pmatrix}1 & ◻ \\\\ 3 & 4\\\\end{pmatrix}◼`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ 3 & 4\end{pmatrix}◼`, k);
   });
 
   it('move out of an empty pmatrix(2*2) to the previous atom and back in', () =>
@@ -88,11 +88,11 @@ describe(MatrixAtom.name, () =>
         height: 2,
         width: 2
     }));
-    expectLatex(`2\\\\begin{pmatrix}◼ & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`2\begin{pmatrix}◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
     MoveLeft(k);
-    expectLatex(`2◼\\\\begin{pmatrix}◻ & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`2◼\begin{pmatrix}◻ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
     MoveRight(k);
-    expectLatex(`2\\\\begin{pmatrix}◼ & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`2\begin{pmatrix}◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
   });
 
   it('pmatrix(2*2) delete content', () =>
@@ -110,15 +110,15 @@ describe(MatrixAtom.name, () =>
     Insert(k, new DigitAtom(3));
     MoveRight(k);
     Insert(k, new DigitAtom(4));
-    expectLatex(`\\\\begin{pmatrix}1 & 2 \\\\ 3 & 4◼\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & 4◼\end{pmatrix}`, k);
     DeleteCurrent(k);
-    expectLatex(`\\\\begin{pmatrix}1 & 2 \\\\ 3 & ◼\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & ◼\end{pmatrix}`, k);
     DeleteCurrent(k);
-    expectLatex(`\\\\begin{pmatrix}1 & 2 \\\\ ◼ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ ◼ & ◻\end{pmatrix}`, k);
     DeleteCurrent(k);
-    expectLatex(`\\\\begin{pmatrix}1 & ◼ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & ◼ \\ ◻ & ◻\end{pmatrix}`, k);
     DeleteCurrent(k);
-    expectLatex(`\\\\begin{pmatrix}◼ & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
     DeleteCurrent(k);
     expectLatex(`◼`, k);
   });
@@ -131,15 +131,15 @@ describe(MatrixAtom.name, () =>
         height: 2,
         width: 2
     }));
-    expectLatex(`\\\\begin{pmatrix}◼ & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
     MoveRight(k);
-    expectLatex(`\\\\begin{pmatrix}◻ & ◼ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◻ & ◼ \\ ◻ & ◻\end{pmatrix}`, k);
     MoveDown(k);
-    expectLatex(`\\\\begin{pmatrix}◻ & ◻ \\\\ ◻ & ◼\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◻ & ◻ \\ ◻ & ◼\end{pmatrix}`, k);
     MoveLeft(k);
-    expectLatex(`\\\\begin{pmatrix}◻ & ◻ \\\\ ◼ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◻ & ◻ \\ ◼ & ◻\end{pmatrix}`, k);
     MoveUp(k);
-    expectLatex(`\\\\begin{pmatrix}◼ & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
   });
 
   it('impossible up/down requests in empty pmatrix(2*2) should not throw', () =>
@@ -150,19 +150,19 @@ describe(MatrixAtom.name, () =>
         height: 2,
         width: 2
     }));
-    expectLatex(`\\\\begin{pmatrix}◼ & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
     MoveDown(k);
-    expectLatex(`\\\\begin{pmatrix}◻ & ◻ \\\\ ◼ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◻ & ◻ \\ ◼ & ◻\end{pmatrix}`, k);
     MoveDown(k);
-    expectLatex(`\\\\begin{pmatrix}◻ & ◻ \\\\ ◼ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◻ & ◻ \\ ◼ & ◻\end{pmatrix}`, k);
     MoveRight(k);
-    expectLatex(`\\\\begin{pmatrix}◻ & ◻ \\\\ ◻ & ◼\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◻ & ◻ \\ ◻ & ◼\end{pmatrix}`, k);
     MoveUp(k);
-    expectLatex(`\\\\begin{pmatrix}◻ & ◼ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◻ & ◼ \\ ◻ & ◻\end{pmatrix}`, k);
     MoveUp(k);
-    expectLatex(`\\\\begin{pmatrix}◻ & ◼ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◻ & ◼ \\ ◻ & ◻\end{pmatrix}`, k);
     MoveLeft(k);
-    expectLatex(`\\\\begin{pmatrix}◼ & ◻ \\\\ ◻ & ◻\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
   });
 
   it('impossible up/down requests in filled pmatrix(2*2) should not throw', () =>
@@ -180,12 +180,12 @@ describe(MatrixAtom.name, () =>
     Insert(k, new DigitAtom(3));
     MoveRight(k);
     Insert(k, new DigitAtom(4));
-    expectLatex(`\\\\begin{pmatrix}1 & 2 \\\\ 3 & 4◼\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & 4◼\end{pmatrix}`, k);
     MoveDown(k);
-    expectLatex(`\\\\begin{pmatrix}1 & 2 \\\\ 3 & 4◼\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & 4◼\end{pmatrix}`, k);
     MoveUp(k);
-    expectLatex(`\\\\begin{pmatrix}1 & 2◼ \\\\ 3 & 4\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & 2◼ \\ 3 & 4\end{pmatrix}`, k);
     MoveUp(k);
-    expectLatex(`\\\\begin{pmatrix}1 & 2◼ \\\\ 3 & 4\\\\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & 2◼ \\ 3 & 4\end{pmatrix}`, k);
   });
 });

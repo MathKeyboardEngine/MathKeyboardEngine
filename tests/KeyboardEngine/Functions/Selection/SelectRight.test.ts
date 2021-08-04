@@ -17,7 +17,7 @@ describe(SelectRight.name, () =>
     MoveLeft(k);
     expectLatex('1◼2', k);
     SelectRight(k);
-    expectLatex('1\\colorbox{blue}{2}', k);
+    expectLatex(String.raw`1\colorbox{blue}{2}`, k);
   });
 
   it('a single Atom, with left border is Placeholder', () =>
@@ -27,7 +27,7 @@ describe(SelectRight.name, () =>
     MoveLeft(k);
     expectLatex('◼1', k);
     SelectRight(k);
-    expectLatex('\\colorbox{blue}{1}', k);
+    expectLatex(String.raw`\colorbox{blue}{1}`, k);
   });
 
   it('multiple Atoms, with left border is Atom', () =>
@@ -41,7 +41,7 @@ describe(SelectRight.name, () =>
     expectLatex('1◼23', k);
     SelectRight(k);
     SelectRight(k);
-    expectLatex('1\\colorbox{blue}{23}', k);
+    expectLatex(String.raw`1\colorbox{blue}{23}`, k);
   });
 
   it('multiple Atoms, with left border is Placeholder', () =>
@@ -54,6 +54,6 @@ describe(SelectRight.name, () =>
     expectLatex('◼12', k);
     SelectRight(k);
     SelectRight(k);
-    expectLatex('\\colorbox{blue}{12}', k);
+    expectLatex(String.raw`\colorbox{blue}{12}`, k);
   });
 });

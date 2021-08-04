@@ -19,13 +19,13 @@ describe(FractionAtom.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new FractionAtom());
     MoveLeft(k);
-    expectLatex('◼\\frac{◻}{◻}', k);
+    expectLatex(String.raw`◼\frac{◻}{◻}`, k);
     MoveRight(k);
-    expectLatex('\\frac{◼}{◻}', k);
+    expectLatex(String.raw`\frac{◼}{◻}`, k);
     MoveRight(k);
-    expectLatex('\\frac{◻}{◼}', k);
+    expectLatex(String.raw`\frac{◻}{◼}`, k);
     MoveRight(k);
-    expectLatex('\\frac{◻}{◻}◼', k);
+    expectLatex(String.raw`\frac{◻}{◻}◼`, k);
   });
 
   it('frac 3 right 4', () =>
@@ -35,7 +35,7 @@ describe(FractionAtom.name, () =>
     Insert(k, new DigitAtom(3));
     MoveRight(k);
     Insert(k, new DigitAtom(4));
-    expectLatex('\\frac{3}{4◼}', k);
+    expectLatex(String.raw`\frac{3}{4◼}`, k);
   });
 
   it('frac 3 down 4', () =>
@@ -45,7 +45,7 @@ describe(FractionAtom.name, () =>
     Insert(k, new DigitAtom(3));
     MoveDown(k);
     Insert(k, new DigitAtom(4));
-    expectLatex('\\frac{3}{4◼}', k);
+    expectLatex(String.raw`\frac{3}{4◼}`, k);
   });
 
   it('3 encapsulatedBy(frac.Numerator)', () =>
@@ -53,14 +53,14 @@ describe(FractionAtom.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(3));
     TryInsertWithEncapsulateCurrent(k, new FractionAtom().Numerator);
-    expectLatex('\\frac{3}{◼}', k);
+    expectLatex(String.raw`\frac{3}{◼}`, k);
   });
 
   it('delete empty frac from numerator', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new FractionAtom());
-    expectLatex('\\frac{◼}{◻}', k);
+    expectLatex(String.raw`\frac{◼}{◻}`, k);
     DeleteCurrent(k);
     expectLatex('◼', k);
   });
@@ -70,7 +70,7 @@ describe(FractionAtom.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new FractionAtom());
     MoveDown(k);
-    expectLatex('\\frac{◻}{◼}', k);
+    expectLatex(String.raw`\frac{◻}{◼}`, k);
     DeleteCurrent(k);
     expectLatex('◼', k);
   });
@@ -81,7 +81,7 @@ describe(FractionAtom.name, () =>
     Insert(k, new FractionAtom());
     MoveDown(k);
     MoveRight(k);
-    expectLatex('\\frac{◻}{◻}◼', k);
+    expectLatex(String.raw`\frac{◻}{◻}◼`, k);
     DeleteCurrent(k);
     expectLatex('◼', k);
   });
@@ -95,10 +95,10 @@ describe(FractionAtom.name, () =>
     MoveDown(k);
     Insert(k, new DigitAtom(3));
     MoveRight(k);
-    expectLatex('\\frac{12}{3}◼', k);
+    expectLatex(String.raw`\frac{12}{3}◼`, k);
 
     DeleteCurrent(k);
-    expectLatex('\\frac{12}{◼}', k);
+    expectLatex(String.raw`\frac{12}{◼}`, k);
     DeleteCurrent(k);
     expectLatex('12◼', k);
   });
@@ -111,10 +111,10 @@ describe(FractionAtom.name, () =>
     Insert(k, new DigitAtom(2));
     MoveDown(k);
     Insert(k, new DigitAtom(3));
-    expectLatex('\\frac{12}{3◼}', k);
+    expectLatex(String.raw`\frac{12}{3◼}`, k);
 
     MoveUp(k);
-    expectLatex('\\frac{12◼}{3}', k);
+    expectLatex(String.raw`\frac{12◼}{3}`, k);
   });
 
   it('impossible up/down requests in filled fraction should not throw', () =>
@@ -122,15 +122,15 @@ describe(FractionAtom.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new FractionAtom());
     Insert(k, new DigitAtom(1));
-    expectLatex('\\frac{1◼}{◻}', k);
+    expectLatex(String.raw`\frac{1◼}{◻}`, k);
     MoveUp(k);
-    expectLatex('\\frac{1◼}{◻}', k);
+    expectLatex(String.raw`\frac{1◼}{◻}`, k);
 
     MoveDown(k);
     Insert(k, new DigitAtom(2));
-    expectLatex('\\frac{1}{2◼}', k);
+    expectLatex(String.raw`\frac{1}{2◼}`, k);
     MoveDown(k);
-    expectLatex('\\frac{1}{2◼}', k);
+    expectLatex(String.raw`\frac{1}{2◼}`, k);
   });
 
   it('impossible up/down requests in empty fraction should not throw', () =>
@@ -138,12 +138,12 @@ describe(FractionAtom.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new FractionAtom());
     MoveDown(k);
-    expectLatex('\\frac{◻}{◼}', k);
+    expectLatex(String.raw`\frac{◻}{◼}`, k);
     MoveDown(k);
-    expectLatex('\\frac{◻}{◼}', k);
+    expectLatex(String.raw`\frac{◻}{◼}`, k);
     MoveUp(k);
-    expectLatex('\\frac{◼}{◻}', k);
+    expectLatex(String.raw`\frac{◼}{◻}`, k);
     MoveUp(k);
-    expectLatex('\\frac{◼}{◻}', k);
+    expectLatex(String.raw`\frac{◼}{◻}`, k);
   });
 });

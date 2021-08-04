@@ -18,9 +18,9 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     Insert(k, new DigitAtom(2));
     expectLatex('12◼', k);
     SelectLeft(k);
-    expectLatex('1\\colorbox{blue}{2}', k);
+    expectLatex(String.raw`1\colorbox{blue}{2}`, k);
     TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
-    expectLatex('1\\frac{2}{◼}', k);
+    expectLatex(String.raw`1\frac{2}{◼}`, k);
 
   });
 
@@ -30,9 +30,9 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     Insert(k, new DigitAtom(1));
     expectLatex('1◼', k);
     SelectLeft(k);
-    expectLatex('\\colorbox{blue}{1}', k);
+    expectLatex(String.raw`\colorbox{blue}{1}`, k);
     TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
-    expectLatex('\\frac{1}{◼}', k);
+    expectLatex(String.raw`\frac{1}{◼}`, k);
   });
 
   it('multiple Atoms, with left border is Atom', () =>
@@ -44,9 +44,9 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     expectLatex('123◼', k);
     SelectLeft(k);
     SelectLeft(k);
-    expectLatex('1\\colorbox{blue}{23}', k);
+    expectLatex(String.raw`1\colorbox{blue}{23}`, k);
     TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
-    expectLatex('1\\frac{23}{◼}', k);
+    expectLatex(String.raw`1\frac{23}{◼}`, k);
   });
 
   it('multiple Atoms, with left border is Placeholder', () =>
@@ -57,8 +57,8 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     expectLatex('12◼', k);
     SelectLeft(k);
     SelectLeft(k);
-    expectLatex('\\colorbox{blue}{12}', k);
+    expectLatex(String.raw`\colorbox{blue}{12}`, k);
     TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
-    expectLatex('\\frac{12}{◼}', k);
+    expectLatex(String.raw`\frac{12}{◼}`, k);
   });
 });

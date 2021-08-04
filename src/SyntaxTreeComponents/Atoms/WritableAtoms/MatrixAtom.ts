@@ -6,9 +6,9 @@ import { WritableAtom } from "../Base/WritableAtom";
 
 export class MatrixAtom extends WritableAtom {
     override provideLatex(latexConfiguration: LatexConfiguration, keyboardMemory : KeyboardMemory): string {
-        let latex = `\\\\begin{${this.MatrixType}}`;
-        latex += this.Grid.map(row => row.map(placeholder => placeholder.getLatex(latexConfiguration, keyboardMemory)).join(' & ')).join(` \\\\ `);
-        latex += `\\\\end{${this.MatrixType}}`;
+        let latex = String.raw`\begin{${this.MatrixType}}`;
+        latex += this.Grid.map(row => row.map(placeholder => placeholder.getLatex(latexConfiguration, keyboardMemory)).join(' & ')).join(String.raw` \\ `);
+        latex += String.raw`\end{${this.MatrixType}}`;
         return latex;
     }
 

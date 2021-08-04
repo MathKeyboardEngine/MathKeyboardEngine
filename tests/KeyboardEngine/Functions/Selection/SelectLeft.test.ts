@@ -16,7 +16,7 @@ describe(SelectLeft.name, () =>
     Insert(k, new DigitAtom(2));
     expectLatex('12◼', k);
     SelectLeft(k);
-    expectLatex('1\\colorbox{blue}{2}', k);
+    expectLatex(String.raw`1\colorbox{blue}{2}`, k);
   });
 
   it('a single Atom, with left border is Placeholder', () =>
@@ -25,7 +25,7 @@ describe(SelectLeft.name, () =>
     Insert(k, new DigitAtom(1));
     expectLatex('1◼', k);
     SelectLeft(k);
-    expectLatex('\\colorbox{blue}{1}', k);
+    expectLatex(String.raw`\colorbox{blue}{1}`, k);
   });
 
   it('multiple Atoms, with left border is Atom', () =>
@@ -37,7 +37,7 @@ describe(SelectLeft.name, () =>
     expectLatex('123◼', k);
     SelectLeft(k);
     SelectLeft(k);
-    expectLatex('1\\colorbox{blue}{23}', k);
+    expectLatex(String.raw`1\colorbox{blue}{23}`, k);
   });
 
   it('multiple Atoms, with left border is Placeholder', () =>
@@ -48,6 +48,6 @@ describe(SelectLeft.name, () =>
     expectLatex('12◼', k);
     SelectLeft(k);
     SelectLeft(k);
-    expectLatex('\\colorbox{blue}{12}', k);
+    expectLatex(String.raw`\colorbox{blue}{12}`, k);
   });
 });

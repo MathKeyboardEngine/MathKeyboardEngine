@@ -17,7 +17,7 @@ describe(DeleteSelection.name, () =>
     Insert(k, new DigitAtom(2));
     expectLatex('12◼', k);
     SelectLeft(k);
-    expectLatex('1\\colorbox{blue}{2}', k);
+    expectLatex(String.raw`1\colorbox{blue}{2}`, k);
     DeleteSelection(k);
     expectLatex('1◼', k);
 
@@ -29,7 +29,7 @@ describe(DeleteSelection.name, () =>
     Insert(k, new DigitAtom(1));
     expectLatex('1◼', k);
     SelectLeft(k);
-    expectLatex('\\colorbox{blue}{1}', k);
+    expectLatex(String.raw`\colorbox{blue}{1}`, k);
     DeleteSelection(k);
     expectLatex('◼', k);
   });
@@ -43,7 +43,7 @@ describe(DeleteSelection.name, () =>
     expectLatex('123◼', k);
     SelectLeft(k);
     SelectLeft(k);
-    expectLatex('1\\colorbox{blue}{23}', k);
+    expectLatex(String.raw`1\colorbox{blue}{23}`, k);
     DeleteSelection(k);
     expectLatex('1◼', k);
   });
@@ -56,7 +56,7 @@ describe(DeleteSelection.name, () =>
     expectLatex('12◼', k);
     SelectLeft(k);
     SelectLeft(k);
-    expectLatex('\\colorbox{blue}{12}', k);
+    expectLatex(String.raw`\colorbox{blue}{12}`, k);
     DeleteSelection(k);
     expectLatex('◼', k);
   });
