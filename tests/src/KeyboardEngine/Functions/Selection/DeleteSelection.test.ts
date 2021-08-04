@@ -1,11 +1,11 @@
 import { describe } from 'mocha';
 import { assert, expect } from 'chai';
-import { KeyboardMemory } from '../../../../src/KeyboardEngine/KeyboardMemory'
-import { expectLatex } from '../../../TestHelpers/expectLatex';
-import { Insert } from '../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { DigitAtom } from '../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
-import { SelectLeft } from '../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
-import { DeleteSelection } from '../../../../src/KeyboardEngine/Functions/Delete/DeleteSelection';
+import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
+import { expectLatex } from '../../../../helpers/expectLatex';
+import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { DigitAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
+import { SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
+import { DeleteSelection } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteSelection';
 
 
 describe(DeleteSelection.name, () =>

@@ -1,20 +1,20 @@
 import { describe } from 'mocha';
 import { assert, expect } from 'chai';
-import { KeyboardMemory } from '../../../../src/KeyboardEngine/KeyboardMemory'
-import { PowerAtom } from '../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/PowerAtom';
-import { TryInsertWithEncapsulateCurrent } from '../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
-import { expectLatex } from '../../../TestHelpers/expectLatex';
-import { Placeholder } from '../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
-import { Insert } from '../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { MatrixAtom } from '../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/MatrixAtom';
-import { MoveRight } from '../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
-import { DigitAtom } from '../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
-import { DecimalSeparatorAtom } from '../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom';
-import { PlusOperatorAtom } from '../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/PlusOperatorAtom';
-import { FractionAtom } from '../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom';
-import { MoveLeft } from '../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
-import { DeleteCurrent } from '../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
-import { MoveUp } from '../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
+import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
+import { PowerAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/PowerAtom';
+import { TryInsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
+import { expectLatex } from '../../../../helpers/expectLatex';
+import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
+import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { MatrixAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/MatrixAtom';
+import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
+import { DigitAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
+import { DecimalSeparatorAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom';
+import { PlusOperatorAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/PlusOperatorAtom';
+import { FractionAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom';
+import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
+import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
+import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 
 describe(TryInsertWithEncapsulateCurrent.name, () =>
 {

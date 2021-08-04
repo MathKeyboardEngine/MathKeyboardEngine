@@ -1,15 +1,15 @@
 import { describe } from 'mocha';
 import { assert, expect } from 'chai';
-import { KeyboardMemory } from '../../../../src/KeyboardEngine/KeyboardMemory'
-import { Insert } from '../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { MatrixAtom } from '../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/MatrixAtom';
-import { DigitAtom } from '../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
-import { MoveRight } from '../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
-import { MoveDown } from '../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
-import { MoveLeft } from '../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
-import { expectLatex } from '../../../TestHelpers/expectLatex';
-import { MoveUp } from '../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
-import { DeleteCurrent } from '../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
+import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
+import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { MatrixAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/MatrixAtom';
+import { DigitAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
+import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
+import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
+import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
+import { expectLatex } from '../../../../helpers/expectLatex';
+import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
+import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 
 describe(MatrixAtom.name, () =>
 {
@@ -70,7 +70,8 @@ describe(MatrixAtom.name, () =>
     MoveRight(k);
     expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ ◼3 & 4\end{pmatrix}`, k);    
     MoveRight(k);
-    expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ 3◼ & 4\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ 3◼ & 4\end{pmatrix}`
+    , k);
     MoveRight(k);
     expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ 3 & ◼4\end{pmatrix}`, k);
     MoveRight(k);

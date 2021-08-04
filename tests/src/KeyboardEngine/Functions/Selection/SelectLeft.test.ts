@@ -1,15 +1,13 @@
 import { describe } from 'mocha';
 import { assert, expect } from 'chai';
-import { KeyboardMemory } from '../../../../src/KeyboardEngine/KeyboardMemory'
-import { expectLatex } from '../../../TestHelpers/expectLatex';
-import { Insert } from '../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { DigitAtom } from '../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
-import { SelectLeft } from '../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
-import { TryInsertWithEncapsulateSelection } from '../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateSelection';
-import { FractionAtom } from '../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom';
+import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
+import { expectLatex } from '../../../../helpers/expectLatex';
+import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { DigitAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
+import { SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
 
 
-describe(TryInsertWithEncapsulateSelection.name, () =>
+describe(SelectLeft.name, () =>
 {
   it('a single Atom, with left border is Atom', () =>
   {
@@ -19,9 +17,6 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     expectLatex('12◼', k);
     SelectLeft(k);
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
-    TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
-    expectLatex(String.raw`1\frac{2}{◼}`, k);
-
   });
 
   it('a single Atom, with left border is Placeholder', () =>
@@ -31,8 +26,6 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     expectLatex('1◼', k);
     SelectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
-    TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
-    expectLatex(String.raw`\frac{1}{◼}`, k);
   });
 
   it('multiple Atoms, with left border is Atom', () =>
@@ -45,8 +38,6 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     SelectLeft(k);
     SelectLeft(k);
     expectLatex(String.raw`1\colorbox{blue}{23}`, k);
-    TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
-    expectLatex(String.raw`1\frac{23}{◼}`, k);
   });
 
   it('multiple Atoms, with left border is Placeholder', () =>
@@ -58,7 +49,8 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     SelectLeft(k);
     SelectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
-    TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
-    expectLatex(String.raw`\frac{12}{◼}`, k);
+
+
+    
   });
 });

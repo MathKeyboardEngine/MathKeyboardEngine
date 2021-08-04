@@ -1,17 +1,17 @@
 import { describe } from 'mocha';
 import { assert, expect } from 'chai';
-import { KeyboardMemory } from '../../../../src/KeyboardEngine/KeyboardMemory'
-import { Insert } from '../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { PowerAtom } from '../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/PowerAtom';
-import { DigitAtom } from '../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
-import { MoveUp } from '../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
-import { TryInsertWithEncapsulateCurrent } from '../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
-import { expectLatex } from '../../../TestHelpers/expectLatex';
-import { MoveDown } from '../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
-import { DeleteCurrent } from '../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
-import { PlusOperatorAtom } from '../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/PlusOperatorAtom';
-import { DecimalSeparatorAtom } from '../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom';
-import { Placeholder } from '../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
+import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
+import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { PowerAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/PowerAtom';
+import { DigitAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
+import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
+import { TryInsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
+import { expectLatex } from '../../../../helpers/expectLatex';
+import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
+import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
+import { PlusOperatorAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/PlusOperatorAtom';
+import { DecimalSeparatorAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom';
+import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 
 describe(DeleteCurrent.name, () =>
 {
