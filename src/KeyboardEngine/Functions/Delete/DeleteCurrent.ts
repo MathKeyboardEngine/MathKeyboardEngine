@@ -7,7 +7,7 @@ import { remove } from "../../../helpers/arrayhelpers/remove";
 import { Atom } from "../../../SyntaxTreeComponents/Atoms/Base/Atom";
 import { WritableAtom } from "../../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
 import { last } from "../../../helpers/arrayhelpers/last";
-import { PartOfNumberWithDigits } from "../../../SyntaxTreeComponents/Atoms/ReadonlyAtoms/Base/PartOfNumberWithDigits";
+import { AbstractPartOfNumberWithDigits } from "../../../SyntaxTreeComponents/Atoms/ReadonlyAtoms/Base/PartOfNumberWithDigits";
 import { EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex } from "../Insert/TryInsertWithEncapsulateCurrent";
 
 export function DeleteCurrent(k : KeyboardMemory) {
@@ -68,7 +68,7 @@ function TryEncapsulatePreviousInto(targetPlaceholder : Placeholder) {
         remove(targetPlaceholder.ParentAtom!.ParentPlaceholder.Atoms, previousAtom);
         targetPlaceholder.Atoms.push(previousAtom);
         previousAtom.ParentPlaceholder = targetPlaceholder;
-        if (previousAtom instanceof PartOfNumberWithDigits){
+        if (previousAtom instanceof AbstractPartOfNumberWithDigits){
             EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(previousAtom.ParentPlaceholder.Atoms.length, previousAtom.ParentPlaceholder.Atoms, targetPlaceholder);
         }
         return true;

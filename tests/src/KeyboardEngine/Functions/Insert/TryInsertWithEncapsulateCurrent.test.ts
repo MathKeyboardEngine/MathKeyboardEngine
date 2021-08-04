@@ -15,6 +15,9 @@ import { FractionAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/Writ
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
+import { RoundBracketLeftAtom, RoundBracketRightAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/RoundBracketAtoms';
+import { SquareBracketLeftAtom, SquareBracketRightAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/SquareBracketAtoms';
+
 
 describe(TryInsertWithEncapsulateCurrent.name, () =>
 {
@@ -85,5 +88,49 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     Insert(k, new DigitAtom(3));
     assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom().Numerator));
     expectLatex(String.raw`1+\frac{23}{◼}`, k);
+  });
+
+  it ('can encapsulate round brackets', () => {
+    let k = new KeyboardMemory();
+    Insert(k, new DigitAtom(1));
+    Insert(k, new PlusOperatorAtom());
+    Insert(k, new RoundBracketLeftAtom());
+    Insert(k, new DigitAtom(2));
+    Insert(k, new PlusOperatorAtom());
+    Insert(k, new DigitAtom(3));
+    Insert(k, new RoundBracketRightAtom());
+    let powerAtom = new PowerAtom();
+    assert.ok(TryInsertWithEncapsulateCurrent(k, powerAtom.Base));
+    expectLatex(String.raw`1+(2+3)^{◼}`, k);
+
+    expect(powerAtom.Base.getLatex(null, k)).to.be.equal("(2+3)");
+  });
+
+  it ('config.deleteOuterRoundBracketsIfAny: can delete round brackets during encapsulation', () => {
+    let k = new KeyboardMemory();
+    Insert(k, new DigitAtom(1));
+    Insert(k, new PlusOperatorAtom());
+    Insert(k, new RoundBracketLeftAtom());
+    Insert(k, new DigitAtom(2));
+    Insert(k, new PlusOperatorAtom());
+    Insert(k, new DigitAtom(3));
+    Insert(k, new RoundBracketRightAtom());
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom().Numerator, { deleteOuterRoundBracketsIfAny: true}));
+    expectLatex(String.raw`1+\frac{2+3}{◼}`, k);
+  });
+  
+  it ('config.deleteOuterRoundBracketsIfAny does not delete square brackets during encapsulation', () => {
+    let k = new KeyboardMemory();
+    Insert(k, new DigitAtom(1));
+    Insert(k, new PlusOperatorAtom());
+    Insert(k, new SquareBracketLeftAtom());
+    Insert(k, new DigitAtom(2));
+    Insert(k, new PlusOperatorAtom());
+    Insert(k, new DigitAtom(3));
+    Insert(k, new SquareBracketRightAtom());
+    let numerator = new FractionAtom().Numerator;
+    assert.ok(TryInsertWithEncapsulateCurrent(k, numerator, { deleteOuterRoundBracketsIfAny: true}));
+    expectLatex(String.raw`1+\frac{[2+3]}{◼}`, k);
+    expect(numerator.getLatex(null, k)).to.be.equal("[2+3]");
   });
 });
