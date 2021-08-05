@@ -9,7 +9,7 @@ import { TryInsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngi
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
-import { PlusOperatorAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/PlusOperatorAtom';
+import { RawAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/RawAtom';
 import { DecimalSeparatorAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom';
 import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 
@@ -20,11 +20,11 @@ describe(DeleteCurrent.name, () =>
     // Arrange
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(1));
-    Insert(k, new PlusOperatorAtom());
+    Insert(k, new RawAtom('+'));
     Insert(k, new DigitAtom(2));
     Insert(k, new DecimalSeparatorAtom());
     Insert(k, new DigitAtom(5));
-    Insert(k, new PlusOperatorAtom()); // oops, typo!
+    Insert(k, new RawAtom('+')); // oops, typo!
     TryInsertWithEncapsulateCurrent(k, new PowerAtom().Base);
     Insert(k, new DigitAtom(3));
     MoveDown(k);
@@ -48,7 +48,7 @@ describe(DeleteCurrent.name, () =>
     Insert(k, new DigitAtom(2));
     Insert(k, new DecimalSeparatorAtom());
     Insert(k, new DigitAtom(5));
-    Insert(k, new PlusOperatorAtom()); // oops, typo!
+    Insert(k, new RawAtom('+')); // oops, typo!
     TryInsertWithEncapsulateCurrent(k, new PowerAtom().Base);
     Insert(k, new DigitAtom(3));
     MoveDown(k);

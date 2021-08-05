@@ -10,7 +10,7 @@ import { MatrixAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/Writab
 import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { DigitAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
 import { DecimalSeparatorAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom';
-import { PlusOperatorAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/PlusOperatorAtom';
+import { RawAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/RawAtom';
 import { FractionAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom';
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
@@ -83,7 +83,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(1));
-    Insert(k, new PlusOperatorAtom());
+    Insert(k, new RawAtom('+'));
     Insert(k, new DigitAtom(2));
     Insert(k, new DigitAtom(3));
     assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom().Numerator));
@@ -93,10 +93,10 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
   it ('can encapsulate round brackets', () => {
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(1));
-    Insert(k, new PlusOperatorAtom());
+    Insert(k, new RawAtom('+'));
     Insert(k, new RoundBracketLeftAtom());
     Insert(k, new DigitAtom(2));
-    Insert(k, new PlusOperatorAtom());
+    Insert(k, new RawAtom('+'));
     Insert(k, new DigitAtom(3));
     Insert(k, new RoundBracketRightAtom());
     let powerAtom = new PowerAtom();
@@ -109,10 +109,10 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
   it ('config.deleteOuterRoundBracketsIfAny: can delete round brackets during encapsulation', () => {
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(1));
-    Insert(k, new PlusOperatorAtom());
+    Insert(k, new RawAtom('+'));
     Insert(k, new RoundBracketLeftAtom());
     Insert(k, new DigitAtom(2));
-    Insert(k, new PlusOperatorAtom());
+    Insert(k, new RawAtom('+'));
     Insert(k, new DigitAtom(3));
     Insert(k, new RoundBracketRightAtom());
     assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom().Numerator, { deleteOuterRoundBracketsIfAny: true}));
@@ -122,10 +122,10 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
   it ('config.deleteOuterRoundBracketsIfAny does not delete square brackets during encapsulation', () => {
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(1));
-    Insert(k, new PlusOperatorAtom());
+    Insert(k, new RawAtom('+'));
     Insert(k, new SquareBracketLeftAtom());
     Insert(k, new DigitAtom(2));
-    Insert(k, new PlusOperatorAtom());
+    Insert(k, new RawAtom('+'));
     Insert(k, new DigitAtom(3));
     Insert(k, new SquareBracketRightAtom());
     let numerator = new FractionAtom().Numerator;
