@@ -15,8 +15,8 @@ import { FractionAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/Writ
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
-import { RoundBracketLeftAtom, RoundBracketRightAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/RoundBracketAtoms';
-import { SquareBracketLeftAtom, SquareBracketRightAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/SquareBracketAtoms';
+import { RoundBracketLeftAtom, RoundBracketRightAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/Brackets/RoundBracketAtoms';
+import { SquareBracketLeftAtom, SquareBracketRightAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/Brackets/SquareBracketAtoms';
 
 
 describe(TryInsertWithEncapsulateCurrent.name, () =>
