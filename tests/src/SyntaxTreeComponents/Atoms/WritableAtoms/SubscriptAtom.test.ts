@@ -2,7 +2,7 @@ import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { PowerAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/PowerAtom';
+import { SubscriptAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/SubscriptAtom';
 import { DigitAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
 import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
@@ -11,85 +11,85 @@ import { expectLatex } from '../../../../helpers/expectLatex';
 import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 
-describe(PowerAtom.name, () =>
+describe(SubscriptAtom.name, () =>
 {
-  it('pow 3 right 4', () =>
+  it('sub 3 right 4', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new PowerAtom());
+    Insert(k, new SubscriptAtom());
     Insert(k, new DigitAtom(3));
     MoveRight(k);
     Insert(k, new DigitAtom(4));
-    expectLatex('3^{4◼}', k);
+    expectLatex('3_{4◼}', k);
   });
 
-  it('pow 3 up 4', () =>
+  it('sub 3 up 4', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new PowerAtom());
+    Insert(k, new SubscriptAtom());
     Insert(k, new DigitAtom(3));
-    MoveUp(k);
-    Insert(k, new DigitAtom(4));
-    expectLatex('3^{4◼}', k);
-  });
-
-  it('3 encapsulatedBy(pow.Base)', () =>
-  {
-    let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(3));
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new PowerAtom().Base));
-    expectLatex('3^{◼}', k);
-  });
-
-  it('pow 3 up down', () =>
-  {
-    let k = new KeyboardMemory();
-    Insert(k, new PowerAtom());
-    Insert(k, new DigitAtom(3));
-    MoveUp(k);
-    Insert(k, new DigitAtom(4));
     MoveDown(k);
-    expectLatex('3◼^{4}', k);
+    Insert(k, new DigitAtom(4));
+    expectLatex('3_{4◼}', k);
   });
 
-  it('pow can be left empty, moving out and back in', () =>
+  it('3 encapsulatedBy(Base)', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new PowerAtom());
-    expectLatex('◼^{◻}', k);
+    Insert(k, new DigitAtom(3));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new SubscriptAtom().Base));
+    expectLatex('3_{◼}', k);
+  });
+
+  it('subscriptAtom 3 up down', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new SubscriptAtom());
+    Insert(k, new DigitAtom(3));
+    MoveDown(k);
+    Insert(k, new DigitAtom(4));
+    MoveUp(k);
+    expectLatex('3◼_{4}', k);
+  });
+
+  it('can be left empty, moving out and back in', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new SubscriptAtom());
+    expectLatex('◼_{◻}', k);
     MoveLeft(k);
-    expectLatex('◼◻^{◻}', k);
+    expectLatex('◼◻_{◻}', k);
     MoveRight(k);
-    expectLatex('◼^{◻}', k);
+    expectLatex('◼_{◻}', k);
   });
 
-  it('impossible up/down requests in empty power should not throw', () =>
+  it('impossible up/down requests in empty atom should not throw', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new PowerAtom());
-    MoveUp(k);
-    expectLatex('◻^{◼}', k);
-    MoveUp(k);
-    expectLatex('◻^{◼}', k);
+    Insert(k, new SubscriptAtom());
     MoveDown(k);
-    expectLatex('◼^{◻}', k);
+    expectLatex('◻_{◼}', k);
     MoveDown(k);
-    expectLatex('◼^{◻}', k);
+    expectLatex('◻_{◼}', k);
+    MoveUp(k);
+    expectLatex('◼_{◻}', k);
+    MoveUp(k);
+    expectLatex('◼_{◻}', k);
   });
 
-  it('impossible up/down requests in filled power should not throw', () =>
+  it('impossible up/down requests in filled subscriptAtom should not throw', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new PowerAtom());
+    Insert(k, new SubscriptAtom());
     Insert(k, new DigitAtom(3));
-    expectLatex('3◼^{◻}', k);
+    expectLatex('3◼_{◻}', k);
+    MoveUp(k);
+    expectLatex('3◼_{◻}', k);
     MoveDown(k);
-    expectLatex('3◼^{◻}', k);
-    MoveUp(k);
-    expectLatex('3^{◼}', k);
+    expectLatex('3_{◼}', k);
     Insert(k, new DigitAtom(4));
-    expectLatex('3^{4◼}', k);
-    MoveUp(k);
-    expectLatex('3^{4◼}', k);
+    expectLatex('3_{4◼}', k);
+    MoveDown(k);
+    expectLatex('3_{4◼}', k);
   });
 });
