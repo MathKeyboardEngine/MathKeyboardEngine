@@ -1,6 +1,7 @@
 import { firstBefore } from "../../../helpers/arrayhelpers/firstBefore";
 import { last } from "../../../helpers/arrayhelpers/last";
 import { Atom } from "../../../SyntaxTreeComponents/Atoms/Base/Atom";
+import { WritableAtom } from "../../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
 
@@ -28,6 +29,11 @@ export function MoveLeft(k: KeyboardMemory) {
             }
         }
     } else {
-        k.Current = firstBefore( k.Current.ParentPlaceholder.Atoms, k.Current) ?? k.Current.ParentPlaceholder;
-    }
+        if (k.Current instanceof WritableAtom) {
+            let placeholder = last(k.Current.Placeholders);
+            k.Current = last(placeholder.Atoms) ?? placeholder;
+        } else {
+            k.Current = firstBefore(k.Current.ParentPlaceholder.Atoms, k.Current) ?? k.Current.ParentPlaceholder;
+        }
+    } 
 }
