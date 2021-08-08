@@ -4,10 +4,6 @@ import { Placeholder } from "../../Placeholder/Placeholder";
 import { WritableAtom } from "../Base/WritableAtom";
 
 export class FractionAtom extends WritableAtom {
-    override provideLatex(latexConfiguration: LatexConfiguration, keyboardMemory : KeyboardMemory): string {
-        return String.raw`\frac{${this.Numerator.getLatex(latexConfiguration, keyboardMemory)}}{${this.Denominator.getLatex(latexConfiguration, keyboardMemory)}}`;
-    }
-
     readonly Numerator : Placeholder;
     readonly Denominator : Placeholder;
     
@@ -15,6 +11,10 @@ export class FractionAtom extends WritableAtom {
         super([new Placeholder(), new Placeholder()]);
         this.Numerator = this.Placeholders[0];
         this.Denominator = this.Placeholders[1];
+    }
+
+    override provideLatex(latexConfiguration: LatexConfiguration, keyboardMemory : KeyboardMemory): string {
+        return String.raw`\frac{${this.Numerator.getLatex(latexConfiguration, keyboardMemory)}}{${this.Denominator.getLatex(latexConfiguration, keyboardMemory)}}`;
     }
     
     override GetMoveDownSuggestion(current : Placeholder) : Placeholder | null {

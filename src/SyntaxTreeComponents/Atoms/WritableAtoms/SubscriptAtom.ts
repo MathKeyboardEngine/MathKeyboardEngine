@@ -4,7 +4,6 @@ import { Placeholder } from "../../Placeholder/Placeholder";
 import { WritableAtom } from "../Base/WritableAtom";
 
 export class SubscriptAtom extends WritableAtom {
-
     readonly Base : Placeholder;
     readonly Subscript : Placeholder;
     

@@ -3,7 +3,7 @@ import { LatexConfiguration } from "../../../LatexConfiguration";
 import { AbstractPartOfNumberWithDigits } from "./Base/PartOfNumberWithDigits";
 
 export class DigitAtom extends AbstractPartOfNumberWithDigits {
-    value : number;
+    readonly value : number;
     constructor(digit : number) {
         super();
         this.value = digit;
