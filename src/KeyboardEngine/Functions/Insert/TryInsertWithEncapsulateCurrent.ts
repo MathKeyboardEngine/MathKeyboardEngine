@@ -1,9 +1,10 @@
-import { firstBefore } from "../../../helpers/arrayhelpers/firstBefore";
+import { firstAfter } from "../../../helpers/arrayhelpers/firstAfter";
+import { lastOrNull } from "../../../helpers/arrayhelpers/lastOrNull";
 import { remove } from "../../../helpers/arrayhelpers/remove";
 import { Atom } from "../../../SyntaxTreeComponents/Atoms/Base/Atom";
 import { WritableAtom } from "../../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
-import { AbstractRoundBracketLeftAtom, AbstractRoundBracketRightAtom, AbstractBracketLeftAtom, AbstractBracketRightAtom } from "../../../SyntaxTreeComponents/Atoms/ReadonlyAtoms/Base/BracketAtoms";
 import { AbstractPartOfNumberWithDigits } from "../../../SyntaxTreeComponents/Atoms/ReadonlyAtoms/Base/PartOfNumberWithDigits";
+import { RoundBracketsAtom } from "../../../SyntaxTreeComponents/Atoms/WritableAtoms/RoundBracketsAtom";
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
 import { MoveRight } from "../Navigation/MoveRight";
@@ -13,26 +14,25 @@ export function TryInsertWithEncapsulateCurrent(k: KeyboardMemory, encapsulating
     if (k.Current instanceof Atom) {
         let siblingAtoms = k.Current.ParentPlaceholder.Atoms;
         let currentIndex = siblingAtoms.indexOf(k.Current);
-        siblingAtoms[currentIndex] =  newAtom;
+        siblingAtoms[currentIndex] = newAtom;
         newAtom.ParentPlaceholder = k.Current.ParentPlaceholder;
-        encapsulatingPlaceholder.Atoms.push(k.Current);
-        k.Current.ParentPlaceholder = encapsulatingPlaceholder;
-        if (k.Current instanceof AbstractPartOfNumberWithDigits) {
-            EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(currentIndex, siblingAtoms, encapsulatingPlaceholder);
-        } else if (k.Current instanceof AbstractBracketRightAtom){
-            EncapsulateAllUntilInclusive_RoundBracketLeftAtom_LeftOfIndex(currentIndex, siblingAtoms, encapsulatingPlaceholder);
-            if (config != null && config.deleteOuterRoundBracketsIfAny) {
-                if (encapsulatingPlaceholder.Atoms[0] instanceof AbstractRoundBracketLeftAtom && k.Current instanceof AbstractRoundBracketRightAtom){
-                    encapsulatingPlaceholder.Atoms.shift();
-                    let previousAtom = firstBefore(encapsulatingPlaceholder.Atoms, k.Current);
-                    if (previousAtom != null){
-                        remove(encapsulatingPlaceholder.Atoms, k.Current);
-                        k.Current = previousAtom;
-                    }
-                }
+        if (k.Current instanceof RoundBracketsAtom && config?.deleteOuterRoundBracketsIfAny) {
+            let betweenBracketsPlaceholder = k.Current.Content;
+            for (let atom of betweenBracketsPlaceholder.Atoms) {
+                atom.ParentPlaceholder = encapsulatingPlaceholder;
+                encapsulatingPlaceholder.Atoms.push(atom);
+                k.Current = firstAfter(newAtom.Placeholders, encapsulatingPlaceholder) ?? newAtom;
             }
+        } else if (k.Current instanceof AbstractPartOfNumberWithDigits) {
+            encapsulatingPlaceholder.Atoms.push(k.Current);
+            k.Current.ParentPlaceholder = encapsulatingPlaceholder;
+            EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(currentIndex, siblingAtoms, encapsulatingPlaceholder);
+            MoveRight(k);
+        } else {
+            encapsulatingPlaceholder.Atoms.push(k.Current);
+            k.Current.ParentPlaceholder = encapsulatingPlaceholder;
+            MoveRight(k);
         }
-        MoveRight(k);
         return true;
     } else {
         return false;
@@ -48,25 +48,6 @@ export function EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(exclusiveRigh
             siblingAtom.ParentPlaceholder = toPlaceholder;
         } else {
             break;
-        }
-    }
-}
-
-function EncapsulateAllUntilInclusive_RoundBracketLeftAtom_LeftOfIndex(exclusiveRightIndex : number, siblingAtoms : Atom[], toPlaceholder : Placeholder) {
-    let nested = 0;
-    for (let i = exclusiveRightIndex - 1; i >=0; i--) {
-        let siblingAtom = siblingAtoms[i];
-        remove(siblingAtoms, siblingAtom);
-        toPlaceholder.Atoms.unshift(siblingAtom);
-        siblingAtom.ParentPlaceholder = toPlaceholder;
-        if (siblingAtom instanceof AbstractBracketLeftAtom) {
-            if (nested == 0){
-                break;
-            } else{
-                nested--;
-            }
-        } else if (siblingAtom instanceof AbstractBracketRightAtom){
-            nested++;
         }
     }
 }

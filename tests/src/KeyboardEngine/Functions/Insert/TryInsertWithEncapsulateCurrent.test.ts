@@ -15,9 +15,8 @@ import { FractionAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/Writ
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
-import { RoundBracketLeftAtom, RoundBracketRightAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/Brackets/RoundBracketAtoms';
-import { SquareBracketLeftAtom, SquareBracketRightAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/Brackets/SquareBracketAtoms';
-
+import { RoundBracketsAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/RoundBracketsAtom';
+import { SinglePlaceholderRawAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/SinglePlaceholderRawAtom';
 
 describe(TryInsertWithEncapsulateCurrent.name, () =>
 {
@@ -94,15 +93,15 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(1));
     Insert(k, new RawAtom('+'));
-    Insert(k, new RoundBracketLeftAtom());
+    Insert(k, new RoundBracketsAtom());
     Insert(k, new DigitAtom(2));
     Insert(k, new RawAtom('+'));
     Insert(k, new DigitAtom(3));
-    Insert(k, new RoundBracketRightAtom());
+    MoveRight(k);
+    expectLatex(String.raw`1+(2+3)◼`, k);
     let powerAtom = new PowerAtom();
     assert.ok(TryInsertWithEncapsulateCurrent(k, powerAtom.Base));
     expectLatex(String.raw`1+(2+3)^{◼}`, k);
-
     expect(powerAtom.Base.getLatex(null, k)).to.be.equal("(2+3)");
   });
 
@@ -110,19 +109,19 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(1));
     Insert(k, new RawAtom('+'));
-    Insert(k, new RoundBracketLeftAtom());
-    Insert(k, new RoundBracketLeftAtom());
+    Insert(k, new RoundBracketsAtom());
+    Insert(k, new RoundBracketsAtom());
     Insert(k, new RawAtom("x"));
     Insert(k, new RawAtom('+'));
     Insert(k, new DigitAtom(2));
-    Insert(k, new RoundBracketRightAtom());
-    Insert(k, new RoundBracketLeftAtom());
+    MoveRight(k);
+    Insert(k, new RoundBracketsAtom());
     Insert(k, new RawAtom("x"));
     Insert(k, new RawAtom('-'));
     Insert(k, new DigitAtom(3));
-    Insert(k, new RoundBracketRightAtom());
-    Insert(k, new RoundBracketRightAtom());
-
+    MoveRight(k);
+    MoveRight(k);
+    expectLatex(String.raw`1+((x+2)(x-3))◼`, k);
     assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom().Numerator, { deleteOuterRoundBracketsIfAny: true}));
     expectLatex(String.raw`1+\frac{(x+2)(x-3)}{◼}`, k);
   });
@@ -131,14 +130,14 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(1));
     Insert(k, new RawAtom('+'));
-    Insert(k, new SquareBracketLeftAtom());
-    Insert(k, new DigitAtom(2));
+    Insert(k, new SinglePlaceholderRawAtom(String.raw`|`, String.raw`|`));
+    Insert(k, new RawAtom("x"));
     Insert(k, new RawAtom('+'));
     Insert(k, new DigitAtom(3));
-    Insert(k, new SquareBracketRightAtom());
+    MoveRight(k);
     let numerator = new FractionAtom().Numerator;
     assert.ok(TryInsertWithEncapsulateCurrent(k, numerator, { deleteOuterRoundBracketsIfAny: true}));
-    expectLatex(String.raw`1+\frac{[2+3]}{◼}`, k);
-    expect(numerator.getLatex(null, k)).to.be.equal("[2+3]");
+    expectLatex(String.raw`1+\frac{|x+3|}{◼}`, k);
+    expect(numerator.getLatex(null, k)).to.be.equal("|x+3|");
   });
 });
