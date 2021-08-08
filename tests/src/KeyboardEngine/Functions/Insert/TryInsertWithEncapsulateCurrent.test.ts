@@ -106,17 +106,25 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     expect(powerAtom.Base.getLatex(null, k)).to.be.equal("(2+3)");
   });
 
-  it ('config.deleteOuterRoundBracketsIfAny: can delete round brackets during encapsulation', () => {
+  it ('config.deleteOuterRoundBracketsIfAny: deletes outer round brackets during encapsulation', () => {
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(1));
     Insert(k, new RawAtom('+'));
     Insert(k, new RoundBracketLeftAtom());
-    Insert(k, new DigitAtom(2));
+    Insert(k, new RoundBracketLeftAtom());
+    Insert(k, new RawAtom("x"));
     Insert(k, new RawAtom('+'));
+    Insert(k, new DigitAtom(2));
+    Insert(k, new RoundBracketRightAtom());
+    Insert(k, new RoundBracketLeftAtom());
+    Insert(k, new RawAtom("x"));
+    Insert(k, new RawAtom('-'));
     Insert(k, new DigitAtom(3));
     Insert(k, new RoundBracketRightAtom());
+    Insert(k, new RoundBracketRightAtom());
+
     assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom().Numerator, { deleteOuterRoundBracketsIfAny: true}));
-    expectLatex(String.raw`1+\frac{2+3}{◼}`, k);
+    expectLatex(String.raw`1+\frac{(x+2)(x-3)}{◼}`, k);
   });
   
   it ('config.deleteOuterRoundBracketsIfAny does not delete square brackets during encapsulation', () => {

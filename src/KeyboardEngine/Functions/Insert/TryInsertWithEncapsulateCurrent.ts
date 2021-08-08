@@ -53,13 +53,20 @@ export function EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(exclusiveRigh
 }
 
 function EncapsulateAllUntilInclusive_RoundBracketLeftAtom_LeftOfIndex(exclusiveRightIndex : number, siblingAtoms : Atom[], toPlaceholder : Placeholder) {
+    let nested = 0;
     for (let i = exclusiveRightIndex - 1; i >=0; i--) {
         let siblingAtom = siblingAtoms[i];
         remove(siblingAtoms, siblingAtom);
         toPlaceholder.Atoms.unshift(siblingAtom);
         siblingAtom.ParentPlaceholder = toPlaceholder;
         if (siblingAtom instanceof AbstractBracketLeftAtom) {
-            break;
+            if (nested == 0){
+                break;
+            } else{
+                nested--;
+            }
+        } else if (siblingAtom instanceof AbstractBracketRightAtom){
+            nested++;
         }
     }
 }
