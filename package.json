@@ -3,8 +3,8 @@
     "test": "nyc ./node_modules/.bin/_mocha 'tests/**/*.test.ts'",
     "build": "tsc"
   },
-  "name": "typescriptfiddle",
-  "description": "=== Transpile TypeScript into JavaScript automatically ===",
+  "name": "mathkeyboardengine",
+  "description": "MathKeyboardEngine provides the logic - in JavaScript and LaTeX - for a highly customizable virtual math keyboard.",
   "version": "1.0.0",
   "main": "register.js",
   "directories": {
@@ -23,12 +23,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SymboLinker/TypeScriptFiddle.git"
+    "url": "git+https://github.com/MathKeyboardEngine/MathKeyboardEngine.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SymboLinker/TypeScriptFiddle/issues"
+    "url": "https://github.com/MathKeyboardEngine/MathKeyboardEngine/issues"
   },
-  "homepage": "https://github.com/SymboLinker/TypeScriptFiddle#readme"
+  "homepage": "https://github.com/MathKeyboardEngine/MathKeyboardEngine#readme"
 }

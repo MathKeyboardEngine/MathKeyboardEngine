@@ -2,7 +2,7 @@ import { firstBefore } from "../../../helpers/arrayhelpers/firstBefore";
 import { Atom } from "../../../SyntaxTreeComponents/Atoms/Base/Atom";
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
-import { LeaveSelectionMode } from "../LeaveSelectionMode";
+import { LeaveSelectionMode } from "../Selection/LeaveSelectionMode";
 
 export function popSelection(k: KeyboardMemory, arg? :{andInsert : Atom}) : Atom[] {
     if (k.SelectionDiff == null) {

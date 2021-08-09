@@ -12,4 +12,3 @@ export function SelectLeft(k : KeyboardMemory) {
         }
     }
 }
-  

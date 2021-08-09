@@ -1,41 +1,49 @@
-=================================================
-========  What is MathKeyboardEngine?   ========
-=================================================
+=================================
+== What is MathKeyboardEngine? ==
+=================================
 
-MathKeyboardEngine provides the logic for a virtual math keyboard. It can be used on any website.
+MathKeyboardEngine provides the logic - in JavaScript and LaTeX - for a highly customizable virtual math keyboard.
 
-The logic of this repository is intended for use together with - for example - MathJax or KaTeX.
+It is intended for use together with - for example - MathJax or KaTeX.
 
 ________________________ 
-| Your customized       |    Tip: use SVG images on your virtual keys
-| virtual keyboard      |    (or use KaTeX or MathJax to generate images on-the-fly)
-| made with             |    to create a "What you see is what you get" keyboard.
+| Your customized       |    
+| virtual keyboard      |
+| made with             |   
 | HTML, CSS, SVG images |
  ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞    
-   ||
-   ||       Each virtual key press should call something of the MathKeyboardEngine,
-   ||       for example one key calls Insert(FractionAtom()) and another Insert(DigitAtom(3))
-   ||       or MoveUp(), DeleteCurrent(), etc.
-   \/
+  ||  Each virtual key press should
+  ||  call MathKeyboardEngine functions,
+  ||  for example one key calls
+  ||  Insert(FractionAtom()) and
+  ||  others Insert(DigitAtom(3)),
+  ||  MoveUp(), DeleteCurrent(), etc.
+  \/
 ____________________________ 
-| The MathKeyboardEngine    |   This library is easily extendible
-| uses a simple             |   without knowledge of typesetting.
-| abstract syntax tree      |   Also: you can choose what modules you use.
+| The MathKeyboardEngine    |
+| uses a simple             |
+| abstract syntax tree and  |
+| is easily extendible      |
+| without knowledge of      |
+| typesetting.              |
  ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞͞ ͞ 
-    ||
-    ||       Calling getLatex(config) outputs the Latex you "typed",
-    ||       for example \frac{3}{4},
-    ||       which you then feed to KaTeX or MathJax to display it.
-    \/
+  ||  Calling getLatex(config) outputs
+  ||  the Latex you "typed",
+  ||  for example \frac{3}{4},
+  ||  which you then feed to
+  ||  KaTeX or MathJax for display.
+  \/
 ________________________________
 | Display LaTeX output and get  |
-| the experience of typing      |   Even the cursor and placeholders can be customized :)
-| in a textbox                  |
+| the experience of typing      |
+| in a textbox. Even the cursor |
+| and placeholders can be       |
+| customized :)                 |
  ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ 
 
-=================================================
-===== How to work with a clone of this repo =====
-=================================================
+===================================================
+== How to work with a clone or fork of this repo ==
+===================================================
 
 1. Install Node.js and VS Code.
 
