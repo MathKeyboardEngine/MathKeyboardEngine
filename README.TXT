@@ -58,7 +58,11 @@ npm test
 This executes all the unit tests. (TypeScript is transpiled into JavaScript just before the tests execute.)
 
 4a. Using it:
-- rollup can be used to bundle the repository into a single .js file with only the modules you need.
+- run the following command:
+npm run build
+This creates a single-file library two times, in different formats:
+--- dist/MathKeyboardEngine.iife.js
+--- dist/MathKeyboardEngine.esm.js
 - add the .js file to your html scripts section and start playing!
 
 4b. Contributing:

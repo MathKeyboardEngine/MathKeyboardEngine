@@ -1,7 +1,7 @@
 {
   "scripts": {
     "test": "nyc ./node_modules/.bin/_mocha 'tests/**/*.test.ts'",
-    "build": "tsc"
+    "build": "esbuild src/bundle.ts --bundle --format=iife --outfile=dist/MathKeyboardEngine.iife.js & esbuild src/bundle.ts --bundle --format=esm --outfile=dist/MathKeyboardEngine.esm.js"
   },
   "name": "mathkeyboardengine",
   "description": "MathKeyboardEngine provides the logic - in JavaScript and LaTeX - for a highly customizable virtual math keyboard.",
@@ -30,5 +30,8 @@
   "bugs": {
     "url": "https://github.com/MathKeyboardEngine/MathKeyboardEngine/issues"
   },
-  "homepage": "https://github.com/MathKeyboardEngine/MathKeyboardEngine#readme"
+  "homepage": "https://github.com/MathKeyboardEngine/MathKeyboardEngine#readme",
+  "dependencies": {
+    "esbuild": "^0.12.19"
+  }
 }
