@@ -57,15 +57,16 @@ This loads all dependencies from the tree as specified in package-lock.json.
 npm test
 This executes all the unit tests. (TypeScript is transpiled into JavaScript just before the tests execute.)
 
-4a. Using it:
+4. Testing localhost:
 - run the following command:
 npm run build
 This creates a single-file library two times, in different formats:
 --- dist/MathKeyboardEngine.iife.js
 --- dist/MathKeyboardEngine.esm.js
-- add the .js file to your html scripts section and start playing!
+- add one of the .js files to your html scripts section of yourFile.html. See the 'example' folder.
+- for testing localhost with live reload from VS Code, you could install Five Server (https://marketplace.visualstudio.com/items?itemName=yandeu.five-server).
 
-4b. Contributing:
+5. Contributing:
 - open a pull request (PR)
 - report a bug or request an enhancement (issue)
 - contact SymboLinker@gmail.com

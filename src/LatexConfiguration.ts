@@ -7,7 +7,7 @@
     selectionHightlightStart : string = String.raw`\colorbox{#ADD8E6}{`;
     selectionHightlightEnd : string = '}';
 
-    getActivePlaceholderLatex() {
+    get activePlaceholderLatex() {
         if (this.activePlaceholderColor == null){
             return this.activePlaceholderNucleus;
         } else{
@@ -15,7 +15,7 @@
         }
     }
 
-    getPassivePlaceholderLatex() {
+    get passivePlaceholderLatex() {
         if (this.passivePlaceholderColor == null){
             return this.passivePlaceholderNucleus;
         } else{

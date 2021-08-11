@@ -18,7 +18,7 @@ export abstract class Atom {
             return latex;
         } else {
             if (keyboardMemory.Current === this){
-                return latex + latexConfiguration.getActivePlaceholderLatex();
+                return latex + latexConfiguration.activePlaceholderLatex;
             } else {
                 return latex;
             }

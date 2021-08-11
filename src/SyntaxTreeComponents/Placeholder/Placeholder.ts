@@ -12,12 +12,12 @@ export class Placeholder {
                 return latexConfiguration.selectionHightlightStart + this.Atoms.map(atom => atom.getLatex(latexConfiguration, keyboardMemory)).join("");
         } else if (this === keyboardMemory.Current ) {
             if (this.Atoms.length == 0) {
-                return latexConfiguration.getActivePlaceholderLatex();
+                return latexConfiguration.activePlaceholderLatex;
             } else {
-                return latexConfiguration.getActivePlaceholderLatex() + this.Atoms.map(atom => atom.getLatex(latexConfiguration, keyboardMemory)).join("");
+                return latexConfiguration.activePlaceholderLatex + this.Atoms.map(atom => atom.getLatex(latexConfiguration, keyboardMemory)).join("");
             }
         } else if (this.Atoms.length == 0) {
-            return latexConfiguration.getPassivePlaceholderLatex();
+            return latexConfiguration.passivePlaceholderLatex;
         } else {
             return this.Atoms.map(atom => atom.getLatex(latexConfiguration, keyboardMemory)).join("");
         }

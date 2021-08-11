@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<head>
+
+    <script type="module" type="text/javascript">
+        import * as mke from '../../dist/MathKeyboardEngine.esm.js';
+        import katex from 'https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.mjs';
+
+        let latexConfiguration = new mke.LatexConfiguration();
+        let keyboardMemory = new mke.KeyboardMemory();
+        displayOutput();
+        registerKey('digit1', (k) => mke.Insert(k, new mke.DigitAtom(1)));
+        registerKey('digit2', (k) => mke.Insert(k, new mke.DigitAtom(2)));
+        registerKey('digit3', (k) => mke.Insert(k, new mke.DigitAtom(3)));
+        registerKey('digit4', (k) => mke.Insert(k, new mke.DigitAtom(4)));
+
+        registerKey('fraction', (k) => mke.Insert(k, new mke.FractionAtom()));
+        registerKey('power', (k) => {
+          let powerAtom = new mke.PowerAtom();
+          if (!mke.TryInsertWithEncapsulateCurrent(k, powerAtom.Base)){
+            mke.Insert(k, powerAtom);
+          }
+        });
+
+        registerKey('moveLeft', (k) => mke.MoveLeft(k));
+        registerKey('moveRight', (k) => mke.MoveRight(k));
+        registerKey('moveUp', (k) => mke.MoveUp(k));
+        registerKey('moveDown', (k) => mke.MoveDown(k));
+
+        registerKey('deleteCurrent', (k) => mke.DeleteCurrent(k));
+
+
+
+        function displayOutput(){
+          katex.render(keyboardMemory.getLatex(latexConfiguration), document.getElementById('output'), { throwOnError: false });
+        }
+
+        function registerKey(elementId, onclickArrowFuncForKeyboardMemory){
+          let element = document.getElementById(elementId);
+
+          if (element.innerHTML == ''){
+            let temporaryKeyboardMemory = new mke.KeyboardMemory();
+            onclickArrowFuncForKeyboardMemory(temporaryKeyboardMemory);
+            let latexToRenderOnKey = temporaryKeyboardMemory.getLatex(latexConfiguration);
+            console.log(latexToRenderOnKey);
+            katex.render(latexToRenderOnKey, element, { throwOnError: false });
+          }
+
+          element.onclick = () => {
+            onclickArrowFuncForKeyboardMemory(keyboardMemory);
+            displayOutput();
+          };
+        }
+    </script>
+    <script nomodule defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.js" integrity="sha384-GCPlQtWhtsjcfJYVuUlFZnpQgvoZ26GD/vvA4kG1PBaGBbtpq2cdvZjgj/mAMEY4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.css" integrity="sha384-SkMvsJ0Np/CalM0X1hZCccQs6tnLq178/sGoPANiauambU0V/bloCaG3wOXfv+Ef" crossorigin="anonymous">
+    <style>
+      #mathKeyboard > * {
+        display: inline-block;
+        border: 1px solid gray;
+        padding: 5px;
+      }
+    </style>
+  </head>
+<body>
+  <h1>Example (ugly draft!)</h1>
+<div id="output" style="border:1px solid black;"></div>
+<br/>
+<div id="mathKeyboard">
+  <div id="digit1"></div>
+  <div id="digit2"></div>
+  <div id="digit3"></div>
+  <div id="digit4"></div>
+  <br/>
+  <div id="fraction"></div>
+  <div id="power"></div>
+<br/>
+  <div id="moveLeft">left</div>
+  <div id="moveRight">right</div>
+  <div id="moveDown">down</div>
+  <div id="moveUp">up</div>
+<br/>
+  <div id="deleteCurrent">delete</div>
+
+</div>
+</body>
+</html> 
