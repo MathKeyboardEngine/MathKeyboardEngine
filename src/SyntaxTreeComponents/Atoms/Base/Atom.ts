@@ -5,9 +5,9 @@ import { Placeholder } from "../../Placeholder/Placeholder";
 export abstract class Atom {
     ParentPlaceholder! : Placeholder;
 
-    abstract provideLatex(latexConfiguration : LatexConfiguration, keyboardMemory : KeyboardMemory) : string;
-    getLatex(latexConfiguration : LatexConfiguration, keyboardMemory : KeyboardMemory) : string {
-        let latex = this.provideLatex(latexConfiguration, keyboardMemory);
+    abstract provideLatex(keyboardMemory : KeyboardMemory, latexConfiguration : LatexConfiguration) : string;
+    getLatex(keyboardMemory : KeyboardMemory, latexConfiguration : LatexConfiguration) : string {
+        let latex = this.provideLatex(keyboardMemory, latexConfiguration);
         if (keyboardMemory.SelectionDiff != null && keyboardMemory.SelectionDiff != 0) {
             if (keyboardMemory.InclusiveSelectionLeftBorder === this) {
                 latex = latexConfiguration.selectionHightlightStart + latex;

@@ -8,7 +8,7 @@ export class DigitAtom extends AbstractPartOfNumberWithDigits {
         super();
         this.value = digit;
     }
-    override provideLatex(latexConfiguration: LatexConfiguration, keyboardMemory: KeyboardMemory): string {
+    override provideLatex(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
         return this.value.toString();
     }
 }

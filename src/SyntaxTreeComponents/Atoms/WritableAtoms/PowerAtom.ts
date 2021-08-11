@@ -13,8 +13,8 @@ export class PowerAtom extends WritableAtom {
         this.Exponent = this.Placeholders[1];
     }
 
-    override provideLatex(latexConfiguration: LatexConfiguration, keyboardInfo: KeyboardMemory) : string {
-        return `${this.Base.getLatex(latexConfiguration, keyboardInfo)}^{${this.Exponent.getLatex(latexConfiguration, keyboardInfo)}}`;
+    override provideLatex(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration) : string {
+        return `${this.Base.getLatex(keyboardMemory, latexConfiguration)}^{${this.Exponent.getLatex(keyboardMemory, latexConfiguration)}}`;
     }
 
     override GetMoveDownSuggestion(current : Placeholder) : Placeholder | null {

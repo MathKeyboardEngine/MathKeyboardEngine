@@ -1,4 +1,3 @@
-import { firstAfter } from "../helpers/arrayhelpers/firstAfter";
 import { LatexConfiguration } from "../LatexConfiguration";
 import { Atom } from "../SyntaxTreeComponents/Atoms/Base/Atom";
 import { Placeholder } from "../SyntaxTreeComponents/Placeholder/Placeholder";
@@ -12,6 +11,6 @@ export class KeyboardMemory {
     InclusiveSelectionLeftBorder: Atom | Placeholder | null = null;
 
     getLatex(latexConfiguration: LatexConfiguration) {
-        return this.SyntaxTreeRoot.getLatex(latexConfiguration, this);
+        return this.SyntaxTreeRoot.getLatex(this, latexConfiguration);
     }
 }

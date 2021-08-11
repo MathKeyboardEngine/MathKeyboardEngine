@@ -3,7 +3,7 @@ import { LatexConfiguration } from "../../../LatexConfiguration";
 import { AbstractPartOfNumberWithDigits } from "./Base/PartOfNumberWithDigits";
 
 export class DecimalSeparatorAtom extends AbstractPartOfNumberWithDigits {
-    override provideLatex(latexConfiguration: LatexConfiguration, keyboardMemory: KeyboardMemory): string {
+    override provideLatex(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
         return latexConfiguration.decimalSeparator;
     }
 }

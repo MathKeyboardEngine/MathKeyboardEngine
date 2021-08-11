@@ -13,8 +13,8 @@ export class NthRootAtom extends WritableAtom {
         this.Radicand = this.Placeholders[1];
     }
     
-    override provideLatex(latexConfiguration: LatexConfiguration, keyboardMemory : KeyboardMemory): string {
-        return String.raw`\sqrt[${this.N.getLatex(latexConfiguration, keyboardMemory)}]{${this.Radicand.getLatex(latexConfiguration, keyboardMemory)}}`;
+    override provideLatex(keyboardMemory : KeyboardMemory, latexConfiguration: LatexConfiguration): string {
+        return String.raw`\sqrt[${this.N.getLatex(keyboardMemory, latexConfiguration)}]{${this.Radicand.getLatex(keyboardMemory, latexConfiguration)}}`;
     }
 
     override GetMoveDownSuggestion(current : Placeholder) : Placeholder | null {

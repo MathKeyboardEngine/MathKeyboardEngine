@@ -15,7 +15,7 @@ export class RawAtom extends ReadonlyAtom {
         super();
         this.Latex = latex;
     }
-    override provideLatex(latexConfiguration: LatexConfiguration, keyboardMemory: KeyboardMemory): string {
+    override provideLatex(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
         return this.Latex;
     }
 }

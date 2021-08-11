@@ -102,7 +102,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let powerAtom = new PowerAtom();
     assert.ok(TryInsertWithEncapsulateCurrent(k, powerAtom.Base));
     expectLatex(String.raw`1+(2+3)^{◼}`, k);
-    expect(powerAtom.Base.getLatex(null, k)).to.be.equal("(2+3)");
+    expect(powerAtom.Base.getLatex(k, null)).to.be.equal("(2+3)");
   });
 
   it ('config.deleteOuterRoundBracketsIfAny: deletes outer round brackets during encapsulation', () => {
@@ -138,6 +138,6 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let numerator = new FractionAtom().Numerator;
     assert.ok(TryInsertWithEncapsulateCurrent(k, numerator, { deleteOuterRoundBracketsIfAny: true}));
     expectLatex(String.raw`1+\frac{|x+3|}{◼}`, k);
-    expect(numerator.getLatex(null, k)).to.be.equal("|x+3|");
+    expect(numerator.getLatex(k, null)).to.be.equal("|x+3|");
   });
 });

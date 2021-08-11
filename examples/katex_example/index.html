@@ -9,19 +9,18 @@
 
         let latexConfiguration = new mke.LatexConfiguration();
         let keyboardMemory = new mke.KeyboardMemory();
-        displayOutput();
-        registerKey('digit1', (k) => mke.Insert(k, new mke.DigitAtom(1)));
-        registerKey('digit2', (k) => mke.Insert(k, new mke.DigitAtom(2)));
-        registerKey('digit3', (k) => mke.Insert(k, new mke.DigitAtom(3)));
-        registerKey('digit4', (k) => mke.Insert(k, new mke.DigitAtom(4)));
 
-        registerKey('fraction', (k) => mke.Insert(k, new mke.FractionAtom()));
-        registerKey('power', (k) => {
-          let powerAtom = new mke.PowerAtom();
+        displayOutput();
+
+        for (let i = 0; i < 10; i++) {
+          registerAtomKey('digit' + i, (k, atom) => mke.Insert(k, atom), () => new mke.DigitAtom(i));
+        }
+        registerAtomKey('fraction', (k, atom) => mke.Insert(k, atom), () => new mke.FractionAtom());
+        registerAtomKey('power', (k, powerAtom) => {
           if (!mke.TryInsertWithEncapsulateCurrent(k, powerAtom.Base)){
             mke.Insert(k, powerAtom);
           }
-        });
+        }, () => new mke.PowerAtom());
 
         registerKey('moveLeft', (k) => mke.MoveLeft(k));
         registerKey('moveRight', (k) => mke.MoveRight(k));
@@ -30,27 +29,28 @@
 
         registerKey('deleteCurrent', (k) => mke.DeleteCurrent(k));
 
-
-
-        function displayOutput(){
-          katex.render(keyboardMemory.getLatex(latexConfiguration), document.getElementById('output'), { throwOnError: false });
+        function registerAtomKey(elementId, onclickArrowFuncForKeyboardMemoryAndAtom, atomGetter) {
+          let element = document.getElementById(elementId);
+          console.log(atomGetter());
+          let latexToRenderOnKey = atomGetter().provideLatex(keyboardMemory, latexConfiguration);
+          console.log(latexToRenderOnKey);
+          katex.render(latexToRenderOnKey, element, { throwOnError: false });
+          element.onclick = () => {
+            onclickArrowFuncForKeyboardMemoryAndAtom(keyboardMemory, atomGetter());
+            displayOutput();
+          };
         }
 
         function registerKey(elementId, onclickArrowFuncForKeyboardMemory){
           let element = document.getElementById(elementId);
-
-          if (element.innerHTML == ''){
-            let temporaryKeyboardMemory = new mke.KeyboardMemory();
-            onclickArrowFuncForKeyboardMemory(temporaryKeyboardMemory);
-            let latexToRenderOnKey = temporaryKeyboardMemory.getLatex(latexConfiguration);
-            console.log(latexToRenderOnKey);
-            katex.render(latexToRenderOnKey, element, { throwOnError: false });
-          }
-
           element.onclick = () => {
             onclickArrowFuncForKeyboardMemory(keyboardMemory);
             displayOutput();
           };
+        }
+
+        function displayOutput(){
+          katex.render(keyboardMemory.getLatex(latexConfiguration), document.getElementById('output'), { throwOnError: false });
         }
     </script>
     <script nomodule defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.js" integrity="sha384-GCPlQtWhtsjcfJYVuUlFZnpQgvoZ26GD/vvA4kG1PBaGBbtpq2cdvZjgj/mAMEY4" crossorigin="anonymous"></script>
@@ -68,19 +68,25 @@
 <div id="output" style="border:1px solid black;"></div>
 <br/>
 <div id="mathKeyboard">
+  <div id="digit0"></div>
   <div id="digit1"></div>
   <div id="digit2"></div>
   <div id="digit3"></div>
   <div id="digit4"></div>
+  <div id="digit5"></div>
+  <div id="digit6"></div>
+  <div id="digit7"></div>
+  <div id="digit8"></div>
+  <div id="digit9"></div>
   <br/>
   <div id="fraction"></div>
   <div id="power"></div>
-<br/>
+  <br/>
   <div id="moveLeft">left</div>
   <div id="moveRight">right</div>
   <div id="moveDown">down</div>
   <div id="moveUp">up</div>
-<br/>
+  <br/>
   <div id="deleteCurrent">delete</div>
 
 </div>
