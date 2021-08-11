@@ -15,12 +15,18 @@
         for (let i = 0; i < 10; i++) {
           registerAtomKey('digit' + i, (k, atom) => mke.Insert(k, atom), () => new mke.DigitAtom(i));
         }
+        registerAtomKey('decimalSeparator', (k, atom) => mke.Insert(k, atom), () => new mke.DecimalSeparatorAtom())
+        registerAtomKey('plus', (k, atom) => mke.Insert(k, atom), () => new mke.RawAtom("+"));
+        registerAtomKey('minus', (k, atom) => mke.Insert(k, atom), () => new mke.RawAtom("-"));
+        registerAtomKey('times', (k, atom) => mke.Insert(k, atom), () => new mke.RawAtom(String.raw`\times`));
         registerAtomKey('fraction', (k, atom) => mke.Insert(k, atom), () => new mke.FractionAtom());
         registerAtomKey('power', (k, powerAtom) => {
           if (!mke.TryInsertWithEncapsulateCurrent(k, powerAtom.Base)){
             mke.Insert(k, powerAtom);
           }
         }, () => new mke.PowerAtom());
+        registerAtomKey('squareRoot', (k, atom) => mke.Insert(k, atom), () => new mke.SinglePlaceholderRawAtom(String.raw`\sqrt{`, '}'));
+        registerAtomKey('nthRoot', (k, atom) => mke.Insert(k, atom), () => new mke.NthRootAtom());
 
         registerKey('moveLeft', (k) => mke.MoveLeft(k));
         registerKey('moveRight', (k) => mke.MoveRight(k));
@@ -78,9 +84,15 @@
   <div id="digit7"></div>
   <div id="digit8"></div>
   <div id="digit9"></div>
+  <div id="decimalSeparator"></div>
   <br/>
+  <div id="plus"></div>
+  <div id="minus"></div>
+  <div id="times"></div>
   <div id="fraction"></div>
   <div id="power"></div>
+  <div id="squareRoot"></div>
+  <div id="nthRoot"></div>
   <br/>
   <div id="moveLeft">left</div>
   <div id="moveRight">right</div>
