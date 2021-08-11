@@ -37,9 +37,7 @@
 
         function registerAtomKey(elementId, onclickArrowFuncForKeyboardMemoryAndAtom, atomGetter) {
           let element = document.getElementById(elementId);
-          console.log(atomGetter());
           let latexToRenderOnKey = atomGetter().provideLatex(keyboardMemory, latexConfiguration);
-          console.log(latexToRenderOnKey);
           katex.render(latexToRenderOnKey, element, { throwOnError: false });
           element.onclick = () => {
             onclickArrowFuncForKeyboardMemoryAndAtom(keyboardMemory, atomGetter());
@@ -62,16 +60,21 @@
     <script nomodule defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.js" integrity="sha384-GCPlQtWhtsjcfJYVuUlFZnpQgvoZ26GD/vvA4kG1PBaGBbtpq2cdvZjgj/mAMEY4" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.css" integrity="sha384-SkMvsJ0Np/CalM0X1hZCccQs6tnLq178/sGoPANiauambU0V/bloCaG3wOXfv+Ef" crossorigin="anonymous">
     <style>
+      #output{
+        border: 1px solid gray;
+        padding: 5px;
+      }
       #mathKeyboard > * {
         display: inline-block;
         border: 1px solid gray;
         padding: 5px;
+        margin: 2px;
       }
     </style>
   </head>
 <body>
   <h1>Example (ugly draft!)</h1>
-<div id="output" style="border:1px solid black;"></div>
+<div id="output"></div>
 <br/>
 <div id="mathKeyboard">
   <div id="digit0"></div>
