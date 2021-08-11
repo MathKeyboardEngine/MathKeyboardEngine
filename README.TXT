@@ -63,7 +63,7 @@ npm run build
 This creates a single-file library two times, in different formats:
 --- dist/MathKeyboardEngine.iife.js
 --- dist/MathKeyboardEngine.esm.js
-- add one of the .js files to your html scripts section of yourFile.html. See the 'example' folder.
+- add one of the .js files to your html scripts section of yourFile.html. See the 'examples' folder.
 - for testing localhost with live reload from VS Code, you could install Five Server (https://marketplace.visualstudio.com/items?itemName=yandeu.five-server).
 
 5. Contributing:
