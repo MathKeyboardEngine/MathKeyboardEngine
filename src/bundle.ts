@@ -70,5 +70,8 @@ export {SubscriptAtom};
 import { Placeholder } from "./SyntaxTreeComponents/Placeholder/Placeholder";
 export {Placeholder};
 
+import { GetRawLatex } from "./GetRawLatex";
+export {GetRawLatex};
+
 import {LatexConfiguration } from './LatexConfiguration';
 export {LatexConfiguration};

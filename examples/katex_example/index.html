@@ -37,7 +37,7 @@
 
         function registerAtomKey(elementId, onclickArrowFuncForKeyboardMemoryAndAtom, atomGetter) {
           let element = document.getElementById(elementId);
-          let latexToRenderOnKey = atomGetter().getLatexPart(keyboardMemory, latexConfiguration);
+          let latexToRenderOnKey = mke.GetRawLatex(atomGetter(), latexConfiguration);
           katex.render(latexToRenderOnKey, element, { throwOnError: false });
           element.onclick = () => {
             onclickArrowFuncForKeyboardMemoryAndAtom(keyboardMemory, atomGetter());
