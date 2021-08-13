@@ -13,7 +13,7 @@ export class NthRootAtom extends WritableAtom {
         this.Radicand = this.Placeholders[1];
     }
     
-    override provideLatex(keyboardMemory : KeyboardMemory, latexConfiguration: LatexConfiguration): string {
+    override getLatexPart(keyboardMemory : KeyboardMemory, latexConfiguration: LatexConfiguration): string {
         return String.raw`\sqrt[${this.N.getLatex(keyboardMemory, latexConfiguration)}]{${this.Radicand.getLatex(keyboardMemory, latexConfiguration)}}`;
     }
 

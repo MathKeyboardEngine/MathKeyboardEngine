@@ -13,7 +13,7 @@ export class FractionAtom extends WritableAtom {
         this.Denominator = this.Placeholders[1];
     }
 
-    override provideLatex(keyboardMemory : KeyboardMemory, latexConfiguration: LatexConfiguration,): string {
+    override getLatexPart(keyboardMemory : KeyboardMemory, latexConfiguration: LatexConfiguration,): string {
         return String.raw`\frac{${this.Numerator.getLatex(keyboardMemory, latexConfiguration)}}{${this.Denominator.getLatex(keyboardMemory, latexConfiguration)}}`;
     }
     

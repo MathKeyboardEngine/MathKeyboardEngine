@@ -15,7 +15,7 @@ export class SinglePlaceholderRawAtom extends WritableAtom {
         this.Suffix = suffix;
     }
 
-    override provideLatex(keyboardMemory : KeyboardMemory, latexConfiguration: LatexConfiguration): string {
+    override getLatexPart(keyboardMemory : KeyboardMemory, latexConfiguration: LatexConfiguration): string {
         return this.Prefix + this.Content.getLatex(keyboardMemory, latexConfiguration) + this.Suffix;
     }
 }

@@ -27,7 +27,7 @@ export class MatrixAtom extends WritableAtom {
         this.MatrixType = args.matrixType;
     }
 
-    override provideLatex(keyboardMemory : KeyboardMemory, latexConfiguration: LatexConfiguration): string {
+    override getLatexPart(keyboardMemory : KeyboardMemory, latexConfiguration: LatexConfiguration): string {
         let latex = String.raw`\begin{${this.MatrixType}}`;
         latex += this.Grid.map(row => row.map(placeholder => placeholder.getLatex(keyboardMemory, latexConfiguration)).join(' & ')).join(String.raw` \\ `);
         latex += String.raw`\end{${this.MatrixType}}`;

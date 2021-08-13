@@ -32,7 +32,7 @@ class SquaredAtom extends WritableAtom {
         super([new Placeholder()]);
         this.Base = this.Placeholders[0];
     }
-    provideLatex(latexConfiguration: LatexConfiguration, keyboardMemory: KeyboardMemory): string {
-        return this.Base.getLatex(latexConfiguration, keyboardMemory) + "^2";
+    override getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
+        return this.Base.getLatex(keyboardMemory, latexConfiguration) + "^2";
     }
 }

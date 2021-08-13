@@ -13,8 +13,8 @@ export class SubscriptAtom extends WritableAtom {
         this.Subscript = this.Placeholders[1];
     }
 
-    override provideLatex(latexConfiguration: LatexConfiguration, keyboardInfo: KeyboardMemory) : string {
-        return `${this.Base.getLatex(latexConfiguration, keyboardInfo)}_{${this.Subscript.getLatex(latexConfiguration, keyboardInfo)}}`;
+    override getLatexPart(keyboardInfo: KeyboardMemory, latexConfiguration: LatexConfiguration) : string {
+        return `${this.Base.getLatex(keyboardInfo, latexConfiguration)}_{${this.Subscript.getLatex(keyboardInfo, latexConfiguration)}}`;
     }
 
     override GetMoveDownSuggestion(current : Placeholder) : Placeholder | null {
