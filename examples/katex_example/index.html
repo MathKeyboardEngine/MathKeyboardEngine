@@ -13,27 +13,27 @@
         displayOutput();
 
         for (let i = 0; i < 10; i++) {
-          registerAtomKey('digit' + i, (k, atom) => mke.Insert(k, atom), () => new mke.DigitAtom(i));
+          registerAtomKey('digit' + i, mke.Insert, () => new mke.DigitAtom(i));
         }
-        registerAtomKey('decimalSeparator', (k, atom) => mke.Insert(k, atom), () => new mke.DecimalSeparatorAtom())
-        registerAtomKey('plus', (k, atom) => mke.Insert(k, atom), () => new mke.RawAtom("+"));
-        registerAtomKey('minus', (k, atom) => mke.Insert(k, atom), () => new mke.RawAtom("-"));
-        registerAtomKey('times', (k, atom) => mke.Insert(k, atom), () => new mke.RawAtom(String.raw`\times`));
-        registerAtomKey('fraction', (k, atom) => mke.Insert(k, atom), () => new mke.FractionAtom());
+        registerAtomKey('decimalSeparator', mke.Insert, () => new mke.DecimalSeparatorAtom())
+        registerAtomKey('plus', mke.Insert, () => new mke.RawAtom("+"));
+        registerAtomKey('minus', mke.Insert, () => new mke.RawAtom("-"));
+        registerAtomKey('times', mke.Insert, () => new mke.RawAtom(String.raw`\times`));
+        registerAtomKey('fraction', mke.Insert, () => new mke.FractionAtom());
         registerAtomKey('power', (k, powerAtom) => {
           if (!mke.TryInsertWithEncapsulateCurrent(k, powerAtom.Base)){
             mke.Insert(k, powerAtom);
           }
         }, () => new mke.PowerAtom());
-        registerAtomKey('squareRoot', (k, atom) => mke.Insert(k, atom), () => new mke.SinglePlaceholderRawAtom(String.raw`\sqrt{`, '}'));
-        registerAtomKey('nthRoot', (k, atom) => mke.Insert(k, atom), () => new mke.NthRootAtom());
+        registerAtomKey('squareRoot', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\sqrt{`, '}'));
+        registerAtomKey('nthRoot', mke.Insert, () => new mke.NthRootAtom());
 
-        registerKey('moveLeft', (k) => mke.MoveLeft(k));
-        registerKey('moveRight', (k) => mke.MoveRight(k));
-        registerKey('moveUp', (k) => mke.MoveUp(k));
-        registerKey('moveDown', (k) => mke.MoveDown(k));
+        registerKey('moveLeft', mke.MoveLeft);
+        registerKey('moveRight', mke.MoveRight);
+        registerKey('moveUp', mke.MoveUp);
+        registerKey('moveDown', mke.MoveDown);
 
-        registerKey('deleteCurrent', (k) => mke.DeleteCurrent(k));
+        registerKey('deleteCurrent', mke.DeleteCurrent);
 
         function registerAtomKey(elementId, onclickArrowFuncForKeyboardMemoryAndAtom, atomGetter) {
           let element = document.getElementById(elementId);
