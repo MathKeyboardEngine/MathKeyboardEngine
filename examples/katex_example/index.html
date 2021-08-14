@@ -13,15 +13,34 @@
         displayEditModeLatex();
 
         registerAtomKey('infinity', mke.Insert, () => new mke.RawAtom(String.raw`\infty`));
+        registerAtomKey('leftarrow', mke.Insert, () => new mke.RawAtom(String.raw`\leftarrow`));
+        registerAtomKey('rightarrow', mke.Insert, () => new mke.RawAtom(String.raw`\rightarrow`));
+        registerAtomKey('uparrow', mke.Insert, () => new mke.RawAtom('\\uparrow'));
+        registerAtomKey('downarrow', mke.Insert, () => new mke.RawAtom(String.raw`\downarrow`));
+
 
         for (let i = 0; i < 10; i++) {
           registerAtomKey('digit' + i, mke.Insert, () => new mke.DigitAtom(i));
         }
 
+        for(let letter of ['a', 'b', 'c', 'x', 'y', 'z']){
+          registerAtomKey(letter, mke.Insert, () => new mke.RawAtom(letter));
+        }
+
+        for(let afterslash of ['alpha', 'beta', 'gamma', 'lambda', 'mu', 'pi', 'div', 'sin', 'tan', 'cos', 'arcsin', 'arccos', 'arctan']){
+          registerAtomKey(afterslash, mke.Insert, () => new mke.RawAtom('\\' + afterslash));
+        }
+
         registerAtomKey('decimalSeparator', mke.Insert, () => new mke.DecimalSeparatorAtom())
 
-        registerAtomKey('equals', mke.Insert, () => new mke.RawAtom('='));
+        registerAtomKey('approx', mke.Insert, () => new mke.RawAtom(String.raw`\approx`));
+        registerAtomKey('equal', mke.Insert, () => new mke.RawAtom('='));
+        registerAtomKey('notEqual', mke.Insert, () => new mke.RawAtom(String.raw`\neq`));
 
+        registerAtomKey('lessThan', mke.Insert, () => new mke.RawAtom('<'));
+        registerAtomKey('greaterThan', mke.Insert, () => new mke.RawAtom('>'));
+        registerAtomKey('lessThanOrEqual', mke.Insert, () => new mke.RawAtom(String.raw`\leq`));
+        registerAtomKey('greaterThanOrEqual', mke.Insert, () => new mke.RawAtom(String.raw`\geq`));
 
         registerAtomKey('plus', mke.Insert, () => new mke.RawAtom('+'));
         registerAtomKey('minus', mke.Insert, () => new mke.RawAtom('-'));
@@ -47,6 +66,31 @@
         registerAtomKey('squareBrackets', mke.Insert, () => new mke.SinglePlaceholderRawAtom('[', ']'));
         registerAtomKey('pipes', mke.Insert, () => new mke.SinglePlaceholderRawAtom('|', '|'));
         registerAtomKey('doublePipes', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\|`, String.raw`\|`));
+        registerAtomKey('curlyBrackets', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\{`, String.raw`\}`));
+
+        registerAtomKey('naturalNumbers', mke.Insert, () => new mke.RawAtom(String.raw`\N`));
+        registerAtomKey('integers', mke.Insert, () => new mke.RawAtom(String.raw`\Z`));
+        registerAtomKey('realNumbers', mke.Insert, () => new mke.RawAtom(String.raw`\R`));
+
+        registerAtomKey('isMemberOf', mke.Insert, () => new mke.RawAtom(String.raw`\in`));
+        registerAtomKey('isProperSubsetOf', mke.Insert, () => new mke.RawAtom(String.raw`\subset`));
+        registerAtomKey('isSubsetOf', mke.Insert, () => new mke.RawAtom(String.raw`\subseteq`));
+        registerAtomKey('setDifference', mke.Insert, () => new mke.RawAtom(String.raw`\setminus`));
+        registerAtomKey('exists', mke.Insert, () => new mke.RawAtom(String.raw`\exists`));
+        registerAtomKey('existsOne', mke.Insert, () => new mke.RawAtom(String.raw`\exists!`));
+        registerAtomKey('forAll', mke.Insert, () => new mke.RawAtom(String.raw`\forall`));
+        registerAtomKey('not', mke.Insert, () => new mke.RawAtom(String.raw`\neg`));
+        registerAtomKey('or', mke.Insert, () => new mke.RawAtom(String.raw`\lor`));
+        registerAtomKey('and', mke.Insert, () => new mke.RawAtom(String.raw`\land`));
+        registerAtomKey('doubleRightArrow', mke.Insert, () => new mke.RawAtom(String.raw`\Rightarrow`));
+        registerAtomKey('doubleLeftArrow', mke.Insert, () => new mke.RawAtom(String.raw`\Leftarrow`));
+
+        registerAtomKey('sin-1', mke.Insert, () => new mke.RawAtom(String.raw`\sin^{-1}`));
+        registerAtomKey('cos-1', mke.Insert, () => new mke.RawAtom(String.raw`\cos^{-1}`));
+        registerAtomKey('tan-1', mke.Insert, () => new mke.RawAtom(String.raw`\tan^{-1}`));
+        registerAtomKey('sininv', mke.Insert, () => new mke.RawAtom(String.raw`\sin^{inv}`));
+        registerAtomKey('cosinv', mke.Insert, () => new mke.RawAtom(String.raw`\cos^{inv}`));
+        registerAtomKey('taninv', mke.Insert, () => new mke.RawAtom(String.raw`\tan^{inv}`));
 
         registerKey('moveLeft', mke.MoveLeft);
         registerKey('moveRight', mke.MoveRight);
@@ -97,7 +141,12 @@
 <div id="output"></div>
 <br/>
 <div id="mathKeyboard">
-  <div id="infinity"></div>
+  <div id="moveLeft">left</div>
+  <div id="moveRight">right</div>
+  <div id="moveDown">down</div>
+  <div id="moveUp">up</div>
+  <div id="deleteCurrent">delete</div>
+  <br/>
   <div id="digit0"></div>
   <div id="digit1"></div>
   <div id="digit2"></div>
@@ -109,13 +158,21 @@
   <div id="digit8"></div>
   <div id="digit9"></div>
   <div id="decimalSeparator"></div>
-  <div id="equals"></div>
   <br/>
+  <div id="a"></div>
+  <div id="b"></div>
+  <div id="c"></div>
+  <div id="x"></div>
+  <div id="y"></div>
+  <div id="z"></div>
+  <br>
   <div id="plus"></div>
   <div id="minus"></div>
   <div id="times"></div>
   <div id="ratio"></div>
+  <div id="div"></div>
   <div id="faculty"></div>
+  <br/>
   <div id="fraction"></div>
   <div id="power"></div>
   <div id="subscript"></div>
@@ -124,16 +181,60 @@
   <br/>
   <div id="roundBrackets"></div>
   <div id="squareBrackets"></div>
+  <div id="curlyBrackets"></div>
   <div id="pipes"></div>
   <div id="doublePipes"></div>
   <br/>
-  <div id="moveLeft">left</div>
-  <div id="moveRight">right</div>
-  <div id="moveDown">down</div>
-  <div id="moveUp">up</div>
+  <div id="alpha"></div>
+  <div id="beta"></div>
+  <div id="gamma"></div>
+  <div id="lambda"></div>
+  <div id="mu"></div>
+  <div id="pi"></div>
+  <br>
+  <div id="approx"></div>
+  <div id="equal"></div>
+  <div id="notEqual"></div>
+  <div id="lessThanOrEqual"></div>
+  <div id="greaterThanOrEqual"></div>
+  <div id="lessThan"></div>
+  <div id="greaterThan"></div>
   <br/>
-  <div id="deleteCurrent">delete</div>
+  <div id="infinity"></div>
+  <div id="leftarrow"></div>
+  <div id="rightarrow"></div>
+  <div id="uparrow"></div>
+  <div id="downarrow"></div>
+  <br/>
+  <div id="naturalNumbers"></div>
+  <div id="integers"></div>
+  <div id="realNumbers"></div>
 
+  <div id="isMemberOf"></div>
+  <div id="isProperSubsetOf"></div>
+  <div id="isSubsetOf"></div>
+  <div id="setDifference"></div>
+  <div id="exists"></div>
+  <div id="existsOne"></div>
+  <div id="forAll"></div>
+  <div id="not"></div>
+  <div id="or"></div>
+  <div id="and"></div>
+  <div id="doubleRightArrow"></div>
+  <div id="doubleLeftArrow"></div>
+  <br/>
+  <div id="sin"></div>
+  <div id="cos"></div>
+  <div id="tan"></div>
+  <div id="arcsin"></div>
+  <div id="arccos"></div>
+  <div id="arctan"></div>
+  <div id="sin-1"></div>
+  <div id="cos-1"></div>  
+  <div id="tan-1"></div>
+  <div id="sininv"></div>
+  <div id="cosinv"></div>
+  <div id="taninv"></div>
 </div>
 </body>
 </html> 
