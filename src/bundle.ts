@@ -1,3 +1,9 @@
+import { GetEditModeLatex } from "./GetLatex/GetEditModeLatex";
+export {GetEditModeLatex}
+
+import { GetViewModeLatex } from "./GetLatex/GetViewModeLatex";
+export {GetViewModeLatex};
+
 import { DeleteCurrent } from "./KeyboardEngine/Functions/Delete/DeleteCurrent";
 export {DeleteCurrent};
 
@@ -69,9 +75,6 @@ export {SubscriptAtom};
 
 import { Placeholder } from "./SyntaxTreeComponents/Placeholder/Placeholder";
 export {Placeholder};
-
-import { GetRawLatex } from "./GetRawLatex";
-export {GetRawLatex};
 
 import {LatexConfiguration } from './LatexConfiguration';
 export {LatexConfiguration};

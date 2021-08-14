@@ -6,6 +6,7 @@ import { LatexConfiguration } from '../../src/LatexConfiguration';
 import { PowerAtom } from '../../src/SyntaxTreeComponents/Atoms/WritableAtoms/PowerAtom';
 import { DigitAtom } from '../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
 import { DecimalSeparatorAtom } from '../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom';
+import { GetEditModeLatex } from '../../src/GetLatex/GetEditModeLatex';
 
 describe(LatexConfiguration.name, () =>
 {
@@ -17,7 +18,7 @@ describe(LatexConfiguration.name, () =>
 
     let k = new KeyboardMemory();
     Insert(k, new PowerAtom());
-    expect('myCursor^{myEmptyPlace}').to.equal(k.getLatex(myLatexConfiguration));
+    expect('myCursor^{myEmptyPlace}').to.equal(GetEditModeLatex(k, myLatexConfiguration));
   });
 
     it('allows customizing the color of the "cursor" and placeholders', () =>
@@ -30,7 +31,7 @@ describe(LatexConfiguration.name, () =>
 
         let k = new KeyboardMemory();
         Insert(k, new PowerAtom());
-        expect(String.raw`\color{orange}{◼}^{\color{gray}{◼}}`).to.equal(k.getLatex(myLatexConfiguration));
+        expect(String.raw`\color{orange}{◼}^{\color{gray}{◼}}`).to.equal(GetEditModeLatex(k, myLatexConfiguration));
     });
 
     it('allows customizing the decimal separator', () =>
@@ -42,6 +43,6 @@ describe(LatexConfiguration.name, () =>
         Insert(k, new DigitAtom(1));
         Insert(k, new DecimalSeparatorAtom());
         Insert(k, new DigitAtom(2));
-        expect('1{,}2◼').to.equal(k.getLatex(myLatexConfiguration));
+        expect('1{,}2◼').to.equal(GetEditModeLatex(k, myLatexConfiguration));
     });
 });

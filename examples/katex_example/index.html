@@ -10,7 +10,7 @@
         let latexConfiguration = new mke.LatexConfiguration();
         let keyboardMemory = new mke.KeyboardMemory();
 
-        displayOutput();
+        displayEditModeLatex();
 
         for (let i = 0; i < 10; i++) {
           registerAtomKey('digit' + i, mke.Insert, () => new mke.DigitAtom(i));
@@ -37,11 +37,11 @@
 
         function registerAtomKey(elementId, onclickArrowFuncForKeyboardMemoryAndAtom, atomGetter) {
           let element = document.getElementById(elementId);
-          let latexToRenderOnKey = mke.GetRawLatex(atomGetter(), latexConfiguration);
+          let latexToRenderOnKey = mke.GetViewModeLatex(atomGetter(), latexConfiguration);
           katex.render(latexToRenderOnKey, element, { throwOnError: false });
           element.onclick = () => {
             onclickArrowFuncForKeyboardMemoryAndAtom(keyboardMemory, atomGetter());
-            displayOutput();
+            displayEditModeLatex();
           };
         }
 
@@ -49,12 +49,12 @@
           let element = document.getElementById(elementId);
           element.onclick = () => {
             onclickArrowFuncForKeyboardMemory(keyboardMemory);
-            displayOutput();
+            displayEditModeLatex();
           };
         }
 
-        function displayOutput(){
-          katex.render(keyboardMemory.getLatex(latexConfiguration), document.getElementById('output'), { throwOnError: false });
+        function displayEditModeLatex(){
+          katex.render(mke.GetEditModeLatex(keyboardMemory, latexConfiguration), document.getElementById('output'), { throwOnError: false });
         }
     </script>
     <script nomodule defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.js" integrity="sha384-GCPlQtWhtsjcfJYVuUlFZnpQgvoZ26GD/vvA4kG1PBaGBbtpq2cdvZjgj/mAMEY4" crossorigin="anonymous"></script>

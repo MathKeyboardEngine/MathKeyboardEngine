@@ -9,8 +9,4 @@ export class KeyboardMemory {
     SelectionDiff: number | null = null;
     InclusiveSelectionRightBorder: Atom | null = null;
     InclusiveSelectionLeftBorder: Atom | Placeholder | null = null;
-
-    getLatex(latexConfiguration: LatexConfiguration) {
-        return this.SyntaxTreeRoot.getLatex(this, latexConfiguration);
-    }
 }
