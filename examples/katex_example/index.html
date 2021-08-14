@@ -12,21 +12,41 @@
 
         displayEditModeLatex();
 
+        registerAtomKey('infinity', mke.Insert, () => new mke.RawAtom(String.raw`\infty`));
+
         for (let i = 0; i < 10; i++) {
           registerAtomKey('digit' + i, mke.Insert, () => new mke.DigitAtom(i));
         }
+
         registerAtomKey('decimalSeparator', mke.Insert, () => new mke.DecimalSeparatorAtom())
-        registerAtomKey('plus', mke.Insert, () => new mke.RawAtom("+"));
-        registerAtomKey('minus', mke.Insert, () => new mke.RawAtom("-"));
+
+        registerAtomKey('equals', mke.Insert, () => new mke.RawAtom('='));
+
+
+        registerAtomKey('plus', mke.Insert, () => new mke.RawAtom('+'));
+        registerAtomKey('minus', mke.Insert, () => new mke.RawAtom('-'));
         registerAtomKey('times', mke.Insert, () => new mke.RawAtom(String.raw`\times`));
+        registerAtomKey('ratio', mke.Insert, () => new mke.RawAtom(':'));
+        registerAtomKey('faculty', mke.Insert, () => new mke.RawAtom('!'));
+
         registerAtomKey('fraction', mke.Insert, () => new mke.FractionAtom());
         registerAtomKey('power', (k, powerAtom) => {
           if (!mke.TryInsertWithEncapsulateCurrent(k, powerAtom.Base)){
             mke.Insert(k, powerAtom);
           }
         }, () => new mke.PowerAtom());
+        registerAtomKey('subscript', (k, subscriptAtom) => {
+          if (!mke.TryInsertWithEncapsulateCurrent(k, subscriptAtom.Base)){
+            mke.Insert(k, subscriptAtom);
+          }
+        }, () => new mke.SubscriptAtom());
         registerAtomKey('squareRoot', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\sqrt{`, '}'));
         registerAtomKey('nthRoot', mke.Insert, () => new mke.NthRootAtom());
+
+        registerAtomKey('roundBrackets', mke.Insert, () => new mke.RoundBracketsAtom());
+        registerAtomKey('squareBrackets', mke.Insert, () => new mke.SinglePlaceholderRawAtom('[', ']'));
+        registerAtomKey('pipes', mke.Insert, () => new mke.SinglePlaceholderRawAtom('|', '|'));
+        registerAtomKey('doublePipes', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\|`, String.raw`\|`));
 
         registerKey('moveLeft', mke.MoveLeft);
         registerKey('moveRight', mke.MoveRight);
@@ -77,6 +97,7 @@
 <div id="output"></div>
 <br/>
 <div id="mathKeyboard">
+  <div id="infinity"></div>
   <div id="digit0"></div>
   <div id="digit1"></div>
   <div id="digit2"></div>
@@ -88,14 +109,23 @@
   <div id="digit8"></div>
   <div id="digit9"></div>
   <div id="decimalSeparator"></div>
+  <div id="equals"></div>
   <br/>
   <div id="plus"></div>
   <div id="minus"></div>
   <div id="times"></div>
+  <div id="ratio"></div>
+  <div id="faculty"></div>
   <div id="fraction"></div>
   <div id="power"></div>
+  <div id="subscript"></div>
   <div id="squareRoot"></div>
   <div id="nthRoot"></div>
+  <br/>
+  <div id="roundBrackets"></div>
+  <div id="squareBrackets"></div>
+  <div id="pipes"></div>
+  <div id="doublePipes"></div>
   <br/>
   <div id="moveLeft">left</div>
   <div id="moveRight">right</div>

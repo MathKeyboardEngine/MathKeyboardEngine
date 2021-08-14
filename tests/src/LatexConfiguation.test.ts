@@ -7,6 +7,7 @@ import { PowerAtom } from '../../src/SyntaxTreeComponents/Atoms/WritableAtoms/Po
 import { DigitAtom } from '../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
 import { DecimalSeparatorAtom } from '../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom';
 import { GetEditModeLatex } from '../../src/GetLatex/GetEditModeLatex';
+import { GetViewModeLatex } from '../../src/GetLatex/GetViewModeLatex';
 
 describe(LatexConfiguration.name, () =>
 {
@@ -43,6 +44,6 @@ describe(LatexConfiguration.name, () =>
         Insert(k, new DigitAtom(1));
         Insert(k, new DecimalSeparatorAtom());
         Insert(k, new DigitAtom(2));
-        expect('1{,}2◼').to.equal(GetEditModeLatex(k, myLatexConfiguration));
+        expect('1{,}2').to.equal(GetViewModeLatex(k, myLatexConfiguration));
     });
 });

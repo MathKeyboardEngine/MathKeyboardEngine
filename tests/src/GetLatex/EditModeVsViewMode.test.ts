@@ -10,6 +10,9 @@ import { DigitAtom } from '../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms
 import { MoveDown } from '../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 
 const config = new LatexConfiguration();
+config.activePlaceholderNucleus = '◼';
+config.passivePlaceholderNucleus = '◻';
+
 describe("GetLatex", () =>
 {
   it('WritableAtom', () =>
