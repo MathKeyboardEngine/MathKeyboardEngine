@@ -11,7 +11,6 @@ import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 import { RawAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/RawAtom';
 import { DecimalSeparatorAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom';
-import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 
 describe(DeleteCurrent.name, () =>
 {
@@ -25,7 +24,7 @@ describe(DeleteCurrent.name, () =>
     Insert(k, new DecimalSeparatorAtom());
     Insert(k, new DigitAtom(5));
     Insert(k, new RawAtom('+')); // oops, typo!
-    TryInsertWithEncapsulateCurrent(k, new PowerAtom().Base);
+    TryInsertWithEncapsulateCurrent(k, new PowerAtom());
     Insert(k, new DigitAtom(3));
     MoveDown(k);
     DeleteCurrent(k); // trying to fix typo
@@ -49,7 +48,7 @@ describe(DeleteCurrent.name, () =>
     Insert(k, new DecimalSeparatorAtom());
     Insert(k, new DigitAtom(5));
     Insert(k, new RawAtom('+')); // oops, typo!
-    TryInsertWithEncapsulateCurrent(k, new PowerAtom().Base);
+    TryInsertWithEncapsulateCurrent(k, new PowerAtom());
     Insert(k, new DigitAtom(3));
     MoveDown(k);
     DeleteCurrent(k); // trying to fix typo

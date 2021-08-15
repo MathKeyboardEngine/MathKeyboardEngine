@@ -25,7 +25,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let k = new KeyboardMemory();
     assert.isTrue(k.Current instanceof Placeholder);
     expectLatex('◼', k);
-    assert.notOk(TryInsertWithEncapsulateCurrent(k, new PowerAtom().Base));
+    assert.notOk(TryInsertWithEncapsulateCurrent(k, new PowerAtom()));
     expectLatex('◼', k);
   });
 
@@ -37,7 +37,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
         Insert(k, new DigitAtom(i));
         MoveRight(k);    
     }
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new PowerAtom().Base));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new PowerAtom()));
     expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & 4\end{pmatrix}^{◼}`, k);
   });
 
@@ -46,7 +46,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new MatrixAtom({matrixType: "pmatrix", height:2, width:2}));
     Insert(k, new DigitAtom(1));
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new PowerAtom().Base));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new PowerAtom()));
     expectLatex(String.raw`\begin{pmatrix}1^{◼} & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
   });
 
@@ -55,7 +55,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(1));
     Insert(k, new DigitAtom(2));
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom().Numerator));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom()));
     expectLatex(String.raw`\frac{12}{◼}`, k);
   });
 
@@ -67,7 +67,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     Insert(k, new DecimalSeparatorAtom());
     Insert(k, new DigitAtom(3));
 
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new PowerAtom().Base));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new PowerAtom()));
     expectLatex('12.3^{◼}', k);
     MoveLeft(k);
     expectLatex('12.3◼^{◻}', k);
@@ -85,7 +85,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     Insert(k, new RawAtom('+'));
     Insert(k, new DigitAtom(2));
     Insert(k, new DigitAtom(3));
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom().Numerator));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom()));
     expectLatex(String.raw`1+\frac{23}{◼}`, k);
   });
 
@@ -100,7 +100,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     MoveRight(k);
     expectLatex(String.raw`1+(2+3)◼`, k);
     let powerAtom = new PowerAtom();
-    assert.ok(TryInsertWithEncapsulateCurrent(k, powerAtom.Base));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, powerAtom));
     expectLatex(String.raw`1+(2+3)^{◼}`, k);
     expect(powerAtom.Base.getLatex(k, null)).to.be.equal("(2+3)");
   });
@@ -122,7 +122,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     MoveRight(k);
     MoveRight(k);
     expectLatex(String.raw`1+((x+2)(x-3))◼`, k);
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom().Numerator, { deleteOuterRoundBracketsIfAny: true}));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom(), { deleteOuterRoundBracketsIfAny: true}));
     expectLatex(String.raw`1+\frac{(x+2)(x-3)}{◼}`, k);
   });
   
@@ -135,9 +135,9 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     Insert(k, new RawAtom('+'));
     Insert(k, new DigitAtom(3));
     MoveRight(k);
-    let numerator = new FractionAtom().Numerator;
-    assert.ok(TryInsertWithEncapsulateCurrent(k, numerator, { deleteOuterRoundBracketsIfAny: true}));
+    let fraction = new FractionAtom();
+    assert.ok(TryInsertWithEncapsulateCurrent(k, fraction, { deleteOuterRoundBracketsIfAny: true}));
     expectLatex(String.raw`1+\frac{|x+3|}{◼}`, k);
-    expect(numerator.getLatex(k, null)).to.be.equal("|x+3|");
+    expect(fraction.Numerator.getLatex(k, null)).to.be.equal("|x+3|");
   });
 });

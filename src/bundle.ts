@@ -58,6 +58,15 @@ export {FractionAtom};
 import { MatrixAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/MatrixAtom";
 export {MatrixAtom};
 
+import { MultiplePlaceholdersAscendingRawAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersAscendingRawAtom";
+export {MultiplePlaceholdersAscendingRawAtom};
+
+import { MultiplePlaceholdersDescendingRawAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersDescendingRawAtom";
+export {MultiplePlaceholdersDescendingRawAtom};
+
+import { MultiplePlaceholdersRawAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersRawAtom";
+export {MultiplePlaceholdersRawAtom};
+
 import { NthRootAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/NthRootAtom";
 export {NthRootAtom};
 
@@ -69,9 +78,6 @@ export {RoundBracketsAtom};
 
 import { SinglePlaceholderRawAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/SinglePlaceholderRawAtom";
 export {SinglePlaceholderRawAtom};
-
-import { SubscriptAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/SubscriptAtom";
-export {SubscriptAtom};
 
 import { Placeholder } from "./SyntaxTreeComponents/Placeholder/Placeholder";
 export {Placeholder};

@@ -50,15 +50,15 @@
 
         registerAtomKey('fraction', mke.Insert, () => new mke.FractionAtom());
         registerAtomKey('power', (k, powerAtom) => {
-          if (!mke.TryInsertWithEncapsulateCurrent(k, powerAtom.Base)){
+          if (!mke.TryInsertWithEncapsulateCurrent(k, powerAtom)){
             mke.Insert(k, powerAtom);
           }
         }, () => new mke.PowerAtom());
         registerAtomKey('subscript', (k, subscriptAtom) => {
-          if (!mke.TryInsertWithEncapsulateCurrent(k, subscriptAtom.Base)){
+          if (!mke.TryInsertWithEncapsulateCurrent(k, subscriptAtom)){
             mke.Insert(k, subscriptAtom);
           }
-        }, () => new mke.SubscriptAtom());
+        }, () => new mke.MultiplePlaceholdersDescendingRawAtom('', '_{', '}'));
         registerAtomKey('squareRoot', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\sqrt{`, '}'));
         registerAtomKey('nthRoot', mke.Insert, () => new mke.NthRootAtom());
 

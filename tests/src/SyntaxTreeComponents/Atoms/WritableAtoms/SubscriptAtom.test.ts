@@ -2,8 +2,8 @@ import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { SubscriptAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/SubscriptAtom';
 import { DigitAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
+import { MultiplePlaceholdersDescendingRawAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersDescendingRawAtom';
 import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { TryInsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
@@ -11,12 +11,16 @@ import { expectLatex } from '../../../../helpers/expectLatex';
 import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 
-describe(SubscriptAtom.name, () =>
+function TestAtom() {
+  return new MultiplePlaceholdersDescendingRawAtom('', '_{', '}');
+}
+
+describe("Subscript as suffix", () =>
 {
   it('sub 3 right 4', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new SubscriptAtom());
+    Insert(k, TestAtom());
     Insert(k, new DigitAtom(3));
     MoveRight(k);
     Insert(k, new DigitAtom(4));
@@ -26,25 +30,25 @@ describe(SubscriptAtom.name, () =>
   it('sub 3 up 4', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new SubscriptAtom());
+    Insert(k, TestAtom());
     Insert(k, new DigitAtom(3));
     MoveDown(k);
     Insert(k, new DigitAtom(4));
     expectLatex('3_{4◼}', k);
   });
 
-  it('3 encapsulatedBy(Base)', () =>
+  it('3 encapsulated', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(3));
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new SubscriptAtom().Base));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, TestAtom()));
     expectLatex('3_{◼}', k);
   });
 
   it('subscriptAtom 3 up down', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new SubscriptAtom());
+    Insert(k, TestAtom());
     Insert(k, new DigitAtom(3));
     MoveDown(k);
     Insert(k, new DigitAtom(4));
@@ -55,7 +59,7 @@ describe(SubscriptAtom.name, () =>
   it('can be left empty, moving out and back in', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new SubscriptAtom());
+    Insert(k, TestAtom());
     expectLatex('◼_{◻}', k);
     MoveLeft(k);
     expectLatex('◼◻_{◻}', k);
@@ -66,7 +70,7 @@ describe(SubscriptAtom.name, () =>
   it('impossible up/down requests in empty atom should not throw', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new SubscriptAtom());
+    Insert(k, TestAtom());
     MoveDown(k);
     expectLatex('◻_{◼}', k);
     MoveDown(k);
@@ -80,7 +84,7 @@ describe(SubscriptAtom.name, () =>
   it('impossible up/down requests in filled subscriptAtom should not throw', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new SubscriptAtom());
+    Insert(k, TestAtom());
     Insert(k, new DigitAtom(3));
     expectLatex('3◼_{◻}', k);
     MoveUp(k);

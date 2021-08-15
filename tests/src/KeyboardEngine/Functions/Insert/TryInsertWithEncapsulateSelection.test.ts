@@ -19,7 +19,7 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     expectLatex('12◼', k);
     SelectLeft(k);
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
-    TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
+    TryInsertWithEncapsulateSelection(k, new FractionAtom());
     expectLatex(String.raw`1\frac{2}{◼}`, k);
 
   });
@@ -31,7 +31,7 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     expectLatex('1◼', k);
     SelectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
-    TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
+    TryInsertWithEncapsulateSelection(k, new FractionAtom());
     expectLatex(String.raw`\frac{1}{◼}`, k);
   });
 
@@ -45,7 +45,7 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     SelectLeft(k);
     SelectLeft(k);
     expectLatex(String.raw`1\colorbox{blue}{23}`, k);
-    TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
+    TryInsertWithEncapsulateSelection(k, new FractionAtom());
     expectLatex(String.raw`1\frac{23}{◼}`, k);
   });
 
@@ -58,7 +58,7 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     SelectLeft(k);
     SelectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
-    TryInsertWithEncapsulateSelection(k, new FractionAtom().Numerator);
+    TryInsertWithEncapsulateSelection(k, new FractionAtom());
     expectLatex(String.raw`\frac{12}{◼}`, k);
   });
 });

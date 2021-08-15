@@ -52,7 +52,7 @@ describe(FractionAtom.name, () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(3));
-    TryInsertWithEncapsulateCurrent(k, new FractionAtom().Numerator);
+    TryInsertWithEncapsulateCurrent(k, new FractionAtom());
     expectLatex(String.raw`\frac{3}{◼}`, k);
   });
 

@@ -1,7 +1,7 @@
 ﻿export class LatexConfiguration {
-    activePlaceholderNucleus : string = String.raw`\blacksquare`;
+    activePlaceholderNucleus : string = String.raw`\blacksquare `;
     activePlaceholderColor? : string;
-    passivePlaceholderNucleus : string = String.raw`\square`;
+    passivePlaceholderNucleus : string = String.raw`\square `;
     passivePlaceholderColor? : string;
     decimalSeparator : '.' | '{,}' = '.';
     selectionHightlightStart : string = String.raw`\colorbox{#ADD8E6}{`;
