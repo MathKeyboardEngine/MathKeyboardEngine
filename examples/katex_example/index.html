@@ -92,6 +92,11 @@
         registerAtomKey('cosinv', mke.Insert, () => new mke.RawAtom(String.raw`\cos^{inv}`));
         registerAtomKey('taninv', mke.Insert, () => new mke.RawAtom(String.raw`\tan^{inv}`));
 
+        registerAtomKey('integral', mke.Insert, () => new mke.MultiplePlaceholdersAscendingRawAtom(String.raw`\int_{`, '}^{', '}'));
+        registerAtomKey('sum', mke.Insert, () => new mke.MultiplePlaceholdersAscendingRawAtom(String.raw`\sum_{`, '}^{', '}'));
+        registerAtomKey('product', mke.Insert, () => new mke.MultiplePlaceholdersAscendingRawAtom(String.raw`\prod_{`, '}^{', '}'));
+        registerAtomKey('limit', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\lim_{`, '}'));
+
         registerKey('moveLeft', mke.MoveLeft);
         registerKey('moveRight', mke.MoveRight);
         registerKey('moveUp', mke.MoveUp);
@@ -118,7 +123,7 @@
         }
 
         function displayEditModeLatex(){
-          katex.render(mke.GetEditModeLatex(keyboardMemory, latexConfiguration), document.getElementById('output'), { throwOnError: false });
+          katex.render(mke.GetEditModeLatex(keyboardMemory, latexConfiguration), document.getElementById('output'), { displayMode: true, throwOnError: false });
         }
     </script>
     <script nomodule defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.js" integrity="sha384-GCPlQtWhtsjcfJYVuUlFZnpQgvoZ26GD/vvA4kG1PBaGBbtpq2cdvZjgj/mAMEY4" crossorigin="anonymous"></script>
@@ -235,6 +240,12 @@
   <div id="sininv"></div>
   <div id="cosinv"></div>
   <div id="taninv"></div>
+  <br/>
+  <div id="integral"></div>
+  <div id="sum"></div>  
+  <div id="product"></div>
+  <div id="limit"></div>
+
 </div>
 </body>
 </html> 
