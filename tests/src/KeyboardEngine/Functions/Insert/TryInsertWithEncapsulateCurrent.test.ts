@@ -102,7 +102,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let powerAtom = new PowerAtom();
     assert.ok(TryInsertWithEncapsulateCurrent(k, powerAtom));
     expectLatex(String.raw`1+(2+3)^{◼}`, k);
-    expect(powerAtom.Base.getLatex(k, null)).to.be.equal("(2+3)");
+    expect(powerAtom.Base.getLatex(k, null!)).to.be.equal("(2+3)");
   });
 
   it ('config.deleteOuterRoundBracketsIfAny: deletes outer round brackets during encapsulation', () => {
