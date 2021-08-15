@@ -138,6 +138,6 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let fraction = new FractionAtom();
     assert.ok(TryInsertWithEncapsulateCurrent(k, fraction, { deleteOuterRoundBracketsIfAny: true}));
     expectLatex(String.raw`1+\frac{|x+3|}{◼}`, k);
-    expect(fraction.Numerator.getLatex(k, null)).to.be.equal("|x+3|");
+    expect(fraction.Numerator.getLatex(k, null!)).to.be.equal("|x+3|");
   });
 });

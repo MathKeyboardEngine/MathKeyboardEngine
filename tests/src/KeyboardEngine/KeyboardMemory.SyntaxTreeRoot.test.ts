@@ -50,7 +50,7 @@ describe(KeyboardMemory.name, () => {
       assert.isTrue(k.Current === fraction2.Numerator)
 
       assert.isTrue(k.Current instanceof Placeholder)
-      let calculatedRoot = (k.Current as Placeholder).ParentAtom.ParentPlaceholder.ParentAtom.ParentPlaceholder;
+      let calculatedRoot = (k.Current as Placeholder).ParentAtom!.ParentPlaceholder.ParentAtom!.ParentPlaceholder;
       assert.isNull(calculatedRoot.ParentAtom);
       expect(k.SyntaxTreeRoot).to.equal(calculatedRoot);
     });
