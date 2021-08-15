@@ -43,7 +43,7 @@ ________________________________
 
 Unique about MathKeyboardEngine:
  - it supports (almost?) all math LaTeX (please share if you know anything that is not supported), including matrices.
- - the syntax tree exists of very few different parts: the very strong (Readonly-)`RawAtom` and (Writable-)`RawAtom`s can be used for almost any LaTeX, including fractions, powers, combinations, super- and subscript PREfixes (needed for logarithms in the Netherlands), with ready-to-use up/down/left/right navigation.
+ - the syntax tree exists of very few different parts: the very strong (Readonly-)`RawAtom` and (Writable-)`RawAtom`s can be used for almost any LaTeX, including fractions, powers, combinations, subscript, etc. with ready-to-use up/down/left/right navigation.
  - it can be used with any LaTeX math typesetting library you like.
  
  A con:
@@ -52,7 +52,7 @@ Unique about MathKeyboardEngine:
 More pros:
  - you have full control over what you display on the virtual keyboard keys and what a virtual key press actually does.
  - customize the editor output at runtime: dot or comma as decimal separator, cross or dot for multiplication, cursor style, colors, etc.
- - this libary can also supports handling input from a physical keyboard, where - for example - the forward slash "/" key can be programmed to result in encapsulating a previously typed number as the numerator of a fraction. (Examples will come.)
+ - this libary also supports handling input from a physical keyboard, where - for example - the forward slash "/" key can be programmed to result in encapsulating a previously typed number as the numerator of a fraction. (Examples will come.)
  - because this libary is written in small ECMAScript modules, you can choose to make a smaller bundle.ts and export as a single (minified?) .js file that fits the needs of your project.
  - almost forgotten: it's open source, free to use, free to modify (please fork this repo)!
 
