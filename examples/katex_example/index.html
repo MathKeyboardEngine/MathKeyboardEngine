@@ -55,7 +55,7 @@
           if (!mke.TryInsertWithEncapsulateCurrent(k, powerAtom)){
             mke.Insert(k, powerAtom);
           }
-        }, () => new mke.PowerAtom());
+        }, () => new mke.MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
         registerAtomKey('subscript', (k, subscriptAtom) => {
           if (!mke.TryInsertWithEncapsulateCurrent(k, subscriptAtom)){
             mke.Insert(k, subscriptAtom);

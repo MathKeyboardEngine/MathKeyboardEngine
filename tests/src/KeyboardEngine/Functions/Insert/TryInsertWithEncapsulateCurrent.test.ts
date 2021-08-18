@@ -1,7 +1,7 @@
 import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
-import { PowerAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/PowerAtom';
+import { MultiplePlaceholdersAscendingRawAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersAscendingRawAtom';
 import { TryInsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
@@ -25,7 +25,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let k = new KeyboardMemory();
     assert.isTrue(k.Current instanceof Placeholder);
     expectLatex('◼', k);
-    assert.notOk(TryInsertWithEncapsulateCurrent(k, new PowerAtom()));
+    assert.notOk(TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}')));
     expectLatex('◼', k);
   });
 
@@ -37,7 +37,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
         Insert(k, new DigitAtom(i));
         MoveRight(k);    
     }
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new PowerAtom()));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}')));
     expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & 4\end{pmatrix}^{◼}`, k);
   });
 
@@ -46,7 +46,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new MatrixAtom({matrixType: "pmatrix", height:2, width:2}));
     Insert(k, new DigitAtom(1));
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new PowerAtom()));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}')));
     expectLatex(String.raw`\begin{pmatrix}1^{◼} & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
   });
 
@@ -67,7 +67,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     Insert(k, new DecimalSeparatorAtom());
     Insert(k, new DigitAtom(3));
 
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new PowerAtom()));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}')));
     expectLatex('12.3^{◼}', k);
     MoveLeft(k);
     expectLatex('12.3◼^{◻}', k);
@@ -99,10 +99,10 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     Insert(k, new DigitAtom(3));
     MoveRight(k);
     expectLatex(String.raw`1+(2+3)◼`, k);
-    let powerAtom = new PowerAtom();
+    let powerAtom = new MultiplePlaceholdersAscendingRawAtom('', '^{', '}');
     assert.ok(TryInsertWithEncapsulateCurrent(k, powerAtom));
     expectLatex(String.raw`1+(2+3)^{◼}`, k);
-    expect(powerAtom.Base.getLatex(k, null!)).to.be.equal("(2+3)");
+    expect(powerAtom.Placeholders[0].getLatex(k, null!)).to.be.equal("(2+3)");
   });
 
   it ('config.deleteOuterRoundBracketsIfAny: deletes outer round brackets during encapsulation', () => {

@@ -2,7 +2,7 @@ import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { PowerAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/PowerAtom';
+import { MultiplePlaceholdersAscendingRawAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersAscendingRawAtom';
 import { DigitAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { TryInsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
@@ -24,7 +24,7 @@ describe(DeleteCurrent.name, () =>
     Insert(k, new DecimalSeparatorAtom());
     Insert(k, new DigitAtom(5));
     Insert(k, new RawAtom('+')); // oops, typo!
-    TryInsertWithEncapsulateCurrent(k, new PowerAtom());
+    TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
     Insert(k, new DigitAtom(3));
     MoveDown(k);
     DeleteCurrent(k); // trying to fix typo
@@ -48,7 +48,7 @@ describe(DeleteCurrent.name, () =>
     Insert(k, new DecimalSeparatorAtom());
     Insert(k, new DigitAtom(5));
     Insert(k, new RawAtom('+')); // oops, typo!
-    TryInsertWithEncapsulateCurrent(k, new PowerAtom());
+    TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
     Insert(k, new DigitAtom(3));
     MoveDown(k);
     DeleteCurrent(k); // trying to fix typo
@@ -69,11 +69,11 @@ describe(DeleteCurrent.name, () =>
     // Arrange
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(2));
-    let p = new PowerAtom();
+    let p = new MultiplePlaceholdersAscendingRawAtom('', '^{', '}');
     TryInsertWithEncapsulateCurrent(k, p);
     let d3 = new DigitAtom(3);
     Insert(k, d3);
-    TryInsertWithEncapsulateCurrent(k, new PowerAtom());
+    TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
     expectLatex('2^{3^{◼}}', k);
 
     // Act & assert
