@@ -99,6 +99,24 @@
         registerAtomKey('product', mke.Insert, () => new mke.MultiplePlaceholdersAscendingRawAtom(String.raw`\prod_{`, '}^{', '}'));
         registerAtomKey('limit', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\lim_{`, '}'));
 
+        const matrixWidthInputElement = document.getElementById('matrixWidth');
+        const matrixHeightInputElement = document.getElementById('matrixHeight');
+        function ReRegisterMatrix() {
+          registerAtomKey('pmatrix', mke.Insert, () => new mke.MatrixAtom({
+            matrixType:'pmatrix', 
+            width: matrixWidthInputElement.value, 
+            height: matrixHeightInputElement.value
+          }));
+          registerAtomKey('vmatrix', mke.Insert, () => new mke.MatrixAtom({
+            matrixType:'vmatrix', 
+            width: matrixWidthInputElement.value, 
+            height: matrixHeightInputElement.value
+          }));
+        }
+        ReRegisterMatrix();
+        matrixWidthInputElement.onclick = ReRegisterMatrix;
+        matrixHeightInputElement.onclick = ReRegisterMatrix;
+
         registerKey('moveLeft', mke.MoveLeft);
         registerKey('moveRight', mke.MoveRight);
         registerKey('moveUp', mke.MoveUp);
@@ -137,6 +155,7 @@
       }
       #mathKeyboard > * {
         display: inline-block;
+        vertical-align: top;
         border: 1px solid gray;
         padding: 5px;
         margin: 2px;
@@ -198,6 +217,16 @@
   <div id="curlyBrackets"></div>
   <div id="pipes"></div>
   <div id="doublePipes"></div>
+  <br>
+  <div style="text-align: right;">
+    <label for="matrixHeight">Height</label>
+    <input id="matrixHeight" type="number" value='2' min='1' style="width:50px" />
+    <br/>
+    <label for="matrixWidth">Width</label>
+    <input id="matrixWidth" type="number" value='2' min='1' style="width:50px" />
+  </div>
+  <div id="pmatrix"></div>
+  <div id="vmatrix"></div>
   <br>
   <div id="approx"></div>
   <div id="equal"></div>
