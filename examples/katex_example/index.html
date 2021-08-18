@@ -49,6 +49,8 @@
         registerAtomKey('faculty', mke.Insert, () => new mke.RawAtom('!'));
 
         registerAtomKey('fraction', mke.Insert, () => new mke.FractionAtom());
+        registerAtomKey('binomial', mke.Insert, () => new mke.MultiplePlaceholdersDescendingRawAtom(String.raw`\binom{`, '}{', '}'));
+
         registerAtomKey('power', (k, powerAtom) => {
           if (!mke.TryInsertWithEncapsulateCurrent(k, powerAtom)){
             mke.Insert(k, powerAtom);
@@ -170,6 +172,12 @@
   <div id="x"></div>
   <div id="y"></div>
   <div id="z"></div>
+  <div id="alpha"></div>
+  <div id="beta"></div>
+  <div id="gamma"></div>
+  <div id="lambda"></div>
+  <div id="mu"></div>
+  <div id="pi"></div>
   <br>
   <div id="plus"></div>
   <div id="minus"></div>
@@ -178,6 +186,7 @@
   <div id="div"></div>
   <div id="faculty"></div>
   <br/>
+  <div id="binomial"></div>
   <div id="fraction"></div>
   <div id="power"></div>
   <div id="subscript"></div>
@@ -189,13 +198,6 @@
   <div id="curlyBrackets"></div>
   <div id="pipes"></div>
   <div id="doublePipes"></div>
-  <br/>
-  <div id="alpha"></div>
-  <div id="beta"></div>
-  <div id="gamma"></div>
-  <div id="lambda"></div>
-  <div id="mu"></div>
-  <div id="pi"></div>
   <br>
   <div id="approx"></div>
   <div id="equal"></div>
@@ -204,12 +206,6 @@
   <div id="greaterThanOrEqual"></div>
   <div id="lessThan"></div>
   <div id="greaterThan"></div>
-  <br/>
-  <div id="infinity"></div>
-  <div id="leftarrow"></div>
-  <div id="rightarrow"></div>
-  <div id="uparrow"></div>
-  <div id="downarrow"></div>
   <br/>
   <div id="naturalNumbers"></div>
   <div id="integers"></div>
@@ -245,7 +241,11 @@
   <div id="sum"></div>  
   <div id="product"></div>
   <div id="limit"></div>
-
+  <div id="leftarrow"></div>
+  <div id="rightarrow"></div>
+  <div id="uparrow"></div>
+  <div id="downarrow"></div>
+  <div id="infinity"></div>
 </div>
 </body>
 </html> 
