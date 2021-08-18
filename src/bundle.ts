@@ -43,6 +43,15 @@ export {SelectRight};
 import { KeyboardMemory } from "./KeyboardEngine/KeyboardMemory";
 export {KeyboardMemory};
 
+import { Atom } from "./SyntaxTreeComponents/Atoms/Base/Atom";
+export { Atom };
+
+import { ReadonlyAtom } from "./SyntaxTreeComponents/Atoms/Base/ReadonlyAtom";
+export { ReadonlyAtom };
+
+import { WritableAtom } from "./SyntaxTreeComponents/Atoms/Base/WritableAtom";
+export { WritableAtom };
+
 import { DecimalSeparatorAtom } from "./SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom";
 export {DecimalSeparatorAtom};
 
