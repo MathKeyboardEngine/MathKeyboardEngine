@@ -93,7 +93,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(1));
     Insert(k, new RawAtom('+'));
-    Insert(k, new RoundBracketsAtom());
+    Insert(k, new RoundBracketsAtom('(', ')'));
     Insert(k, new DigitAtom(2));
     Insert(k, new RawAtom('+'));
     Insert(k, new DigitAtom(3));
@@ -109,13 +109,13 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(1));
     Insert(k, new RawAtom('+'));
-    Insert(k, new RoundBracketsAtom());
-    Insert(k, new RoundBracketsAtom());
+    Insert(k, new RoundBracketsAtom('(', ')'));
+    Insert(k, new RoundBracketsAtom('(', ')'));
     Insert(k, new RawAtom("x"));
     Insert(k, new RawAtom('+'));
     Insert(k, new DigitAtom(2));
     MoveRight(k);
-    Insert(k, new RoundBracketsAtom());
+    Insert(k, new RoundBracketsAtom('(', ')'));
     Insert(k, new RawAtom("x"));
     Insert(k, new RawAtom('-'));
     Insert(k, new DigitAtom(3));

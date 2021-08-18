@@ -63,10 +63,10 @@
         registerAtomKey('nthRoot', mke.Insert, () => new mke.NthRootAtom());
 
         registerAtomKey('roundBrackets', mke.Insert, () => new mke.RoundBracketsAtom());
-        registerAtomKey('squareBrackets', mke.Insert, () => new mke.SinglePlaceholderRawAtom('[', ']'));
-        registerAtomKey('pipes', mke.Insert, () => new mke.SinglePlaceholderRawAtom('|', '|'));
-        registerAtomKey('doublePipes', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\|`, String.raw`\|`));
-        registerAtomKey('curlyBrackets', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\{`, String.raw`\}`));
+        registerAtomKey('squareBrackets', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\left[`, String.raw`\right]`));
+        registerAtomKey('pipes', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\left|`, String.raw`\right|`));
+        registerAtomKey('doublePipes', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\left\|`, String.raw`\right\|`));
+        registerAtomKey('curlyBrackets', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\left\{`, String.raw`\right\}`));
 
         registerAtomKey('naturalNumbers', mke.Insert, () => new mke.RawAtom(String.raw`\N`));
         registerAtomKey('integers', mke.Insert, () => new mke.RawAtom(String.raw`\Z`));
