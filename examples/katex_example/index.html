@@ -62,7 +62,7 @@
           }
         }, () => new mke.MultiplePlaceholdersDescendingRawAtom('', '_{', '}'));
         registerAtomKey('squareRoot', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\sqrt{`, '}'));
-        registerAtomKey('nthRoot', mke.Insert, () => new mke.NthRootAtom());
+        registerAtomKey('nthRoot', mke.Insert, () => new mke.MultiplePlaceholdersDescendingRawAtom(String.raw`\sqrt[`, ']{', '}'));
 
         registerAtomKey('roundBrackets', mke.Insert, () => new mke.RoundBracketsAtom());
         registerAtomKey('squareBrackets', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\left[`, String.raw`\right]`));

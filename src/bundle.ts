@@ -64,9 +64,6 @@ export {MultiplePlaceholdersDescendingRawAtom};
 import { MultiplePlaceholdersRawAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersRawAtom";
 export {MultiplePlaceholdersRawAtom};
 
-import { NthRootAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/NthRootAtom";
-export {NthRootAtom};
-
 import { RoundBracketsAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/RoundBracketsAtom";
 export {RoundBracketsAtom};
 
