@@ -63,4 +63,24 @@ describe(DeleteCurrent.name, () =>
     // Assert
     expectLatex('2.5^{3◼}', k);
   });
+
+  it('inverse of TryEncapsulateCurrent - execution path with digits', () =>
+  {
+    // Arrange
+    let k = new KeyboardMemory();
+    Insert(k, new DigitAtom(2));
+    let p = new PowerAtom();
+    TryInsertWithEncapsulateCurrent(k, p);
+    let d3 = new DigitAtom(3);
+    Insert(k, d3);
+    TryInsertWithEncapsulateCurrent(k, new PowerAtom());
+    expectLatex('2^{3^{◼}}', k);
+
+    // Act & assert
+    DeleteCurrent(k);
+    expectLatex('2^{3◼}', k);
+    assert.isTrue(d3.ParentPlaceholder == p.Placeholders[1])
+    DeleteCurrent(k);
+    expectLatex('2^{◼}', k);
+  });
 });

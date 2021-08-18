@@ -23,6 +23,7 @@ export function DeleteCurrent(k : KeyboardMemory) {
                     k.Current.ParentAtom.ParentPlaceholder.Atoms.pop();
                     for(let atom of nonEmptyPlaceholderOnLeft.Atoms){
                         k.Current.ParentAtom.ParentPlaceholder.Atoms.push(atom);
+                        atom.ParentPlaceholder = k.Current.ParentAtom.ParentPlaceholder;
                     }
                     k.Current = last(nonEmptyPlaceholderOnLeft.Atoms);
                 } else {
