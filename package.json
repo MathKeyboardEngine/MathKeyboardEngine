@@ -25,7 +25,7 @@
     "type": "git",
     "url": "git+https://github.com/MathKeyboardEngine/MathKeyboardEngine.git"
   },
-  "author": "",
+  "author": "SymboLinker",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MathKeyboardEngine/MathKeyboardEngine/issues"
