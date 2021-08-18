@@ -2,7 +2,6 @@ import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { FractionAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom';
 import { DigitAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
 import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
@@ -11,13 +10,14 @@ import { expectLatex } from '../../../../helpers/expectLatex';
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
+import { MultiplePlaceholdersDescendingRawAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersDescendingRawAtom';
 
-describe(FractionAtom.name, () =>
+describe("Fraction", () =>
 {
   it('frac left right right right', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new FractionAtom());
+    Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     MoveLeft(k);
     expectLatex(String.raw`◼\frac{◻}{◻}`, k);
     MoveRight(k);
@@ -31,7 +31,7 @@ describe(FractionAtom.name, () =>
   it('frac 3 right 4', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new FractionAtom());
+    Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     Insert(k, new DigitAtom(3));
     MoveRight(k);
     Insert(k, new DigitAtom(4));
@@ -41,7 +41,7 @@ describe(FractionAtom.name, () =>
   it('frac 3 down 4', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new FractionAtom());
+    Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     Insert(k, new DigitAtom(3));
     MoveDown(k);
     Insert(k, new DigitAtom(4));
@@ -52,14 +52,14 @@ describe(FractionAtom.name, () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(3));
-    TryInsertWithEncapsulateCurrent(k, new FractionAtom());
+    TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`\frac{3}{◼}`, k);
   });
 
   it('delete empty frac from numerator', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new FractionAtom());
+    Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`\frac{◼}{◻}`, k);
     DeleteCurrent(k);
     expectLatex('◼', k);
@@ -68,7 +68,7 @@ describe(FractionAtom.name, () =>
   it('delete empty frac from denominator', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new FractionAtom());
+    Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     MoveDown(k);
     expectLatex(String.raw`\frac{◻}{◼}`, k);
     DeleteCurrent(k);
@@ -78,7 +78,7 @@ describe(FractionAtom.name, () =>
   it('delete empty frac from the right', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new FractionAtom());
+    Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     MoveDown(k);
     MoveRight(k);
     expectLatex(String.raw`\frac{◻}{◻}◼`, k);
@@ -89,7 +89,7 @@ describe(FractionAtom.name, () =>
   it('deleting frac from denominator releases non-empty numerator', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new FractionAtom());
+    Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     Insert(k, new DigitAtom(1));
     Insert(k, new DigitAtom(2));
     MoveDown(k);
@@ -106,7 +106,7 @@ describe(FractionAtom.name, () =>
   it('up in filled fraction', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new FractionAtom());
+    Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     Insert(k, new DigitAtom(1));
     Insert(k, new DigitAtom(2));
     MoveDown(k);
@@ -120,7 +120,7 @@ describe(FractionAtom.name, () =>
   it('impossible up/down requests in filled fraction should not throw', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new FractionAtom());
+    Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     Insert(k, new DigitAtom(1));
     expectLatex(String.raw`\frac{1◼}{◻}`, k);
     MoveUp(k);
@@ -136,7 +136,7 @@ describe(FractionAtom.name, () =>
   it('impossible up/down requests in empty fraction should not throw', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new FractionAtom());
+    Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     MoveDown(k);
     expectLatex(String.raw`\frac{◻}{◼}`, k);
     MoveDown(k);

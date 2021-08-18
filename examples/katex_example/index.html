@@ -48,7 +48,7 @@
         registerAtomKey('ratio', mke.Insert, () => new mke.RawAtom(':'));
         registerAtomKey('faculty', mke.Insert, () => new mke.RawAtom('!'));
 
-        registerAtomKey('fraction', mke.Insert, () => new mke.FractionAtom());
+        registerAtomKey('fraction', mke.Insert, () => new mke.MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
         registerAtomKey('binomial', mke.Insert, () => new mke.MultiplePlaceholdersDescendingRawAtom(String.raw`\binom{`, '}{', '}'));
 
         registerAtomKey('power', (k, powerAtom) => {

@@ -52,9 +52,6 @@ export {DigitAtom};
 import { RawAtom } from "./SyntaxTreeComponents/Atoms/ReadonlyAtoms/RawAtom";
 export {RawAtom};
 
-import { FractionAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom";
-export {FractionAtom};
-
 import { MatrixAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/MatrixAtom";
 export {MatrixAtom};
 

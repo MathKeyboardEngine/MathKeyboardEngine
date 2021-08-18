@@ -6,7 +6,7 @@ import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Inser
 import { DigitAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
 import { SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
 import { TryInsertWithEncapsulateSelection } from '../../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateSelection';
-import { FractionAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom';
+import { MultiplePlaceholdersDescendingRawAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersDescendingRawAtom';
 
 
 describe(TryInsertWithEncapsulateSelection.name, () =>
@@ -19,7 +19,7 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     expectLatex('12◼', k);
     SelectLeft(k);
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
-    TryInsertWithEncapsulateSelection(k, new FractionAtom());
+    TryInsertWithEncapsulateSelection(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`1\frac{2}{◼}`, k);
 
   });
@@ -31,7 +31,7 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     expectLatex('1◼', k);
     SelectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
-    TryInsertWithEncapsulateSelection(k, new FractionAtom());
+    TryInsertWithEncapsulateSelection(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`\frac{1}{◼}`, k);
   });
 
@@ -45,7 +45,7 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     SelectLeft(k);
     SelectLeft(k);
     expectLatex(String.raw`1\colorbox{blue}{23}`, k);
-    TryInsertWithEncapsulateSelection(k, new FractionAtom());
+    TryInsertWithEncapsulateSelection(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`1\frac{23}{◼}`, k);
   });
 
@@ -58,7 +58,7 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     SelectLeft(k);
     SelectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
-    TryInsertWithEncapsulateSelection(k, new FractionAtom());
+    TryInsertWithEncapsulateSelection(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`\frac{12}{◼}`, k);
   });
 });

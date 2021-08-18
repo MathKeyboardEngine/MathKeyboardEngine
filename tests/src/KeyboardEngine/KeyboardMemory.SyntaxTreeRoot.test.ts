@@ -4,13 +4,13 @@ import { KeyboardMemory } from '../../../src/KeyboardEngine/KeyboardMemory'
 import { Placeholder } from '../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 import { DeleteCurrent } from '../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent'
 import { Insert } from '../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { FractionAtom } from '../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom'
 import { expectLatex } from '../../helpers/expectLatex';
 import { MoveLeft } from '../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 import { MoveDown } from '../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 import { MoveUp } from '../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { MoveRight } from '../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { DigitAtom } from '../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
+import { MultiplePlaceholdersDescendingRawAtom } from '../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersDescendingRawAtom';
 
 describe(KeyboardMemory.name, () => {
 
@@ -41,13 +41,13 @@ describe(KeyboardMemory.name, () => {
     {
       let k = new KeyboardMemory();
 
-      let fraction1 = new FractionAtom();
+      let fraction1 = new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}');
       Insert(k, fraction1);
-      assert.isTrue(k.Current === fraction1.Numerator)
+      assert.isTrue(k.Current === fraction1.Placeholders[0])
 
-      let fraction2 = new FractionAtom();
+      let fraction2 = new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}');
       Insert(k, fraction2);
-      assert.isTrue(k.Current === fraction2.Numerator)
+      assert.isTrue(k.Current === fraction2.Placeholders[0])
 
       assert.isTrue(k.Current instanceof Placeholder)
       let calculatedRoot = (k.Current as Placeholder).ParentAtom!.ParentPlaceholder.ParentAtom!.ParentPlaceholder;

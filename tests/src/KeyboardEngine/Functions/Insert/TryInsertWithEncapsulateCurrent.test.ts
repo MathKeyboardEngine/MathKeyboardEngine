@@ -11,12 +11,12 @@ import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigatio
 import { DigitAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
 import { DecimalSeparatorAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom';
 import { RawAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/RawAtom';
-import { FractionAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/FractionAtom';
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { RoundBracketsAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/RoundBracketsAtom';
 import { SinglePlaceholderRawAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/SinglePlaceholderRawAtom';
+import { MultiplePlaceholdersDescendingRawAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersDescendingRawAtom';
 
 describe(TryInsertWithEncapsulateCurrent.name, () =>
 {
@@ -55,7 +55,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new DigitAtom(1));
     Insert(k, new DigitAtom(2));
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom()));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}')));
     expectLatex(String.raw`\frac{12}{◼}`, k);
   });
 
@@ -85,7 +85,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     Insert(k, new RawAtom('+'));
     Insert(k, new DigitAtom(2));
     Insert(k, new DigitAtom(3));
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom()));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}')));
     expectLatex(String.raw`1+\frac{23}{◼}`, k);
   });
 
@@ -122,7 +122,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     MoveRight(k);
     MoveRight(k);
     expectLatex(String.raw`1+((x+2)(x-3))◼`, k);
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new FractionAtom(), { deleteOuterRoundBracketsIfAny: true}));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'), { deleteOuterRoundBracketsIfAny: true}));
     expectLatex(String.raw`1+\frac{(x+2)(x-3)}{◼}`, k);
   });
   
@@ -135,9 +135,9 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     Insert(k, new RawAtom('+'));
     Insert(k, new DigitAtom(3));
     MoveRight(k);
-    let fraction = new FractionAtom();
+    let fraction = new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}');
     assert.ok(TryInsertWithEncapsulateCurrent(k, fraction, { deleteOuterRoundBracketsIfAny: true}));
     expectLatex(String.raw`1+\frac{|x+3|}{◼}`, k);
-    expect(fraction.Numerator.getLatex(k, null!)).to.be.equal("|x+3|");
+    expect(fraction.Placeholders[0].getLatex(k, null!)).to.be.equal("|x+3|");
   });
 });
