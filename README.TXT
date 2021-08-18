@@ -56,9 +56,6 @@ More pros:
  - because this libary is written in small ECMAScript modules, you can choose to make a smaller bundle.ts and export as a single (minified?) .js file that fits the needs of your project.
  - almost forgotten: it's open source, free to use, free to modify (please fork this repo)!
 
-Preview:
-https://htmlpreview.github.io/?https://github.com/MathKeyboardEngine/MathKeyboardEngine/blob/main/examples/katex_example/index.html
-
 ======================================
 == How to work with this repository ==
 ======================================
