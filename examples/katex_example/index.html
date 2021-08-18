@@ -160,6 +160,35 @@
         padding: 5px;
         margin: 2px;
       }
+
+      .arrow-up {
+        width: 0; 
+        height: 0; 
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid black;
+      }
+      .arrow-down {
+        width: 0; 
+        height: 0; 
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid black;
+      }
+      .arrow-right {
+        width: 0; 
+        height: 0; 
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid black;
+      }
+      .arrow-left {
+        width: 0; 
+        height: 0; 
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 10px solid black;
+      }
     </style>
   </head>
 <body>
@@ -167,11 +196,11 @@
 <div id="output"></div>
 <br/>
 <div id="mathKeyboard">
-  <div id="moveLeft">left</div>
-  <div id="moveRight">right</div>
-  <div id="moveDown">down</div>
-  <div id="moveUp">up</div>
-  <div id="deleteCurrent">delete</div>
+  <div><div id="moveLeft" class="arrow-left"></div></div>
+  <div><div id="moveRight" class="arrow-right"></div></div>
+  <div><div id="moveDown" class="arrow-down"></div></div>
+  <div><div id="moveUp" class="arrow-up"></div></div>
+  <div id="deleteCurrent">&#128293;</div>
   <br/>
   <div id="digit0"></div>
   <div id="digit1"></div>
