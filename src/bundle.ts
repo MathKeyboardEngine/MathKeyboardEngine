@@ -1,47 +1,47 @@
 import { GetEditModeLatex } from "./GetLatex/GetEditModeLatex";
-export {GetEditModeLatex}
+export { GetEditModeLatex }
 
 import { GetViewModeLatex } from "./GetLatex/GetViewModeLatex";
-export {GetViewModeLatex};
+export { GetViewModeLatex };
 
 import { DeleteCurrent } from "./KeyboardEngine/Functions/Delete/DeleteCurrent";
-export {DeleteCurrent};
+export { DeleteCurrent };
 
 import { DeleteSelection } from "./KeyboardEngine/Functions/Delete/DeleteSelection";
-export {DeleteSelection};
+export { DeleteSelection };
 
 import { Insert } from "./KeyboardEngine/Functions/Insert/Insert";
-export {Insert};
+export { Insert };
 
 import { TryInsertWithEncapsulateCurrent } from "./KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent";
-export {TryInsertWithEncapsulateCurrent};
+export { TryInsertWithEncapsulateCurrent };
 
 import { TryInsertWithEncapsulateSelection } from "./KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateSelection";
-export {TryInsertWithEncapsulateSelection};
+export { TryInsertWithEncapsulateSelection };
 
 import { MoveDown } from "./KeyboardEngine/Functions/Navigation/MoveDown";
-export{MoveDown};
+export { MoveDown} ;
 
 import { MoveLeft } from "./KeyboardEngine/Functions/Navigation/MoveLeft";
-export {MoveLeft};
+export { MoveLeft };
 
 import { MoveRight } from "./KeyboardEngine/Functions/Navigation/MoveRight";
-export {MoveRight};
+export { MoveRight };
 
 import { MoveUp } from "./KeyboardEngine/Functions/Navigation/MoveUp";
-export {MoveUp};
+export { MoveUp };
 
 import { LeaveSelectionMode } from "./KeyboardEngine/Functions/Selection/LeaveSelectionMode";
-export {LeaveSelectionMode};
+export { LeaveSelectionMode} ;
 
 import { SelectLeft } from "./KeyboardEngine/Functions/Selection/SelectLeft";
-export {SelectLeft};
+export { SelectLeft };
 
 import { SelectRight } from "./KeyboardEngine/Functions/Selection/SelectRight";
-export {SelectRight};
+export { SelectRight };
 
 import { KeyboardMemory } from "./KeyboardEngine/KeyboardMemory";
-export {KeyboardMemory};
+export { KeyboardMemory };
 
 import { Atom } from "./SyntaxTreeComponents/Atoms/Base/Atom";
 export { Atom };
@@ -53,34 +53,34 @@ import { WritableAtom } from "./SyntaxTreeComponents/Atoms/Base/WritableAtom";
 export { WritableAtom };
 
 import { DecimalSeparatorAtom } from "./SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom";
-export {DecimalSeparatorAtom};
+export { DecimalSeparatorAtom };
 
 import { DigitAtom } from "./SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom";
-export {DigitAtom};
+export { DigitAtom };
 
 import { RawAtom } from "./SyntaxTreeComponents/Atoms/ReadonlyAtoms/RawAtom";
-export {RawAtom};
+export { RawAtom };
 
 import { MatrixAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/MatrixAtom";
-export {MatrixAtom};
+export { MatrixAtom };
 
 import { MultiplePlaceholdersAscendingRawAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersAscendingRawAtom";
-export {MultiplePlaceholdersAscendingRawAtom};
+export { MultiplePlaceholdersAscendingRawAtom };
 
 import { MultiplePlaceholdersDescendingRawAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersDescendingRawAtom";
-export {MultiplePlaceholdersDescendingRawAtom};
+export { MultiplePlaceholdersDescendingRawAtom };
 
 import { MultiplePlaceholdersRawAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersRawAtom";
-export {MultiplePlaceholdersRawAtom};
+export { MultiplePlaceholdersRawAtom };
 
 import { RoundBracketsAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/RoundBracketsAtom";
-export {RoundBracketsAtom};
+export { RoundBracketsAtom} ;
 
 import { SinglePlaceholderRawAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/SinglePlaceholderRawAtom";
-export {SinglePlaceholderRawAtom};
+export { SinglePlaceholderRawAtom };
 
 import { Placeholder } from "./SyntaxTreeComponents/Placeholder/Placeholder";
-export {Placeholder};
+export { Placeholder };
 
-import {LatexConfiguration } from './LatexConfiguration';
-export {LatexConfiguration};
+import { LatexConfiguration } from './LatexConfiguration';
+export { LatexConfiguration };
