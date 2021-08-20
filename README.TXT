@@ -56,9 +56,38 @@ More pros:
  - because this libary is written in small ECMAScript modules, you can choose to make a smaller bundle.ts and export as a single (minified?) .js file that fits the needs of your project.
  - almost forgotten: it's open source, free to use, free to modify (please fork this repo)!
 
-======================================
-== How to work with this repository ==
-======================================
+
+============================
+== How to use the library ==
+============================
+
+The library is distributed as a single file. There are 4 options:
+https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.3/dist/MathKeyboardEngine.esm.js
+https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.3/dist/MathKeyboardEngine.esm.min.js
+https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.3/dist/MathKeyboardEngine.iife.js
+https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.3/dist/MathKeyboardEngine.iife.min.js
+
+esm: ECMAScript modules are simply the best choice: easy, safe, future proof.
+iife: immediately invoked function expression for browsers that do not support ESM.
+min: minfied version is a smaller file with the same capabilities.
+
+Quick start for using the "esm" format:
+
+  <script type="module" type="text/javascript">
+      import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.3/dist/MathKeyboardEngine.esm.min.js';
+      let latexConfiguration = new mke.LatexConfiguration();
+      let keyboardMemory = new mke.KeyboardMemory();
+
+      // Subscribe to onclick events of virtual key presses, etc.
+      // See the 'examples' folder in for more details.
+  </script>
+
+Note: "mke" is an abbreviation of "MathKeyboardEngine". You can choose something different. (But the iife format forces you to use "mke".)
+
+
+==========================
+== How to use this repo ==
+==========================
 
 Doing a localhost test with an example from the 'examples' folder is probably the first thing to do. Follow these steps to do that (and more):
 
@@ -76,16 +105,12 @@ Use the command "npm test" to run all unit tests from the "tests" folder.
 Use the command "npm run build". (This command runs the build script as defined in package.json.) It creates a single-file library twice, in different formats:
 "dist/MathKeyboardEngine.iife.js" and "dist/MathKeyboardEngine.esm.js".
 Note: the "src" folder contains all the source code files. The file "bundle.ts" does not add new code, but helps in compiling the library to a single file.
-
-4. Using the library:
-Because this library is in an early stage of development, there is not yet an official download via a cdn (but it will be there probably in September 2021). For now, compile the library yourself as described above.
-See the 'examples' folder for how to use the "esm" format. (ECMAScript modules are simply the best choice: easy, safe, future proof.)
 For testing localhost with live reload from VS Code, you could install the VS Code extension "Five Server" (https://marketplace.visualstudio.com/items?itemName=yandeu.five-server) and click "> Go Live" in the bottom right corner of VS Code. The browser starts up automatically - navigate to the example folder with the html file you'd like to test.
 
 
-====================================
-== Ask for help and/or contribute ==
-====================================
+=======================
+== Ask or contribute ==
+=======================
 
 Options:
 - ask questions about anything that is not clear or when you'd like help (issue). That is also a contribution to this repo, because it may lead to improvements in the documentation.
@@ -94,9 +119,9 @@ Options:
 - open a pull request (PR).
 
 
-=================================================
-== Thanks for considering to use this library! ==
-=================================================
+==========
+== Goal ==
+==========
 
 Goal: make a future proof, not complex, highly customizable virtual math keyboard library.
 First draft of this library: July 2021.
