@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
 <html>
-<head>
+  <head>
+    <!-- MathJax specific code START -->
     <script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <!-- MathJax specific code END -->
     <script type="module" type="text/javascript">
         import * as mke from '../../dist/MathKeyboardEngine.es2020-esm.js';
         let latexConfiguration = new mke.LatexConfiguration();
@@ -15,7 +17,6 @@
         registerAtomKey('rightarrow', mke.Insert, () => new mke.RawAtom(String.raw`\rightarrow `));
         registerAtomKey('uparrow', mke.Insert, () => new mke.RawAtom('\\uparrow '));
         registerAtomKey('downarrow', mke.Insert, () => new mke.RawAtom(String.raw`\downarrow `));
-
 
         for (let i = 0; i < 10; i++) {
           registerAtomKey('digit' + i, mke.Insert, () => new mke.DigitAtom(i.toString()));
@@ -124,10 +125,8 @@
 
         function registerAtomKey(elementId, onclickArrowFuncForKeyboardMemoryAndAtom, atomGetter) {
           let element = document.getElementById(elementId);
-          let latexToRenderOnKey = mke.GetViewModeLatex(atomGetter(), latexConfiguration);
-          let mathJaxHtml = MathJax.tex2chtml(latexToRenderOnKey, { display: false});
-          console.log(mathJaxHtml);
-          element.innerHTML = mathJaxHtml.innerHTML;
+          let latex = mke.GetViewModeLatex(atomGetter(), latexConfiguration);
+          renderLatexInKey(latex, element);
           element.onclick = () => {
             onclickArrowFuncForKeyboardMemoryAndAtom(keyboardMemory, atomGetter());
             displayEditModeLatex();
@@ -143,12 +142,22 @@
         }
 
         function displayEditModeLatex(){
-          let latexToRender = mke.GetEditModeLatex(keyboardMemory, latexConfiguration);
-          let mathJaxHtml = MathJax.tex2chtml(latexToRender, { display: false});
-          document.getElementById('output').innerHTML = mathJaxHtml.innerHTML;
+          let latex = mke.GetEditModeLatex(keyboardMemory, latexConfiguration);
+          let element = document.getElementById('output');
+          renderLatexInOutputBox(latex, element);
         }
+        
+        // === MathJax specific code START ===
+        function renderLatexInKey(latex, element) {
+          element.innerHTML = MathJax.tex2chtml(latex, { display: false}).innerHTML;
+        }
+
+        function renderLatexInOutputBox(latex, element) {
+          element.innerHTML = MathJax.tex2chtml(latex, { display: false}).innerHTML;
+        }
+        // === MathJax specific code END ===
     </script>
- <style>
+    <style>
       #output{
         border: 1px solid gray;
         padding: 5px;

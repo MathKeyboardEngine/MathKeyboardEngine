@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
 <html>
-<head>
-
+  <head>
+    <!-- KaTeX specific code START --> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.css" integrity="sha384-SkMvsJ0Np/CalM0X1hZCccQs6tnLq178/sGoPANiauambU0V/bloCaG3wOXfv+Ef" crossorigin="anonymous">
+    <!-- KaTeX specific code END --> 
     <script type="module" type="text/javascript">
-        import * as mke from '../../dist/MathKeyboardEngine.es2020-esm.js';
+        // KaTeX specific code START
         import katex from 'https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.mjs';
+        // KaTeX specific code END
+        import * as mke from '../../dist/MathKeyboardEngine.es2020-esm.js';
         let latexConfiguration = new mke.LatexConfiguration();
         let keyboardMemory = new mke.KeyboardMemory();
 
@@ -16,7 +20,6 @@
         registerAtomKey('rightarrow', mke.Insert, () => new mke.RawAtom(String.raw`\rightarrow `));
         registerAtomKey('uparrow', mke.Insert, () => new mke.RawAtom('\\uparrow '));
         registerAtomKey('downarrow', mke.Insert, () => new mke.RawAtom(String.raw`\downarrow `));
-
 
         for (let i = 0; i < 10; i++) {
           registerAtomKey('digit' + i, mke.Insert, () => new mke.DigitAtom(i.toString()));
@@ -125,8 +128,8 @@
 
         function registerAtomKey(elementId, onclickArrowFuncForKeyboardMemoryAndAtom, atomGetter) {
           let element = document.getElementById(elementId);
-          let latexToRenderOnKey = mke.GetViewModeLatex(atomGetter(), latexConfiguration);
-          katex.render(latexToRenderOnKey, element, { throwOnError: false });
+          let latex = mke.GetViewModeLatex(atomGetter(), latexConfiguration);
+          renderLatexInKey(latex, element);
           element.onclick = () => {
             onclickArrowFuncForKeyboardMemoryAndAtom(keyboardMemory, atomGetter());
             displayEditModeLatex();
@@ -142,11 +145,21 @@
         }
 
         function displayEditModeLatex(){
-          katex.render(mke.GetEditModeLatex(keyboardMemory, latexConfiguration), document.getElementById('output'), { displayMode: true, throwOnError: false });
+          let latex = mke.GetEditModeLatex(keyboardMemory, latexConfiguration);
+          let element = document.getElementById('output');
+          renderLatexInOutputBox(latex, element);
         }
+
+        // === KaTeX specific code START ===
+        function renderLatexInKey(latex, element) {
+          katex.render(latex, element, { throwOnError: false });
+        }
+
+        function renderLatexInOutputBox(latex, element) {
+          katex.render(latex, element, { displayMode: true, throwOnError: false });
+        }
+        // === KaTeX specific code END ===
     </script>
-    <script nomodule defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.js" integrity="sha384-GCPlQtWhtsjcfJYVuUlFZnpQgvoZ26GD/vvA4kG1PBaGBbtpq2cdvZjgj/mAMEY4" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.css" integrity="sha384-SkMvsJ0Np/CalM0X1hZCccQs6tnLq178/sGoPANiauambU0V/bloCaG3wOXfv+Ef" crossorigin="anonymous">
     <style>
       #output{
         border: 1px solid gray;
