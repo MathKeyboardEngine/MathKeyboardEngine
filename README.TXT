@@ -101,9 +101,10 @@ This loads all dependencies from the tree as specified in package-lock.json.
 3. Compiling the library:
 Use the command "tsc --noEmit" to do type checking, to check whether a successful compilation is possible.
 Use the command "npm test" to run all unit tests from the "tests" folder.
-Use the command "npm run build". (This command runs the build script as defined in package.json.) It creates a single-file library twice, in different formats:
-"dist/MathKeyboardEngine.iife.js" and "dist/MathKeyboardEngine.esm.js".
+Use the command "npm run build". (This command runs the build script as defined in package.json.) It creates a single-file library in different formats and language versions in the "dist" folder.
 Note: the "src" folder contains all the source code files. The file "bundle.ts" does not add new code, but helps in compiling the library to a single file.
+
+4. Testing localhost:
 For testing localhost with live reload from VS Code, you could install the VS Code extension "Five Server" (https://marketplace.visualstudio.com/items?itemName=yandeu.five-server) and click "> Go Live" in the bottom right corner of VS Code. The browser starts up automatically - navigate to the example folder with the html file you'd like to test.
 
 
