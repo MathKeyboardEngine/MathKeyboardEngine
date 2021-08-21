@@ -60,28 +60,30 @@ More pros:
 == How to use the library ==
 ============================
 
-The library is distributed as a single file. There are 4 options:
-https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.3/dist/MathKeyboardEngine.esm.js
-https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.3/dist/MathKeyboardEngine.esm.min.js
-https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.3/dist/MathKeyboardEngine.iife.js
-https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.3/dist/MathKeyboardEngine.iife.min.js
+The library is distributed as a single file in several language versions and formats:
+- MathKeyboardEngine.es2020-esm.js
+- MathKeyboardEngine.es2017-esm.js
+- MathKeyboardEngine.es2015-iife.js
 
+es2015, es2017, es2019: those are JavaScript language versions.
 esm: the ECMAScript module is simply the best choice: easy, safe, future proof.
 iife: an immediately invoked function expression for browsers that do not support ESM.
-min: the minified version is a smaller file with the same capabilities.
+
+You can replace ".js" by ".min.js" to get the minified version: this is a smaller file with the same capabilities.
 
 Quick start for using the "esm" format:
 
   <script type="module" type="text/javascript">
-      import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.3/dist/MathKeyboardEngine.esm.min.js';
+      import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.4/dist/MathKeyboardEngine.es2017-esm.min.js';
       let latexConfiguration = new mke.LatexConfiguration();
       let keyboardMemory = new mke.KeyboardMemory();
 
       // Subscribe to onclick events of virtual key presses, etc.
-      // See the 'examples' folder for more details.
   </script>
 
-Note: "mke" is an abbreviation of "MathKeyboardEngine". You can choose something different. (But the iife format forces you to use "mke".)
+Notes:
+- "mke" is an abbreviation of "MathKeyboardEngine". You can choose something different. (But the iife format forces you to use "mke".)
+- See the "examples" folder for more details.
 
 
 ==========================
