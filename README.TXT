@@ -6,12 +6,12 @@ MathKeyboardEngine provides the logic - in JavaScript and LaTeX - for a highly c
 
 It is intended for use together with - for example - MathJax or KaTeX.
 
-________________________ 
+-------------------------
 | Your customized       |    
 | virtual keyboard      |
 | made with             |   
 | HTML, CSS, SVG images |
- ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞    
+-------------------------
   ||  Each virtual key press should
   ||  call MathKeyboardEngine functions,
   ||  for example one key calls
@@ -19,27 +19,27 @@ ________________________
   ||  others Insert(DigitAtom(3)),
   ||  MoveUp(), DeleteCurrent(), etc.
   \/
-____________________________ 
+-----------------------------
 | The MathKeyboardEngine    |
 | uses a simple             |
 | abstract syntax tree and  |
 | is easily extendible      |
 | without knowledge of      |
 | typesetting.              |
- ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞͞ ͞ 
+-----------------------------
   ||  Calling getLatex(config) outputs
   ||  the Latex you "typed",
   ||  for example \frac{3}{4},
   ||  which you then feed to
   ||  KaTeX or MathJax for display.
   \/
-________________________________
+---------------------------------
 | Display LaTeX output and get  |
 | the experience of typing      |
 | in a textbox. Even the cursor |
 | and placeholders can be       |
 | customized :)                 |
- ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ 
+---------------------------------
 
 Unique about MathKeyboardEngine:
  - it supports (almost?) all math LaTeX (please share if you know anything that is not supported), including matrices.
@@ -53,7 +53,6 @@ More pros:
  - you have full control over what you display on the virtual keyboard keys and what a virtual key press actually does.
  - customize the editor output at runtime: dot or comma as decimal separator, cross or dot for multiplication, cursor style, colors, etc.
  - this libary also supports handling input from a physical keyboard, where - for example - the forward slash "/" key can be programmed to result in encapsulating a previously typed number as the numerator of a fraction. (Examples will come.)
- - because this libary is written in small ECMAScript modules, you can choose to make a smaller bundle.ts and export as a single (minified?) .js file that fits the needs of your project.
  - almost forgotten: it's open source, free to use, free to modify (please fork this repo)!
 
 
@@ -67,9 +66,9 @@ https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.3/dist/MathKeyboardE
 https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.3/dist/MathKeyboardEngine.iife.js
 https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.3/dist/MathKeyboardEngine.iife.min.js
 
-esm: ECMAScript modules are simply the best choice: easy, safe, future proof.
-iife: immediately invoked function expression for browsers that do not support ESM.
-min: minfied version is a smaller file with the same capabilities.
+esm: the ECMAScript module is simply the best choice: easy, safe, future proof.
+iife: an immediately invoked function expression for browsers that do not support ESM.
+min: the minified version is a smaller file with the same capabilities.
 
 Quick start for using the "esm" format:
 
@@ -79,7 +78,7 @@ Quick start for using the "esm" format:
       let keyboardMemory = new mke.KeyboardMemory();
 
       // Subscribe to onclick events of virtual key presses, etc.
-      // See the 'examples' folder in for more details.
+      // See the 'examples' folder for more details.
   </script>
 
 Note: "mke" is an abbreviation of "MathKeyboardEngine". You can choose something different. (But the iife format forces you to use "mke".)
