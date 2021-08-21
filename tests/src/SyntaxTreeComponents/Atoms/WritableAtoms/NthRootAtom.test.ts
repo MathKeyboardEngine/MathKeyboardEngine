@@ -16,11 +16,11 @@ describe("NthRoot", () =>
     let k = new KeyboardMemory();
     Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\sqrt[`, ']{', '}'));
     expectLatex(String.raw`\sqrt[◼]{◻}`, k);
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveRight(k);
     expectLatex(String.raw`\sqrt[3]{◼}`, k);
-    Insert(k, new DigitAtom(2));
-    Insert(k, new DigitAtom(7));
+    Insert(k, new DigitAtom("2"));
+    Insert(k, new DigitAtom("7"));
     expectLatex(String.raw`\sqrt[3]{27◼}`, k);
   });
 

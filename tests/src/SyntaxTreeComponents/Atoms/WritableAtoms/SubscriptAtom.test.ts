@@ -21,9 +21,9 @@ describe("Subscript as suffix", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, TestAtom());
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveRight(k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom("4"));
     expectLatex('3_{4◼}', k);
   });
 
@@ -31,16 +31,16 @@ describe("Subscript as suffix", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, TestAtom());
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveDown(k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom("4"));
     expectLatex('3_{4◼}', k);
   });
 
   it('3 encapsulated', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     assert.ok(TryInsertWithEncapsulateCurrent(k, TestAtom()));
     expectLatex('3_{◼}', k);
   });
@@ -49,9 +49,9 @@ describe("Subscript as suffix", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, TestAtom());
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveDown(k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom("4"));
     MoveUp(k);
     expectLatex('3◼_{4}', k);
   });
@@ -85,13 +85,13 @@ describe("Subscript as suffix", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, TestAtom());
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     expectLatex('3◼_{◻}', k);
     MoveUp(k);
     expectLatex('3◼_{◻}', k);
     MoveDown(k);
     expectLatex('3_{◼}', k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom("4"));
     expectLatex('3_{4◼}', k);
     MoveDown(k);
     expectLatex('3_{4◼}', k);

@@ -28,10 +28,10 @@ describe("GetLatex", () =>
   it('ReadonlyAtom', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     expect(`3◼`).to.equal(GetEditModeLatex(k, config));
     expect(`3`).to.equal(GetViewModeLatex(k, config));
-    expect(`3`).to.equal(GetViewModeLatex(new DigitAtom(3), config));
+    expect(`3`).to.equal(GetViewModeLatex(new DigitAtom("3"), config));
   });
 
   it('Placeholder', () =>
@@ -39,7 +39,7 @@ describe("GetLatex", () =>
     let k = new KeyboardMemory();
     let fraction = new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}');
     Insert(k, fraction);
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveDown(k);
     expect(String.raw`\frac{3}{◼}`).to.equal(GetEditModeLatex(k, config));
     expect('3').to.equal(GetViewModeLatex(fraction.Placeholders[0], config));

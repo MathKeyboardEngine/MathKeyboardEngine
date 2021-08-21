@@ -17,9 +17,9 @@ describe("Power", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveRight(k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom("4"));
     expectLatex('3^{4◼}', k);
   });
 
@@ -27,16 +27,16 @@ describe("Power", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveUp(k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom("4"));
     expectLatex('3^{4◼}', k);
   });
 
   it('3 encapsulatedBy(pow.Base)', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     assert.ok(TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}')));
     expectLatex('3^{◼}', k);
   });
@@ -45,9 +45,9 @@ describe("Power", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveUp(k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom("4"));
     MoveDown(k);
     expectLatex('3◼^{4}', k);
   });
@@ -81,13 +81,13 @@ describe("Power", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     expectLatex('3◼^{◻}', k);
     MoveDown(k);
     expectLatex('3◼^{◻}', k);
     MoveUp(k);
     expectLatex('3^{◼}', k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom("4"));
     expectLatex('3^{4◼}', k);
     MoveUp(k);
     expectLatex('3^{4◼}', k);

@@ -32,9 +32,9 @@ describe("Fraction", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveRight(k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom("4"));
     expectLatex(String.raw`\frac{3}{4◼}`, k);
   });
 
@@ -42,16 +42,16 @@ describe("Fraction", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveDown(k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom("4"));
     expectLatex(String.raw`\frac{3}{4◼}`, k);
   });
 
   it('3 encapsulatedBy(frac.Numerator)', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`\frac{3}{◼}`, k);
   });
@@ -90,10 +90,10 @@ describe("Fraction", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
-    Insert(k, new DigitAtom(1));
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("1"));
+    Insert(k, new DigitAtom("2"));
     MoveDown(k);
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveRight(k);
     expectLatex(String.raw`\frac{12}{3}◼`, k);
 
@@ -107,10 +107,10 @@ describe("Fraction", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
-    Insert(k, new DigitAtom(1));
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("1"));
+    Insert(k, new DigitAtom("2"));
     MoveDown(k);
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     expectLatex(String.raw`\frac{12}{3◼}`, k);
 
     MoveUp(k);
@@ -121,13 +121,13 @@ describe("Fraction", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
-    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom("1"));
     expectLatex(String.raw`\frac{1◼}{◻}`, k);
     MoveUp(k);
     expectLatex(String.raw`\frac{1◼}{◻}`, k);
 
     MoveDown(k);
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("2"));
     expectLatex(String.raw`\frac{1}{2◼}`, k);
     MoveDown(k);
     expectLatex(String.raw`\frac{1}{2◼}`, k);

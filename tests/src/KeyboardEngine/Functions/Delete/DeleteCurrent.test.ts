@@ -18,14 +18,14 @@ describe(DeleteCurrent.name, () =>
   {
     // Arrange
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom("1"));
     Insert(k, new RawAtom('+'));
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("2"));
     Insert(k, new DecimalSeparatorAtom());
-    Insert(k, new DigitAtom(5));
+    Insert(k, new DigitAtom("5"));
     Insert(k, new RawAtom('+')); // oops, typo!
     TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveDown(k);
     DeleteCurrent(k); // trying to fix typo
     expectLatex('1+2.5◼^{3}', k);
@@ -44,12 +44,12 @@ describe(DeleteCurrent.name, () =>
   {
     // Arrange
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("2"));
     Insert(k, new DecimalSeparatorAtom());
-    Insert(k, new DigitAtom(5));
+    Insert(k, new DigitAtom("5"));
     Insert(k, new RawAtom('+')); // oops, typo!
     TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveDown(k);
     DeleteCurrent(k); // trying to fix typo
     expectLatex('2.5◼^{3}', k);
@@ -68,10 +68,10 @@ describe(DeleteCurrent.name, () =>
   {
     // Arrange
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("2"));
     let p = new MultiplePlaceholdersAscendingRawAtom('', '^{', '}');
     TryInsertWithEncapsulateCurrent(k, p);
-    let d3 = new DigitAtom(3);
+    let d3 = new DigitAtom("3");
     Insert(k, d3);
     TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
     expectLatex('2^{3^{◼}}', k);

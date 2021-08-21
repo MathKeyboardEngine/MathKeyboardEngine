@@ -22,13 +22,13 @@ describe(MatrixAtom.name, () =>
         width: 2
     }));
     expectLatex(String.raw`\begin{pmatrix}◼ & ◻ \\ ◻ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
-    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom("1"));
     MoveRight(k);
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("2"));
     MoveDown(k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom("4"));
     MoveDown(k);
-    Insert(k, new DigitAtom(6));
+    Insert(k, new DigitAtom("6"));
     expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ ◻ & 4 \\ ◻ & 6◼\end{pmatrix}`, k);
   });
 
@@ -40,12 +40,12 @@ describe(MatrixAtom.name, () =>
         height: 2,
         width: 2
     }));
-    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom("1"));
     MoveRight(k);
     MoveRight(k);      
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveRight(k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom("4"));
     expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ 3 & 4◼\end{pmatrix}`, k);
     MoveLeft(k);
     expectLatex(String.raw`\begin{pmatrix}1 & ◻ \\ 3 & ◼4\end{pmatrix}`, k);
@@ -83,7 +83,7 @@ describe(MatrixAtom.name, () =>
   it('move out of an empty pmatrix(2*2) to the previous atom and back in', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("2"));
     Insert(k, new MatrixAtom({
         matrixType: "pmatrix",
         height: 2,
@@ -104,13 +104,13 @@ describe(MatrixAtom.name, () =>
         height: 2,
         width: 2
     }));
-    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom("1"));
     MoveRight(k);
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("2"));
     MoveRight(k);      
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveRight(k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom("4"));
     expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & 4◼\end{pmatrix}`, k);
     DeleteCurrent(k);
     expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & ◼\end{pmatrix}`, k);
@@ -174,13 +174,13 @@ describe(MatrixAtom.name, () =>
         height: 2,
         width: 2
     }));
-    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom("1"));
     MoveRight(k);
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("2"));
     MoveRight(k);      
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveRight(k);
-    Insert(k, new DigitAtom(4));
+    Insert(k, new DigitAtom("4"));
     expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & 4◼\end{pmatrix}`, k);
     MoveDown(k);
     expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & 4◼\end{pmatrix}`, k);

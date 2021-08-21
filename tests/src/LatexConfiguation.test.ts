@@ -41,9 +41,9 @@ describe(LatexConfiguration.name, () =>
         myLatexConfiguration.decimalSeparator = '{,}';
 
         let k = new KeyboardMemory();
-        Insert(k, new DigitAtom(1));
+        Insert(k, new DigitAtom("1"));
         Insert(k, new DecimalSeparatorAtom());
-        Insert(k, new DigitAtom(2));
+        Insert(k, new DigitAtom("2"));
         expect('1{,}2').to.equal(GetViewModeLatex(k, myLatexConfiguration));
     });
 });

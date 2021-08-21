@@ -12,8 +12,8 @@ describe(SelectRight.name, () =>
   it('a single Atom, with left border is Atom', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(1));
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("1"));
+    Insert(k, new DigitAtom("2"));
     MoveLeft(k);
     expectLatex('1◼2', k);
     SelectRight(k);
@@ -23,7 +23,7 @@ describe(SelectRight.name, () =>
   it('a single Atom, with left border is Placeholder', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom("1"));
     MoveLeft(k);
     expectLatex('◼1', k);
     SelectRight(k);
@@ -33,9 +33,9 @@ describe(SelectRight.name, () =>
   it('multiple Atoms, with left border is Atom', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(1));
-    Insert(k, new DigitAtom(2));
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("1"));
+    Insert(k, new DigitAtom("2"));
+    Insert(k, new DigitAtom("3"));
     MoveLeft(k);
     MoveLeft(k);
     expectLatex('1◼23', k);
@@ -47,8 +47,8 @@ describe(SelectRight.name, () =>
   it('multiple Atoms, with left border is Placeholder', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(1));
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("1"));
+    Insert(k, new DigitAtom("2"));
     MoveLeft(k);
     MoveLeft(k);
     expectLatex('◼12', k);

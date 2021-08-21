@@ -72,7 +72,7 @@ describe(KeyboardMemory.name, () => {
     it('impossible move requests in filled root placeholder do not throw', () =>
     {
       let k = new KeyboardMemory();
-      Insert(k, new DigitAtom(1));
+      Insert(k, new DigitAtom("1"));
       expectLatex('1◼', k);
       MoveUp(k);
       expectLatex('1◼', k);

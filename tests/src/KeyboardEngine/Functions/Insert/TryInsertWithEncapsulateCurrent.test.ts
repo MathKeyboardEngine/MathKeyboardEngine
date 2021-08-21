@@ -34,7 +34,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new MatrixAtom({matrixType: "pmatrix", height:2, width:2}));
     for(let i = 1; i <= 4; i++){
-        Insert(k, new DigitAtom(i));
+        Insert(k, new DigitAtom(i.toString()));
         MoveRight(k);    
     }
     assert.ok(TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}')));
@@ -45,7 +45,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new MatrixAtom({matrixType: "pmatrix", height:2, width:2}));
-    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom("1"));
     assert.ok(TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}')));
     expectLatex(String.raw`\begin{pmatrix}1^{◼} & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
   });
@@ -53,8 +53,8 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
   it('can encapsulate multiple digits', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(1));
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("1"));
+    Insert(k, new DigitAtom("2"));
     assert.ok(TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}')));
     expectLatex(String.raw`\frac{12}{◼}`, k);
   });
@@ -62,10 +62,10 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
   it('can encapsulate a decimal number', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(1));
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("1"));
+    Insert(k, new DigitAtom("2"));
     Insert(k, new DecimalSeparatorAtom());
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
 
     assert.ok(TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}')));
     expectLatex('12.3^{◼}', k);
@@ -81,22 +81,22 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
   it('does not encapsulate more than it should', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom("1"));
     Insert(k, new RawAtom('+'));
-    Insert(k, new DigitAtom(2));
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("2"));
+    Insert(k, new DigitAtom("3"));
     assert.ok(TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}')));
     expectLatex(String.raw`1+\frac{23}{◼}`, k);
   });
 
   it ('can encapsulate round brackets', () => {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom("1"));
     Insert(k, new RawAtom('+'));
     Insert(k, new RoundBracketsAtom('(', ')'));
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("2"));
     Insert(k, new RawAtom('+'));
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveRight(k);
     expectLatex(String.raw`1+(2+3)◼`, k);
     let powerAtom = new MultiplePlaceholdersAscendingRawAtom('', '^{', '}');
@@ -107,18 +107,18 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
 
   it ('config.deleteOuterRoundBracketsIfAny: deletes outer round brackets during encapsulation', () => {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom("1"));
     Insert(k, new RawAtom('+'));
     Insert(k, new RoundBracketsAtom('(', ')'));
     Insert(k, new RoundBracketsAtom('(', ')'));
     Insert(k, new RawAtom("x"));
     Insert(k, new RawAtom('+'));
-    Insert(k, new DigitAtom(2));
+    Insert(k, new DigitAtom("2"));
     MoveRight(k);
     Insert(k, new RoundBracketsAtom('(', ')'));
     Insert(k, new RawAtom("x"));
     Insert(k, new RawAtom('-'));
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveRight(k);
     MoveRight(k);
     expectLatex(String.raw`1+((x+2)(x-3))◼`, k);
@@ -128,12 +128,12 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
   
   it ('config.deleteOuterRoundBracketsIfAny does not delete square brackets during encapsulation', () => {
     let k = new KeyboardMemory();
-    Insert(k, new DigitAtom(1));
+    Insert(k, new DigitAtom("1"));
     Insert(k, new RawAtom('+'));
     Insert(k, new SinglePlaceholderRawAtom(String.raw`|`, String.raw`|`));
     Insert(k, new RawAtom("x"));
     Insert(k, new RawAtom('+'));
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveRight(k);
     let fraction = new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}');
     assert.ok(TryInsertWithEncapsulateCurrent(k, fraction, { deleteOuterRoundBracketsIfAny: true}));

@@ -16,7 +16,7 @@ describe(SinglePlaceholderRawAtom.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new SinglePlaceholderRawAtom(String.raw`\sqrt{`, '}'));
     expectLatex(String.raw`\sqrt{◼}`, k);
-    Insert(k, new DigitAtom(3));
+    Insert(k, new DigitAtom("3"));
     MoveRight(k);
     expectLatex(String.raw`\sqrt{3}◼`, k);
     MoveLeft(k);
