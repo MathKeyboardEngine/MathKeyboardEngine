@@ -11,11 +11,11 @@
 
         displayEditModeLatex();
 
-        registerAtomKey('infinity', mke.Insert, () => new mke.RawAtom(String.raw`\infty`));
-        registerAtomKey('leftarrow', mke.Insert, () => new mke.RawAtom(String.raw`\leftarrow`));
-        registerAtomKey('rightarrow', mke.Insert, () => new mke.RawAtom(String.raw`\rightarrow`));
-        registerAtomKey('uparrow', mke.Insert, () => new mke.RawAtom('\\uparrow'));
-        registerAtomKey('downarrow', mke.Insert, () => new mke.RawAtom(String.raw`\downarrow`));
+        registerAtomKey('infinity', mke.Insert, () => new mke.RawAtom(String.raw`\infty `));
+        registerAtomKey('leftarrow', mke.Insert, () => new mke.RawAtom(String.raw`\leftarrow `));
+        registerAtomKey('rightarrow', mke.Insert, () => new mke.RawAtom(String.raw`\rightarrow `));
+        registerAtomKey('uparrow', mke.Insert, () => new mke.RawAtom('\\uparrow '));
+        registerAtomKey('downarrow', mke.Insert, () => new mke.RawAtom(String.raw`\downarrow `));
 
 
         for (let i = 0; i < 10; i++) {
@@ -27,23 +27,23 @@
         }
 
         for(let afterslash of ['alpha', 'beta', 'gamma', 'lambda', 'mu', 'pi', 'div', 'sin', 'tan', 'cos', 'arcsin', 'arccos', 'arctan']){
-          registerAtomKey(afterslash, mke.Insert, () => new mke.RawAtom('\\' + afterslash));
+          registerAtomKey(afterslash, mke.Insert, () => new mke.RawAtom('\\' + afterslash + ' '));
         }
 
         registerAtomKey('decimalSeparator', mke.Insert, () => new mke.DecimalSeparatorAtom())
 
-        registerAtomKey('approx', mke.Insert, () => new mke.RawAtom(String.raw`\approx`));
+        registerAtomKey('approx', mke.Insert, () => new mke.RawAtom(String.raw`\approx `));
         registerAtomKey('equal', mke.Insert, () => new mke.RawAtom('='));
-        registerAtomKey('notEqual', mke.Insert, () => new mke.RawAtom(String.raw`\neq`));
+        registerAtomKey('notEqual', mke.Insert, () => new mke.RawAtom(String.raw`\neq `));
 
         registerAtomKey('lessThan', mke.Insert, () => new mke.RawAtom('<'));
         registerAtomKey('greaterThan', mke.Insert, () => new mke.RawAtom('>'));
-        registerAtomKey('lessThanOrEqual', mke.Insert, () => new mke.RawAtom(String.raw`\leq`));
-        registerAtomKey('greaterThanOrEqual', mke.Insert, () => new mke.RawAtom(String.raw`\geq`));
+        registerAtomKey('lessThanOrEqual', mke.Insert, () => new mke.RawAtom(String.raw`\leq `));
+        registerAtomKey('greaterThanOrEqual', mke.Insert, () => new mke.RawAtom(String.raw`\geq `));
 
         registerAtomKey('plus', mke.Insert, () => new mke.RawAtom('+'));
         registerAtomKey('minus', mke.Insert, () => new mke.RawAtom('-'));
-        registerAtomKey('times', mke.Insert, () => new mke.RawAtom(String.raw`\times`));
+        registerAtomKey('times', mke.Insert, () => new mke.RawAtom(String.raw`\times `));
         registerAtomKey('ratio', mke.Insert, () => new mke.RawAtom(':'));
         registerAtomKey('faculty', mke.Insert, () => new mke.RawAtom('!'));
 
@@ -73,18 +73,18 @@
         registerAtomKey('integers', mke.Insert, () => new mke.RawAtom(String.raw`\mathbb{Z}`));
         registerAtomKey('realNumbers', mke.Insert, () => new mke.RawAtom(String.raw`\mathbb{R}`));
 
-        registerAtomKey('isMemberOf', mke.Insert, () => new mke.RawAtom(String.raw`\in`));
-        registerAtomKey('isProperSubsetOf', mke.Insert, () => new mke.RawAtom(String.raw`\subset`));
-        registerAtomKey('isSubsetOf', mke.Insert, () => new mke.RawAtom(String.raw`\subseteq`));
-        registerAtomKey('setDifference', mke.Insert, () => new mke.RawAtom(String.raw`\setminus`));
-        registerAtomKey('exists', mke.Insert, () => new mke.RawAtom(String.raw`\exists`));
-        registerAtomKey('existsOne', mke.Insert, () => new mke.RawAtom(String.raw`\exists!`));
-        registerAtomKey('forAll', mke.Insert, () => new mke.RawAtom(String.raw`\forall`));
-        registerAtomKey('not', mke.Insert, () => new mke.RawAtom(String.raw`\neg`));
-        registerAtomKey('or', mke.Insert, () => new mke.RawAtom(String.raw`\lor`));
-        registerAtomKey('and', mke.Insert, () => new mke.RawAtom(String.raw`\land`));
-        registerAtomKey('doubleRightArrow', mke.Insert, () => new mke.RawAtom(String.raw`\Rightarrow`));
-        registerAtomKey('doubleLeftArrow', mke.Insert, () => new mke.RawAtom(String.raw`\Leftarrow`));
+        registerAtomKey('isMemberOf', mke.Insert, () => new mke.RawAtom(String.raw`\in `));
+        registerAtomKey('isProperSubsetOf', mke.Insert, () => new mke.RawAtom(String.raw`\subset `));
+        registerAtomKey('isSubsetOf', mke.Insert, () => new mke.RawAtom(String.raw`\subseteq `));
+        registerAtomKey('setDifference', mke.Insert, () => new mke.RawAtom(String.raw`\setminus `));
+        registerAtomKey('exists', mke.Insert, () => new mke.RawAtom(String.raw`\exists `));
+        registerAtomKey('existsOne', mke.Insert, () => new mke.RawAtom(String.raw`\exists! `));
+        registerAtomKey('forAll', mke.Insert, () => new mke.RawAtom(String.raw`\forall `));
+        registerAtomKey('not', mke.Insert, () => new mke.RawAtom(String.raw`\neg `));
+        registerAtomKey('or', mke.Insert, () => new mke.RawAtom(String.raw`\lor `));
+        registerAtomKey('and', mke.Insert, () => new mke.RawAtom(String.raw`\land `));
+        registerAtomKey('doubleRightArrow', mke.Insert, () => new mke.RawAtom(String.raw`\Rightarrow `));
+        registerAtomKey('doubleLeftArrow', mke.Insert, () => new mke.RawAtom(String.raw`\Leftarrow `));
 
         registerAtomKey('sin-1', mke.Insert, () => new mke.RawAtom(String.raw`\sin^{-1}`));
         registerAtomKey('cos-1', mke.Insert, () => new mke.RawAtom(String.raw`\cos^{-1}`));
