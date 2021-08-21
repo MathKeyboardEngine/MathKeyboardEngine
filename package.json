@@ -6,7 +6,9 @@
   "name": "mathkeyboardengine",
   "description": "MathKeyboardEngine provides the logic - in JavaScript and LaTeX - for a highly customizable virtual math keyboard.",
   "version": "v0.1.0-beta.3",
-  "files": ["dist/"],
+  "files": [
+    "dist/"
+  ],
   "devDependencies": {
     "@testdeck/mocha": "^0.1.2",
     "@types/chai": "^4.2.19",
@@ -17,7 +19,8 @@
     "ts-node": "^10.0.0",
     "typescript": "^4.3.5",
     "mocha": "^9.0.1",
-    "esbuild": "^0.12.19"
+    "esbuild": "^0.12.19",
+    "rimraf": "^3.0.2"
   },
   "repository": {
     "type": "git",
