@@ -2,10 +2,9 @@
 <meta charset="UTF-8">
 <html>
 <head>
-
+    <script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     <script type="module" type="text/javascript">
         import * as mke from '../../dist/MathKeyboardEngine.es2020-esm.js';
-        import katex from 'https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.mjs';
         let latexConfiguration = new mke.LatexConfiguration();
         let keyboardMemory = new mke.KeyboardMemory();
 
@@ -126,7 +125,9 @@
         function registerAtomKey(elementId, onclickArrowFuncForKeyboardMemoryAndAtom, atomGetter) {
           let element = document.getElementById(elementId);
           let latexToRenderOnKey = mke.GetViewModeLatex(atomGetter(), latexConfiguration);
-          katex.render(latexToRenderOnKey, element, { throwOnError: false });
+          let mathJaxHtml = MathJax.tex2chtml(latexToRenderOnKey, { display: false});
+          console.log(mathJaxHtml);
+          element.innerHTML = mathJaxHtml.innerHTML;
           element.onclick = () => {
             onclickArrowFuncForKeyboardMemoryAndAtom(keyboardMemory, atomGetter());
             displayEditModeLatex();
@@ -142,12 +143,12 @@
         }
 
         function displayEditModeLatex(){
-          katex.render(mke.GetEditModeLatex(keyboardMemory, latexConfiguration), document.getElementById('output'), { displayMode: true, throwOnError: false });
+          let latexToRender = mke.GetEditModeLatex(keyboardMemory, latexConfiguration);
+          let mathJaxHtml = MathJax.tex2chtml(latexToRender, { display: false});
+          document.getElementById('output').innerHTML = mathJaxHtml.innerHTML;
         }
     </script>
-    <script nomodule defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.js" integrity="sha384-GCPlQtWhtsjcfJYVuUlFZnpQgvoZ26GD/vvA4kG1PBaGBbtpq2cdvZjgj/mAMEY4" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.css" integrity="sha384-SkMvsJ0Np/CalM0X1hZCccQs6tnLq178/sGoPANiauambU0V/bloCaG3wOXfv+Ef" crossorigin="anonymous">
-    <style>
+ <style>
       #output{
         border: 1px solid gray;
         padding: 5px;
@@ -191,7 +192,7 @@
     </style>
   </head>
 <body>
-<h1>MathKeyboardEngine + KaTeX</h1>
+<h1>MathKeyboardEngine + MathJax</h1>
 <h3>Example keys - to be styled - to help you design your keyboard</h3>
 <div id="output"></div>
 <br/>
