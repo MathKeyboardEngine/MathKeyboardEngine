@@ -7,7 +7,7 @@ import { remove } from "../../../helpers/arrayhelpers/remove";
 import { Node } from "../../../SyntaxTreeComponents/Nodes/Base/Node";
 import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/BranchingNode";
 import { last } from "../../../helpers/arrayhelpers/last";
-import { AbstractPartOfNumberWithDigits } from "../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits";
+import { PartOfNumberWithDigits } from "../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits";
 import { EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex } from "../Insert/TryInsertWithEncapsulateCurrent";
 
 export function DeleteCurrent(k : KeyboardMemory) {
@@ -69,7 +69,7 @@ function TryEncapsulatePreviousInto(targetPlaceholder : Placeholder) {
         remove(targetPlaceholder.ParentNode!.ParentPlaceholder.Nodes, previousNode);
         targetPlaceholder.Nodes.push(previousNode);
         previousNode.ParentPlaceholder = targetPlaceholder;
-        if (previousNode instanceof AbstractPartOfNumberWithDigits){
+        if (previousNode instanceof PartOfNumberWithDigits){
             EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(previousNode.ParentPlaceholder.Nodes.length, previousNode.ParentPlaceholder.Nodes, targetPlaceholder);
         }
         return true;

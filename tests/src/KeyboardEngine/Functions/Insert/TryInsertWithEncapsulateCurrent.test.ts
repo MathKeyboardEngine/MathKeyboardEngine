@@ -15,7 +15,7 @@ import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { RoundBracketsNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
-import { SinglePlaceholderRawNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/SinglePlaceholderRawNode';
+import { StandardBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/StandardBranchingNode';
 import { MultiplePlaceholdersDescendingRawNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersDescendingRawNode';
 
 describe(TryInsertWithEncapsulateCurrent.name, () =>
@@ -130,7 +130,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new RawNode('+'));
-    Insert(k, new SinglePlaceholderRawNode(String.raw`|`, String.raw`|`));
+    Insert(k, new StandardBranchingNode(String.raw`|`, String.raw`|`));
     Insert(k, new RawNode("x"));
     Insert(k, new RawNode('+'));
     Insert(k, new DigitNode("3"));

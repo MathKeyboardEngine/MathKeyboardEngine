@@ -1,8 +1,8 @@
 import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
 import { LatexConfiguration } from "../../../LatexConfiguration";
-import { AbstractPartOfNumberWithDigits } from "./Base/PartOfNumberWithDigits";
+import { PartOfNumberWithDigits } from "./Base/PartOfNumberWithDigits";
 
-export class DecimalSeparatorNode extends AbstractPartOfNumberWithDigits {
+export class DecimalSeparatorNode extends PartOfNumberWithDigits {
     readonly Latex : (() => string );
     constructor(latex: string | (() => string ) = '.') {
         super();

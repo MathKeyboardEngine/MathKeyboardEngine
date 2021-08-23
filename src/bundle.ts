@@ -70,14 +70,11 @@ export { MultiplePlaceholdersAscendingRawNode };
 import { MultiplePlaceholdersDescendingRawNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersDescendingRawNode";
 export { MultiplePlaceholdersDescendingRawNode };
 
-import { MultiplePlaceholdersRawNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersRawNode";
-export { MultiplePlaceholdersRawNode };
+import { StandardBranchingNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/StandardBranchingNode";
+export { StandardBranchingNode };
 
 import { RoundBracketsNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode";
-export { RoundBracketsNode} ;
-
-import { SinglePlaceholderRawNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/SinglePlaceholderRawNode";
-export { SinglePlaceholderRawNode };
+export { RoundBracketsNode };
 
 import { Placeholder } from "./SyntaxTreeComponents/Placeholder/Placeholder";
 export { Placeholder };

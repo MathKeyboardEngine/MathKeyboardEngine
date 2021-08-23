@@ -60,14 +60,14 @@
             mke.Insert(k, subscriptNode);
           }
         }, () => new mke.MultiplePlaceholdersDescendingRawNode('', '_{', '}'));
-        registerNodeKey('squareRoot', mke.Insert, () => new mke.SinglePlaceholderRawNode(String.raw`\sqrt{`, '}'));
+        registerNodeKey('squareRoot', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\sqrt{`, '}'));
         registerNodeKey('nthRoot', mke.Insert, () => new mke.MultiplePlaceholdersDescendingRawNode(String.raw`\sqrt[`, ']{', '}'));
 
         registerNodeKey('roundBrackets', mke.Insert, () => new mke.RoundBracketsNode());
-        registerNodeKey('squareBrackets', mke.Insert, () => new mke.SinglePlaceholderRawNode(String.raw`\left[`, String.raw`\right]`));
-        registerNodeKey('pipes', mke.Insert, () => new mke.SinglePlaceholderRawNode(String.raw`\left|`, String.raw`\right|`));
-        registerNodeKey('doublePipes', mke.Insert, () => new mke.SinglePlaceholderRawNode(String.raw`\left\|`, String.raw`\right\|`));
-        registerNodeKey('curlyBrackets', mke.Insert, () => new mke.SinglePlaceholderRawNode(String.raw`\left\{`, String.raw`\right\}`));
+        registerNodeKey('squareBrackets', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left[`, String.raw`\right]`));
+        registerNodeKey('pipes', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left|`, String.raw`\right|`));
+        registerNodeKey('doublePipes', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left\|`, String.raw`\right\|`));
+        registerNodeKey('curlyBrackets', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left\{`, String.raw`\right\}`));
 
         registerNodeKey('naturalNumbers', mke.Insert, () => new mke.RawNode(String.raw`\mathbb{N}`));
         registerNodeKey('integers', mke.Insert, () => new mke.RawNode(String.raw`\mathbb{Z}`));
@@ -96,7 +96,7 @@
         registerNodeKey('integral', mke.Insert, () => new mke.MultiplePlaceholdersAscendingRawNode(String.raw`\int_{`, '}^{', '}'));
         registerNodeKey('sum', mke.Insert, () => new mke.MultiplePlaceholdersAscendingRawNode(String.raw`\sum_{`, '}^{', '}'));
         registerNodeKey('product', mke.Insert, () => new mke.MultiplePlaceholdersAscendingRawNode(String.raw`\prod_{`, '}^{', '}'));
-        registerNodeKey('limit', mke.Insert, () => new mke.SinglePlaceholderRawNode(String.raw`\lim_{`, '}'));
+        registerNodeKey('limit', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\lim_{`, '}'));
 
         const matrixWidthInputElement = document.getElementById('matrixWidth');
         const matrixHeightInputElement = document.getElementById('matrixHeight');

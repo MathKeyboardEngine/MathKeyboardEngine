@@ -1,7 +1,7 @@
 import { Placeholder } from "../../Placeholder/Placeholder";
-import { MultiplePlaceholdersRawNode } from "./MultiplePlaceholdersRawNode";
+import { StandardBranchingNode } from "./StandardBranchingNode";
 
-export class MultiplePlaceholdersAscendingRawNode extends MultiplePlaceholdersRawNode {
+export class MultiplePlaceholdersAscendingRawNode extends StandardBranchingNode {
     override GetMoveDownSuggestion(current : Placeholder) : Placeholder | null {
         let currentPlaceholderIndex = this.Placeholders.indexOf(current);
         if (currentPlaceholderIndex > 0) {

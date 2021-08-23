@@ -1,8 +1,8 @@
 import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
 import { LatexConfiguration } from "../../../LatexConfiguration";
-import { AbstractPartOfNumberWithDigits } from "./Base/PartOfNumberWithDigits";
+import { PartOfNumberWithDigits } from "./Base/PartOfNumberWithDigits";
 
-export class DigitNode extends AbstractPartOfNumberWithDigits {
+export class DigitNode extends PartOfNumberWithDigits {
     readonly value : string;
     constructor(digit : string) {
         super();
