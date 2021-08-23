@@ -10,7 +10,7 @@ import { MatrixNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Branch
 import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { DecimalSeparatorNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DecimalSeparatorNode';
-import { RawNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/RawNode';
+import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
@@ -82,7 +82,7 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
-    Insert(k, new RawNode('+'));
+    Insert(k, new StandardLeafNode('+'));
     Insert(k, new DigitNode("2"));
     Insert(k, new DigitNode("3"));
     assert.ok(TryInsertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}')));
@@ -92,10 +92,10 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
   it ('can encapsulate round brackets', () => {
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
-    Insert(k, new RawNode('+'));
+    Insert(k, new StandardLeafNode('+'));
     Insert(k, new RoundBracketsNode('(', ')'));
     Insert(k, new DigitNode("2"));
-    Insert(k, new RawNode('+'));
+    Insert(k, new StandardLeafNode('+'));
     Insert(k, new DigitNode("3"));
     MoveRight(k);
     expectLatex(String.raw`1+(2+3)◼`, k);
@@ -108,16 +108,16 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
   it ('config.deleteOuterRoundBracketsIfAny: deletes outer round brackets during encapsulation', () => {
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
-    Insert(k, new RawNode('+'));
+    Insert(k, new StandardLeafNode('+'));
     Insert(k, new RoundBracketsNode('(', ')'));
     Insert(k, new RoundBracketsNode('(', ')'));
-    Insert(k, new RawNode("x"));
-    Insert(k, new RawNode('+'));
+    Insert(k, new StandardLeafNode("x"));
+    Insert(k, new StandardLeafNode('+'));
     Insert(k, new DigitNode("2"));
     MoveRight(k);
     Insert(k, new RoundBracketsNode('(', ')'));
-    Insert(k, new RawNode("x"));
-    Insert(k, new RawNode('-'));
+    Insert(k, new StandardLeafNode("x"));
+    Insert(k, new StandardLeafNode('-'));
     Insert(k, new DigitNode("3"));
     MoveRight(k);
     MoveRight(k);
@@ -129,10 +129,10 @@ describe(TryInsertWithEncapsulateCurrent.name, () =>
   it ('config.deleteOuterRoundBracketsIfAny does not delete square brackets during encapsulation', () => {
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
-    Insert(k, new RawNode('+'));
+    Insert(k, new StandardLeafNode('+'));
     Insert(k, new StandardBranchingNode(String.raw`|`, String.raw`|`));
-    Insert(k, new RawNode("x"));
-    Insert(k, new RawNode('+'));
+    Insert(k, new StandardLeafNode("x"));
+    Insert(k, new StandardLeafNode('+'));
     Insert(k, new DigitNode("3"));
     MoveRight(k);
     let fraction = new DescendingBranchingNode(String.raw`\frac{`, '}{', '}');

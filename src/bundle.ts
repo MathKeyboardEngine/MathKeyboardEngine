@@ -58,8 +58,8 @@ export { DecimalSeparatorNode };
 import { DigitNode } from "./SyntaxTreeComponents/Nodes/LeafNodes/DigitNode";
 export { DigitNode };
 
-import { RawNode } from "./SyntaxTreeComponents/Nodes/LeafNodes/RawNode";
-export { RawNode };
+import { StandardLeafNode } from "./SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode";
+export { StandardLeafNode };
 
 import { MatrixNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/MatrixNode";
 export { MatrixNode };

@@ -43,7 +43,7 @@ It is intended for use together with - for example - MathJax or KaTeX.
 
 Unique about MathKeyboardEngine:
  - it supports (almost?) all math LaTeX (please share if you know anything that is not supported), including matrices.
- - the syntax tree exists of very few different parts: the (Leaf-)`RawNode` and (Branching-)`RawNode`s can be used for almost any LaTeX, including fractions, powers, combinations, subscript, etc. with ready-to-use up/down/left/right navigation.
+ - the syntax tree exists of very few different parts: the `StandardLeafNode`, `AscendingBranchingNode` and `DescendingBranchingNode` can be used for almost any LaTeX, including fractions, powers, combinations, subscript, etc. with ready-to-use up/down/left/right navigation.
  - it can be used with any LaTeX math typesetting library you like.
  
  A con:

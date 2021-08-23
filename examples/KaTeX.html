@@ -15,40 +15,40 @@
 
         displayEditModeLatex();
 
-        registerNodeKey('infinity', mke.Insert, () => new mke.RawNode(String.raw`\infty `));
-        registerNodeKey('leftarrow', mke.Insert, () => new mke.RawNode(String.raw`\leftarrow `));
-        registerNodeKey('rightarrow', mke.Insert, () => new mke.RawNode(String.raw`\rightarrow `));
-        registerNodeKey('uparrow', mke.Insert, () => new mke.RawNode('\\uparrow '));
-        registerNodeKey('downarrow', mke.Insert, () => new mke.RawNode(String.raw`\downarrow `));
+        registerNodeKey('infinity', mke.Insert, () => new mke.StandardLeafNode(String.raw`\infty `));
+        registerNodeKey('leftarrow', mke.Insert, () => new mke.StandardLeafNode(String.raw`\leftarrow `));
+        registerNodeKey('rightarrow', mke.Insert, () => new mke.StandardLeafNode(String.raw`\rightarrow `));
+        registerNodeKey('uparrow', mke.Insert, () => new mke.StandardLeafNode('\\uparrow '));
+        registerNodeKey('downarrow', mke.Insert, () => new mke.StandardLeafNode(String.raw`\downarrow `));
 
         for (let i = 0; i < 10; i++) {
           registerNodeKey('digit' + i, mke.Insert, () => new mke.DigitNode(i.toString()));
         }
 
         for(let letter of ['a', 'b', 'c', 'x', 'y', 'z']){
-          registerNodeKey(letter, mke.Insert, () => new mke.RawNode(letter));
+          registerNodeKey(letter, mke.Insert, () => new mke.StandardLeafNode(letter));
         }
 
         for(let afterslash of ['alpha', 'beta', 'gamma', 'lambda', 'mu', 'pi', 'div', 'sin', 'tan', 'cos', 'arcsin', 'arccos', 'arctan']){
-          registerNodeKey(afterslash, mke.Insert, () => new mke.RawNode('\\' + afterslash + ' '));
+          registerNodeKey(afterslash, mke.Insert, () => new mke.StandardLeafNode('\\' + afterslash + ' '));
         }
 
         registerNodeKey('decimalSeparator', mke.Insert, () => new mke.DecimalSeparatorNode())
 
-        registerNodeKey('approx', mke.Insert, () => new mke.RawNode(String.raw`\approx `));
-        registerNodeKey('equal', mke.Insert, () => new mke.RawNode('='));
-        registerNodeKey('notEqual', mke.Insert, () => new mke.RawNode(String.raw`\neq `));
+        registerNodeKey('approx', mke.Insert, () => new mke.StandardLeafNode(String.raw`\approx `));
+        registerNodeKey('equal', mke.Insert, () => new mke.StandardLeafNode('='));
+        registerNodeKey('notEqual', mke.Insert, () => new mke.StandardLeafNode(String.raw`\neq `));
 
-        registerNodeKey('lessThan', mke.Insert, () => new mke.RawNode('<'));
-        registerNodeKey('greaterThan', mke.Insert, () => new mke.RawNode('>'));
-        registerNodeKey('lessThanOrEqual', mke.Insert, () => new mke.RawNode(String.raw`\leq `));
-        registerNodeKey('greaterThanOrEqual', mke.Insert, () => new mke.RawNode(String.raw`\geq `));
+        registerNodeKey('lessThan', mke.Insert, () => new mke.StandardLeafNode('<'));
+        registerNodeKey('greaterThan', mke.Insert, () => new mke.StandardLeafNode('>'));
+        registerNodeKey('lessThanOrEqual', mke.Insert, () => new mke.StandardLeafNode(String.raw`\leq `));
+        registerNodeKey('greaterThanOrEqual', mke.Insert, () => new mke.StandardLeafNode(String.raw`\geq `));
 
-        registerNodeKey('plus', mke.Insert, () => new mke.RawNode('+'));
-        registerNodeKey('minus', mke.Insert, () => new mke.RawNode('-'));
-        registerNodeKey('times', mke.Insert, () => new mke.RawNode(String.raw`\times `));
-        registerNodeKey('ratio', mke.Insert, () => new mke.RawNode(':'));
-        registerNodeKey('faculty', mke.Insert, () => new mke.RawNode('!'));
+        registerNodeKey('plus', mke.Insert, () => new mke.StandardLeafNode('+'));
+        registerNodeKey('minus', mke.Insert, () => new mke.StandardLeafNode('-'));
+        registerNodeKey('times', mke.Insert, () => new mke.StandardLeafNode(String.raw`\times `));
+        registerNodeKey('ratio', mke.Insert, () => new mke.StandardLeafNode(':'));
+        registerNodeKey('faculty', mke.Insert, () => new mke.StandardLeafNode('!'));
 
         registerNodeKey('fraction', mke.Insert, () => new mke.DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
         registerNodeKey('binomial', mke.Insert, () => new mke.DescendingBranchingNode(String.raw`\binom{`, '}{', '}'));
@@ -72,29 +72,29 @@
         registerNodeKey('doublePipes', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left\|`, String.raw`\right\|`));
         registerNodeKey('curlyBrackets', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left\{`, String.raw`\right\}`));
 
-        registerNodeKey('naturalNumbers', mke.Insert, () => new mke.RawNode(String.raw`\mathbb{N}`));
-        registerNodeKey('integers', mke.Insert, () => new mke.RawNode(String.raw`\mathbb{Z}`));
-        registerNodeKey('realNumbers', mke.Insert, () => new mke.RawNode(String.raw`\mathbb{R}`));
+        registerNodeKey('naturalNumbers', mke.Insert, () => new mke.StandardLeafNode(String.raw`\mathbb{N}`));
+        registerNodeKey('integers', mke.Insert, () => new mke.StandardLeafNode(String.raw`\mathbb{Z}`));
+        registerNodeKey('realNumbers', mke.Insert, () => new mke.StandardLeafNode(String.raw`\mathbb{R}`));
 
-        registerNodeKey('isMemberOf', mke.Insert, () => new mke.RawNode(String.raw`\in `));
-        registerNodeKey('isProperSubsetOf', mke.Insert, () => new mke.RawNode(String.raw`\subset `));
-        registerNodeKey('isSubsetOf', mke.Insert, () => new mke.RawNode(String.raw`\subseteq `));
-        registerNodeKey('setDifference', mke.Insert, () => new mke.RawNode(String.raw`\setminus `));
-        registerNodeKey('exists', mke.Insert, () => new mke.RawNode(String.raw`\exists `));
-        registerNodeKey('existsOne', mke.Insert, () => new mke.RawNode(String.raw`\exists! `));
-        registerNodeKey('forAll', mke.Insert, () => new mke.RawNode(String.raw`\forall `));
-        registerNodeKey('not', mke.Insert, () => new mke.RawNode(String.raw`\neg `));
-        registerNodeKey('or', mke.Insert, () => new mke.RawNode(String.raw`\lor `));
-        registerNodeKey('and', mke.Insert, () => new mke.RawNode(String.raw`\land `));
-        registerNodeKey('doubleRightArrow', mke.Insert, () => new mke.RawNode(String.raw`\Rightarrow `));
-        registerNodeKey('doubleLeftArrow', mke.Insert, () => new mke.RawNode(String.raw`\Leftarrow `));
+        registerNodeKey('isMemberOf', mke.Insert, () => new mke.StandardLeafNode(String.raw`\in `));
+        registerNodeKey('isProperSubsetOf', mke.Insert, () => new mke.StandardLeafNode(String.raw`\subset `));
+        registerNodeKey('isSubsetOf', mke.Insert, () => new mke.StandardLeafNode(String.raw`\subseteq `));
+        registerNodeKey('setDifference', mke.Insert, () => new mke.StandardLeafNode(String.raw`\setminus `));
+        registerNodeKey('exists', mke.Insert, () => new mke.StandardLeafNode(String.raw`\exists `));
+        registerNodeKey('existsOne', mke.Insert, () => new mke.StandardLeafNode(String.raw`\exists! `));
+        registerNodeKey('forAll', mke.Insert, () => new mke.StandardLeafNode(String.raw`\forall `));
+        registerNodeKey('not', mke.Insert, () => new mke.StandardLeafNode(String.raw`\neg `));
+        registerNodeKey('or', mke.Insert, () => new mke.StandardLeafNode(String.raw`\lor `));
+        registerNodeKey('and', mke.Insert, () => new mke.StandardLeafNode(String.raw`\land `));
+        registerNodeKey('doubleRightArrow', mke.Insert, () => new mke.StandardLeafNode(String.raw`\Rightarrow `));
+        registerNodeKey('doubleLeftArrow', mke.Insert, () => new mke.StandardLeafNode(String.raw`\Leftarrow `));
 
-        registerNodeKey('sin-1', mke.Insert, () => new mke.RawNode(String.raw`\sin^{-1}`));
-        registerNodeKey('cos-1', mke.Insert, () => new mke.RawNode(String.raw`\cos^{-1}`));
-        registerNodeKey('tan-1', mke.Insert, () => new mke.RawNode(String.raw`\tan^{-1}`));
-        registerNodeKey('sininv', mke.Insert, () => new mke.RawNode(String.raw`\sin^{inv}`));
-        registerNodeKey('cosinv', mke.Insert, () => new mke.RawNode(String.raw`\cos^{inv}`));
-        registerNodeKey('taninv', mke.Insert, () => new mke.RawNode(String.raw`\tan^{inv}`));
+        registerNodeKey('sin-1', mke.Insert, () => new mke.StandardLeafNode(String.raw`\sin^{-1}`));
+        registerNodeKey('cos-1', mke.Insert, () => new mke.StandardLeafNode(String.raw`\cos^{-1}`));
+        registerNodeKey('tan-1', mke.Insert, () => new mke.StandardLeafNode(String.raw`\tan^{-1}`));
+        registerNodeKey('sininv', mke.Insert, () => new mke.StandardLeafNode(String.raw`\sin^{inv}`));
+        registerNodeKey('cosinv', mke.Insert, () => new mke.StandardLeafNode(String.raw`\cos^{inv}`));
+        registerNodeKey('taninv', mke.Insert, () => new mke.StandardLeafNode(String.raw`\tan^{inv}`));
 
         registerNodeKey('integral', mke.Insert, () => new mke.AscendingBranchingNode(String.raw`\int_{`, '}^{', '}'));
         registerNodeKey('sum', mke.Insert, () => new mke.AscendingBranchingNode(String.raw`\sum_{`, '}^{', '}'));

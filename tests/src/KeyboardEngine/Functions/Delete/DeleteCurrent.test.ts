@@ -9,7 +9,7 @@ import { TryInsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngi
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
-import { RawNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/RawNode';
+import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
 import { DecimalSeparatorNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DecimalSeparatorNode';
 
 describe(DeleteCurrent.name, () =>
@@ -19,11 +19,11 @@ describe(DeleteCurrent.name, () =>
     // Arrange
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
-    Insert(k, new RawNode('+'));
+    Insert(k, new StandardLeafNode('+'));
     Insert(k, new DigitNode("2"));
     Insert(k, new DecimalSeparatorNode());
     Insert(k, new DigitNode("5"));
-    Insert(k, new RawNode('+')); // oops, typo!
+    Insert(k, new StandardLeafNode('+')); // oops, typo!
     TryInsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     Insert(k, new DigitNode("3"));
     MoveDown(k);
@@ -47,7 +47,7 @@ describe(DeleteCurrent.name, () =>
     Insert(k, new DigitNode("2"));
     Insert(k, new DecimalSeparatorNode());
     Insert(k, new DigitNode("5"));
-    Insert(k, new RawNode('+')); // oops, typo!
+    Insert(k, new StandardLeafNode('+')); // oops, typo!
     TryInsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     Insert(k, new DigitNode("3"));
     MoveDown(k);
