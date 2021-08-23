@@ -10,12 +10,12 @@ Whenever a new Atom is defined with special behaviour,
 developers can opt-in by using those new special classes instead of the RawAtom.
 */
 export class RawAtom extends ReadonlyAtom {
-    readonly Latex : string;
-    constructor(latex: string) {
+    readonly Latex : (() => string );
+    constructor(latex: string | (() => string )) {
         super();
-        this.Latex = latex;
+        this.Latex = typeof latex === 'string' ? () => latex : latex;
     }
     override getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
-        return this.Latex;
+        return this.Latex();
     }
 }

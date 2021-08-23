@@ -3,7 +3,6 @@
     activePlaceholderColor? : string;
     passivePlaceholderNucleus : string = String.raw`\square `;
     passivePlaceholderColor? : string;
-    decimalSeparator : '.' | '{,}' = '.';
     selectionHightlightStart : string = String.raw`\colorbox{#ADD8E6}{`;
     selectionHightlightEnd : string = '}';
 

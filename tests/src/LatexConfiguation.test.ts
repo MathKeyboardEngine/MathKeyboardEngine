@@ -34,16 +34,4 @@ describe(LatexConfiguration.name, () =>
         Insert(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
         expect(String.raw`\color{orange}{◼}^{\color{gray}{◼}}`).to.equal(GetEditModeLatex(k, myLatexConfiguration));
     });
-
-    it('allows customizing the decimal separator', () =>
-    {
-        let myLatexConfiguration = new LatexConfiguration();
-        myLatexConfiguration.decimalSeparator = '{,}';
-
-        let k = new KeyboardMemory();
-        Insert(k, new DigitAtom("1"));
-        Insert(k, new DecimalSeparatorAtom());
-        Insert(k, new DigitAtom("2"));
-        expect('1{,}2').to.equal(GetViewModeLatex(k, myLatexConfiguration));
-    });
 });
