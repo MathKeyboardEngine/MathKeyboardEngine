@@ -1,10 +1,10 @@
 import { firstBefore } from "../../../helpers/arrayhelpers/firstBefore";
-import { Atom } from "../../../SyntaxTreeComponents/Atoms/Base/Atom";
+import { Node } from "../../../SyntaxTreeComponents/Nodes/Base/Node";
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
 import { LeaveSelectionMode } from "../Selection/LeaveSelectionMode";
 
-export function popSelection(k: KeyboardMemory, arg? :{andInsert : Atom}) : Atom[] {
+export function popSelection(k: KeyboardMemory, arg? :{andInsert : Node}) : Node[] {
     if (k.SelectionDiff == null) {
         throw 'Turn on selection mode before calling this method.';
     }
@@ -13,16 +13,16 @@ export function popSelection(k: KeyboardMemory, arg? :{andInsert : Atom}) : Atom
         return [];
     }
     let diff = k.SelectionDiff;
-    let insertAtom = arg == undefined ? [] : [arg.andInsert];
+    let insertNode = arg == undefined ? [] : [arg.andInsert];
     if (k.Current instanceof Placeholder) {
         LeaveSelectionMode(k);
-        return k.Current.Atoms.splice(0, diff, ...insertAtom);
+        return k.Current.Nodes.splice(0, diff, ...insertNode);
     } else {
-        let siblings = k.Current.ParentPlaceholder.Atoms;
-        let indexOfLeftBorder = siblings.indexOf(k.InclusiveSelectionLeftBorder as Atom);
+        let siblings = k.Current.ParentPlaceholder.Nodes;
+        let indexOfLeftBorder = siblings.indexOf(k.InclusiveSelectionLeftBorder as Node);
         k.Current = firstBefore(siblings, k.InclusiveSelectionLeftBorder) ?? k.Current.ParentPlaceholder;
         LeaveSelectionMode(k);
-        return siblings.splice(indexOfLeftBorder, abs(diff), ...insertAtom);
+        return siblings.splice(indexOfLeftBorder, abs(diff), ...insertNode);
     }
 }
 

@@ -15,101 +15,101 @@
 
         displayEditModeLatex();
 
-        registerAtomKey('infinity', mke.Insert, () => new mke.RawAtom(String.raw`\infty `));
-        registerAtomKey('leftarrow', mke.Insert, () => new mke.RawAtom(String.raw`\leftarrow `));
-        registerAtomKey('rightarrow', mke.Insert, () => new mke.RawAtom(String.raw`\rightarrow `));
-        registerAtomKey('uparrow', mke.Insert, () => new mke.RawAtom('\\uparrow '));
-        registerAtomKey('downarrow', mke.Insert, () => new mke.RawAtom(String.raw`\downarrow `));
+        registerNodeKey('infinity', mke.Insert, () => new mke.RawNode(String.raw`\infty `));
+        registerNodeKey('leftarrow', mke.Insert, () => new mke.RawNode(String.raw`\leftarrow `));
+        registerNodeKey('rightarrow', mke.Insert, () => new mke.RawNode(String.raw`\rightarrow `));
+        registerNodeKey('uparrow', mke.Insert, () => new mke.RawNode('\\uparrow '));
+        registerNodeKey('downarrow', mke.Insert, () => new mke.RawNode(String.raw`\downarrow `));
 
         for (let i = 0; i < 10; i++) {
-          registerAtomKey('digit' + i, mke.Insert, () => new mke.DigitAtom(i.toString()));
+          registerNodeKey('digit' + i, mke.Insert, () => new mke.DigitNode(i.toString()));
         }
 
         for(let letter of ['a', 'b', 'c', 'x', 'y', 'z']){
-          registerAtomKey(letter, mke.Insert, () => new mke.RawAtom(letter));
+          registerNodeKey(letter, mke.Insert, () => new mke.RawNode(letter));
         }
 
         for(let afterslash of ['alpha', 'beta', 'gamma', 'lambda', 'mu', 'pi', 'div', 'sin', 'tan', 'cos', 'arcsin', 'arccos', 'arctan']){
-          registerAtomKey(afterslash, mke.Insert, () => new mke.RawAtom('\\' + afterslash + ' '));
+          registerNodeKey(afterslash, mke.Insert, () => new mke.RawNode('\\' + afterslash + ' '));
         }
 
-        registerAtomKey('decimalSeparator', mke.Insert, () => new mke.DecimalSeparatorAtom())
+        registerNodeKey('decimalSeparator', mke.Insert, () => new mke.DecimalSeparatorNode())
 
-        registerAtomKey('approx', mke.Insert, () => new mke.RawAtom(String.raw`\approx `));
-        registerAtomKey('equal', mke.Insert, () => new mke.RawAtom('='));
-        registerAtomKey('notEqual', mke.Insert, () => new mke.RawAtom(String.raw`\neq `));
+        registerNodeKey('approx', mke.Insert, () => new mke.RawNode(String.raw`\approx `));
+        registerNodeKey('equal', mke.Insert, () => new mke.RawNode('='));
+        registerNodeKey('notEqual', mke.Insert, () => new mke.RawNode(String.raw`\neq `));
 
-        registerAtomKey('lessThan', mke.Insert, () => new mke.RawAtom('<'));
-        registerAtomKey('greaterThan', mke.Insert, () => new mke.RawAtom('>'));
-        registerAtomKey('lessThanOrEqual', mke.Insert, () => new mke.RawAtom(String.raw`\leq `));
-        registerAtomKey('greaterThanOrEqual', mke.Insert, () => new mke.RawAtom(String.raw`\geq `));
+        registerNodeKey('lessThan', mke.Insert, () => new mke.RawNode('<'));
+        registerNodeKey('greaterThan', mke.Insert, () => new mke.RawNode('>'));
+        registerNodeKey('lessThanOrEqual', mke.Insert, () => new mke.RawNode(String.raw`\leq `));
+        registerNodeKey('greaterThanOrEqual', mke.Insert, () => new mke.RawNode(String.raw`\geq `));
 
-        registerAtomKey('plus', mke.Insert, () => new mke.RawAtom('+'));
-        registerAtomKey('minus', mke.Insert, () => new mke.RawAtom('-'));
-        registerAtomKey('times', mke.Insert, () => new mke.RawAtom(String.raw`\times `));
-        registerAtomKey('ratio', mke.Insert, () => new mke.RawAtom(':'));
-        registerAtomKey('faculty', mke.Insert, () => new mke.RawAtom('!'));
+        registerNodeKey('plus', mke.Insert, () => new mke.RawNode('+'));
+        registerNodeKey('minus', mke.Insert, () => new mke.RawNode('-'));
+        registerNodeKey('times', mke.Insert, () => new mke.RawNode(String.raw`\times `));
+        registerNodeKey('ratio', mke.Insert, () => new mke.RawNode(':'));
+        registerNodeKey('faculty', mke.Insert, () => new mke.RawNode('!'));
 
-        registerAtomKey('fraction', mke.Insert, () => new mke.MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}'));
-        registerAtomKey('binomial', mke.Insert, () => new mke.MultiplePlaceholdersDescendingRawAtom(String.raw`\binom{`, '}{', '}'));
+        registerNodeKey('fraction', mke.Insert, () => new mke.MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}'));
+        registerNodeKey('binomial', mke.Insert, () => new mke.MultiplePlaceholdersDescendingRawNode(String.raw`\binom{`, '}{', '}'));
 
-        registerAtomKey('power', (k, powerAtom) => {
-          if (!mke.TryInsertWithEncapsulateCurrent(k, powerAtom)){
-            mke.Insert(k, powerAtom);
+        registerNodeKey('power', (k, powerNode) => {
+          if (!mke.TryInsertWithEncapsulateCurrent(k, powerNode)){
+            mke.Insert(k, powerNode);
           }
-        }, () => new mke.MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
-        registerAtomKey('subscript', (k, subscriptAtom) => {
-          if (!mke.TryInsertWithEncapsulateCurrent(k, subscriptAtom)){
-            mke.Insert(k, subscriptAtom);
+        }, () => new mke.MultiplePlaceholdersAscendingRawNode('', '^{', '}'));
+        registerNodeKey('subscript', (k, subscriptNode) => {
+          if (!mke.TryInsertWithEncapsulateCurrent(k, subscriptNode)){
+            mke.Insert(k, subscriptNode);
           }
-        }, () => new mke.MultiplePlaceholdersDescendingRawAtom('', '_{', '}'));
-        registerAtomKey('squareRoot', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\sqrt{`, '}'));
-        registerAtomKey('nthRoot', mke.Insert, () => new mke.MultiplePlaceholdersDescendingRawAtom(String.raw`\sqrt[`, ']{', '}'));
+        }, () => new mke.MultiplePlaceholdersDescendingRawNode('', '_{', '}'));
+        registerNodeKey('squareRoot', mke.Insert, () => new mke.SinglePlaceholderRawNode(String.raw`\sqrt{`, '}'));
+        registerNodeKey('nthRoot', mke.Insert, () => new mke.MultiplePlaceholdersDescendingRawNode(String.raw`\sqrt[`, ']{', '}'));
 
-        registerAtomKey('roundBrackets', mke.Insert, () => new mke.RoundBracketsAtom());
-        registerAtomKey('squareBrackets', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\left[`, String.raw`\right]`));
-        registerAtomKey('pipes', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\left|`, String.raw`\right|`));
-        registerAtomKey('doublePipes', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\left\|`, String.raw`\right\|`));
-        registerAtomKey('curlyBrackets', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\left\{`, String.raw`\right\}`));
+        registerNodeKey('roundBrackets', mke.Insert, () => new mke.RoundBracketsNode());
+        registerNodeKey('squareBrackets', mke.Insert, () => new mke.SinglePlaceholderRawNode(String.raw`\left[`, String.raw`\right]`));
+        registerNodeKey('pipes', mke.Insert, () => new mke.SinglePlaceholderRawNode(String.raw`\left|`, String.raw`\right|`));
+        registerNodeKey('doublePipes', mke.Insert, () => new mke.SinglePlaceholderRawNode(String.raw`\left\|`, String.raw`\right\|`));
+        registerNodeKey('curlyBrackets', mke.Insert, () => new mke.SinglePlaceholderRawNode(String.raw`\left\{`, String.raw`\right\}`));
 
-        registerAtomKey('naturalNumbers', mke.Insert, () => new mke.RawAtom(String.raw`\mathbb{N}`));
-        registerAtomKey('integers', mke.Insert, () => new mke.RawAtom(String.raw`\mathbb{Z}`));
-        registerAtomKey('realNumbers', mke.Insert, () => new mke.RawAtom(String.raw`\mathbb{R}`));
+        registerNodeKey('naturalNumbers', mke.Insert, () => new mke.RawNode(String.raw`\mathbb{N}`));
+        registerNodeKey('integers', mke.Insert, () => new mke.RawNode(String.raw`\mathbb{Z}`));
+        registerNodeKey('realNumbers', mke.Insert, () => new mke.RawNode(String.raw`\mathbb{R}`));
 
-        registerAtomKey('isMemberOf', mke.Insert, () => new mke.RawAtom(String.raw`\in `));
-        registerAtomKey('isProperSubsetOf', mke.Insert, () => new mke.RawAtom(String.raw`\subset `));
-        registerAtomKey('isSubsetOf', mke.Insert, () => new mke.RawAtom(String.raw`\subseteq `));
-        registerAtomKey('setDifference', mke.Insert, () => new mke.RawAtom(String.raw`\setminus `));
-        registerAtomKey('exists', mke.Insert, () => new mke.RawAtom(String.raw`\exists `));
-        registerAtomKey('existsOne', mke.Insert, () => new mke.RawAtom(String.raw`\exists! `));
-        registerAtomKey('forAll', mke.Insert, () => new mke.RawAtom(String.raw`\forall `));
-        registerAtomKey('not', mke.Insert, () => new mke.RawAtom(String.raw`\neg `));
-        registerAtomKey('or', mke.Insert, () => new mke.RawAtom(String.raw`\lor `));
-        registerAtomKey('and', mke.Insert, () => new mke.RawAtom(String.raw`\land `));
-        registerAtomKey('doubleRightArrow', mke.Insert, () => new mke.RawAtom(String.raw`\Rightarrow `));
-        registerAtomKey('doubleLeftArrow', mke.Insert, () => new mke.RawAtom(String.raw`\Leftarrow `));
+        registerNodeKey('isMemberOf', mke.Insert, () => new mke.RawNode(String.raw`\in `));
+        registerNodeKey('isProperSubsetOf', mke.Insert, () => new mke.RawNode(String.raw`\subset `));
+        registerNodeKey('isSubsetOf', mke.Insert, () => new mke.RawNode(String.raw`\subseteq `));
+        registerNodeKey('setDifference', mke.Insert, () => new mke.RawNode(String.raw`\setminus `));
+        registerNodeKey('exists', mke.Insert, () => new mke.RawNode(String.raw`\exists `));
+        registerNodeKey('existsOne', mke.Insert, () => new mke.RawNode(String.raw`\exists! `));
+        registerNodeKey('forAll', mke.Insert, () => new mke.RawNode(String.raw`\forall `));
+        registerNodeKey('not', mke.Insert, () => new mke.RawNode(String.raw`\neg `));
+        registerNodeKey('or', mke.Insert, () => new mke.RawNode(String.raw`\lor `));
+        registerNodeKey('and', mke.Insert, () => new mke.RawNode(String.raw`\land `));
+        registerNodeKey('doubleRightArrow', mke.Insert, () => new mke.RawNode(String.raw`\Rightarrow `));
+        registerNodeKey('doubleLeftArrow', mke.Insert, () => new mke.RawNode(String.raw`\Leftarrow `));
 
-        registerAtomKey('sin-1', mke.Insert, () => new mke.RawAtom(String.raw`\sin^{-1}`));
-        registerAtomKey('cos-1', mke.Insert, () => new mke.RawAtom(String.raw`\cos^{-1}`));
-        registerAtomKey('tan-1', mke.Insert, () => new mke.RawAtom(String.raw`\tan^{-1}`));
-        registerAtomKey('sininv', mke.Insert, () => new mke.RawAtom(String.raw`\sin^{inv}`));
-        registerAtomKey('cosinv', mke.Insert, () => new mke.RawAtom(String.raw`\cos^{inv}`));
-        registerAtomKey('taninv', mke.Insert, () => new mke.RawAtom(String.raw`\tan^{inv}`));
+        registerNodeKey('sin-1', mke.Insert, () => new mke.RawNode(String.raw`\sin^{-1}`));
+        registerNodeKey('cos-1', mke.Insert, () => new mke.RawNode(String.raw`\cos^{-1}`));
+        registerNodeKey('tan-1', mke.Insert, () => new mke.RawNode(String.raw`\tan^{-1}`));
+        registerNodeKey('sininv', mke.Insert, () => new mke.RawNode(String.raw`\sin^{inv}`));
+        registerNodeKey('cosinv', mke.Insert, () => new mke.RawNode(String.raw`\cos^{inv}`));
+        registerNodeKey('taninv', mke.Insert, () => new mke.RawNode(String.raw`\tan^{inv}`));
 
-        registerAtomKey('integral', mke.Insert, () => new mke.MultiplePlaceholdersAscendingRawAtom(String.raw`\int_{`, '}^{', '}'));
-        registerAtomKey('sum', mke.Insert, () => new mke.MultiplePlaceholdersAscendingRawAtom(String.raw`\sum_{`, '}^{', '}'));
-        registerAtomKey('product', mke.Insert, () => new mke.MultiplePlaceholdersAscendingRawAtom(String.raw`\prod_{`, '}^{', '}'));
-        registerAtomKey('limit', mke.Insert, () => new mke.SinglePlaceholderRawAtom(String.raw`\lim_{`, '}'));
+        registerNodeKey('integral', mke.Insert, () => new mke.MultiplePlaceholdersAscendingRawNode(String.raw`\int_{`, '}^{', '}'));
+        registerNodeKey('sum', mke.Insert, () => new mke.MultiplePlaceholdersAscendingRawNode(String.raw`\sum_{`, '}^{', '}'));
+        registerNodeKey('product', mke.Insert, () => new mke.MultiplePlaceholdersAscendingRawNode(String.raw`\prod_{`, '}^{', '}'));
+        registerNodeKey('limit', mke.Insert, () => new mke.SinglePlaceholderRawNode(String.raw`\lim_{`, '}'));
 
         const matrixWidthInputElement = document.getElementById('matrixWidth');
         const matrixHeightInputElement = document.getElementById('matrixHeight');
         function ReRegisterMatrix() {
-          registerAtomKey('pmatrix', mke.Insert, () => new mke.MatrixAtom({
+          registerNodeKey('pmatrix', mke.Insert, () => new mke.MatrixNode({
             matrixType:'pmatrix', 
             width: matrixWidthInputElement.value, 
             height: matrixHeightInputElement.value
           }));
-          registerAtomKey('vmatrix', mke.Insert, () => new mke.MatrixAtom({
+          registerNodeKey('vmatrix', mke.Insert, () => new mke.MatrixNode({
             matrixType:'vmatrix', 
             width: matrixWidthInputElement.value, 
             height: matrixHeightInputElement.value
@@ -126,12 +126,12 @@
 
         registerKey('deleteCurrent', mke.DeleteCurrent);
 
-        function registerAtomKey(elementId, onclickArrowFuncForKeyboardMemoryAndAtom, atomGetter) {
+        function registerNodeKey(elementId, onclickArrowFuncForKeyboardMemoryAndNode, nodeGetter) {
           let element = document.getElementById(elementId);
-          let latex = mke.GetViewModeLatex(atomGetter(), latexConfiguration);
+          let latex = mke.GetViewModeLatex(nodeGetter(), latexConfiguration);
           renderLatexInKey(latex, element);
           element.onclick = () => {
-            onclickArrowFuncForKeyboardMemoryAndAtom(keyboardMemory, atomGetter());
+            onclickArrowFuncForKeyboardMemoryAndNode(keyboardMemory, nodeGetter());
             displayEditModeLatex();
           };
         }

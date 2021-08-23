@@ -3,18 +3,18 @@ import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { WritableAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/Base/WritableAtom';
+import { BranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/BranchingNode';
 import { LatexConfiguration } from '../../../../../src/LatexConfiguration';
 import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 
-describe(WritableAtom.name, () =>
+describe(BranchingNode.name, () =>
 {
   it('calling MoveDown does not throw even if not implemented', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new SquaredAtom());
+    Insert(k, new SquaredNode());
     expectLatex('◼^2', k);
     MoveUp(k);
     expectLatex('◼^2', k);
@@ -23,9 +23,9 @@ describe(WritableAtom.name, () =>
   });
 });
 
-class SquaredAtom extends WritableAtom {
-    /* Real applications will probably use the PowerAtom.
-    This SquaredAtom class is merely meant to test a theoretically possible WritableAtom structure
+class SquaredNode extends BranchingNode {
+    /* Real applications will probably use the PowerNode.
+    This SquaredNode class is merely meant to test a theoretically possible BranchingNode structure
     with a single placeholder and no support for moving up or down. */
     Base : Placeholder;
     constructor(){

@@ -1,10 +1,10 @@
 import { Placeholder } from "../../Placeholder/Placeholder";
 import { LatexConfiguration } from "../../../LatexConfiguration";
-import { WritableAtom } from "../Base/WritableAtom";
+import { BranchingNode } from "../Base/BranchingNode";
 import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
 
 
-export class MultiplePlaceholdersRawAtom extends WritableAtom {
+export class MultiplePlaceholdersRawNode extends BranchingNode {
     private before: string;
     private between: string[];
     private after: string;

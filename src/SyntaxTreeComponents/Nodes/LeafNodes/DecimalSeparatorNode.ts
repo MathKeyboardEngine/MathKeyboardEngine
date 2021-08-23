@@ -2,7 +2,7 @@ import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
 import { LatexConfiguration } from "../../../LatexConfiguration";
 import { AbstractPartOfNumberWithDigits } from "./Base/PartOfNumberWithDigits";
 
-export class DecimalSeparatorAtom extends AbstractPartOfNumberWithDigits {
+export class DecimalSeparatorNode extends AbstractPartOfNumberWithDigits {
     readonly Latex : (() => string );
     constructor(latex: string | (() => string ) = '.') {
         super();

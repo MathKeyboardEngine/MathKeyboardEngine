@@ -1,25 +1,25 @@
 import { lastOrNull } from "../../../helpers/arrayhelpers/lastOrNull";
-import { WritableAtom } from "../../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
+import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/BranchingNode";
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
 
 export function MoveDown(k : KeyboardMemory) {
     let moveFromPlaceholder = k.Current instanceof Placeholder ? k.Current : k.Current.ParentPlaceholder;
-    let suggestingAtom : WritableAtom;
+    let suggestingNode : BranchingNode;
     while (true) {
-        if (moveFromPlaceholder.ParentAtom == null) {
+        if (moveFromPlaceholder.ParentNode == null) {
             return;
         }
-        suggestingAtom = moveFromPlaceholder.ParentAtom;
-        if (suggestingAtom instanceof WritableAtom){
-            let suggestion = suggestingAtom.GetMoveDownSuggestion(moveFromPlaceholder);
+        suggestingNode = moveFromPlaceholder.ParentNode;
+        if (suggestingNode instanceof BranchingNode){
+            let suggestion = suggestingNode.GetMoveDownSuggestion(moveFromPlaceholder);
             if (suggestion != null)
             {
-                k.Current = lastOrNull(suggestion.Atoms) ?? suggestion;
+                k.Current = lastOrNull(suggestion.Nodes) ?? suggestion;
                 return;
             }
         }
 
-        moveFromPlaceholder = suggestingAtom.ParentPlaceholder;
+        moveFromPlaceholder = suggestingNode.ParentPlaceholder;
     }
 }

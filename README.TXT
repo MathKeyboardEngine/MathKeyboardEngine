@@ -15,8 +15,8 @@ It is intended for use together with - for example - MathJax or KaTeX.
   ||  Each virtual key press should
   ||  call MathKeyboardEngine functions,
   ||  for example one key calls
-  ||  Insert(FractionAtom()) and
-  ||  others Insert(DigitAtom(3)),
+  ||  Insert(FractionNode()) and
+  ||  others Insert(DigitNode("3")),
   ||  MoveUp(), DeleteCurrent(), etc.
   \/
 -----------------------------
@@ -43,7 +43,7 @@ It is intended for use together with - for example - MathJax or KaTeX.
 
 Unique about MathKeyboardEngine:
  - it supports (almost?) all math LaTeX (please share if you know anything that is not supported), including matrices.
- - the syntax tree exists of very few different parts: the (Readonly-)`RawAtom` and (Writable-)`RawAtom`s can be used for almost any LaTeX, including fractions, powers, combinations, subscript, etc. with ready-to-use up/down/left/right navigation.
+ - the syntax tree exists of very few different parts: the (Leaf-)`RawNode` and (Branching-)`RawNode`s can be used for almost any LaTeX, including fractions, powers, combinations, subscript, etc. with ready-to-use up/down/left/right navigation.
  - it can be used with any LaTeX math typesetting library you like.
  
  A con:

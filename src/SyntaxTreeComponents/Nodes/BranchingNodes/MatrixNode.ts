@@ -1,9 +1,9 @@
 import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
 import { LatexConfiguration } from "../../../LatexConfiguration";
 import { Placeholder } from "../../Placeholder/Placeholder";
-import { WritableAtom } from "../Base/WritableAtom";
+import { BranchingNode } from "../Base/BranchingNode";
 
-export class MatrixAtom extends WritableAtom {
+export class MatrixNode extends BranchingNode {
     readonly MatrixType : string;
     readonly Grid : Placeholder[][];
     
@@ -21,7 +21,7 @@ export class MatrixAtom extends WritableAtom {
         }
         super(leftToRight);
         for(let placeholder of leftToRight){
-            placeholder.ParentAtom = this;
+            placeholder.ParentNode = this;
         }
         this.Grid = grid;
         this.MatrixType = args.matrixType;

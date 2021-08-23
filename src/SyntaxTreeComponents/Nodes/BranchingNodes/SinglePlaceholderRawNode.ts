@@ -1,9 +1,9 @@
 import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
 import { LatexConfiguration } from "../../../LatexConfiguration";
 import { Placeholder } from "../../Placeholder/Placeholder";
-import { WritableAtom } from "../Base/WritableAtom";
+import { BranchingNode } from "../Base/BranchingNode";
 
-export class SinglePlaceholderRawAtom extends WritableAtom {
+export class SinglePlaceholderRawNode extends BranchingNode {
     readonly Prefix : string;
     readonly Content : Placeholder;
     readonly Suffix : string;

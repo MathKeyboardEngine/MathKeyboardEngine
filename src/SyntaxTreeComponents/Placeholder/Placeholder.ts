@@ -1,25 +1,25 @@
 import { LatexConfiguration } from "../../LatexConfiguration";
 import { KeyboardMemory } from "../../KeyboardEngine/KeyboardMemory";
-import { Atom } from "../Atoms/Base/Atom";
-import { WritableAtom } from "../Atoms/Base/WritableAtom";
+import { Node } from "../Nodes/Base/Node";
+import { BranchingNode } from "../Nodes/Base/BranchingNode";
 
 export class Placeholder {
-    ParentAtom : WritableAtom | null = null;
-    Atoms : Atom[] = [];
+    ParentNode : BranchingNode | null = null;
+    Nodes : Node[] = [];
     
     getLatex(keyboardMemory : KeyboardMemory, latexConfiguration : LatexConfiguration) : string {
         if (keyboardMemory.InclusiveSelectionLeftBorder === this) {
-                return latexConfiguration.selectionHightlightStart + this.Atoms.map(atom => atom.getLatex(keyboardMemory, latexConfiguration)).join("");
+                return latexConfiguration.selectionHightlightStart + this.Nodes.map(node => node.getLatex(keyboardMemory, latexConfiguration)).join("");
         } else if (this === keyboardMemory.Current ) {
-            if (this.Atoms.length == 0) {
+            if (this.Nodes.length == 0) {
                 return latexConfiguration.activePlaceholderLatex;
             } else {
-                return latexConfiguration.activePlaceholderLatex + this.Atoms.map(atom => atom.getLatex(keyboardMemory, latexConfiguration)).join("");
+                return latexConfiguration.activePlaceholderLatex + this.Nodes.map(node => node.getLatex(keyboardMemory, latexConfiguration)).join("");
             }
-        } else if (this.Atoms.length == 0) {
+        } else if (this.Nodes.length == 0) {
             return latexConfiguration.passivePlaceholderLatex;
         } else {
-            return this.Atoms.map(atom => atom.getLatex(keyboardMemory, latexConfiguration)).join("");
+            return this.Nodes.map(node => node.getLatex(keyboardMemory, latexConfiguration)).join("");
         }
     }
 }

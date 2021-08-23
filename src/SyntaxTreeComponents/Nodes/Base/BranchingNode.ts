@@ -1,14 +1,14 @@
-import { Atom } from "./Atom";
+import { Node } from "./Node";
 import { Placeholder } from "../../Placeholder/Placeholder";
 
-export abstract class WritableAtom extends Atom {
+export abstract class BranchingNode extends Node {
     Placeholders : Placeholder[];
 
     constructor(leftToRight : Placeholder[]) {
         super();
         this.Placeholders = leftToRight;
         this.Placeholders.forEach(ph => {
-            ph.ParentAtom = this;
+            ph.ParentNode = this;
         });
     }
     

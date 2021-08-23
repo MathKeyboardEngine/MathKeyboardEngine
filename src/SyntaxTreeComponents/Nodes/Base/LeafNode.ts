@@ -1,6 +1,6 @@
-import { Atom } from "./Atom";
+import { Node } from "./Node";
 
-export abstract class ReadonlyAtom extends Atom {
+export abstract class LeafNode extends Node {
     // operators
     // digits
     // numbers such as pi and e.

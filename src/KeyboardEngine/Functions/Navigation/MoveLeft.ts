@@ -1,39 +1,39 @@
 import { firstBefore } from "../../../helpers/arrayhelpers/firstBefore";
 import { last } from "../../../helpers/arrayhelpers/last";
-import { Atom } from "../../../SyntaxTreeComponents/Atoms/Base/Atom";
-import { WritableAtom } from "../../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
+import { Node } from "../../../SyntaxTreeComponents/Nodes/Base/Node";
+import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/BranchingNode";
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
 
 export function MoveLeft(k: KeyboardMemory) {
     if (k.Current instanceof Placeholder)
     {
-        if (k.Current.ParentAtom == null) {
+        if (k.Current.ParentNode == null) {
             return;
         }
 
-        let previousPlaceholder : Placeholder | null = firstBefore(k.Current.ParentAtom.Placeholders, k.Current);
+        let previousPlaceholder : Placeholder | null = firstBefore(k.Current.ParentNode.Placeholders, k.Current);
         if (previousPlaceholder !== null) {
-            if (previousPlaceholder.Atoms.length == 0) {
+            if (previousPlaceholder.Nodes.length == 0) {
                 k.Current = previousPlaceholder;
             } else {
-                k.Current = last(previousPlaceholder.Atoms);
+                k.Current = last(previousPlaceholder.Nodes);
             }
         } else {
-            let ancestorPlaceholder = k.Current.ParentAtom.ParentPlaceholder;
-            let atomPreviousToParentOfCurrent : Atom | null = firstBefore(ancestorPlaceholder.Atoms, k.Current.ParentAtom);
-            if (atomPreviousToParentOfCurrent != null) {
-                k.Current = atomPreviousToParentOfCurrent;
+            let ancestorPlaceholder = k.Current.ParentNode.ParentPlaceholder;
+            let nodePreviousToParentOfCurrent : Node | null = firstBefore(ancestorPlaceholder.Nodes, k.Current.ParentNode);
+            if (nodePreviousToParentOfCurrent != null) {
+                k.Current = nodePreviousToParentOfCurrent;
             } else {
                 k.Current = ancestorPlaceholder;
             }
         }
     } else {
-        if (k.Current instanceof WritableAtom) {
+        if (k.Current instanceof BranchingNode) {
             let placeholder = last(k.Current.Placeholders);
-            k.Current = last(placeholder.Atoms) ?? placeholder;
+            k.Current = last(placeholder.Nodes) ?? placeholder;
         } else {
-            k.Current = firstBefore(k.Current.ParentPlaceholder.Atoms, k.Current) ?? k.Current.ParentPlaceholder;
+            k.Current = firstBefore(k.Current.ParentPlaceholder.Nodes, k.Current) ?? k.Current.ParentPlaceholder;
         }
     } 
 }

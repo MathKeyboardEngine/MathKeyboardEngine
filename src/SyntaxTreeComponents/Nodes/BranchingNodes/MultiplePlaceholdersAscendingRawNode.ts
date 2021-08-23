@@ -1,7 +1,7 @@
 import { Placeholder } from "../../Placeholder/Placeholder";
-import { MultiplePlaceholdersRawAtom } from "./MultiplePlaceholdersRawAtom";
+import { MultiplePlaceholdersRawNode } from "./MultiplePlaceholdersRawNode";
 
-export class MultiplePlaceholdersAscendingRawAtom extends MultiplePlaceholdersRawAtom {
+export class MultiplePlaceholdersAscendingRawNode extends MultiplePlaceholdersRawNode {
     override GetMoveDownSuggestion(current : Placeholder) : Placeholder | null {
         let currentPlaceholderIndex = this.Placeholders.indexOf(current);
         if (currentPlaceholderIndex > 0) {

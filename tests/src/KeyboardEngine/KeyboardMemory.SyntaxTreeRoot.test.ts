@@ -9,8 +9,8 @@ import { MoveLeft } from '../../../src/KeyboardEngine/Functions/Navigation/MoveL
 import { MoveDown } from '../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 import { MoveUp } from '../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { MoveRight } from '../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
-import { DigitAtom } from '../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
-import { MultiplePlaceholdersDescendingRawAtom } from '../../../src/SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersDescendingRawAtom';
+import { DigitNode } from '../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
+import { MultiplePlaceholdersDescendingRawNode } from '../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersDescendingRawNode';
 
 describe(KeyboardMemory.name, () => {
 
@@ -41,17 +41,17 @@ describe(KeyboardMemory.name, () => {
     {
       let k = new KeyboardMemory();
 
-      let fraction1 = new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}');
+      let fraction1 = new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}');
       Insert(k, fraction1);
       assert.isTrue(k.Current === fraction1.Placeholders[0])
 
-      let fraction2 = new MultiplePlaceholdersDescendingRawAtom(String.raw`\frac{`, '}{', '}');
+      let fraction2 = new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}');
       Insert(k, fraction2);
       assert.isTrue(k.Current === fraction2.Placeholders[0])
 
       assert.isTrue(k.Current instanceof Placeholder)
-      let calculatedRoot = (k.Current as Placeholder).ParentAtom!.ParentPlaceholder.ParentAtom!.ParentPlaceholder;
-      assert.isNull(calculatedRoot.ParentAtom);
+      let calculatedRoot = (k.Current as Placeholder).ParentNode!.ParentPlaceholder.ParentNode!.ParentPlaceholder;
+      assert.isNull(calculatedRoot.ParentNode);
       expect(k.SyntaxTreeRoot).to.equal(calculatedRoot);
     });
 
@@ -72,7 +72,7 @@ describe(KeyboardMemory.name, () => {
     it('impossible move requests in filled root placeholder do not throw', () =>
     {
       let k = new KeyboardMemory();
-      Insert(k, new DigitAtom("1"));
+      Insert(k, new DigitNode("1"));
       expectLatex('1◼', k);
       MoveUp(k);
       expectLatex('1◼', k);

@@ -1,33 +1,33 @@
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
-import { WritableAtom } from "../../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
-import { Atom } from "../../../SyntaxTreeComponents/Atoms/Base/Atom";
+import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/BranchingNode";
+import { Node } from "../../../SyntaxTreeComponents/Nodes/Base/Node";
 import { firstAfter } from "../../../helpers/arrayhelpers/firstAfter";
 
 export function MoveRight(k: KeyboardMemory) {
     if (k.Current instanceof Placeholder)
     {
-        if (k.Current.Atoms.length > 0) {
-            let nextAtom = k.Current.Atoms[0];
-            k.Current = nextAtom instanceof WritableAtom ? nextAtom.Placeholders[0] : nextAtom;
-        } else if (k.Current.ParentAtom == null) {
+        if (k.Current.Nodes.length > 0) {
+            let nextNode = k.Current.Nodes[0];
+            k.Current = nextNode instanceof BranchingNode ? nextNode.Placeholders[0] : nextNode;
+        } else if (k.Current.ParentNode == null) {
             return;
         } else {
-            k.Current = firstAfter(k.Current.ParentAtom.Placeholders, k.Current) ?? k.Current.ParentAtom;
+            k.Current = firstAfter(k.Current.ParentNode.Placeholders, k.Current) ?? k.Current.ParentNode;
         }
     } else {
-        let nextAtom : Atom | null = firstAfter(k.Current.ParentPlaceholder.Atoms, k.Current);
-        if (nextAtom != null) {
-            if (nextAtom instanceof WritableAtom){
-                k.Current = nextAtom.Placeholders[0];
+        let nextNode : Node | null = firstAfter(k.Current.ParentPlaceholder.Nodes, k.Current);
+        if (nextNode != null) {
+            if (nextNode instanceof BranchingNode){
+                k.Current = nextNode.Placeholders[0];
             } else {
-                k.Current = nextAtom;
+                k.Current = nextNode;
             }
         } else {
-            let ancestorAtom = k.Current.ParentPlaceholder.ParentAtom;
-            if  (ancestorAtom != null) {
-                let nextPlaceholder : Placeholder | null = firstAfter(ancestorAtom.Placeholders, k.Current.ParentPlaceholder);
-                k.Current = nextPlaceholder ?? ancestorAtom;
+            let ancestorNode = k.Current.ParentPlaceholder.ParentNode;
+            if  (ancestorNode != null) {
+                let nextPlaceholder : Placeholder | null = firstAfter(ancestorNode.Placeholders, k.Current.ParentPlaceholder);
+                k.Current = nextPlaceholder ?? ancestorNode;
             }
         }
     }

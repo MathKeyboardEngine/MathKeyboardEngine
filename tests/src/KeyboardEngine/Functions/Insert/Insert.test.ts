@@ -3,54 +3,54 @@ import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { DigitAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
+import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 
 describe(Insert.name, () =>
 {
-  it('inserts at the start of an Atom[] - it prepends - if Current is a Placeholder', () =>
+  it('inserts at the start of an Node[] - it prepends - if Current is a Placeholder', () =>
   {
     let k = new KeyboardMemory();
-    let digitAtom1 = new DigitAtom("1");
-    Insert(k, digitAtom1);
+    let digitNode1 = new DigitNode("1");
+    Insert(k, digitNode1);
     expectLatex('1◼', k);
     MoveLeft(k);
-    expect(k.Current).to.equal(digitAtom1.ParentPlaceholder);
+    expect(k.Current).to.equal(digitNode1.ParentPlaceholder);
     expectLatex('◼1', k);
-    Insert(k, new DigitAtom("2"));
+    Insert(k, new DigitNode("2"));
     expectLatex('2◼1', k);
   });
 
-  it('inserts at the right of an Atom if Current is an Atom', () =>
+  it('inserts at the right of an Node if Current is an Node', () =>
   {
     let k = new KeyboardMemory();
-    let digitAtom1 = new DigitAtom("1");
-    Insert(k, digitAtom1);
-    expect(k.Current).to.equal(digitAtom1);
+    let digitNode1 = new DigitNode("1");
+    Insert(k, digitNode1);
+    expect(k.Current).to.equal(digitNode1);
     expectLatex('1◼', k);
-    Insert(k, new DigitAtom("2"));
+    Insert(k, new DigitNode("2"));
     expectLatex('12◼', k);
     MoveLeft(k);
-    expect(k.Current).to.equal(digitAtom1);
+    expect(k.Current).to.equal(digitNode1);
     expectLatex('1◼2', k);
-    Insert(k, new DigitAtom("3"));
+    Insert(k, new DigitNode("3"));
     expectLatex('13◼2', k);
   });
 
-  it('sets the ParentPlaceholder of the inserted Atom', () =>
+  it('sets the ParentPlaceholder of the inserted Node', () =>
   {
     let k = new KeyboardMemory();
-    let atom = new DigitAtom("1");
-    assert.isUndefined(atom.ParentPlaceholder);
-    Insert(k, atom);
-    assert.isNotNull(atom.ParentPlaceholder);
+    let node = new DigitNode("1");
+    assert.isUndefined(node.ParentPlaceholder);
+    Insert(k, node);
+    assert.isNotNull(node.ParentPlaceholder);
   });
 
   it('sets Current', () =>
   {
     let k = new KeyboardMemory();
     let originalCurrent = k.Current;
-    Insert(k, new DigitAtom("1"));
+    Insert(k, new DigitNode("1"));
     expect(originalCurrent).not.to.equal(k.Current);
   });
 });

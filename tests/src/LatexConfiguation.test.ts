@@ -3,9 +3,9 @@ import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../src/KeyboardEngine/Functions/Insert/Insert';
 import { LatexConfiguration } from '../../src/LatexConfiguration';
-import { MultiplePlaceholdersAscendingRawAtom } from '../../src/SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersAscendingRawAtom';
-import { DigitAtom } from '../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
-import { DecimalSeparatorAtom } from '../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom';
+import { MultiplePlaceholdersAscendingRawNode } from '../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersAscendingRawNode';
+import { DigitNode } from '../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
+import { DecimalSeparatorNode } from '../../src/SyntaxTreeComponents/Nodes/LeafNodes/DecimalSeparatorNode';
 import { GetEditModeLatex } from '../../src/GetLatex/GetEditModeLatex';
 import { GetViewModeLatex } from '../../src/GetLatex/GetViewModeLatex';
 
@@ -18,7 +18,7 @@ describe(LatexConfiguration.name, () =>
     myLatexConfiguration.passivePlaceholderNucleus = 'myEmptyPlace';
 
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
+    Insert(k, new MultiplePlaceholdersAscendingRawNode('', '^{', '}'));
     expect('myCursor^{myEmptyPlace}').to.equal(GetEditModeLatex(k, myLatexConfiguration));
   });
 
@@ -31,7 +31,7 @@ describe(LatexConfiguration.name, () =>
         myLatexConfiguration.passivePlaceholderColor = "gray";
 
         let k = new KeyboardMemory();
-        Insert(k, new MultiplePlaceholdersAscendingRawAtom('', '^{', '}'));
+        Insert(k, new MultiplePlaceholdersAscendingRawNode('', '^{', '}'));
         expect(String.raw`\color{orange}{◼}^{\color{gray}{◼}}`).to.equal(GetEditModeLatex(k, myLatexConfiguration));
     });
 });

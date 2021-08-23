@@ -2,20 +2,20 @@ import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { DigitAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom';
+import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { RawAtom } from '../../../../../src/SyntaxTreeComponents/Atoms/ReadonlyAtoms/RawAtom';
+import { RawNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/RawNode';
 
-describe(RawAtom.name, () =>
+describe(RawNode.name, () =>
 {
-    it("allows a customizable multiplication operator sign for atoms that are already in the KeyboardMemory's syntax tree.", () =>
+    it("allows a customizable multiplication operator sign for nodes that are already in the KeyboardMemory's syntax tree.", () =>
     {
         let myMultiplicationSignSetting = String.raw`\times `;
 
         let k = new KeyboardMemory();
-        Insert(k, new DigitAtom("2"));
-        Insert(k, new RawAtom(() => myMultiplicationSignSetting));
-        Insert(k, new RawAtom("a"));
+        Insert(k, new DigitNode("2"));
+        Insert(k, new RawNode(() => myMultiplicationSignSetting));
+        Insert(k, new RawNode("a"));
         expectLatex(String.raw`2\times a◼`, k);
 
         myMultiplicationSignSetting = String.raw`\cdot `;

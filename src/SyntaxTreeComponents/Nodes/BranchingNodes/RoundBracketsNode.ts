@@ -1,6 +1,6 @@
-import { SinglePlaceholderRawAtom } from "./SinglePlaceholderRawAtom";
+import { SinglePlaceholderRawNode } from "./SinglePlaceholderRawNode";
 
-export class RoundBracketsAtom extends SinglePlaceholderRawAtom{
+export class RoundBracketsNode extends SinglePlaceholderRawNode{
     constructor(leftBracketLatex: string = String.raw`\left(`, rightBracketLatex: string = String.raw`\right)`){
         super(leftBracketLatex, rightBracketLatex);
     }

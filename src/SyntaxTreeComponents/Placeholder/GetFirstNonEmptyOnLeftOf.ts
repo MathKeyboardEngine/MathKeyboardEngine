@@ -11,7 +11,7 @@ export function GetFirstNonEmptyOnLeftOf(placeholderArray: Placeholder[], input 
             continue;
         }
 
-        if (placeholder.Atoms.length > 0){
+        if (placeholder.Nodes.length > 0){
             return placeholder;
         }
     }

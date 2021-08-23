@@ -4,73 +4,73 @@ import { GetFirstNonEmptyOnLeftOf } from "../../../SyntaxTreeComponents/Placehol
 import { lastOrNull } from "../../../helpers/arrayhelpers/lastOrNull";
 import { firstBefore } from "../../../helpers/arrayhelpers/firstBefore";
 import { remove } from "../../../helpers/arrayhelpers/remove";
-import { Atom } from "../../../SyntaxTreeComponents/Atoms/Base/Atom";
-import { WritableAtom } from "../../../SyntaxTreeComponents/Atoms/Base/WritableAtom";
+import { Node } from "../../../SyntaxTreeComponents/Nodes/Base/Node";
+import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/BranchingNode";
 import { last } from "../../../helpers/arrayhelpers/last";
-import { AbstractPartOfNumberWithDigits } from "../../../SyntaxTreeComponents/Atoms/ReadonlyAtoms/Base/PartOfNumberWithDigits";
+import { AbstractPartOfNumberWithDigits } from "../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits";
 import { EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex } from "../Insert/TryInsertWithEncapsulateCurrent";
 
 export function DeleteCurrent(k : KeyboardMemory) {
     if (k.Current instanceof Placeholder) {
-        if (k.Current.ParentAtom == null || k.Current.Atoms.length > 0) {
+        if (k.Current.ParentNode == null || k.Current.Nodes.length > 0) {
             return;
         } else {
-            let nonEmptyPlaceholderOnLeft : Placeholder | null = GetFirstNonEmptyOnLeftOf(k.Current.ParentAtom.Placeholders, k.Current);
+            let nonEmptyPlaceholderOnLeft : Placeholder | null = GetFirstNonEmptyOnLeftOf(k.Current.ParentNode.Placeholders, k.Current);
             if (nonEmptyPlaceholderOnLeft) {
-                if (k.Current.ParentAtom.Placeholders.length == 2
-                    && k.Current === k.Current.ParentAtom.Placeholders[1]
-                    && k.Current.Atoms.length == 0) {
-                    k.Current.ParentAtom.ParentPlaceholder.Atoms.pop();
-                    for(let atom of nonEmptyPlaceholderOnLeft.Atoms){
-                        k.Current.ParentAtom.ParentPlaceholder.Atoms.push(atom);
-                        atom.ParentPlaceholder = k.Current.ParentAtom.ParentPlaceholder;
+                if (k.Current.ParentNode.Placeholders.length == 2
+                    && k.Current === k.Current.ParentNode.Placeholders[1]
+                    && k.Current.Nodes.length == 0) {
+                    k.Current.ParentNode.ParentPlaceholder.Nodes.pop();
+                    for(let node of nonEmptyPlaceholderOnLeft.Nodes){
+                        k.Current.ParentNode.ParentPlaceholder.Nodes.push(node);
+                        node.ParentPlaceholder = k.Current.ParentNode.ParentPlaceholder;
                     }
-                    k.Current = last(nonEmptyPlaceholderOnLeft.Atoms);
+                    k.Current = last(nonEmptyPlaceholderOnLeft.Nodes);
                 } else {
-                    nonEmptyPlaceholderOnLeft.Atoms.pop();
-                    k.Current = lastOrNull(nonEmptyPlaceholderOnLeft.Atoms) ?? nonEmptyPlaceholderOnLeft;
+                    nonEmptyPlaceholderOnLeft.Nodes.pop();
+                    k.Current = lastOrNull(nonEmptyPlaceholderOnLeft.Nodes) ?? nonEmptyPlaceholderOnLeft;
                 }
-            } else if (k.Current.ParentAtom.Placeholders.every(ph => ph.Atoms.length == 0)) {
-                let ancestorPlaceholder = k.Current.ParentAtom.ParentPlaceholder;
-                let previousAtom = firstBefore(ancestorPlaceholder.Atoms, k.Current.ParentAtom);
-                remove(ancestorPlaceholder.Atoms, k.Current.ParentAtom);
-                k.Current = previousAtom ?? ancestorPlaceholder;
-            } else if (k.Current.ParentAtom.Placeholders[0] === k.Current 
-            && k.Current.Atoms.length == 0 
-            && k.Current.ParentAtom.Placeholders.some(ph => ph.Atoms.length != 0)) {
+            } else if (k.Current.ParentNode.Placeholders.every(ph => ph.Nodes.length == 0)) {
+                let ancestorPlaceholder = k.Current.ParentNode.ParentPlaceholder;
+                let previousNode = firstBefore(ancestorPlaceholder.Nodes, k.Current.ParentNode);
+                remove(ancestorPlaceholder.Nodes, k.Current.ParentNode);
+                k.Current = previousNode ?? ancestorPlaceholder;
+            } else if (k.Current.ParentNode.Placeholders[0] === k.Current 
+            && k.Current.Nodes.length == 0 
+            && k.Current.ParentNode.Placeholders.some(ph => ph.Nodes.length != 0)) {
                 if (TryEncapsulatePreviousInto(k.Current)) {
-                    k.Current = last(k.Current.Atoms);
+                    k.Current = last(k.Current.Nodes);
                 }
             }
         }
     } else {
-        if (k.Current instanceof WritableAtom && k.Current.Placeholders.some(ph => ph.Atoms.length > 0)) {
+        if (k.Current instanceof BranchingNode && k.Current.Placeholders.some(ph => ph.Nodes.length > 0)) {
             let lastPlaceholderWithContent! : Placeholder;
             for (let i = k.Current.Placeholders.length - 1; i >= 0; i--) {
                 let ph = k.Current.Placeholders[i];
-                if (ph.Atoms.length > 0){
+                if (ph.Nodes.length > 0){
                     lastPlaceholderWithContent = ph;
                     break;
                 }
             }
-            lastPlaceholderWithContent.Atoms.pop();
-            k.Current = lastPlaceholderWithContent.Atoms.length == 0 ? lastPlaceholderWithContent : last(lastPlaceholderWithContent.Atoms);
+            lastPlaceholderWithContent.Nodes.pop();
+            k.Current = lastPlaceholderWithContent.Nodes.length == 0 ? lastPlaceholderWithContent : last(lastPlaceholderWithContent.Nodes);
         } else {
-            let previousAtom : Atom | null = firstBefore(k.Current.ParentPlaceholder.Atoms, k.Current);
-            remove(k.Current.ParentPlaceholder.Atoms, k.Current);
-            k.Current = previousAtom ?? k.Current.ParentPlaceholder;
+            let previousNode : Node | null = firstBefore(k.Current.ParentPlaceholder.Nodes, k.Current);
+            remove(k.Current.ParentPlaceholder.Nodes, k.Current);
+            k.Current = previousNode ?? k.Current.ParentPlaceholder;
         }
     }
 }
 
 function TryEncapsulatePreviousInto(targetPlaceholder : Placeholder) {
-    let previousAtom = firstBefore(targetPlaceholder.ParentAtom!.ParentPlaceholder.Atoms, targetPlaceholder.ParentAtom);
-    if (previousAtom != null) {
-        remove(targetPlaceholder.ParentAtom!.ParentPlaceholder.Atoms, previousAtom);
-        targetPlaceholder.Atoms.push(previousAtom);
-        previousAtom.ParentPlaceholder = targetPlaceholder;
-        if (previousAtom instanceof AbstractPartOfNumberWithDigits){
-            EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(previousAtom.ParentPlaceholder.Atoms.length, previousAtom.ParentPlaceholder.Atoms, targetPlaceholder);
+    let previousNode = firstBefore(targetPlaceholder.ParentNode!.ParentPlaceholder.Nodes, targetPlaceholder.ParentNode);
+    if (previousNode != null) {
+        remove(targetPlaceholder.ParentNode!.ParentPlaceholder.Nodes, previousNode);
+        targetPlaceholder.Nodes.push(previousNode);
+        previousNode.ParentPlaceholder = targetPlaceholder;
+        if (previousNode instanceof AbstractPartOfNumberWithDigits){
+            EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(previousNode.ParentPlaceholder.Nodes.length, previousNode.ParentPlaceholder.Nodes, targetPlaceholder);
         }
         return true;
     }

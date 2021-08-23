@@ -43,41 +43,41 @@ export { SelectRight };
 import { KeyboardMemory } from "./KeyboardEngine/KeyboardMemory";
 export { KeyboardMemory };
 
-import { Atom } from "./SyntaxTreeComponents/Atoms/Base/Atom";
-export { Atom };
+import { Node } from "./SyntaxTreeComponents/Nodes/Base/Node";
+export { Node };
 
-import { ReadonlyAtom } from "./SyntaxTreeComponents/Atoms/Base/ReadonlyAtom";
-export { ReadonlyAtom };
+import { LeafNode } from "./SyntaxTreeComponents/Nodes/Base/LeafNode";
+export { LeafNode };
 
-import { WritableAtom } from "./SyntaxTreeComponents/Atoms/Base/WritableAtom";
-export { WritableAtom };
+import { BranchingNode } from "./SyntaxTreeComponents/Nodes/Base/BranchingNode";
+export { BranchingNode };
 
-import { DecimalSeparatorAtom } from "./SyntaxTreeComponents/Atoms/ReadonlyAtoms/DecimalSeparatorAtom";
-export { DecimalSeparatorAtom };
+import { DecimalSeparatorNode } from "./SyntaxTreeComponents/Nodes/LeafNodes/DecimalSeparatorNode";
+export { DecimalSeparatorNode };
 
-import { DigitAtom } from "./SyntaxTreeComponents/Atoms/ReadonlyAtoms/DigitAtom";
-export { DigitAtom };
+import { DigitNode } from "./SyntaxTreeComponents/Nodes/LeafNodes/DigitNode";
+export { DigitNode };
 
-import { RawAtom } from "./SyntaxTreeComponents/Atoms/ReadonlyAtoms/RawAtom";
-export { RawAtom };
+import { RawNode } from "./SyntaxTreeComponents/Nodes/LeafNodes/RawNode";
+export { RawNode };
 
-import { MatrixAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/MatrixAtom";
-export { MatrixAtom };
+import { MatrixNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/MatrixNode";
+export { MatrixNode };
 
-import { MultiplePlaceholdersAscendingRawAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersAscendingRawAtom";
-export { MultiplePlaceholdersAscendingRawAtom };
+import { MultiplePlaceholdersAscendingRawNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersAscendingRawNode";
+export { MultiplePlaceholdersAscendingRawNode };
 
-import { MultiplePlaceholdersDescendingRawAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersDescendingRawAtom";
-export { MultiplePlaceholdersDescendingRawAtom };
+import { MultiplePlaceholdersDescendingRawNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersDescendingRawNode";
+export { MultiplePlaceholdersDescendingRawNode };
 
-import { MultiplePlaceholdersRawAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/MultiplePlaceholdersRawAtom";
-export { MultiplePlaceholdersRawAtom };
+import { MultiplePlaceholdersRawNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersRawNode";
+export { MultiplePlaceholdersRawNode };
 
-import { RoundBracketsAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/RoundBracketsAtom";
-export { RoundBracketsAtom} ;
+import { RoundBracketsNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode";
+export { RoundBracketsNode} ;
 
-import { SinglePlaceholderRawAtom } from "./SyntaxTreeComponents/Atoms/WritableAtoms/SinglePlaceholderRawAtom";
-export { SinglePlaceholderRawAtom };
+import { SinglePlaceholderRawNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/SinglePlaceholderRawNode";
+export { SinglePlaceholderRawNode };
 
 import { Placeholder } from "./SyntaxTreeComponents/Placeholder/Placeholder";
 export { Placeholder };
