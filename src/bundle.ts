@@ -64,11 +64,11 @@ export { RawNode };
 import { MatrixNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/MatrixNode";
 export { MatrixNode };
 
-import { MultiplePlaceholdersAscendingRawNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersAscendingRawNode";
-export { MultiplePlaceholdersAscendingRawNode };
+import { AscendingBranchingNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode";
+export { AscendingBranchingNode };
 
-import { MultiplePlaceholdersDescendingRawNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersDescendingRawNode";
-export { MultiplePlaceholdersDescendingRawNode };
+import { DescendingBranchingNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode";
+export { DescendingBranchingNode };
 
 import { StandardBranchingNode } from "./SyntaxTreeComponents/Nodes/BranchingNodes/StandardBranchingNode";
 export { StandardBranchingNode };

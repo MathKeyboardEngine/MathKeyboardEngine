@@ -3,7 +3,7 @@ import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { MultiplePlaceholdersDescendingRawNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersDescendingRawNode';
+import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
 import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { TryInsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
@@ -12,7 +12,7 @@ import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 
 function TestNode() {
-  return new MultiplePlaceholdersDescendingRawNode('', '_{', '}');
+  return new DescendingBranchingNode('', '_{', '}');
 }
 
 describe("Subscript as suffix", () =>

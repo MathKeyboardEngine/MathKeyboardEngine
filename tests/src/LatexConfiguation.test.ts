@@ -3,7 +3,7 @@ import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../src/KeyboardEngine/Functions/Insert/Insert';
 import { LatexConfiguration } from '../../src/LatexConfiguration';
-import { MultiplePlaceholdersAscendingRawNode } from '../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersAscendingRawNode';
+import { AscendingBranchingNode } from '../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
 import { DigitNode } from '../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { DecimalSeparatorNode } from '../../src/SyntaxTreeComponents/Nodes/LeafNodes/DecimalSeparatorNode';
 import { GetEditModeLatex } from '../../src/GetLatex/GetEditModeLatex';
@@ -18,7 +18,7 @@ describe(LatexConfiguration.name, () =>
     myLatexConfiguration.passivePlaceholderNucleus = 'myEmptyPlace';
 
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersAscendingRawNode('', '^{', '}'));
+    Insert(k, new AscendingBranchingNode('', '^{', '}'));
     expect('myCursor^{myEmptyPlace}').to.equal(GetEditModeLatex(k, myLatexConfiguration));
   });
 
@@ -31,7 +31,7 @@ describe(LatexConfiguration.name, () =>
         myLatexConfiguration.passivePlaceholderColor = "gray";
 
         let k = new KeyboardMemory();
-        Insert(k, new MultiplePlaceholdersAscendingRawNode('', '^{', '}'));
+        Insert(k, new AscendingBranchingNode('', '^{', '}'));
         expect(String.raw`\color{orange}{◼}^{\color{gray}{◼}}`).to.equal(GetEditModeLatex(k, myLatexConfiguration));
     });
 });

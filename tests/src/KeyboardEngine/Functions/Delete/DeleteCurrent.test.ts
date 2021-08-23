@@ -2,7 +2,7 @@ import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { MultiplePlaceholdersAscendingRawNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersAscendingRawNode';
+import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { TryInsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
@@ -24,7 +24,7 @@ describe(DeleteCurrent.name, () =>
     Insert(k, new DecimalSeparatorNode());
     Insert(k, new DigitNode("5"));
     Insert(k, new RawNode('+')); // oops, typo!
-    TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawNode('', '^{', '}'));
+    TryInsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     Insert(k, new DigitNode("3"));
     MoveDown(k);
     DeleteCurrent(k); // trying to fix typo
@@ -48,7 +48,7 @@ describe(DeleteCurrent.name, () =>
     Insert(k, new DecimalSeparatorNode());
     Insert(k, new DigitNode("5"));
     Insert(k, new RawNode('+')); // oops, typo!
-    TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawNode('', '^{', '}'));
+    TryInsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     Insert(k, new DigitNode("3"));
     MoveDown(k);
     DeleteCurrent(k); // trying to fix typo
@@ -69,11 +69,11 @@ describe(DeleteCurrent.name, () =>
     // Arrange
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("2"));
-    let p = new MultiplePlaceholdersAscendingRawNode('', '^{', '}');
+    let p = new AscendingBranchingNode('', '^{', '}');
     TryInsertWithEncapsulateCurrent(k, p);
     let d3 = new DigitNode("3");
     Insert(k, d3);
-    TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawNode('', '^{', '}'));
+    TryInsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     expectLatex('2^{3^{◼}}', k);
 
     // Act & assert

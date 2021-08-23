@@ -7,7 +7,7 @@ import { GetViewModeLatex } from '../../../src/GetLatex/GetViewModeLatex';
 import { GetEditModeLatex } from '../../../src/GetLatex/GetEditModeLatex';
 import { DigitNode } from '../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { MoveDown } from '../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
-import { MultiplePlaceholdersDescendingRawNode } from '../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersDescendingRawNode';
+import { DescendingBranchingNode } from '../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
 
 const config = new LatexConfiguration();
 config.activePlaceholderNucleus = '◼';
@@ -18,11 +18,11 @@ describe("GetLatex", () =>
   it('BranchingNode', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}'));
+    Insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
 
     expect(String.raw`\frac{◼}{◻}`).to.equal(GetEditModeLatex(k, config));
     expect(String.raw`\frac{◻}{◻}`).to.equal(GetViewModeLatex(k, config));
-    expect(String.raw`\frac{◻}{◻}`).to.equal(GetViewModeLatex(new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}'), config));
+    expect(String.raw`\frac{◻}{◻}`).to.equal(GetViewModeLatex(new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'), config));
   });
 
   it('LeafNode', () =>
@@ -37,7 +37,7 @@ describe("GetLatex", () =>
   it('Placeholder', () =>
   {
     let k = new KeyboardMemory();
-    let fraction = new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}');
+    let fraction = new DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
     Insert(k, fraction);
     Insert(k, new DigitNode("3"));
     MoveDown(k);

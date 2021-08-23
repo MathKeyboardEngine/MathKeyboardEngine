@@ -10,7 +10,7 @@ import { MoveDown } from '../../../src/KeyboardEngine/Functions/Navigation/MoveD
 import { MoveUp } from '../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { MoveRight } from '../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { DigitNode } from '../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { MultiplePlaceholdersDescendingRawNode } from '../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersDescendingRawNode';
+import { DescendingBranchingNode } from '../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
 
 describe(KeyboardMemory.name, () => {
 
@@ -41,11 +41,11 @@ describe(KeyboardMemory.name, () => {
     {
       let k = new KeyboardMemory();
 
-      let fraction1 = new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}');
+      let fraction1 = new DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
       Insert(k, fraction1);
       assert.isTrue(k.Current === fraction1.Placeholders[0])
 
-      let fraction2 = new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}');
+      let fraction2 = new DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
       Insert(k, fraction2);
       assert.isTrue(k.Current === fraction2.Placeholders[0])
 

@@ -2,7 +2,7 @@ import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { MultiplePlaceholdersAscendingRawNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersAscendingRawNode';
+import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
@@ -16,7 +16,7 @@ describe("Power", () =>
   it('pow 3 right 4', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersAscendingRawNode('', '^{', '}'));
+    Insert(k, new AscendingBranchingNode('', '^{', '}'));
     Insert(k, new DigitNode("3"));
     MoveRight(k);
     Insert(k, new DigitNode("4"));
@@ -26,7 +26,7 @@ describe("Power", () =>
   it('pow 3 up 4', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersAscendingRawNode('', '^{', '}'));
+    Insert(k, new AscendingBranchingNode('', '^{', '}'));
     Insert(k, new DigitNode("3"));
     MoveUp(k);
     Insert(k, new DigitNode("4"));
@@ -37,14 +37,14 @@ describe("Power", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("3"));
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersAscendingRawNode('', '^{', '}')));
+    assert.ok(TryInsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}')));
     expectLatex('3^{◼}', k);
   });
 
   it('pow 3 up down', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersAscendingRawNode('', '^{', '}'));
+    Insert(k, new AscendingBranchingNode('', '^{', '}'));
     Insert(k, new DigitNode("3"));
     MoveUp(k);
     Insert(k, new DigitNode("4"));
@@ -55,7 +55,7 @@ describe("Power", () =>
   it('pow can be left empty, moving out and back in', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersAscendingRawNode('', '^{', '}'));
+    Insert(k, new AscendingBranchingNode('', '^{', '}'));
     expectLatex('◼^{◻}', k);
     MoveLeft(k);
     expectLatex('◼◻^{◻}', k);
@@ -66,7 +66,7 @@ describe("Power", () =>
   it('impossible up/down requests in empty power should not throw', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersAscendingRawNode('', '^{', '}'));
+    Insert(k, new AscendingBranchingNode('', '^{', '}'));
     MoveUp(k);
     expectLatex('◻^{◼}', k);
     MoveUp(k);
@@ -80,7 +80,7 @@ describe("Power", () =>
   it('impossible up/down requests in filled power should not throw', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersAscendingRawNode('', '^{', '}'));
+    Insert(k, new AscendingBranchingNode('', '^{', '}'));
     Insert(k, new DigitNode("3"));
     expectLatex('3◼^{◻}', k);
     MoveDown(k);

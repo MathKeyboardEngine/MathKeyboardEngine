@@ -10,14 +10,14 @@ import { expectLatex } from '../../../../helpers/expectLatex';
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
-import { MultiplePlaceholdersDescendingRawNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MultiplePlaceholdersDescendingRawNode';
+import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
 
 describe("Fraction", () =>
 {
   it('frac left right right right', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}'));
+    Insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     MoveLeft(k);
     expectLatex(String.raw`◼\frac{◻}{◻}`, k);
     MoveRight(k);
@@ -31,7 +31,7 @@ describe("Fraction", () =>
   it('frac 3 right 4', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}'));
+    Insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     Insert(k, new DigitNode("3"));
     MoveRight(k);
     Insert(k, new DigitNode("4"));
@@ -41,7 +41,7 @@ describe("Fraction", () =>
   it('frac 3 down 4', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}'));
+    Insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     Insert(k, new DigitNode("3"));
     MoveDown(k);
     Insert(k, new DigitNode("4"));
@@ -52,14 +52,14 @@ describe("Fraction", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("3"));
-    TryInsertWithEncapsulateCurrent(k, new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}'));
+    TryInsertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`\frac{3}{◼}`, k);
   });
 
   it('delete empty frac from numerator', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}'));
+    Insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`\frac{◼}{◻}`, k);
     DeleteCurrent(k);
     expectLatex('◼', k);
@@ -68,7 +68,7 @@ describe("Fraction", () =>
   it('delete empty frac from denominator', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}'));
+    Insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     MoveDown(k);
     expectLatex(String.raw`\frac{◻}{◼}`, k);
     DeleteCurrent(k);
@@ -78,7 +78,7 @@ describe("Fraction", () =>
   it('delete empty frac from the right', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}'));
+    Insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     MoveDown(k);
     MoveRight(k);
     expectLatex(String.raw`\frac{◻}{◻}◼`, k);
@@ -89,7 +89,7 @@ describe("Fraction", () =>
   it('deleting frac from denominator releases non-empty numerator', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}'));
+    Insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     Insert(k, new DigitNode("1"));
     Insert(k, new DigitNode("2"));
     MoveDown(k);
@@ -106,7 +106,7 @@ describe("Fraction", () =>
   it('up in filled fraction', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}'));
+    Insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     Insert(k, new DigitNode("1"));
     Insert(k, new DigitNode("2"));
     MoveDown(k);
@@ -120,7 +120,7 @@ describe("Fraction", () =>
   it('impossible up/down requests in filled fraction should not throw', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}'));
+    Insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     Insert(k, new DigitNode("1"));
     expectLatex(String.raw`\frac{1◼}{◻}`, k);
     MoveUp(k);
@@ -136,7 +136,7 @@ describe("Fraction", () =>
   it('impossible up/down requests in empty fraction should not throw', () =>
   {
     let k = new KeyboardMemory();
-    Insert(k, new MultiplePlaceholdersDescendingRawNode(String.raw`\frac{`, '}{', '}'));
+    Insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     MoveDown(k);
     expectLatex(String.raw`\frac{◻}{◼}`, k);
     MoveDown(k);
