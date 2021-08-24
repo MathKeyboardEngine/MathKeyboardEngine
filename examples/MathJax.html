@@ -10,7 +10,7 @@
         let latexConfiguration = new mke.LatexConfiguration();
         let keyboardMemory = new mke.KeyboardMemory();
 
-        displayEditModeLatex();
+        displayResult();
 
         registerNodeKey('infinity', mke.Insert, () => new mke.StandardLeafNode(String.raw`\infty `));
         registerNodeKey('leftarrow', mke.Insert, () => new mke.StandardLeafNode(String.raw`\leftarrow `));
@@ -54,12 +54,13 @@
           if (!mke.TryInsertWithEncapsulateCurrent(k, powerNode)){
             mke.Insert(k, powerNode);
           }
-        }, () => new mke.AscendingBranchingNode('', '^{', '}'));
+        }, () => new mke.AscendingBranchingNode('{', '}^{', '}'));
         registerNodeKey('subscript', (k, subscriptNode) => {
           if (!mke.TryInsertWithEncapsulateCurrent(k, subscriptNode)){
             mke.Insert(k, subscriptNode);
           }
-        }, () => new mke.DescendingBranchingNode('', '_{', '}'));
+        }, () => new mke.DescendingBranchingNode('{', '}_{', '}'));
+
         registerNodeKey('squareRoot', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\sqrt{`, '}'));
         registerNodeKey('nthRoot', mke.Insert, () => new mke.DescendingBranchingNode(String.raw`\sqrt[`, ']{', '}'));
 
@@ -129,7 +130,7 @@
           renderLatexInKey(latex, element);
           element.onclick = () => {
             onclickArrowFuncForKeyboardMemoryAndNode(keyboardMemory, nodeGetter());
-            displayEditModeLatex();
+            displayResult();
           };
         }
 
@@ -137,14 +138,16 @@
           let element = document.getElementById(elementId);
           element.onclick = () => {
             onclickArrowFuncForKeyboardMemory(keyboardMemory);
-            displayEditModeLatex();
+            displayResult();
           };
         }
 
-        function displayEditModeLatex(){
-          let latex = mke.GetEditModeLatex(keyboardMemory, latexConfiguration);
-          let element = document.getElementById('output');
-          renderLatexInOutputBox(latex, element);
+        function displayResult(){
+          let editModeLatex = mke.GetEditModeLatex(keyboardMemory, latexConfiguration);
+          renderLatexInOutputBox(editModeLatex, document.getElementById('renderedEditModeLatex'));
+
+          let viewModeLatex = mke.GetViewModeLatex(keyboardMemory, latexConfiguration);
+          document.getElementById('viewModeLatex').innerText = viewModeLatex;
         }
         
         // === MathJax specific code START ===
@@ -158,9 +161,12 @@
         // === MathJax specific code END ===
     </script>
     <style>
-      #output{
+      #renderedEditModeLatex{
         border: 1px solid gray;
         padding: 5px;
+      }
+      #viewModeLatex {
+        text-align: right;
       }
       #mathKeyboard > * {
         display: inline-block;
@@ -203,7 +209,8 @@
 <body>
 <h1>MathKeyboardEngine + MathJax</h1>
 <h3>Example keys - to be styled - to help you design your keyboard</h3>
-<div id="output"></div>
+<div id="renderedEditModeLatex"></div>
+<div id="viewModeLatex"></div>
 <br/>
 <div id="mathKeyboard">
   <div><div id="moveLeft" class="arrow-left"></div></div>
@@ -316,4 +323,4 @@
   <div id="infinity"></div>
 </div>
 </body>
-</html> 
+</html>
