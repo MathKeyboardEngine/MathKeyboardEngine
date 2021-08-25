@@ -1,12 +1,12 @@
 import { LatexConfiguration } from "../LatexConfiguration";
-import { Node } from "../SyntaxTreeComponents/Nodes/Base/Node";
+import { TreeNode } from "../SyntaxTreeComponents/Nodes/Base/TreeNode";
 import { Placeholder } from "../SyntaxTreeComponents/Placeholder/Placeholder";
 
 export class KeyboardMemory {
     readonly SyntaxTreeRoot : Placeholder = new Placeholder();
-    Current : Placeholder | Node = this.SyntaxTreeRoot;
+    Current : Placeholder | TreeNode = this.SyntaxTreeRoot;
 
     SelectionDiff: number | null = null;
-    InclusiveSelectionRightBorder: Node | null = null;
-    InclusiveSelectionLeftBorder: Node | Placeholder | null = null;
+    InclusiveSelectionRightBorder: TreeNode | null = null;
+    InclusiveSelectionLeftBorder: TreeNode | Placeholder | null = null;
 }

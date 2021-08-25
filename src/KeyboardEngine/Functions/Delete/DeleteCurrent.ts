@@ -4,7 +4,7 @@ import { GetFirstNonEmptyOnLeftOf } from "../../../SyntaxTreeComponents/Placehol
 import { lastOrNull } from "../../../helpers/arrayhelpers/lastOrNull";
 import { firstBefore } from "../../../helpers/arrayhelpers/firstBefore";
 import { remove } from "../../../helpers/arrayhelpers/remove";
-import { Node } from "../../../SyntaxTreeComponents/Nodes/Base/Node";
+import { TreeNode } from "../../../SyntaxTreeComponents/Nodes/Base/TreeNode";
 import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/BranchingNode";
 import { last } from "../../../helpers/arrayhelpers/last";
 import { PartOfNumberWithDigits } from "../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits";
@@ -56,7 +56,7 @@ export function DeleteCurrent(k : KeyboardMemory) {
             lastPlaceholderWithContent.Nodes.pop();
             k.Current = lastPlaceholderWithContent.Nodes.length == 0 ? lastPlaceholderWithContent : last(lastPlaceholderWithContent.Nodes);
         } else {
-            let previousNode : Node | null = firstBefore(k.Current.ParentPlaceholder.Nodes, k.Current);
+            let previousNode : TreeNode | null = firstBefore(k.Current.ParentPlaceholder.Nodes, k.Current);
             remove(k.Current.ParentPlaceholder.Nodes, k.Current);
             k.Current = previousNode ?? k.Current.ParentPlaceholder;
         }

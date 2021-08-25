@@ -1,11 +1,11 @@
 import { LatexConfiguration } from "../../LatexConfiguration";
 import { KeyboardMemory } from "../../KeyboardEngine/KeyboardMemory";
-import { Node } from "../Nodes/Base/Node";
+import { TreeNode } from "../Nodes/Base/TreeNode";
 import { BranchingNode } from "../Nodes/Base/BranchingNode";
 
 export class Placeholder {
     ParentNode : BranchingNode | null = null;
-    Nodes : Node[] = [];
+    Nodes : TreeNode[] = [];
     
     getLatex(keyboardMemory : KeyboardMemory, latexConfiguration : LatexConfiguration) : string {
         if (keyboardMemory.InclusiveSelectionLeftBorder === this) {

@@ -1,6 +1,6 @@
-import { Node } from "./Node";
+import { TreeNode } from "./TreeNode";
 
-export abstract class LeafNode extends Node {
+export abstract class LeafNode extends TreeNode {
     // operators
     // digits
     // numbers such as pi and e.

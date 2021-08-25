@@ -1,9 +1,9 @@
-import { Node } from "../../../SyntaxTreeComponents/Nodes/Base/Node";
+import { TreeNode } from "../../../SyntaxTreeComponents/Nodes/Base/TreeNode";
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
 import { MoveRight } from "../Navigation/MoveRight";
 
-export function Insert(k: KeyboardMemory, newNode: Node) {
+export function Insert(k: KeyboardMemory, newNode: TreeNode) {
     if (k.Current instanceof Placeholder) {
         k.Current.Nodes.unshift(newNode);
         newNode.ParentPlaceholder = k.Current;

@@ -1,7 +1,7 @@
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
 import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/BranchingNode";
-import { Node } from "../../../SyntaxTreeComponents/Nodes/Base/Node";
+import { TreeNode } from "../../../SyntaxTreeComponents/Nodes/Base/TreeNode";
 import { firstAfter } from "../../../helpers/arrayhelpers/firstAfter";
 
 export function MoveRight(k: KeyboardMemory) {
@@ -16,7 +16,7 @@ export function MoveRight(k: KeyboardMemory) {
             k.Current = firstAfter(k.Current.ParentNode.Placeholders, k.Current) ?? k.Current.ParentNode;
         }
     } else {
-        let nextNode : Node | null = firstAfter(k.Current.ParentPlaceholder.Nodes, k.Current);
+        let nextNode : TreeNode | null = firstAfter(k.Current.ParentPlaceholder.Nodes, k.Current);
         if (nextNode != null) {
             if (nextNode instanceof BranchingNode){
                 k.Current = nextNode.Placeholders[0];

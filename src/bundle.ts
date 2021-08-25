@@ -1,5 +1,5 @@
 import { GetEditModeLatex } from "./GetLatex/GetEditModeLatex";
-export { GetEditModeLatex }
+export { GetEditModeLatex };
 
 import { GetViewModeLatex } from "./GetLatex/GetViewModeLatex";
 export { GetViewModeLatex };
@@ -20,7 +20,7 @@ import { TryInsertWithEncapsulateSelection } from "./KeyboardEngine/Functions/In
 export { TryInsertWithEncapsulateSelection };
 
 import { MoveDown } from "./KeyboardEngine/Functions/Navigation/MoveDown";
-export { MoveDown} ;
+export { MoveDown };
 
 import { MoveLeft } from "./KeyboardEngine/Functions/Navigation/MoveLeft";
 export { MoveLeft };
@@ -32,7 +32,7 @@ import { MoveUp } from "./KeyboardEngine/Functions/Navigation/MoveUp";
 export { MoveUp };
 
 import { LeaveSelectionMode } from "./KeyboardEngine/Functions/Selection/LeaveSelectionMode";
-export { LeaveSelectionMode} ;
+export { LeaveSelectionMode};
 
 import { SelectLeft } from "./KeyboardEngine/Functions/Selection/SelectLeft";
 export { SelectLeft };
@@ -43,8 +43,8 @@ export { SelectRight };
 import { KeyboardMemory } from "./KeyboardEngine/KeyboardMemory";
 export { KeyboardMemory };
 
-import { Node } from "./SyntaxTreeComponents/Nodes/Base/Node";
-export { Node };
+import { TreeNode } from "./SyntaxTreeComponents/Nodes/Base/TreeNode";
+export { TreeNode };
 
 import { LeafNode } from "./SyntaxTreeComponents/Nodes/Base/LeafNode";
 export { LeafNode };

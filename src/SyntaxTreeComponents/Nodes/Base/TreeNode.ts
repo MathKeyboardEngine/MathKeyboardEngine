@@ -2,7 +2,7 @@ import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
 import { LatexConfiguration } from "../../../LatexConfiguration";
 import { Placeholder } from "../../Placeholder/Placeholder";
 
-export abstract class Node {
+export abstract class TreeNode {
     ParentPlaceholder! : Placeholder;
 
     abstract getLatexPart(keyboardMemory : KeyboardMemory, latexConfiguration : LatexConfiguration) : string;

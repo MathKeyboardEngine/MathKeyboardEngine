@@ -1,10 +1,10 @@
 import { firstBefore } from "../../../helpers/arrayhelpers/firstBefore";
-import { Node } from "../../../SyntaxTreeComponents/Nodes/Base/Node";
+import { TreeNode } from "../../../SyntaxTreeComponents/Nodes/Base/TreeNode";
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
 import { LeaveSelectionMode } from "./LeaveSelectionMode";
 
-export function PopSelection(k: KeyboardMemory) : Node[] {
+export function PopSelection(k: KeyboardMemory) : TreeNode[] {
     if (k.SelectionDiff == null) {
         throw 'Turn on selection mode before calling this method.';
     }
@@ -18,7 +18,7 @@ export function PopSelection(k: KeyboardMemory) : Node[] {
         return k.Current.Nodes.splice(0, diff);
     } else {
         let siblings = k.Current.ParentPlaceholder.Nodes;
-        let indexOfLeftBorder = siblings.indexOf(k.InclusiveSelectionLeftBorder as Node);
+        let indexOfLeftBorder = siblings.indexOf(k.InclusiveSelectionLeftBorder as TreeNode);
         k.Current = firstBefore(siblings, k.InclusiveSelectionLeftBorder) ?? k.Current.ParentPlaceholder;
         LeaveSelectionMode(k);
         return siblings.splice(indexOfLeftBorder, abs(diff));

@@ -1,7 +1,7 @@
-import { Node } from "./Node";
+import { TreeNode } from "./TreeNode";
 import { Placeholder } from "../../Placeholder/Placeholder";
 
-export abstract class BranchingNode extends Node {
+export abstract class BranchingNode extends TreeNode {
     Placeholders : Placeholder[];
 
     constructor(leftToRight : Placeholder[]) {

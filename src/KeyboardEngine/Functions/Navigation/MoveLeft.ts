@@ -1,6 +1,6 @@
 import { firstBefore } from "../../../helpers/arrayhelpers/firstBefore";
 import { last } from "../../../helpers/arrayhelpers/last";
-import { Node } from "../../../SyntaxTreeComponents/Nodes/Base/Node";
+import { TreeNode } from "../../../SyntaxTreeComponents/Nodes/Base/TreeNode";
 import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/BranchingNode";
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
@@ -21,7 +21,7 @@ export function MoveLeft(k: KeyboardMemory) {
             }
         } else {
             let ancestorPlaceholder = k.Current.ParentNode.ParentPlaceholder;
-            let nodePreviousToParentOfCurrent : Node | null = firstBefore(ancestorPlaceholder.Nodes, k.Current.ParentNode);
+            let nodePreviousToParentOfCurrent : TreeNode | null = firstBefore(ancestorPlaceholder.Nodes, k.Current.ParentNode);
             if (nodePreviousToParentOfCurrent != null) {
                 k.Current = nodePreviousToParentOfCurrent;
             } else {
