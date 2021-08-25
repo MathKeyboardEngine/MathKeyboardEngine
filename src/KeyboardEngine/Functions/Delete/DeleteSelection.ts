@@ -1,8 +1,8 @@
 import { KeyboardMemory } from "../../KeyboardMemory";
-import { popSelection } from "../Selection/helpers/popSelection";
+import { PopSelection } from "../Selection/PopSelection";
  
 export function DeleteSelection(k: KeyboardMemory) {
-    popSelection(k);
+    PopSelection(k);
 }
 
   
