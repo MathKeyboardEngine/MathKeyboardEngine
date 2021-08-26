@@ -19,6 +19,9 @@ export { TryInsertWithEncapsulateCurrent };
 import { TryInsertWithEncapsulateSelection } from "./KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateSelection";
 export { TryInsertWithEncapsulateSelection };
 
+import { InsertWithEncapsulateCurrentAndSelection } from "./KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrentAndSelection";
+export { InsertWithEncapsulateCurrentAndSelection };
+
 import { MoveDown } from "./KeyboardEngine/Functions/Navigation/MoveDown";
 export { MoveDown };
 
@@ -30,6 +33,12 @@ export { MoveRight };
 
 import { MoveUp } from "./KeyboardEngine/Functions/Navigation/MoveUp";
 export { MoveUp };
+
+import { EnterSelectionMode } from "./KeyboardEngine/Functions/Selection/EnterSelectionMode";
+export { EnterSelectionMode };
+
+import { InSelectionMode } from "./KeyboardEngine/Functions/Selection/InSelectionMode";
+export { InSelectionMode };
 
 import { LeaveSelectionMode } from "./KeyboardEngine/Functions/Selection/LeaveSelectionMode";
 export { LeaveSelectionMode};

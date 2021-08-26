@@ -1,5 +1,4 @@
 import { firstAfter } from "../../../helpers/arrayhelpers/firstAfter";
-import { lastOrNull } from "../../../helpers/arrayhelpers/lastOrNull";
 import { remove } from "../../../helpers/arrayhelpers/remove";
 import { TreeNode } from "../../../SyntaxTreeComponents/Nodes/Base/TreeNode";
 import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/BranchingNode";
@@ -8,6 +7,7 @@ import { RoundBracketsNode } from "../../../SyntaxTreeComponents/Nodes/Branching
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
 import { MoveRight } from "../Navigation/MoveRight";
+import { Encapsulate } from "./Encapsulate";
 
 export function TryInsertWithEncapsulateCurrent(k: KeyboardMemory, newNode: BranchingNode, config?: {deleteOuterRoundBracketsIfAny? : boolean}) : boolean {
     let encapsulatingPlaceholder = newNode.Placeholders[0];
@@ -17,12 +17,8 @@ export function TryInsertWithEncapsulateCurrent(k: KeyboardMemory, newNode: Bran
         siblingNodes[currentIndex] = newNode;
         newNode.ParentPlaceholder = k.Current.ParentPlaceholder;
         if (k.Current instanceof RoundBracketsNode && config?.deleteOuterRoundBracketsIfAny) {
-            let betweenBracketsPlaceholder = k.Current.Placeholders[0];
-            for (let node of betweenBracketsPlaceholder.Nodes) {
-                node.ParentPlaceholder = encapsulatingPlaceholder;
-                encapsulatingPlaceholder.Nodes.push(node);
-                k.Current = firstAfter(newNode.Placeholders, encapsulatingPlaceholder) ?? newNode;
-            }
+            Encapsulate(k.Current.Placeholders[0].Nodes, encapsulatingPlaceholder);
+            k.Current = firstAfter(newNode.Placeholders, encapsulatingPlaceholder) ?? newNode;
         } else if (k.Current instanceof PartOfNumberWithDigits) {
             encapsulatingPlaceholder.Nodes.push(k.Current);
             k.Current.ParentPlaceholder = encapsulatingPlaceholder;

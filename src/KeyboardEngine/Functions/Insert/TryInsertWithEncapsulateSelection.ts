@@ -3,6 +3,7 @@ import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/Branchin
 import { KeyboardMemory } from "../../KeyboardMemory";
 import { MoveRight } from "../Navigation/MoveRight";
 import { PopSelection } from "../Selection/PopSelection";
+import { Encapsulate } from "./Encapsulate";
 import { Insert } from "./Insert";
 
 export function TryInsertWithEncapsulateSelection(k: KeyboardMemory, newNode: BranchingNode) : boolean {
@@ -12,10 +13,7 @@ export function TryInsertWithEncapsulateSelection(k: KeyboardMemory, newNode: Br
         return false;
     } else {
         let encapsulatingPlaceholder = newNode.Placeholders[0];
-        for (let node of nodes) {
-            node.ParentPlaceholder = encapsulatingPlaceholder;
-            encapsulatingPlaceholder.Nodes.push(node);
-        }
+        Encapsulate(nodes, encapsulatingPlaceholder);
         k.Current = last(nodes);
         MoveRight(k);
         return true;
