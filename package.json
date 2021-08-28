@@ -7,7 +7,8 @@
   "description": "MathKeyboardEngine provides the logic - in JavaScript and LaTeX - for a highly customizable virtual math keyboard.",
   "version": "v0.1.0-beta.4",
   "files": [
-    "dist/"
+    "dist/",
+    "examples/"
   ],
   "devDependencies": {
     "@testdeck/mocha": "^0.1.2",
