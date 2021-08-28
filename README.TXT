@@ -74,7 +74,7 @@ You can replace ".js" by ".min.js" to get the minified version: this is a smalle
 Quick start for using the "esm" format:
 
   <script type="module" type="text/javascript">
-      import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.4/dist/MathKeyboardEngine.es2017-esm.min.js';
+      import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.5/dist/MathKeyboardEngine.es2017-esm.min.js';
       let latexConfiguration = new mke.LatexConfiguration();
       let keyboardMemory = new mke.KeyboardMemory();
 
@@ -83,7 +83,8 @@ Quick start for using the "esm" format:
 
 Notes:
 - "mke" is an abbreviation of "MathKeyboardEngine". You can choose something different. (But the iife format forces you to use "mke".)
-- See the "examples" folder for more details.
+- See the (right version of the) examples folder (https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.5/examples/) for more implementation details.
+- The git repo also has release tags, so that you can visit the TypeScript source code for the version you're using.
 
 
 ==========================
