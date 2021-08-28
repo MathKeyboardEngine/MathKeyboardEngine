@@ -13,14 +13,14 @@ export { DeleteSelection };
 import { Insert } from "./KeyboardEngine/Functions/Insert/Insert";
 export { Insert };
 
-import { TryInsertWithEncapsulateCurrent } from "./KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent";
-export { TryInsertWithEncapsulateCurrent };
+import { InsertWithEncapsulateCurrent } from "./KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent";
+export { InsertWithEncapsulateCurrent };
 
-import { TryInsertWithEncapsulateSelection } from "./KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateSelection";
-export { TryInsertWithEncapsulateSelection };
+import { InsertWithEncapsulateSelection } from "./KeyboardEngine/Functions/Insert/InsertWithEncapsulateSelection";
+export { InsertWithEncapsulateSelection };
 
-import { InsertWithEncapsulateCurrentAndSelection } from "./KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrentAndSelection";
-export { InsertWithEncapsulateCurrentAndSelection };
+import { InsertWithEncapsulateSelectionAndPrevious } from "./KeyboardEngine/Functions/Insert/InsertWithEncapsulateSelectionAndPrevious";
+export { InsertWithEncapsulateSelectionAndPrevious };
 
 import { MoveDown } from "./KeyboardEngine/Functions/Navigation/MoveDown";
 export { MoveDown };

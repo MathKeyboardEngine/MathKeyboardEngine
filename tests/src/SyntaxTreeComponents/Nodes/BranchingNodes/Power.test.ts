@@ -6,7 +6,7 @@ import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
-import { TryInsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
+import { InsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
@@ -37,7 +37,7 @@ describe("Power", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("3"));
-    assert.ok(TryInsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}')));
+    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     expectLatex('3^{◼}', k);
   });
 

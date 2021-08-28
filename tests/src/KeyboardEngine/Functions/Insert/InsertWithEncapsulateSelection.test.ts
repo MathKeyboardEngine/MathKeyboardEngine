@@ -5,13 +5,14 @@ import { expectLatex } from '../../../../helpers/expectLatex';
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
-import { TryInsertWithEncapsulateSelection } from '../../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateSelection';
+import { EnterSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/EnterSelectionMode';
+import { InsertWithEncapsulateSelection } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateSelection';
 import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
 
 
-describe(TryInsertWithEncapsulateSelection.name, () =>
+describe(InsertWithEncapsulateSelection.name, () =>
 {
-  it('a single Node, with left border is Node', () =>
+  it('a single Node selected, with left border is Node', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
@@ -19,23 +20,23 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     expectLatex('12◼', k);
     SelectLeft(k);
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
-    TryInsertWithEncapsulateSelection(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    InsertWithEncapsulateSelection(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`1\frac{2}{◼}`, k);
 
   });
 
-  it('a single Node, with left border is Placeholder', () =>
+  it('a single Node selected, with left border is Placeholder', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     expectLatex('1◼', k);
     SelectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
-    TryInsertWithEncapsulateSelection(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    InsertWithEncapsulateSelection(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`\frac{1}{◼}`, k);
   });
 
-  it('multiple Nodes, with left border is Node', () =>
+  it('multiple Nodes selected, with left border is Node', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
@@ -45,11 +46,11 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     SelectLeft(k);
     SelectLeft(k);
     expectLatex(String.raw`1\colorbox{blue}{23}`, k);
-    TryInsertWithEncapsulateSelection(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    InsertWithEncapsulateSelection(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`1\frac{23}{◼}`, k);
   });
 
-  it('multiple Nodes, with left border is Placeholder', () =>
+  it('multiple Nodes selected, with left border is Placeholder', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
@@ -58,7 +59,18 @@ describe(TryInsertWithEncapsulateSelection.name, () =>
     SelectLeft(k);
     SelectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
-    TryInsertWithEncapsulateSelection(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    InsertWithEncapsulateSelection(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`\frac{12}{◼}`, k);
+  });
+
+  it('selection mode entered but nothing selected => regular insert', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new DigitNode("1"));
+    Insert(k, new DigitNode("2"));
+    EnterSelectionMode(k);
+    expectLatex('12◼', k);
+    InsertWithEncapsulateSelection(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    expectLatex(String.raw`12\frac{◼}{◻}`, k);
   });
 });

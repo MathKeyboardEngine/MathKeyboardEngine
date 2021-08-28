@@ -8,7 +8,7 @@ import { TreeNode } from "../../../SyntaxTreeComponents/Nodes/Base/TreeNode";
 import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/BranchingNode";
 import { last } from "../../../helpers/arrayhelpers/last";
 import { PartOfNumberWithDigits } from "../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits";
-import { EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex } from "../Insert/TryInsertWithEncapsulateCurrent";
+import { EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex } from "../Insert/InsertWithEncapsulateCurrent";
 
 export function DeleteCurrent(k : KeyboardMemory) {
     if (k.Current instanceof Placeholder) {
@@ -38,8 +38,22 @@ export function DeleteCurrent(k : KeyboardMemory) {
             } else if (k.Current.ParentNode.Placeholders[0] === k.Current 
             && k.Current.Nodes.length == 0 
             && k.Current.ParentNode.Placeholders.some(ph => ph.Nodes.length != 0)) {
-                if (TryEncapsulatePreviousInto(k.Current)) {
+                let previousNode = firstBefore(k.Current.ParentNode!.ParentPlaceholder.Nodes, k.Current.ParentNode);
+                if (previousNode != null) {
+                    EncapsulatePreviousInto(previousNode, k.Current)
                     k.Current = last(k.Current.Nodes);
+                } else {
+                    let nonEmptySiblingPlaceholders = k.Current.ParentNode.Placeholders.filter(p => p.Nodes.length != 0);
+                    if (nonEmptySiblingPlaceholders.length == 1) {
+                        let nodes = nonEmptySiblingPlaceholders[0].Nodes;
+                        let ancestorPlaceholder = k.Current.ParentNode.ParentPlaceholder;
+                        let indexOfParentNode = ancestorPlaceholder.Nodes.indexOf(k.Current.ParentNode);
+                        for(let node of nodes) {
+                            node.ParentPlaceholder = ancestorPlaceholder;
+                        }
+                        ancestorPlaceholder.Nodes.splice(indexOfParentNode, 1, ...nodes);
+                        k.Current = last(nodes);
+                    }
                 }
             }
         }
@@ -63,17 +77,11 @@ export function DeleteCurrent(k : KeyboardMemory) {
     }
 }
 
-function TryEncapsulatePreviousInto(targetPlaceholder : Placeholder) {
-    let previousNode = firstBefore(targetPlaceholder.ParentNode!.ParentPlaceholder.Nodes, targetPlaceholder.ParentNode);
-    if (previousNode != null) {
-        remove(targetPlaceholder.ParentNode!.ParentPlaceholder.Nodes, previousNode);
-        targetPlaceholder.Nodes.push(previousNode);
-        previousNode.ParentPlaceholder = targetPlaceholder;
-        if (previousNode instanceof PartOfNumberWithDigits){
-            EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(previousNode.ParentPlaceholder.Nodes.length, previousNode.ParentPlaceholder.Nodes, targetPlaceholder);
-        }
-        return true;
+function EncapsulatePreviousInto(previousNode : TreeNode,targetPlaceholder : Placeholder) {
+    remove(targetPlaceholder.ParentNode!.ParentPlaceholder.Nodes, previousNode);
+    targetPlaceholder.Nodes.push(previousNode);
+    previousNode.ParentPlaceholder = targetPlaceholder;
+    if (previousNode instanceof PartOfNumberWithDigits){
+        EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex(previousNode.ParentPlaceholder.Nodes.length, previousNode.ParentPlaceholder.Nodes, targetPlaceholder);
     }
-
-    return false;
 }

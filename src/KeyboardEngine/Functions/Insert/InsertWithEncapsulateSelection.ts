@@ -6,16 +6,13 @@ import { PopSelection } from "../Selection/PopSelection";
 import { Encapsulate } from "./Encapsulate";
 import { Insert } from "./Insert";
 
-export function TryInsertWithEncapsulateSelection(k: KeyboardMemory, newNode: BranchingNode) : boolean {
-    let nodes = PopSelection(k);
+export function InsertWithEncapsulateSelection(k: KeyboardMemory, newNode: BranchingNode) {
+    let selection = PopSelection(k);
     Insert(k, newNode);
-    if (nodes.length == 0) {
-        return false;
-    } else {
+    if (selection.length > 0) {
         let encapsulatingPlaceholder = newNode.Placeholders[0];
-        Encapsulate(nodes, encapsulatingPlaceholder);
-        k.Current = last(nodes);
+        Encapsulate(selection, encapsulatingPlaceholder);
+        k.Current = last(selection);
         MoveRight(k);
-        return true;
     }
 }

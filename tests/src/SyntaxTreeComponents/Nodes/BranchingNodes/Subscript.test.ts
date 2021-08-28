@@ -6,7 +6,7 @@ import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNod
 import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
 import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
-import { TryInsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
+import { InsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
@@ -41,7 +41,7 @@ describe("Subscript as suffix", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("3"));
-    assert.ok(TryInsertWithEncapsulateCurrent(k, TestNode()));
+    InsertWithEncapsulateCurrent(k, TestNode());
     expectLatex('3_{◼}', k);
   });
 

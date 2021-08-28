@@ -51,31 +51,31 @@
         registerNodeKey('ratio', mke.Insert, () => new mke.StandardLeafNode(':'));
         registerNodeKey('faculty', mke.Insert, () => new mke.StandardLeafNode('!'));
 
-        registerNodeKey('fraction', mke.Insert, () => new mke.DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
-        registerNodeKey('binomial', mke.Insert, () => new mke.DescendingBranchingNode(String.raw`\binom{`, '}{', '}'));
+        registerNodeKey('fraction', mke.Insert, () => new mke.DescendingBranchingNode(String.raw`\frac{`, '}{', '}'),
+          mke.InsertWithEncapsulateCurrent);
+        registerNodeKey('binomial', mke.Insert, () => new mke.DescendingBranchingNode(String.raw`\binom{`, '}{', '}'),
+          mke.InsertWithEncapsulateCurrent);
 
-        registerNodeKey('power', (k, powerNode) => {
-          if (!mke.TryInsertWithEncapsulateCurrent(k, powerNode)){
-            mke.Insert(k, powerNode);
-          }
-        }, () => new mke.AscendingBranchingNode('{', '}^{', '}'),
-        mke.InsertWithEncapsulateCurrentAndSelection);
+        registerNodeKey('power', mke.InsertWithEncapsulateCurrent, () => new mke.AscendingBranchingNode('{', '}^{', '}'),
+          mke.InsertWithEncapsulateSelectionAndPrevious);
 
-        registerNodeKey('subscript', (k, subscriptNode) => {
-          if (!mke.TryInsertWithEncapsulateCurrent(k, subscriptNode)){
-            mke.Insert(k, subscriptNode);
-          }
-        }, () => new mke.DescendingBranchingNode('{', '}_{', '}'),
-        mke.InsertWithEncapsulateCurrentAndSelection);
+        registerNodeKey('subscript', mke.InsertWithEncapsulateCurrent, () => new mke.DescendingBranchingNode('{', '}_{', '}'),
+          mke.InsertWithEncapsulateSelectionAndPrevious);
 
-        registerNodeKey('squareRoot', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\sqrt{`, '}'));
+        registerNodeKey('squareRoot', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\sqrt{`, '}'),
+          mke.InsertWithEncapsulateCurrent);
         registerNodeKey('nthRoot', mke.Insert, () => new mke.DescendingBranchingNode(String.raw`\sqrt[`, ']{', '}'));
 
-        registerNodeKey('roundBrackets', mke.Insert, () => new mke.RoundBracketsNode());
-        registerNodeKey('squareBrackets', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left[`, String.raw`\right]`));
-        registerNodeKey('pipes', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left|`, String.raw`\right|`));
-        registerNodeKey('doublePipes', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left\|`, String.raw`\right\|`));
-        registerNodeKey('curlyBrackets', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left\{`, String.raw`\right\}`));
+        registerNodeKey('roundBrackets', mke.Insert, () => new mke.RoundBracketsNode(),
+          mke.InsertWithEncapsulateCurrent);
+        registerNodeKey('squareBrackets', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left[`, String.raw`\right]`),
+          mke.InsertWithEncapsulateCurrent);
+        registerNodeKey('pipes', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left|`, String.raw`\right|`),
+          mke.InsertWithEncapsulateCurrent);
+        registerNodeKey('doublePipes', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left\|`, String.raw`\right\|`),
+          mke.InsertWithEncapsulateCurrent);
+        registerNodeKey('curlyBrackets', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left\{`, String.raw`\right\}`),
+          mke.InsertWithEncapsulateCurrent);
 
         registerNodeKey('naturalNumbers', mke.Insert, () => new mke.StandardLeafNode(String.raw`\mathbb{N}`));
         registerNodeKey('integers', mke.Insert, () => new mke.StandardLeafNode(String.raw`\mathbb{Z}`));
@@ -124,12 +124,12 @@
         matrixWidthInputElement.onclick = ReRegisterMatrix;
         matrixHeightInputElement.onclick = ReRegisterMatrix;
 
-        registerKey('moveLeft', mke.MoveLeft, mke.SelectLeft);
-        registerKey('moveRight', mke.MoveRight, mke.SelectRight);
+        registerKey('moveLeft', mke.MoveLeft, mke.SelectLeft, false);
+        registerKey('moveRight', mke.MoveRight, mke.SelectRight, false);
         registerKey('moveUp', mke.MoveUp);
         registerKey('moveDown', mke.MoveDown);
 
-        registerKey('deleteCurrent', mke.DeleteCurrent);
+        registerKey('deleteCurrent', mke.DeleteCurrent, mke.DeleteSelection);
 
         registerKey('selectionModeToggle', k => {
           if (mke.InSelectionMode(k)) {
@@ -166,7 +166,7 @@
             if (mke.InSelectionMode(keyboardMemory)) {
               if (onclickSelectionModeArrowFuncForKeyboardMemoryAndNode != null){
                 onclickSelectionModeArrowFuncForKeyboardMemoryAndNode(keyboardMemory, nodeGetter());
-              } 
+              }
               MyLeaveSelectionMode(keyboardMemory);
             } else {
               onclickFuncForKeyboardMemoryAndNode(keyboardMemory, nodeGetter());
@@ -175,7 +175,7 @@
           };
         }
 
-        function registerKey(elementId, onclickArrowFuncForKeyboardMemory, onclickSelectionModeFuncForKeyboardMemory = null){
+        function registerKey(elementId, onclickArrowFuncForKeyboardMemory, onclickSelectionModeFuncForKeyboardMemory = null, leaveSelectionMode = true){
           let element = document.getElementById(elementId);
           if (onclickSelectionModeFuncForKeyboardMemory != null) {
             element.classList.add(supportsSelectionMode);
@@ -185,7 +185,8 @@
             if (mke.InSelectionMode(keyboardMemory)){
               if (onclickSelectionModeFuncForKeyboardMemory != null){
                 onclickSelectionModeFuncForKeyboardMemory(keyboardMemory);
-              } else {
+              }
+              if (leaveSelectionMode) {
                 MyLeaveSelectionMode(keyboardMemory);
               }
             } else {

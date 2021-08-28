@@ -8,8 +8,9 @@ import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placehold
 import { KeyboardMemory } from "../../KeyboardMemory";
 import { MoveRight } from "../Navigation/MoveRight";
 import { Encapsulate } from "./Encapsulate";
+import { Insert } from "./Insert";
 
-export function TryInsertWithEncapsulateCurrent(k: KeyboardMemory, newNode: BranchingNode, config?: {deleteOuterRoundBracketsIfAny? : boolean}) : boolean {
+export function InsertWithEncapsulateCurrent(k: KeyboardMemory, newNode: BranchingNode, config?: {deleteOuterRoundBracketsIfAny? : boolean}) {
     let encapsulatingPlaceholder = newNode.Placeholders[0];
     if (k.Current instanceof TreeNode) {
         let siblingNodes = k.Current.ParentPlaceholder.Nodes;
@@ -29,9 +30,8 @@ export function TryInsertWithEncapsulateCurrent(k: KeyboardMemory, newNode: Bran
             k.Current.ParentPlaceholder = encapsulatingPlaceholder;
             MoveRight(k);
         }
-        return true;
     } else {
-        return false;
+        Insert(k, newNode);
     }
 }
 

@@ -5,7 +5,7 @@ import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Inser
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
-import { TryInsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
+import { InsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
@@ -52,7 +52,7 @@ describe("Fraction", () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("3"));
-    TryInsertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    InsertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`\frac{3}{◼}`, k);
   });
 

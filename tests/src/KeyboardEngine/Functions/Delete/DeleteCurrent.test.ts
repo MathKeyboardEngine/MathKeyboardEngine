@@ -5,12 +5,14 @@ import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Inser
 import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
-import { TryInsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/TryInsertWithEncapsulateCurrent';
+import { InsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
 import { DecimalSeparatorNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DecimalSeparatorNode';
+import { InsertWithEncapsulateSelectionAndPrevious } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateSelectionAndPrevious';
+import { SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
 
 describe(DeleteCurrent.name, () =>
 {
@@ -24,7 +26,7 @@ describe(DeleteCurrent.name, () =>
     Insert(k, new DecimalSeparatorNode());
     Insert(k, new DigitNode("5"));
     Insert(k, new StandardLeafNode('+')); // oops, typo!
-    TryInsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
+    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     Insert(k, new DigitNode("3"));
     MoveDown(k);
     DeleteCurrent(k); // trying to fix typo
@@ -48,7 +50,7 @@ describe(DeleteCurrent.name, () =>
     Insert(k, new DecimalSeparatorNode());
     Insert(k, new DigitNode("5"));
     Insert(k, new StandardLeafNode('+')); // oops, typo!
-    TryInsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
+    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     Insert(k, new DigitNode("3"));
     MoveDown(k);
     DeleteCurrent(k); // trying to fix typo
@@ -70,10 +72,10 @@ describe(DeleteCurrent.name, () =>
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("2"));
     let p = new AscendingBranchingNode('', '^{', '}');
-    TryInsertWithEncapsulateCurrent(k, p);
+    InsertWithEncapsulateCurrent(k, p);
     let d3 = new DigitNode("3");
     Insert(k, d3);
-    TryInsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
+    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     expectLatex('2^{3^{◼}}', k);
 
     // Act & assert
@@ -82,5 +84,45 @@ describe(DeleteCurrent.name, () =>
     assert.isTrue(d3.ParentPlaceholder == p.Placeholders[1])
     DeleteCurrent(k);
     expectLatex('2^{◼}', k);
+  });
+
+  it('delete from first placeholder', () =>
+  {
+    // Arrange
+    let k = new KeyboardMemory();
+    Insert(k, new DigitNode("2"));
+    let p = new AscendingBranchingNode('', '^{', '}');
+    InsertWithEncapsulateCurrent(k, p);
+    let d3 = new DigitNode("3");
+    Insert(k, d3);
+    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
+    expectLatex('2^{3^{◼}}', k);
+
+    // Act & assert
+    DeleteCurrent(k);
+    expectLatex('2^{3◼}', k);
+    assert.isTrue(d3.ParentPlaceholder == p.Placeholders[1])
+    DeleteCurrent(k);
+    expectLatex('2^{◼}', k);
+  });
+
+  it('Inverse of "raise selected to the power of an empty placeholder"', () =>
+  {
+    // Arrange
+    let k = new KeyboardMemory();
+    Insert(k, new DigitNode("1"));
+    Insert(k, new DigitNode("2"));
+    expectLatex('12◼', k);
+    SelectLeft(k);
+    SelectLeft(k);
+    expectLatex(String.raw`\colorbox{blue}{12}`, k);
+    InsertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    expectLatex('{◻}^{12◼}', k);
+    MoveDown(k);
+    expectLatex('{◼}^{12}', k);
+
+    // Act & assert
+    DeleteCurrent(k);
+    expectLatex('12◼', k);
   });
 });
