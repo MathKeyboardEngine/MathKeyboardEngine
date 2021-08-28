@@ -83,8 +83,8 @@ Quick start for using the "esm" format:
 
 Notes:
 - "mke" is an abbreviation of "MathKeyboardEngine". You can choose something different. (But the iife format forces you to use "mke".)
-- See the (right version of the) examples folder (https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.5/examples/) for more implementation details.
-- The git repo also has release tags, so that you can visit the TypeScript source code for the version you're using.
+- Visit (the right version of)* the 'examples' folder (and the TypeScript source code) for more implementation details.
+* If you use a version tag in the url like this: https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/v0.1.0-beta.5, you can see the git repository (e.g. 'examples' folder, etc.) as it was for that version.
 
 
 ==========================
