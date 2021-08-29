@@ -41,6 +41,8 @@ It is intended for use together with - for example - MathJax or KaTeX.
 | customized :)                 |
 ---------------------------------
 
+Live examples can be tested at https://mathkeyboardengine.github.io.
+
 Unique about MathKeyboardEngine:
  - it supports (almost?) all math LaTeX (please share if you know anything that is not supported), including matrices.
  - the syntax tree exists of very few different parts: the `StandardLeafNode`, `AscendingBranchingNode` and `DescendingBranchingNode` can be used for almost any LaTeX, including fractions, powers, combinations, subscript, etc. with ready-to-use up/down/left/right navigation.
