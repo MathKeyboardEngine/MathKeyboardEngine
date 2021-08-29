@@ -6,6 +6,8 @@ import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Inser
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
 import { DeleteSelection } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteSelection';
+import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
+import { SelectRight } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectRight';
 
 
 describe(DeleteSelection.name, () =>
@@ -48,7 +50,7 @@ describe(DeleteSelection.name, () =>
     expectLatex('1◼', k);
   });
 
-  it('multiple Nodes, with left border is Placeholder', () =>
+  it('multiple Nodes, with left border is Placeholder (via SelectLeft)', () =>
   {
     let k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
@@ -56,6 +58,21 @@ describe(DeleteSelection.name, () =>
     expectLatex('12◼', k);
     SelectLeft(k);
     SelectLeft(k);
+    expectLatex(String.raw`\colorbox{blue}{12}`, k);
+    DeleteSelection(k);
+    expectLatex('◼', k);
+  });
+
+  it('multiple Nodes, with left border is Placeholder (via SelectRight)', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new DigitNode("1"));
+    Insert(k, new DigitNode("2"));
+    MoveLeft(k);
+    MoveLeft(k);
+    expectLatex('◼12', k);
+    SelectRight(k);
+    SelectRight(k);
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
     DeleteSelection(k);
     expectLatex('◼', k);

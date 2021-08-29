@@ -10,6 +10,7 @@ import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
+import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 
 describe(MatrixNode.name, () =>
 {
@@ -188,5 +189,42 @@ describe(MatrixNode.name, () =>
     expectLatex(String.raw`\begin{pmatrix}1 & 2◼ \\ 3 & 4\end{pmatrix}`, k);
     MoveUp(k);
     expectLatex(String.raw`\begin{pmatrix}1 & 2◼ \\ 3 & 4\end{pmatrix}`, k);
+  });
+
+    it('impossible up/down requests in filled pmatrix(2*2) should not throw', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new MatrixNode({
+        matrixType: "pmatrix",
+        height: 2,
+        width: 2
+    }));
+    Insert(k, new DigitNode("1"));
+    MoveRight(k);
+    Insert(k, new DigitNode("2"));
+    MoveRight(k);      
+    Insert(k, new DigitNode("3"));
+    MoveRight(k);
+    Insert(k, new DigitNode("4"));
+    expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & 4◼\end{pmatrix}`, k);
+    MoveDown(k);
+    expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & 4◼\end{pmatrix}`, k);
+    MoveUp(k);
+    expectLatex(String.raw`\begin{pmatrix}1 & 2◼ \\ 3 & 4\end{pmatrix}`, k);
+    MoveUp(k);
+    expectLatex(String.raw`\begin{pmatrix}1 & 2◼ \\ 3 & 4\end{pmatrix}`, k);
+  });
+
+  it('bug in logic somewhere else throws', () =>
+  {
+    let matrix = new MatrixNode({
+      matrixType: "pmatrix",
+      height: 2,
+      width: 2
+    });
+    let placeholderThatIsNotPartOfTheMatrix = new Placeholder();
+  
+    expect(() => matrix.GetMoveDownSuggestion(placeholderThatIsNotPartOfTheMatrix))
+    .throws();
   });
 });

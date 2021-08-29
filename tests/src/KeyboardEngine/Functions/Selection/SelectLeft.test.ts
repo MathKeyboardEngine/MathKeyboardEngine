@@ -5,6 +5,8 @@ import { expectLatex } from '../../../../helpers/expectLatex';
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
+import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
+import { EnterSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/EnterSelectionMode';
 
 
 describe(SelectLeft.name, () =>
@@ -49,8 +51,26 @@ describe(SelectLeft.name, () =>
     SelectLeft(k);
     SelectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
+  });
 
+  it('If Current is Placeholder, then SelectLeft does nothing.', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new DigitNode("1"));
+    MoveLeft(k);
+    expectLatex('◼1', k);
+    EnterSelectionMode(k);
+    SelectLeft(k);
+    expectLatex('◼1', k);
+  });
 
-    
+  it('If already maximum times SelectLeft used, then SelectLeft does nothing.', () =>
+  {
+    let k = new KeyboardMemory();
+    Insert(k, new DigitNode("1"));
+    SelectLeft(k);
+    expectLatex(String.raw`\colorbox{blue}{1}`, k);
+    SelectLeft(k);
+    expectLatex(String.raw`\colorbox{blue}{1}`, k);
   });
 });
