@@ -1,5 +1,4 @@
 import { describe } from 'mocha';
-import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { StandardBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/StandardBranchingNode';
@@ -13,7 +12,7 @@ describe(StandardBranchingNode.name, () =>
 {
   it('sqrt 3 right left left left', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'));
     expectLatex(String.raw`\sqrt{◼}`, k);
     Insert(k, new DigitNode("3"));
@@ -32,7 +31,7 @@ describe(StandardBranchingNode.name, () =>
 
   it('sqrt del', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'));
     expectLatex(String.raw`\sqrt{◼}`, k);
     DeleteCurrent(k);

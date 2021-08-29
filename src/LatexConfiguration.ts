@@ -4,9 +4,9 @@
     passivePlaceholderNucleus : string = String.raw`\square `;
     passivePlaceholderColor? : string;
     selectionHightlightStart : string = String.raw`\colorbox{#ADD8E6}{`;
-    selectionHightlightEnd : string = '}';
+    selectionHightlightEnd  = '}';
 
-    get activePlaceholderLatex() {
+    get activePlaceholderLatex() : string {
         if (this.activePlaceholderColor == null){
             return this.activePlaceholderNucleus;
         } else{
@@ -14,7 +14,7 @@
         }
     }
 
-    get passivePlaceholderLatex() {
+    get passivePlaceholderLatex() : string {
         if (this.passivePlaceholderColor == null){
             return this.passivePlaceholderNucleus;
         } else{

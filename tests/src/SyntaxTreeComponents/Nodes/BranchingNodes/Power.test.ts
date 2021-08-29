@@ -1,5 +1,4 @@
 import { describe } from 'mocha';
-import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
@@ -15,7 +14,7 @@ describe("Power", () =>
 {
   it('pow 3 right 4', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new AscendingBranchingNode('', '^{', '}'));
     Insert(k, new DigitNode("3"));
     MoveRight(k);
@@ -25,7 +24,7 @@ describe("Power", () =>
 
   it('pow 3 up 4', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new AscendingBranchingNode('', '^{', '}'));
     Insert(k, new DigitNode("3"));
     MoveUp(k);
@@ -35,7 +34,7 @@ describe("Power", () =>
 
   it('3 encapsulatedBy(pow.Base)', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("3"));
     InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     expectLatex('3^{◼}', k);
@@ -43,7 +42,7 @@ describe("Power", () =>
 
   it('pow 3 up down', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new AscendingBranchingNode('', '^{', '}'));
     Insert(k, new DigitNode("3"));
     MoveUp(k);
@@ -54,7 +53,7 @@ describe("Power", () =>
 
   it('pow can be left empty, moving out and back in', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new AscendingBranchingNode('', '^{', '}'));
     expectLatex('◼^{◻}', k);
     MoveLeft(k);
@@ -65,7 +64,7 @@ describe("Power", () =>
 
   it('impossible up/down requests in empty power should not throw', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new AscendingBranchingNode('', '^{', '}'));
     MoveUp(k);
     expectLatex('◻^{◼}', k);
@@ -79,7 +78,7 @@ describe("Power", () =>
 
   it('impossible up/down requests in filled power should not throw', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new AscendingBranchingNode('', '^{', '}'));
     Insert(k, new DigitNode("3"));
     expectLatex('3◼^{◻}', k);

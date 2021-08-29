@@ -5,14 +5,14 @@ import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/Branchin
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
 
-export function MoveLeft(k: KeyboardMemory) {
+export function MoveLeft(k: KeyboardMemory) : void {
     if (k.Current instanceof Placeholder)
     {
         if (k.Current.ParentNode == null) {
             return;
         }
 
-        let previousPlaceholder : Placeholder | null = firstBefore(k.Current.ParentNode.Placeholders, k.Current);
+        const previousPlaceholder : Placeholder | null = firstBefore(k.Current.ParentNode.Placeholders, k.Current);
         if (previousPlaceholder !== null) {
             if (previousPlaceholder.Nodes.length == 0) {
                 k.Current = previousPlaceholder;
@@ -20,8 +20,8 @@ export function MoveLeft(k: KeyboardMemory) {
                 k.Current = last(previousPlaceholder.Nodes);
             }
         } else {
-            let ancestorPlaceholder = k.Current.ParentNode.ParentPlaceholder;
-            let nodePreviousToParentOfCurrent : TreeNode | null = firstBefore(ancestorPlaceholder.Nodes, k.Current.ParentNode);
+            const ancestorPlaceholder = k.Current.ParentNode.ParentPlaceholder;
+            const nodePreviousToParentOfCurrent : TreeNode | null = firstBefore(ancestorPlaceholder.Nodes, k.Current.ParentNode);
             if (nodePreviousToParentOfCurrent != null) {
                 k.Current = nodePreviousToParentOfCurrent;
             } else {
@@ -30,7 +30,7 @@ export function MoveLeft(k: KeyboardMemory) {
         }
     } else {
         if (k.Current instanceof BranchingNode) {
-            let placeholder = last(k.Current.Placeholders);
+            const placeholder = last(k.Current.Placeholders);
             k.Current = last(placeholder.Nodes) ?? placeholder;
         } else {
             k.Current = firstBefore(k.Current.ParentPlaceholder.Nodes, k.Current) ?? k.Current.ParentPlaceholder;

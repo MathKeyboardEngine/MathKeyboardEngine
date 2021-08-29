@@ -8,19 +8,19 @@ export class MatrixNode extends BranchingNode {
     readonly Grid : Placeholder[][];
     
     constructor(args : { matrixType: string, height : number, width : number }) {
-        let grid : Placeholder[][] = [];
-        let leftToRight : Placeholder[] = [];
+        const grid : Placeholder[][] = [];
+        const leftToRight : Placeholder[] = [];
         for(let i = 0; i < args.height; i++){
-            let row : Placeholder[] = [];
+            const row : Placeholder[] = [];
             for (let j = 0; j < args.width; j++){
-                let placeholder = new Placeholder();
+                const placeholder = new Placeholder();
                 row.push(placeholder);
                 leftToRight.push(placeholder);
             }
             grid.push(row);
         }
         super(leftToRight);
-        for(let placeholder of leftToRight){
+        for(const placeholder of leftToRight){
             placeholder.ParentNode = this;
         }
         this.Grid = grid;
@@ -35,7 +35,7 @@ export class MatrixNode extends BranchingNode {
     }
     
     override GetMoveDownSuggestion(current : Placeholder) : Placeholder | null {
-        let {rowNumber, indexInRow } = this.GetPositionOf(current);
+        const {rowNumber, indexInRow } = this.GetPositionOf(current);
         if (rowNumber + 1 < this.Grid.length){
             return this.Grid[rowNumber + 1][indexInRow];
         } else {
@@ -44,7 +44,7 @@ export class MatrixNode extends BranchingNode {
     }
     
     override GetMoveUpSuggestion(current : Placeholder) : Placeholder | null {
-        let {rowNumber, indexInRow } = this.GetPositionOf(current);
+        const {rowNumber, indexInRow } = this.GetPositionOf(current);
         if (rowNumber - 1 >= 0){
             return this.Grid[rowNumber - 1][indexInRow];
         } else {
@@ -54,7 +54,7 @@ export class MatrixNode extends BranchingNode {
 
     private GetPositionOf(placeholder : Placeholder) : { rowNumber:number, indexInRow:number } {
         for (let rowNumber = 0; rowNumber < this.Grid.length; rowNumber++) {
-            let row = this.Grid[rowNumber];
+            const row = this.Grid[rowNumber];
             for (let indexInRow = 0; indexInRow < row.length; indexInRow++) {
                 if (row[indexInRow] === placeholder){
                     return { rowNumber, indexInRow};

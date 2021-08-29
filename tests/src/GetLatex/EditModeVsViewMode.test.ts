@@ -1,5 +1,5 @@
 import { describe } from 'mocha';
-import { assert, expect } from 'chai';
+import { expect } from 'chai';
 import { LatexConfiguration } from '../../../src/LatexConfiguration';
 import { KeyboardMemory } from '../../../src/KeyboardEngine/KeyboardMemory';
 import { Insert } from '../../../src/KeyboardEngine/Functions/Insert/Insert';
@@ -17,7 +17,7 @@ describe("GetLatex", () =>
 {
   it('BranchingNode', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
 
     expect(String.raw`\frac{◼}{◻}`).to.equal(GetEditModeLatex(k, config));
@@ -27,7 +27,7 @@ describe("GetLatex", () =>
 
   it('LeafNode', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("3"));
     expect(`3◼`).to.equal(GetEditModeLatex(k, config));
     expect(`3`).to.equal(GetViewModeLatex(k, config));
@@ -36,8 +36,8 @@ describe("GetLatex", () =>
 
   it('Placeholder', () =>
   {
-    let k = new KeyboardMemory();
-    let fraction = new DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
+    const k = new KeyboardMemory();
+    const fraction = new DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
     Insert(k, fraction);
     Insert(k, new DigitNode("3"));
     MoveDown(k);

@@ -1,5 +1,5 @@
 import { describe } from 'mocha';
-import { assert, expect } from 'chai';
+import { expect } from 'chai';
 import { KeyboardMemory } from '../../../../../../src/KeyboardEngine/KeyboardMemory'
 import { expectLatex } from '../../../../../helpers/expectLatex';
 import { Insert } from '../../../../../../src/KeyboardEngine/Functions/Insert/Insert';
@@ -13,7 +13,7 @@ describe(setSelectionDiff.name, () =>
   it('throws at nonsensical request', () =>
   {
     // Arrange
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     SelectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{1}`, k); // All nodes (at the left of Current) within the current placeholder have been selected

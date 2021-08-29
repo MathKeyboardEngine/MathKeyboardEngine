@@ -1,5 +1,4 @@
 import { describe } from 'mocha';
-import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
@@ -11,7 +10,7 @@ describe(SelectRight.name, () =>
 {
   it('a single Node, with left border is Node', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new DigitNode("2"));
     MoveLeft(k);
@@ -22,7 +21,7 @@ describe(SelectRight.name, () =>
 
   it('a single Node, with left border is Placeholder', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     MoveLeft(k);
     expectLatex('◼1', k);
@@ -32,7 +31,7 @@ describe(SelectRight.name, () =>
 
   it('multiple Nodes, with left border is Node', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new DigitNode("2"));
     Insert(k, new DigitNode("3"));
@@ -46,7 +45,7 @@ describe(SelectRight.name, () =>
 
   it('multiple Nodes, with left border is Placeholder', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new DigitNode("2"));
     MoveLeft(k);

@@ -1,5 +1,4 @@
 import { describe } from 'mocha';
-import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
@@ -13,7 +12,7 @@ describe(BranchingNode.name, () =>
 {
   it('calling MoveDown does not throw even if not implemented', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new SquaredNode());
     expectLatex('◼^2', k);
     MoveUp(k);

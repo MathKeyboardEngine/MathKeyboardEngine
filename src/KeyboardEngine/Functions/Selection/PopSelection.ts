@@ -12,13 +12,13 @@ export function PopSelection(k: KeyboardMemory) : TreeNode[] {
         LeaveSelectionMode(k);
         return [];
     }
-    let diff = k.SelectionDiff;
+    const diff = k.SelectionDiff;
     if (k.Current instanceof Placeholder) {
         LeaveSelectionMode(k);
         return k.Current.Nodes.splice(0, diff);
     } else {
-        let siblings = k.Current.ParentPlaceholder.Nodes;
-        let indexOfLeftBorder = siblings.indexOf(k.InclusiveSelectionLeftBorder as TreeNode);
+        const siblings = k.Current.ParentPlaceholder.Nodes;
+        const indexOfLeftBorder = siblings.indexOf(k.InclusiveSelectionLeftBorder as TreeNode);
         k.Current = firstBefore(siblings, k.InclusiveSelectionLeftBorder) ?? k.Current.ParentPlaceholder;
         LeaveSelectionMode(k);
         return siblings.splice(indexOfLeftBorder, abs(diff));

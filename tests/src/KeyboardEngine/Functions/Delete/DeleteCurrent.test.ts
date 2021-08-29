@@ -1,5 +1,5 @@
 import { describe } from 'mocha';
-import { assert, expect } from 'chai';
+import { assert } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
@@ -19,7 +19,7 @@ describe(DeleteCurrent.name, () =>
   it('can also be used to "delete empty placeholders in some cases" (in the experience of the user)', () =>
   {
     // Arrange
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new StandardLeafNode('+'));
     Insert(k, new DigitNode("2"));
@@ -45,7 +45,7 @@ describe(DeleteCurrent.name, () =>
   it('can also be used to "delete empty placeholders in some cases" (in the experience of the user)', () =>
   {
     // Arrange
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("2"));
     Insert(k, new DecimalSeparatorNode());
     Insert(k, new DigitNode("5"));
@@ -69,11 +69,11 @@ describe(DeleteCurrent.name, () =>
   it('inverse of TryEncapsulateCurrent - execution path with digits', () =>
   {
     // Arrange
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("2"));
-    let p = new AscendingBranchingNode('', '^{', '}');
+    const p = new AscendingBranchingNode('', '^{', '}');
     InsertWithEncapsulateCurrent(k, p);
-    let d3 = new DigitNode("3");
+    const d3 = new DigitNode("3");
     Insert(k, d3);
     InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     expectLatex('2^{3^{◼}}', k);
@@ -89,11 +89,11 @@ describe(DeleteCurrent.name, () =>
   it('delete from first placeholder', () =>
   {
     // Arrange
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("2"));
-    let p = new AscendingBranchingNode('', '^{', '}');
+    const p = new AscendingBranchingNode('', '^{', '}');
     InsertWithEncapsulateCurrent(k, p);
-    let d3 = new DigitNode("3");
+    const d3 = new DigitNode("3");
     Insert(k, d3);
     InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     expectLatex('2^{3^{◼}}', k);
@@ -109,7 +109,7 @@ describe(DeleteCurrent.name, () =>
   it('Inverse of "raise selected to the power of an empty placeholder"', () =>
   {
     // Arrange
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new DigitNode("2"));
     expectLatex('12◼', k);

@@ -1,4 +1,3 @@
-import { LatexConfiguration } from "../LatexConfiguration";
 import { TreeNode } from "../SyntaxTreeComponents/Nodes/Base/TreeNode";
 import { Placeholder } from "../SyntaxTreeComponents/Placeholder/Placeholder";
 

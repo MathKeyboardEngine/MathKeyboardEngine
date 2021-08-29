@@ -3,7 +3,7 @@ import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/Branchin
 import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
 import { KeyboardMemory } from "../../KeyboardMemory";
 
-export function MoveUp(k : KeyboardMemory) {
+export function MoveUp(k : KeyboardMemory) : void {
     let moveFromPlaceholder = k.Current instanceof Placeholder ? k.Current : k.Current.ParentPlaceholder;
     let suggestingNode : BranchingNode;
     while (true) {
@@ -12,7 +12,7 @@ export function MoveUp(k : KeyboardMemory) {
         }
         suggestingNode = moveFromPlaceholder.ParentNode
         if (suggestingNode instanceof BranchingNode){
-            let suggestion = suggestingNode.GetMoveUpSuggestion(moveFromPlaceholder);
+            const suggestion = suggestingNode.GetMoveUpSuggestion(moveFromPlaceholder);
             if (suggestion != null)
             {
                 k.Current = lastOrNull(suggestion.Nodes) ?? suggestion;

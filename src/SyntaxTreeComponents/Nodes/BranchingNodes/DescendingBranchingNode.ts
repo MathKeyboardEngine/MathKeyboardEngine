@@ -3,7 +3,7 @@ import { StandardBranchingNode } from "./StandardBranchingNode";
 
 export class DescendingBranchingNode extends StandardBranchingNode {
     override GetMoveDownSuggestion(current : Placeholder) : Placeholder | null {
-        let currentPlaceholderIndex = this.Placeholders.indexOf(current);
+        const currentPlaceholderIndex = this.Placeholders.indexOf(current);
         if (currentPlaceholderIndex < this.Placeholders.length - 1) {
             return this.Placeholders[currentPlaceholderIndex + 1];
         } else {
@@ -12,7 +12,7 @@ export class DescendingBranchingNode extends StandardBranchingNode {
     }
     
     override GetMoveUpSuggestion(current : Placeholder) : Placeholder | null {
-        let currentPlaceholderIndex = this.Placeholders.indexOf(current);
+        const currentPlaceholderIndex = this.Placeholders.indexOf(current);
         if (currentPlaceholderIndex > 0) {
             return this.Placeholders[currentPlaceholderIndex - 1];
         } else {

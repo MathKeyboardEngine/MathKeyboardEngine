@@ -22,7 +22,7 @@ describe(InsertWithEncapsulateCurrent.name, () =>
 {
   it('does a regular insert if current is a placeholder', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     assert.isTrue(k.Current instanceof Placeholder);
     expectLatex('◼', k);
     InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
@@ -31,7 +31,7 @@ describe(InsertWithEncapsulateCurrent.name, () =>
 
   it('can encapsulate complex stuff like matrixes', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new MatrixNode({matrixType: "pmatrix", height:2, width:2}));
     for(let i = 1; i <= 4; i++){
         Insert(k, new DigitNode(i.toString()));
@@ -43,7 +43,7 @@ describe(InsertWithEncapsulateCurrent.name, () =>
 
   it('can also be used inside (for example) a matrix', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new MatrixNode({matrixType: "pmatrix", height:2, width:2}));
     Insert(k, new DigitNode("1"));
     InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
@@ -52,7 +52,7 @@ describe(InsertWithEncapsulateCurrent.name, () =>
 
   it('can encapsulate multiple digits', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new DigitNode("2"));
     InsertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
@@ -61,7 +61,7 @@ describe(InsertWithEncapsulateCurrent.name, () =>
 
   it('can encapsulate a decimal number', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new DigitNode("2"));
     Insert(k, new DecimalSeparatorNode());
@@ -80,7 +80,7 @@ describe(InsertWithEncapsulateCurrent.name, () =>
 
   it('does not encapsulate more than it should', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new StandardLeafNode('+'));
     Insert(k, new DigitNode("2"));
@@ -90,7 +90,7 @@ describe(InsertWithEncapsulateCurrent.name, () =>
   });
 
   it ('can encapsulate round brackets', () => {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new StandardLeafNode('+'));
     Insert(k, new RoundBracketsNode('(', ')'));
@@ -99,14 +99,14 @@ describe(InsertWithEncapsulateCurrent.name, () =>
     Insert(k, new DigitNode("3"));
     MoveRight(k);
     expectLatex(String.raw`1+(2+3)◼`, k);
-    let powerNode = new AscendingBranchingNode('', '^{', '}');
+    const powerNode = new AscendingBranchingNode('', '^{', '}');
     InsertWithEncapsulateCurrent(k, powerNode);
     expectLatex(String.raw`1+(2+3)^{◼}`, k);
     expect(powerNode.Placeholders[0].getLatex(k, null!)).to.be.equal("(2+3)");
   });
 
   it ('config.deleteOuterRoundBracketsIfAny: deletes outer round brackets during encapsulation', () => {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new StandardLeafNode('+'));
     Insert(k, new RoundBracketsNode('(', ')'));
@@ -127,7 +127,7 @@ describe(InsertWithEncapsulateCurrent.name, () =>
   });
   
   it ('config.deleteOuterRoundBracketsIfAny does not delete square brackets during encapsulation', () => {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new StandardLeafNode('+'));
     Insert(k, new StandardBranchingNode(String.raw`|`, String.raw`|`));
@@ -135,7 +135,7 @@ describe(InsertWithEncapsulateCurrent.name, () =>
     Insert(k, new StandardLeafNode('+'));
     Insert(k, new DigitNode("3"));
     MoveRight(k);
-    let fraction = new DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
+    const fraction = new DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
     InsertWithEncapsulateCurrent(k, fraction, { deleteOuterRoundBracketsIfAny: true});
     expectLatex(String.raw`1+\frac{|x+3|}{◼}`, k);
     expect(fraction.Placeholders[0].getLatex(k, null!)).to.be.equal("|x+3|");

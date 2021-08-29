@@ -1,5 +1,4 @@
 import { describe } from 'mocha';
-import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
@@ -13,7 +12,7 @@ describe("NthRoot", () =>
 {
   it('basic test', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DescendingBranchingNode(String.raw`\sqrt[`, ']{', '}'));
     expectLatex(String.raw`\sqrt[◼]{◻}`, k);
     Insert(k, new DigitNode("3"));
@@ -26,7 +25,7 @@ describe("NthRoot", () =>
 
   it('up/down (including impossible up/down requests)', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DescendingBranchingNode(String.raw`\sqrt[`, ']{', '}'));
     MoveDown(k);
     expectLatex(String.raw`\sqrt[◻]{◼}`, k);

@@ -10,18 +10,18 @@ import { last } from "../../../helpers/arrayhelpers/last";
 import { PartOfNumberWithDigits } from "../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits";
 import { EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex } from "../Insert/InsertWithEncapsulateCurrent";
 
-export function DeleteCurrent(k : KeyboardMemory) {
+export function DeleteCurrent(k : KeyboardMemory) : void {
     if (k.Current instanceof Placeholder) {
         if (k.Current.ParentNode == null || k.Current.Nodes.length > 0) {
             return;
         } else {
-            let nonEmptyPlaceholderOnLeft : Placeholder | null = GetFirstNonEmptyOnLeftOf(k.Current.ParentNode.Placeholders, k.Current);
+            const nonEmptyPlaceholderOnLeft : Placeholder | null = GetFirstNonEmptyOnLeftOf(k.Current.ParentNode.Placeholders, k.Current);
             if (nonEmptyPlaceholderOnLeft) {
                 if (k.Current.ParentNode.Placeholders.length == 2
                     && k.Current === k.Current.ParentNode.Placeholders[1]
                     && k.Current.Nodes.length == 0) {
                     k.Current.ParentNode.ParentPlaceholder.Nodes.pop();
-                    for(let node of nonEmptyPlaceholderOnLeft.Nodes){
+                    for(const node of nonEmptyPlaceholderOnLeft.Nodes){
                         k.Current.ParentNode.ParentPlaceholder.Nodes.push(node);
                         node.ParentPlaceholder = k.Current.ParentNode.ParentPlaceholder;
                     }
@@ -31,24 +31,24 @@ export function DeleteCurrent(k : KeyboardMemory) {
                     k.Current = lastOrNull(nonEmptyPlaceholderOnLeft.Nodes) ?? nonEmptyPlaceholderOnLeft;
                 }
             } else if (k.Current.ParentNode.Placeholders.every(ph => ph.Nodes.length == 0)) {
-                let ancestorPlaceholder = k.Current.ParentNode.ParentPlaceholder;
-                let previousNode = firstBefore(ancestorPlaceholder.Nodes, k.Current.ParentNode);
+                const ancestorPlaceholder = k.Current.ParentNode.ParentPlaceholder;
+                const previousNode = firstBefore(ancestorPlaceholder.Nodes, k.Current.ParentNode);
                 remove(ancestorPlaceholder.Nodes, k.Current.ParentNode);
                 k.Current = previousNode ?? ancestorPlaceholder;
             } else if (k.Current.ParentNode.Placeholders[0] === k.Current 
             && k.Current.Nodes.length == 0 
             && k.Current.ParentNode.Placeholders.some(ph => ph.Nodes.length != 0)) {
-                let previousNode = firstBefore(k.Current.ParentNode!.ParentPlaceholder.Nodes, k.Current.ParentNode);
+                const previousNode = firstBefore(k.Current.ParentNode!.ParentPlaceholder.Nodes, k.Current.ParentNode);
                 if (previousNode != null) {
                     EncapsulatePreviousInto(previousNode, k.Current)
                     k.Current = last(k.Current.Nodes);
                 } else {
-                    let nonEmptySiblingPlaceholders = k.Current.ParentNode.Placeholders.filter(p => p.Nodes.length != 0);
+                    const nonEmptySiblingPlaceholders = k.Current.ParentNode.Placeholders.filter(p => p.Nodes.length != 0);
                     if (nonEmptySiblingPlaceholders.length == 1) {
-                        let nodes = nonEmptySiblingPlaceholders[0].Nodes;
-                        let ancestorPlaceholder = k.Current.ParentNode.ParentPlaceholder;
-                        let indexOfParentNode = ancestorPlaceholder.Nodes.indexOf(k.Current.ParentNode);
-                        for(let node of nodes) {
+                        const nodes = nonEmptySiblingPlaceholders[0].Nodes;
+                        const ancestorPlaceholder = k.Current.ParentNode.ParentPlaceholder;
+                        const indexOfParentNode = ancestorPlaceholder.Nodes.indexOf(k.Current.ParentNode);
+                        for(const node of nodes) {
                             node.ParentPlaceholder = ancestorPlaceholder;
                         }
                         ancestorPlaceholder.Nodes.splice(indexOfParentNode, 1, ...nodes);
@@ -61,7 +61,7 @@ export function DeleteCurrent(k : KeyboardMemory) {
         if (k.Current instanceof BranchingNode && k.Current.Placeholders.some(ph => ph.Nodes.length > 0)) {
             let lastPlaceholderWithContent! : Placeholder;
             for (let i = k.Current.Placeholders.length - 1; i >= 0; i--) {
-                let ph = k.Current.Placeholders[i];
+                const ph = k.Current.Placeholders[i];
                 if (ph.Nodes.length > 0){
                     lastPlaceholderWithContent = ph;
                     break;
@@ -70,7 +70,7 @@ export function DeleteCurrent(k : KeyboardMemory) {
             lastPlaceholderWithContent.Nodes.pop();
             k.Current = lastPlaceholderWithContent.Nodes.length == 0 ? lastPlaceholderWithContent : last(lastPlaceholderWithContent.Nodes);
         } else {
-            let previousNode : TreeNode | null = firstBefore(k.Current.ParentPlaceholder.Nodes, k.Current);
+            const previousNode : TreeNode | null = firstBefore(k.Current.ParentPlaceholder.Nodes, k.Current);
             remove(k.Current.ParentPlaceholder.Nodes, k.Current);
             k.Current = previousNode ?? k.Current.ParentPlaceholder;
         }

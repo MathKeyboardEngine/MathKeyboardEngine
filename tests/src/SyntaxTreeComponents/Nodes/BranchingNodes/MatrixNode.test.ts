@@ -1,5 +1,5 @@
 import { describe } from 'mocha';
-import { assert, expect } from 'chai';
+import { expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { MatrixNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MatrixNode';
@@ -16,7 +16,7 @@ describe(MatrixNode.name, () =>
 {
   it('pmatrix(width=2,height=3) 1 right 2 down 4 down 6', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new MatrixNode({
         matrixType: "pmatrix",
         height: 3,
@@ -35,7 +35,7 @@ describe(MatrixNode.name, () =>
 
   it('move with left and right through all cells of the pmatrix(2*2)', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new MatrixNode({
         matrixType: "pmatrix",
         height: 2,
@@ -83,7 +83,7 @@ describe(MatrixNode.name, () =>
 
   it('move out of an empty pmatrix(2*2) to the previous node and back in', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("2"));
     Insert(k, new MatrixNode({
         matrixType: "pmatrix",
@@ -99,7 +99,7 @@ describe(MatrixNode.name, () =>
 
   it('pmatrix(2*2) delete content', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new MatrixNode({
         matrixType: "pmatrix",
         height: 2,
@@ -127,7 +127,7 @@ describe(MatrixNode.name, () =>
 
   it('pmatrix(2*2) right down left up', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new MatrixNode({
         matrixType: "pmatrix",
         height: 2,
@@ -146,7 +146,7 @@ describe(MatrixNode.name, () =>
 
   it('impossible up/down requests in empty pmatrix(2*2) should not throw', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new MatrixNode({
         matrixType: "pmatrix",
         height: 2,
@@ -169,7 +169,7 @@ describe(MatrixNode.name, () =>
 
   it('impossible up/down requests in filled pmatrix(2*2) should not throw', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new MatrixNode({
         matrixType: "pmatrix",
         height: 2,
@@ -193,7 +193,7 @@ describe(MatrixNode.name, () =>
 
     it('impossible up/down requests in filled pmatrix(2*2) should not throw', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new MatrixNode({
         matrixType: "pmatrix",
         height: 2,
@@ -217,12 +217,12 @@ describe(MatrixNode.name, () =>
 
   it('bug in logic somewhere else throws', () =>
   {
-    let matrix = new MatrixNode({
+    const matrix = new MatrixNode({
       matrixType: "pmatrix",
       height: 2,
       width: 2
     });
-    let placeholderThatIsNotPartOfTheMatrix = new Placeholder();
+    const placeholderThatIsNotPartOfTheMatrix = new Placeholder();
   
     expect(() => matrix.GetMoveDownSuggestion(placeholderThatIsNotPartOfTheMatrix))
     .throws();

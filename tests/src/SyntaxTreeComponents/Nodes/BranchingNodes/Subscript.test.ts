@@ -1,5 +1,4 @@
 import { describe } from 'mocha';
-import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
@@ -19,7 +18,7 @@ describe("Subscript as suffix", () =>
 {
   it('sub 3 right 4', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, TestNode());
     Insert(k, new DigitNode("3"));
     MoveRight(k);
@@ -29,7 +28,7 @@ describe("Subscript as suffix", () =>
 
   it('sub 3 up 4', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, TestNode());
     Insert(k, new DigitNode("3"));
     MoveDown(k);
@@ -39,7 +38,7 @@ describe("Subscript as suffix", () =>
 
   it('3 encapsulated', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("3"));
     InsertWithEncapsulateCurrent(k, TestNode());
     expectLatex('3_{◼}', k);
@@ -47,7 +46,7 @@ describe("Subscript as suffix", () =>
 
   it('subscriptNode 3 up down', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, TestNode());
     Insert(k, new DigitNode("3"));
     MoveDown(k);
@@ -58,7 +57,7 @@ describe("Subscript as suffix", () =>
 
   it('can be left empty, moving out and back in', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, TestNode());
     expectLatex('◼_{◻}', k);
     MoveLeft(k);
@@ -69,7 +68,7 @@ describe("Subscript as suffix", () =>
 
   it('impossible up/down requests in empty node should not throw', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, TestNode());
     MoveDown(k);
     expectLatex('◻_{◼}', k);
@@ -83,7 +82,7 @@ describe("Subscript as suffix", () =>
 
   it('impossible up/down requests in filled subscriptNode should not throw', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, TestNode());
     Insert(k, new DigitNode("3"));
     expectLatex('3◼_{◻}', k);

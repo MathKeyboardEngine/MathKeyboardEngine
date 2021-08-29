@@ -10,8 +10,8 @@ describe(Insert.name, () =>
 {
   it('inserts at the start of an Node[] - it prepends - if Current is a Placeholder', () =>
   {
-    let k = new KeyboardMemory();
-    let digitNode1 = new DigitNode("1");
+    const k = new KeyboardMemory();
+    const digitNode1 = new DigitNode("1");
     Insert(k, digitNode1);
     expectLatex('1◼', k);
     MoveLeft(k);
@@ -23,8 +23,8 @@ describe(Insert.name, () =>
 
   it('inserts at the right of an Node if Current is an Node', () =>
   {
-    let k = new KeyboardMemory();
-    let digitNode1 = new DigitNode("1");
+    const k = new KeyboardMemory();
+    const digitNode1 = new DigitNode("1");
     Insert(k, digitNode1);
     expect(k.Current).to.equal(digitNode1);
     expectLatex('1◼', k);
@@ -39,8 +39,8 @@ describe(Insert.name, () =>
 
   it('sets the ParentPlaceholder of the inserted Node', () =>
   {
-    let k = new KeyboardMemory();
-    let node = new DigitNode("1");
+    const k = new KeyboardMemory();
+    const node = new DigitNode("1");
     assert.isUndefined(node.ParentPlaceholder);
     Insert(k, node);
     assert.isNotNull(node.ParentPlaceholder);
@@ -48,8 +48,8 @@ describe(Insert.name, () =>
 
   it('sets Current', () =>
   {
-    let k = new KeyboardMemory();
-    let originalCurrent = k.Current;
+    const k = new KeyboardMemory();
+    const originalCurrent = k.Current;
     Insert(k, new DigitNode("1"));
     expect(originalCurrent).not.to.equal(k.Current);
   });

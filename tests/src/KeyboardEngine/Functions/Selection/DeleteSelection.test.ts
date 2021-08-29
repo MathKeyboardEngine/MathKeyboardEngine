@@ -1,5 +1,4 @@
 import { describe } from 'mocha';
-import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
@@ -14,7 +13,7 @@ describe(DeleteSelection.name, () =>
 {
   it('a single Node, with left border is Node', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new DigitNode("2"));
     expectLatex('12◼', k);
@@ -27,7 +26,7 @@ describe(DeleteSelection.name, () =>
 
   it('a single Node, with left border is Placeholder', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     expectLatex('1◼', k);
     SelectLeft(k);
@@ -38,7 +37,7 @@ describe(DeleteSelection.name, () =>
 
   it('multiple Nodes, with left border is Node', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new DigitNode("2"));
     Insert(k, new DigitNode("3"));
@@ -52,7 +51,7 @@ describe(DeleteSelection.name, () =>
 
   it('multiple Nodes, with left border is Placeholder (via SelectLeft)', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new DigitNode("2"));
     expectLatex('12◼', k);
@@ -65,7 +64,7 @@ describe(DeleteSelection.name, () =>
 
   it('multiple Nodes, with left border is Placeholder (via SelectRight)', () =>
   {
-    let k = new KeyboardMemory();
+    const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
     Insert(k, new DigitNode("2"));
     MoveLeft(k);

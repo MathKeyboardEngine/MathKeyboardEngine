@@ -13,8 +13,8 @@ export class StandardBranchingNode extends BranchingNode {
         then: string,
         ...rest: string[]
     ) {
-        let placeholderCount = rest.length + 1;
-        let placeholders = new Array<Placeholder>();
+        const placeholderCount = rest.length + 1;
+        const placeholders = new Array<Placeholder>();
         for (let i = 0; i < placeholderCount; i++) {
             placeholders.push(new Placeholder());
         }

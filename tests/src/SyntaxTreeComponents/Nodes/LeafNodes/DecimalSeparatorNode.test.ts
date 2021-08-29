@@ -1,5 +1,4 @@
 import { describe } from 'mocha';
-import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory'
 import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
@@ -12,7 +11,7 @@ describe(DecimalSeparatorNode.name, () =>
     {
         let myDecimalSeparatorSetting = '{,}';
 
-        let k = new KeyboardMemory();
+        const k = new KeyboardMemory();
         Insert(k, new DigitNode("1"));
         Insert(k, new DecimalSeparatorNode(() => myDecimalSeparatorSetting));
         Insert(k, new DigitNode("2"));
