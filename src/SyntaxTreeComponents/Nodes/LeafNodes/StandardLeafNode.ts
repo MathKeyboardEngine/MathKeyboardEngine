@@ -3,12 +3,12 @@ import { LatexConfiguration } from "../../../LatexConfiguration";
 import { LeafNode } from "../Base/LeafNode";
 
 export class StandardLeafNode extends LeafNode {
-    readonly Latex : (() => string );
-    constructor(latex: string | (() => string )) {
-        super();
-        this.Latex = typeof latex === 'string' ? () => latex : latex;
-    }
-    override getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
-        return this.Latex();
-    }
+  readonly Latex: () => string;
+  constructor(latex: string | (() => string)) {
+    super();
+    this.Latex = typeof latex === "string" ? () => latex : latex;
+  }
+  override getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
+    return this.Latex();
+  }
 }

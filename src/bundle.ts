@@ -41,7 +41,7 @@ import { InSelectionMode } from "./KeyboardEngine/Functions/Selection/InSelectio
 export { InSelectionMode };
 
 import { LeaveSelectionMode } from "./KeyboardEngine/Functions/Selection/LeaveSelectionMode";
-export { LeaveSelectionMode};
+export { LeaveSelectionMode };
 
 import { SelectLeft } from "./KeyboardEngine/Functions/Selection/SelectLeft";
 export { SelectLeft };
@@ -88,5 +88,5 @@ export { RoundBracketsNode };
 import { Placeholder } from "./SyntaxTreeComponents/Placeholder/Placeholder";
 export { Placeholder };
 
-import { LatexConfiguration } from './LatexConfiguration';
+import { LatexConfiguration } from "./LatexConfiguration";
 export { LatexConfiguration };

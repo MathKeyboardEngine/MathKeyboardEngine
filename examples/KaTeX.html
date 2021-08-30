@@ -1,223 +1,229 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <html>
   <head>
-    <!-- KaTeX specific code START --> 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.css" integrity="sha384-SkMvsJ0Np/CalM0X1hZCccQs6tnLq178/sGoPANiauambU0V/bloCaG3wOXfv+Ef" crossorigin="anonymous">
-    <!-- KaTeX specific code END --> 
+    <!-- KaTeX specific code START -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.css"
+      integrity="sha384-SkMvsJ0Np/CalM0X1hZCccQs6tnLq178/sGoPANiauambU0V/bloCaG3wOXfv+Ef"
+      crossorigin="anonymous"
+    />
+    <!-- KaTeX specific code END -->
     <script type="module" type="text/javascript">
-        // KaTeX specific code START
-        import katex from 'https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.mjs';
-        // KaTeX specific code END
-        import * as mke from '../../dist/MathKeyboardEngine.es2020-esm.js';
-        let latexConfiguration = new mke.LatexConfiguration();
-        let keyboardMemory = new mke.KeyboardMemory();
-        const supportsSelectionMode = 'supportsSelectionMode';
+      // KaTeX specific code START
+      import katex from "https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.mjs";
+      // KaTeX specific code END
+      import * as mke from "../../dist/MathKeyboardEngine.es2020-esm.js";
+      let latexConfiguration = new mke.LatexConfiguration();
+      let keyboardMemory = new mke.KeyboardMemory();
+      const supportsSelectionMode = "supportsSelectionMode";
 
-        displayResult();
+      displayResult();
 
-        registerNodeKey('infinity', mke.Insert, () => new mke.StandardLeafNode(String.raw`\infty `));
-        registerNodeKey('leftarrow', mke.Insert, () => new mke.StandardLeafNode(String.raw`\leftarrow `));
-        registerNodeKey('rightarrow', mke.Insert, () => new mke.StandardLeafNode(String.raw`\rightarrow `));
-        registerNodeKey('uparrow', mke.Insert, () => new mke.StandardLeafNode('\\uparrow '));
-        registerNodeKey('downarrow', mke.Insert, () => new mke.StandardLeafNode(String.raw`\downarrow `));
+      registerNodeKey("infinity", mke.Insert, () => new mke.StandardLeafNode(String.raw`\infty `));
+      registerNodeKey("leftarrow", mke.Insert, () => new mke.StandardLeafNode(String.raw`\leftarrow `));
+      registerNodeKey("rightarrow", mke.Insert, () => new mke.StandardLeafNode(String.raw`\rightarrow `));
+      registerNodeKey("uparrow", mke.Insert, () => new mke.StandardLeafNode("\\uparrow "));
+      registerNodeKey("downarrow", mke.Insert, () => new mke.StandardLeafNode(String.raw`\downarrow `));
 
-        for (let i = 0; i < 10; i++) {
-          registerNodeKey('digit' + i, mke.Insert, () => new mke.DigitNode(i.toString()));
+      for (let i = 0; i < 10; i++) {
+        registerNodeKey("digit" + i, mke.Insert, () => new mke.DigitNode(i.toString()));
+      }
+
+      for (let letter of ["a", "b", "c", "x", "y", "z"]) {
+        registerNodeKey(letter, mke.Insert, () => new mke.StandardLeafNode(letter));
+      }
+
+      for (let afterslash of ["alpha", "beta", "gamma", "lambda", "mu", "pi", "div", "sin", "tan", "cos", "arcsin", "arccos", "arctan"]) {
+        registerNodeKey(afterslash, mke.Insert, () => new mke.StandardLeafNode("\\" + afterslash + " "));
+      }
+
+      registerNodeKey("decimalSeparator", mke.Insert, () => new mke.DecimalSeparatorNode());
+
+      registerNodeKey("approx", mke.Insert, () => new mke.StandardLeafNode(String.raw`\approx `));
+      registerNodeKey("equal", mke.Insert, () => new mke.StandardLeafNode("="));
+      registerNodeKey("notEqual", mke.Insert, () => new mke.StandardLeafNode(String.raw`\neq `));
+
+      registerNodeKey("lessThan", mke.Insert, () => new mke.StandardLeafNode("<"));
+      registerNodeKey("greaterThan", mke.Insert, () => new mke.StandardLeafNode(">"));
+      registerNodeKey("lessThanOrEqual", mke.Insert, () => new mke.StandardLeafNode(String.raw`\leq `));
+      registerNodeKey("greaterThanOrEqual", mke.Insert, () => new mke.StandardLeafNode(String.raw`\geq `));
+
+      registerNodeKey("plus", mke.Insert, () => new mke.StandardLeafNode("+"));
+      registerNodeKey("minus", mke.Insert, () => new mke.StandardLeafNode("-"));
+      registerNodeKey("times", mke.Insert, () => new mke.StandardLeafNode(String.raw`\times `));
+      registerNodeKey("ratio", mke.Insert, () => new mke.StandardLeafNode(":"));
+      registerNodeKey("faculty", mke.Insert, () => new mke.StandardLeafNode("!"));
+
+      registerNodeKey("fraction", mke.Insert, () => new mke.DescendingBranchingNode(String.raw`\frac{`, "}{", "}"), mke.InsertWithEncapsulateSelection);
+      registerNodeKey("binomial", mke.Insert, () => new mke.DescendingBranchingNode(String.raw`\binom{`, "}{", "}"), mke.InsertWithEncapsulateSelection);
+
+      registerNodeKey("power", mke.InsertWithEncapsulateCurrent, () => new mke.AscendingBranchingNode("{", "}^{", "}"), mke.InsertWithEncapsulateSelectionAndPrevious);
+
+      registerNodeKey("subscript", mke.InsertWithEncapsulateCurrent, () => new mke.DescendingBranchingNode("{", "}_{", "}"), mke.InsertWithEncapsulateSelectionAndPrevious);
+
+      registerNodeKey("squareRoot", mke.Insert, () => new mke.StandardBranchingNode(String.raw`\sqrt{`, "}"), mke.InsertWithEncapsulateSelection);
+      registerNodeKey("nthRoot", mke.Insert, () => new mke.DescendingBranchingNode(String.raw`\sqrt[`, "]{", "}"));
+
+      registerNodeKey("roundBrackets", mke.Insert, () => new mke.RoundBracketsNode(), mke.InsertWithEncapsulateSelection);
+      registerNodeKey("squareBrackets", mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left[`, String.raw`\right]`), mke.InsertWithEncapsulateSelection);
+      registerNodeKey("pipes", mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left|`, String.raw`\right|`), mke.InsertWithEncapsulateSelection);
+      registerNodeKey("doublePipes", mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left\|`, String.raw`\right\|`), mke.InsertWithEncapsulateSelection);
+      registerNodeKey("curlyBrackets", mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left\{`, String.raw`\right\}`), mke.InsertWithEncapsulateSelection);
+
+      registerNodeKey("naturalNumbers", mke.Insert, () => new mke.StandardLeafNode(String.raw`\mathbb{N}`));
+      registerNodeKey("integers", mke.Insert, () => new mke.StandardLeafNode(String.raw`\mathbb{Z}`));
+      registerNodeKey("realNumbers", mke.Insert, () => new mke.StandardLeafNode(String.raw`\mathbb{R}`));
+
+      registerNodeKey("isMemberOf", mke.Insert, () => new mke.StandardLeafNode(String.raw`\in `));
+      registerNodeKey("isProperSubsetOf", mke.Insert, () => new mke.StandardLeafNode(String.raw`\subset `));
+      registerNodeKey("isSubsetOf", mke.Insert, () => new mke.StandardLeafNode(String.raw`\subseteq `));
+      registerNodeKey("setDifference", mke.Insert, () => new mke.StandardLeafNode(String.raw`\setminus `));
+      registerNodeKey("exists", mke.Insert, () => new mke.StandardLeafNode(String.raw`\exists `));
+      registerNodeKey("existsOne", mke.Insert, () => new mke.StandardLeafNode(String.raw`\exists! `));
+      registerNodeKey("forAll", mke.Insert, () => new mke.StandardLeafNode(String.raw`\forall `));
+      registerNodeKey("not", mke.Insert, () => new mke.StandardLeafNode(String.raw`\neg `));
+      registerNodeKey("or", mke.Insert, () => new mke.StandardLeafNode(String.raw`\lor `));
+      registerNodeKey("and", mke.Insert, () => new mke.StandardLeafNode(String.raw`\land `));
+      registerNodeKey("doubleRightArrow", mke.Insert, () => new mke.StandardLeafNode(String.raw`\Rightarrow `));
+      registerNodeKey("doubleLeftArrow", mke.Insert, () => new mke.StandardLeafNode(String.raw`\Leftarrow `));
+
+      registerNodeKey("sin-1", mke.Insert, () => new mke.StandardLeafNode(String.raw`\sin^{-1}`));
+      registerNodeKey("cos-1", mke.Insert, () => new mke.StandardLeafNode(String.raw`\cos^{-1}`));
+      registerNodeKey("tan-1", mke.Insert, () => new mke.StandardLeafNode(String.raw`\tan^{-1}`));
+      registerNodeKey("sininv", mke.Insert, () => new mke.StandardLeafNode(String.raw`\sin^{inv}`));
+      registerNodeKey("cosinv", mke.Insert, () => new mke.StandardLeafNode(String.raw`\cos^{inv}`));
+      registerNodeKey("taninv", mke.Insert, () => new mke.StandardLeafNode(String.raw`\tan^{inv}`));
+
+      registerNodeKey("integral", mke.Insert, () => new mke.AscendingBranchingNode(String.raw`\int_{`, "}^{", "}"));
+      registerNodeKey("sum", mke.Insert, () => new mke.AscendingBranchingNode(String.raw`\sum_{`, "}^{", "}"));
+      registerNodeKey("product", mke.Insert, () => new mke.AscendingBranchingNode(String.raw`\prod_{`, "}^{", "}"));
+      registerNodeKey("limit", mke.Insert, () => new mke.StandardBranchingNode(String.raw`\lim_{`, "}"));
+
+      const matrixWidthInputElement = document.getElementById("matrixWidth");
+      const matrixHeightInputElement = document.getElementById("matrixHeight");
+      function ReRegisterMatrix() {
+        registerNodeKey(
+          "pmatrix",
+          mke.Insert,
+          () =>
+            new mke.MatrixNode({
+              matrixType: "pmatrix",
+              width: matrixWidthInputElement.value,
+              height: matrixHeightInputElement.value,
+            })
+        );
+        registerNodeKey(
+          "vmatrix",
+          mke.Insert,
+          () =>
+            new mke.MatrixNode({
+              matrixType: "vmatrix",
+              width: matrixWidthInputElement.value,
+              height: matrixHeightInputElement.value,
+            })
+        );
+      }
+      ReRegisterMatrix();
+      matrixWidthInputElement.onclick = ReRegisterMatrix;
+      matrixHeightInputElement.onclick = ReRegisterMatrix;
+
+      registerKey("moveLeft", mke.MoveLeft, mke.SelectLeft, false);
+      registerKey("moveRight", mke.MoveRight, mke.SelectRight, false);
+      registerKey("moveUp", mke.MoveUp);
+      registerKey("moveDown", mke.MoveDown);
+
+      registerKey("deleteCurrent", mke.DeleteCurrent, mke.DeleteSelection);
+
+      registerKey("selectionModeToggle", (k) => {
+        if (mke.InSelectionMode(k)) {
+          MyLeaveSelectionMode(k);
+        } else {
+          MyEnterSelectionMode(k);
+        }
+      });
+
+      function MyLeaveSelectionMode(k) {
+        mke.LeaveSelectionMode(k);
+        let elements = document.getElementsByClassName(supportsSelectionMode);
+        for (let element of elements) {
+          element.classList.remove("inSelectionMode");
+        }
+      }
+      function MyEnterSelectionMode(k) {
+        mke.EnterSelectionMode(k);
+        let elements = document.getElementsByClassName(supportsSelectionMode);
+        for (let element of elements) {
+          element.classList.add("inSelectionMode");
+        }
+      }
+
+      function registerNodeKey(elementId, onclickFuncForKeyboardMemoryAndNode, nodeGetter, onclickSelectionModeArrowFuncForKeyboardMemoryAndNode = null) {
+        let element = document.getElementById(elementId);
+        if (onclickSelectionModeArrowFuncForKeyboardMemoryAndNode != null) {
+          element.classList.add(supportsSelectionMode);
         }
 
-        for(let letter of ['a', 'b', 'c', 'x', 'y', 'z']){
-          registerNodeKey(letter, mke.Insert, () => new mke.StandardLeafNode(letter));
-        }
-
-        for(let afterslash of ['alpha', 'beta', 'gamma', 'lambda', 'mu', 'pi', 'div', 'sin', 'tan', 'cos', 'arcsin', 'arccos', 'arctan']){
-          registerNodeKey(afterslash, mke.Insert, () => new mke.StandardLeafNode('\\' + afterslash + ' '));
-        }
-
-        registerNodeKey('decimalSeparator', mke.Insert, () => new mke.DecimalSeparatorNode())
-
-        registerNodeKey('approx', mke.Insert, () => new mke.StandardLeafNode(String.raw`\approx `));
-        registerNodeKey('equal', mke.Insert, () => new mke.StandardLeafNode('='));
-        registerNodeKey('notEqual', mke.Insert, () => new mke.StandardLeafNode(String.raw`\neq `));
-
-        registerNodeKey('lessThan', mke.Insert, () => new mke.StandardLeafNode('<'));
-        registerNodeKey('greaterThan', mke.Insert, () => new mke.StandardLeafNode('>'));
-        registerNodeKey('lessThanOrEqual', mke.Insert, () => new mke.StandardLeafNode(String.raw`\leq `));
-        registerNodeKey('greaterThanOrEqual', mke.Insert, () => new mke.StandardLeafNode(String.raw`\geq `));
-
-        registerNodeKey('plus', mke.Insert, () => new mke.StandardLeafNode('+'));
-        registerNodeKey('minus', mke.Insert, () => new mke.StandardLeafNode('-'));
-        registerNodeKey('times', mke.Insert, () => new mke.StandardLeafNode(String.raw`\times `));
-        registerNodeKey('ratio', mke.Insert, () => new mke.StandardLeafNode(':'));
-        registerNodeKey('faculty', mke.Insert, () => new mke.StandardLeafNode('!'));
-
-        registerNodeKey('fraction', mke.Insert, () => new mke.DescendingBranchingNode(String.raw`\frac{`, '}{', '}'),
-          mke.InsertWithEncapsulateSelection);
-        registerNodeKey('binomial', mke.Insert, () => new mke.DescendingBranchingNode(String.raw`\binom{`, '}{', '}'),
-          mke.InsertWithEncapsulateSelection);
-
-        registerNodeKey('power', mke.InsertWithEncapsulateCurrent, () => new mke.AscendingBranchingNode('{', '}^{', '}'),
-          mke.InsertWithEncapsulateSelectionAndPrevious);
-
-        registerNodeKey('subscript', mke.InsertWithEncapsulateCurrent, () => new mke.DescendingBranchingNode('{', '}_{', '}'),
-          mke.InsertWithEncapsulateSelectionAndPrevious);
-
-        registerNodeKey('squareRoot', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\sqrt{`, '}'),
-          mke.InsertWithEncapsulateSelection);
-        registerNodeKey('nthRoot', mke.Insert, () => new mke.DescendingBranchingNode(String.raw`\sqrt[`, ']{', '}'));
-
-        registerNodeKey('roundBrackets', mke.Insert, () => new mke.RoundBracketsNode(),
-          mke.InsertWithEncapsulateSelection);
-        registerNodeKey('squareBrackets', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left[`, String.raw`\right]`),
-          mke.InsertWithEncapsulateSelection);
-        registerNodeKey('pipes', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left|`, String.raw`\right|`),
-          mke.InsertWithEncapsulateSelection);
-        registerNodeKey('doublePipes', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left\|`, String.raw`\right\|`),
-          mke.InsertWithEncapsulateSelection);
-        registerNodeKey('curlyBrackets', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\left\{`, String.raw`\right\}`),
-          mke.InsertWithEncapsulateSelection);
-
-        registerNodeKey('naturalNumbers', mke.Insert, () => new mke.StandardLeafNode(String.raw`\mathbb{N}`));
-        registerNodeKey('integers', mke.Insert, () => new mke.StandardLeafNode(String.raw`\mathbb{Z}`));
-        registerNodeKey('realNumbers', mke.Insert, () => new mke.StandardLeafNode(String.raw`\mathbb{R}`));
-
-        registerNodeKey('isMemberOf', mke.Insert, () => new mke.StandardLeafNode(String.raw`\in `));
-        registerNodeKey('isProperSubsetOf', mke.Insert, () => new mke.StandardLeafNode(String.raw`\subset `));
-        registerNodeKey('isSubsetOf', mke.Insert, () => new mke.StandardLeafNode(String.raw`\subseteq `));
-        registerNodeKey('setDifference', mke.Insert, () => new mke.StandardLeafNode(String.raw`\setminus `));
-        registerNodeKey('exists', mke.Insert, () => new mke.StandardLeafNode(String.raw`\exists `));
-        registerNodeKey('existsOne', mke.Insert, () => new mke.StandardLeafNode(String.raw`\exists! `));
-        registerNodeKey('forAll', mke.Insert, () => new mke.StandardLeafNode(String.raw`\forall `));
-        registerNodeKey('not', mke.Insert, () => new mke.StandardLeafNode(String.raw`\neg `));
-        registerNodeKey('or', mke.Insert, () => new mke.StandardLeafNode(String.raw`\lor `));
-        registerNodeKey('and', mke.Insert, () => new mke.StandardLeafNode(String.raw`\land `));
-        registerNodeKey('doubleRightArrow', mke.Insert, () => new mke.StandardLeafNode(String.raw`\Rightarrow `));
-        registerNodeKey('doubleLeftArrow', mke.Insert, () => new mke.StandardLeafNode(String.raw`\Leftarrow `));
-
-        registerNodeKey('sin-1', mke.Insert, () => new mke.StandardLeafNode(String.raw`\sin^{-1}`));
-        registerNodeKey('cos-1', mke.Insert, () => new mke.StandardLeafNode(String.raw`\cos^{-1}`));
-        registerNodeKey('tan-1', mke.Insert, () => new mke.StandardLeafNode(String.raw`\tan^{-1}`));
-        registerNodeKey('sininv', mke.Insert, () => new mke.StandardLeafNode(String.raw`\sin^{inv}`));
-        registerNodeKey('cosinv', mke.Insert, () => new mke.StandardLeafNode(String.raw`\cos^{inv}`));
-        registerNodeKey('taninv', mke.Insert, () => new mke.StandardLeafNode(String.raw`\tan^{inv}`));
-
-        registerNodeKey('integral', mke.Insert, () => new mke.AscendingBranchingNode(String.raw`\int_{`, '}^{', '}'));
-        registerNodeKey('sum', mke.Insert, () => new mke.AscendingBranchingNode(String.raw`\sum_{`, '}^{', '}'));
-        registerNodeKey('product', mke.Insert, () => new mke.AscendingBranchingNode(String.raw`\prod_{`, '}^{', '}'));
-        registerNodeKey('limit', mke.Insert, () => new mke.StandardBranchingNode(String.raw`\lim_{`, '}'));
-
-        const matrixWidthInputElement = document.getElementById('matrixWidth');
-        const matrixHeightInputElement = document.getElementById('matrixHeight');
-        function ReRegisterMatrix() {
-          registerNodeKey('pmatrix', mke.Insert, () => new mke.MatrixNode({
-            matrixType:'pmatrix', 
-            width: matrixWidthInputElement.value, 
-            height: matrixHeightInputElement.value
-          }));
-          registerNodeKey('vmatrix', mke.Insert, () => new mke.MatrixNode({
-            matrixType:'vmatrix', 
-            width: matrixWidthInputElement.value, 
-            height: matrixHeightInputElement.value
-          }));
-        }
-        ReRegisterMatrix();
-        matrixWidthInputElement.onclick = ReRegisterMatrix;
-        matrixHeightInputElement.onclick = ReRegisterMatrix;
-
-        registerKey('moveLeft', mke.MoveLeft, mke.SelectLeft, false);
-        registerKey('moveRight', mke.MoveRight, mke.SelectRight, false);
-        registerKey('moveUp', mke.MoveUp);
-        registerKey('moveDown', mke.MoveDown);
-
-        registerKey('deleteCurrent', mke.DeleteCurrent, mke.DeleteSelection);
-
-        registerKey('selectionModeToggle', k => {
-          if (mke.InSelectionMode(k)) {
-            MyLeaveSelectionMode(k);
+        let latex = mke.GetViewModeLatex(nodeGetter(), latexConfiguration);
+        renderLatexInKey(latex, element);
+        element.onclick = () => {
+          if (mke.InSelectionMode(keyboardMemory)) {
+            if (onclickSelectionModeArrowFuncForKeyboardMemoryAndNode != null) {
+              onclickSelectionModeArrowFuncForKeyboardMemoryAndNode(keyboardMemory, nodeGetter());
+            }
+            MyLeaveSelectionMode(keyboardMemory);
           } else {
-            MyEnterSelectionMode(k);
+            onclickFuncForKeyboardMemoryAndNode(keyboardMemory, nodeGetter());
           }
-        });
+          displayResult();
+        };
+      }
 
-        function MyLeaveSelectionMode(k) {
-          mke.LeaveSelectionMode(k);
-          let elements = document.getElementsByClassName(supportsSelectionMode);
-          for (let element of elements) {
-            element.classList.remove('inSelectionMode');
-          } 
-        }
-        function MyEnterSelectionMode(k) {
-          mke.EnterSelectionMode(k);
-          let elements = document.getElementsByClassName(supportsSelectionMode);
-          for (let element of elements) {
-              element.classList.add('inSelectionMode');
-          }
+      function registerKey(elementId, onclickArrowFuncForKeyboardMemory, onclickSelectionModeFuncForKeyboardMemory = null, leaveSelectionMode = true) {
+        let element = document.getElementById(elementId);
+        if (onclickSelectionModeFuncForKeyboardMemory != null) {
+          element.classList.add(supportsSelectionMode);
         }
 
-        function registerNodeKey(elementId, onclickFuncForKeyboardMemoryAndNode, nodeGetter, onclickSelectionModeArrowFuncForKeyboardMemoryAndNode = null) {
-          let element = document.getElementById(elementId);
-          if (onclickSelectionModeArrowFuncForKeyboardMemoryAndNode != null) {
-            element.classList.add(supportsSelectionMode);
-          }
-
-          let latex = mke.GetViewModeLatex(nodeGetter(), latexConfiguration);
-          renderLatexInKey(latex, element);
-          element.onclick = () => {
-            if (mke.InSelectionMode(keyboardMemory)) {
-              if (onclickSelectionModeArrowFuncForKeyboardMemoryAndNode != null){
-                onclickSelectionModeArrowFuncForKeyboardMemoryAndNode(keyboardMemory, nodeGetter());
-              }
+        element.onclick = () => {
+          if (mke.InSelectionMode(keyboardMemory)) {
+            if (onclickSelectionModeFuncForKeyboardMemory != null) {
+              onclickSelectionModeFuncForKeyboardMemory(keyboardMemory);
+            }
+            if (leaveSelectionMode) {
               MyLeaveSelectionMode(keyboardMemory);
-            } else {
-              onclickFuncForKeyboardMemoryAndNode(keyboardMemory, nodeGetter());
             }
-            displayResult();
-          };
-        }
-
-        function registerKey(elementId, onclickArrowFuncForKeyboardMemory, onclickSelectionModeFuncForKeyboardMemory = null, leaveSelectionMode = true){
-          let element = document.getElementById(elementId);
-          if (onclickSelectionModeFuncForKeyboardMemory != null) {
-            element.classList.add(supportsSelectionMode);
+          } else {
+            onclickArrowFuncForKeyboardMemory(keyboardMemory);
           }
+          displayResult();
+        };
+      }
 
-          element.onclick = () => {
-            if (mke.InSelectionMode(keyboardMemory)){
-              if (onclickSelectionModeFuncForKeyboardMemory != null){
-                onclickSelectionModeFuncForKeyboardMemory(keyboardMemory);
-              }
-              if (leaveSelectionMode) {
-                MyLeaveSelectionMode(keyboardMemory);
-              }
-            } else {
-              onclickArrowFuncForKeyboardMemory(keyboardMemory);
-            }
-            displayResult();
-          };
-        }
+      function displayResult() {
+        let editModeLatex = mke.GetEditModeLatex(keyboardMemory, latexConfiguration);
+        renderLatexInOutputBox(editModeLatex, document.getElementById("renderedEditModeLatex"));
 
-        function displayResult(){
-          let editModeLatex = mke.GetEditModeLatex(keyboardMemory, latexConfiguration);
-          renderLatexInOutputBox(editModeLatex, document.getElementById('renderedEditModeLatex'));
+        let viewModeLatex = mke.GetViewModeLatex(keyboardMemory, latexConfiguration);
+        document.getElementById("viewModeLatex").innerText = viewModeLatex;
+      }
 
-          let viewModeLatex = mke.GetViewModeLatex(keyboardMemory, latexConfiguration);
-          document.getElementById('viewModeLatex').innerText = viewModeLatex;
-        }
+      // === KaTeX specific code START ===
+      function renderLatexInKey(latex, element) {
+        katex.render(latex, element, { throwOnError: false });
+      }
 
-
-
-        // === KaTeX specific code START ===
-        function renderLatexInKey(latex, element) {
-          katex.render(latex, element, { throwOnError: false });
-        }
-
-        function renderLatexInOutputBox(latex, element) {
-          katex.render(latex, element, { displayMode: true, throwOnError: false });
-        }
-        // === KaTeX specific code END ===
+      function renderLatexInOutputBox(latex, element) {
+        katex.render(latex, element, {
+          displayMode: true,
+          throwOnError: false,
+        });
+      }
+      // === KaTeX specific code END ===
     </script>
     <style>
-      #renderedEditModeLatex{
+      #renderedEditModeLatex {
         border: 1px solid gray;
         padding: 5px;
       }
@@ -234,159 +240,159 @@
       }
 
       .arrow-up {
-        width: 0; 
-        height: 0; 
+        width: 0;
+        height: 0;
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
         border-bottom: 10px solid black;
       }
       .arrow-down {
-        width: 0; 
-        height: 0; 
+        width: 0;
+        height: 0;
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
         border-top: 10px solid black;
       }
       .arrow-right {
-        width: 0; 
-        height: 0; 
+        width: 0;
+        height: 0;
         border-top: 10px solid transparent;
         border-bottom: 10px solid transparent;
         border-left: 10px solid black;
       }
       .arrow-left {
-        width: 0; 
-        height: 0; 
+        width: 0;
+        height: 0;
         border-top: 10px solid transparent;
         border-bottom: 10px solid transparent;
         border-right: 10px solid black;
       }
       .inSelectionMode {
-        background-color: #ADD8E6;
+        background-color: #add8e6;
       }
       #selectionModeToggle {
-        background-color: #ADD8E6;
+        background-color: #add8e6;
         width: 15px;
         height: 15px;
       }
     </style>
   </head>
-<body>
-<h1>MathKeyboardEngine + KaTeX</h1>
-<h3>Example keys - to be styled - to help you design your keyboard</h3>
-<div id="renderedEditModeLatex"></div>
-<div id="viewModeLatex"></div>
-<br/>
-<div id="mathKeyboard">
-  <div id="moveLeft"><div class="arrow-left"></div></div>
-  <div id="moveRight"><div class="arrow-right"></div></div>
-  <div id="moveDown"><div class="arrow-down"></div></div>
-  <div id="moveUp" ><div class="arrow-up"></div></div>
-  <div id="selectionModeToggle"></div>
-  <div id="deleteCurrent">&#128293;</div>
-  <br/>
-  <div id="digit0"></div>
-  <div id="digit1"></div>
-  <div id="digit2"></div>
-  <div id="digit3"></div>
-  <div id="digit4"></div>
-  <div id="digit5"></div>
-  <div id="digit6"></div>
-  <div id="digit7"></div>
-  <div id="digit8"></div>
-  <div id="digit9"></div>
-  <div id="decimalSeparator"></div>
-  <br/>
-  <div id="a"></div>
-  <div id="b"></div>
-  <div id="c"></div>
-  <div id="x"></div>
-  <div id="y"></div>
-  <div id="z"></div>
-  <div id="alpha"></div>
-  <div id="beta"></div>
-  <div id="gamma"></div>
-  <div id="lambda"></div>
-  <div id="mu"></div>
-  <div id="pi"></div>
-  <br>
-  <div id="plus"></div>
-  <div id="minus"></div>
-  <div id="times"></div>
-  <div id="ratio"></div>
-  <div id="div"></div>
-  <div id="faculty"></div>
-  <br/>
-  <div id="binomial"></div>
-  <div id="fraction"></div>
-  <div id="power"></div>
-  <div id="subscript"></div>
-  <div id="squareRoot"></div>
-  <div id="nthRoot"></div>
-  <br/>
-  <div id="roundBrackets"></div>
-  <div id="squareBrackets"></div>
-  <div id="curlyBrackets"></div>
-  <div id="pipes"></div>
-  <div id="doublePipes"></div>
-  <br>
-  <div style="text-align: right;">
-    <label for="matrixHeight">Height</label>
-    <input id="matrixHeight" type="number" value='2' min='1' style="width:50px" />
-    <br/>
-    <label for="matrixWidth">Width</label>
-    <input id="matrixWidth" type="number" value='2' min='1' style="width:50px" />
-  </div>
-  <div id="pmatrix"></div>
-  <div id="vmatrix"></div>
-  <br>
-  <div id="approx"></div>
-  <div id="equal"></div>
-  <div id="notEqual"></div>
-  <div id="lessThanOrEqual"></div>
-  <div id="greaterThanOrEqual"></div>
-  <div id="lessThan"></div>
-  <div id="greaterThan"></div>
-  <br/>
-  <div id="naturalNumbers"></div>
-  <div id="integers"></div>
-  <div id="realNumbers"></div>
+  <body>
+    <h1>MathKeyboardEngine + KaTeX</h1>
+    <h3>Example keys - to be styled - to help you design your keyboard</h3>
+    <div id="renderedEditModeLatex"></div>
+    <div id="viewModeLatex"></div>
+    <br />
+    <div id="mathKeyboard">
+      <div id="moveLeft"><div class="arrow-left"></div></div>
+      <div id="moveRight"><div class="arrow-right"></div></div>
+      <div id="moveDown"><div class="arrow-down"></div></div>
+      <div id="moveUp"><div class="arrow-up"></div></div>
+      <div id="selectionModeToggle"></div>
+      <div id="deleteCurrent">&#128293;</div>
+      <br />
+      <div id="digit0"></div>
+      <div id="digit1"></div>
+      <div id="digit2"></div>
+      <div id="digit3"></div>
+      <div id="digit4"></div>
+      <div id="digit5"></div>
+      <div id="digit6"></div>
+      <div id="digit7"></div>
+      <div id="digit8"></div>
+      <div id="digit9"></div>
+      <div id="decimalSeparator"></div>
+      <br />
+      <div id="a"></div>
+      <div id="b"></div>
+      <div id="c"></div>
+      <div id="x"></div>
+      <div id="y"></div>
+      <div id="z"></div>
+      <div id="alpha"></div>
+      <div id="beta"></div>
+      <div id="gamma"></div>
+      <div id="lambda"></div>
+      <div id="mu"></div>
+      <div id="pi"></div>
+      <br />
+      <div id="plus"></div>
+      <div id="minus"></div>
+      <div id="times"></div>
+      <div id="ratio"></div>
+      <div id="div"></div>
+      <div id="faculty"></div>
+      <br />
+      <div id="binomial"></div>
+      <div id="fraction"></div>
+      <div id="power"></div>
+      <div id="subscript"></div>
+      <div id="squareRoot"></div>
+      <div id="nthRoot"></div>
+      <br />
+      <div id="roundBrackets"></div>
+      <div id="squareBrackets"></div>
+      <div id="curlyBrackets"></div>
+      <div id="pipes"></div>
+      <div id="doublePipes"></div>
+      <br />
+      <div style="text-align: right">
+        <label for="matrixHeight">Height</label>
+        <input id="matrixHeight" type="number" value="2" min="1" style="width: 50px" />
+        <br />
+        <label for="matrixWidth">Width</label>
+        <input id="matrixWidth" type="number" value="2" min="1" style="width: 50px" />
+      </div>
+      <div id="pmatrix"></div>
+      <div id="vmatrix"></div>
+      <br />
+      <div id="approx"></div>
+      <div id="equal"></div>
+      <div id="notEqual"></div>
+      <div id="lessThanOrEqual"></div>
+      <div id="greaterThanOrEqual"></div>
+      <div id="lessThan"></div>
+      <div id="greaterThan"></div>
+      <br />
+      <div id="naturalNumbers"></div>
+      <div id="integers"></div>
+      <div id="realNumbers"></div>
 
-  <div id="isMemberOf"></div>
-  <div id="isProperSubsetOf"></div>
-  <div id="isSubsetOf"></div>
-  <div id="setDifference"></div>
-  <div id="exists"></div>
-  <div id="existsOne"></div>
-  <div id="forAll"></div>
-  <div id="not"></div>
-  <div id="or"></div>
-  <div id="and"></div>
-  <div id="doubleRightArrow"></div>
-  <div id="doubleLeftArrow"></div>
-  <br/>
-  <div id="sin"></div>
-  <div id="cos"></div>
-  <div id="tan"></div>
-  <div id="arcsin"></div>
-  <div id="arccos"></div>
-  <div id="arctan"></div>
-  <div id="sin-1"></div>
-  <div id="cos-1"></div>  
-  <div id="tan-1"></div>
-  <div id="sininv"></div>
-  <div id="cosinv"></div>
-  <div id="taninv"></div>
-  <br/>
-  <div id="integral"></div>
-  <div id="sum"></div>  
-  <div id="product"></div>
-  <div id="limit"></div>
-  <div id="leftarrow"></div>
-  <div id="rightarrow"></div>
-  <div id="uparrow"></div>
-  <div id="downarrow"></div>
-  <div id="infinity"></div>
-</div>
-</body>
+      <div id="isMemberOf"></div>
+      <div id="isProperSubsetOf"></div>
+      <div id="isSubsetOf"></div>
+      <div id="setDifference"></div>
+      <div id="exists"></div>
+      <div id="existsOne"></div>
+      <div id="forAll"></div>
+      <div id="not"></div>
+      <div id="or"></div>
+      <div id="and"></div>
+      <div id="doubleRightArrow"></div>
+      <div id="doubleLeftArrow"></div>
+      <br />
+      <div id="sin"></div>
+      <div id="cos"></div>
+      <div id="tan"></div>
+      <div id="arcsin"></div>
+      <div id="arccos"></div>
+      <div id="arctan"></div>
+      <div id="sin-1"></div>
+      <div id="cos-1"></div>
+      <div id="tan-1"></div>
+      <div id="sininv"></div>
+      <div id="cosinv"></div>
+      <div id="taninv"></div>
+      <br />
+      <div id="integral"></div>
+      <div id="sum"></div>
+      <div id="product"></div>
+      <div id="limit"></div>
+      <div id="leftarrow"></div>
+      <div id="rightarrow"></div>
+      <div id="uparrow"></div>
+      <div id="downarrow"></div>
+      <div id="infinity"></div>
+    </div>
+  </body>
 </html>

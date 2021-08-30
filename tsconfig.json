@@ -1,13 +1,14 @@
 {
-    "compilerOptions": {
-      "target": "es2017",
-      "module": "ES2015",
-      "strict": true,
-      "noEmitOnError": true,
-      "outDir": "./dist"
-    },
-    "include": [ // for the command "tsc --noEmit"
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "ES2015",
+    "strict": true,
+    "noEmitOnError": true,
+    "outDir": "./dist"
+  },
+  "include": [
+    // for the command "tsc --noEmit"
     "./src/**/*.ts",
-    "./tests/**/*.ts",
-    ]
-  }
+    "./tests/**/*.ts"
+  ]
+}

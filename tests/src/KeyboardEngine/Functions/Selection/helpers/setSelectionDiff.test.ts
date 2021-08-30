@@ -1,17 +1,14 @@
-import { describe } from 'mocha';
-import { expect } from 'chai';
-import { KeyboardMemory } from '../../../../../../src/KeyboardEngine/KeyboardMemory'
-import { expectLatex } from '../../../../../helpers/expectLatex';
-import { Insert } from '../../../../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { DigitNode } from '../../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { setSelectionDiff } from '../../../../../../src/KeyboardEngine/Functions/Selection/helpers/setSelectionDiff';
-import { SelectLeft } from '../../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
+import { describe } from "mocha";
+import { expect } from "chai";
+import { KeyboardMemory } from "../../../../../../src/KeyboardEngine/KeyboardMemory";
+import { expectLatex } from "../../../../../helpers/expectLatex";
+import { Insert } from "../../../../../../src/KeyboardEngine/Functions/Insert/Insert";
+import { DigitNode } from "../../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode";
+import { setSelectionDiff } from "../../../../../../src/KeyboardEngine/Functions/Selection/helpers/setSelectionDiff";
+import { SelectLeft } from "../../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft";
 
-
-describe(setSelectionDiff.name, () =>
-{
-  it('throws at nonsensical request', () =>
-  {
+describe(setSelectionDiff.name, () => {
+  it("throws at nonsensical request", () => {
     // Arrange
     const k = new KeyboardMemory();
     Insert(k, new DigitNode("1"));
