@@ -9,27 +9,24 @@ import { MoveUp } from "../../../../../src/KeyboardEngine/Functions/Navigation/M
 import { MoveDown } from "../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown";
 
 describe(BranchingNode.name, () => {
-  it("calling MoveDown does not throw even if not implemented", () => {
+  it("calling MoveUp or MoveDown does not throw even if not implemented", () => {
     const k = new KeyboardMemory();
-    Insert(k, new SquaredNode());
-    expectLatex("◼^2", k);
+    Insert(k, new DummyBranchingNode());
+    expectLatex("wow >> ◼ << wow", k);
     MoveUp(k);
-    expectLatex("◼^2", k);
+    expectLatex("wow >> ◼ << wow", k);
     MoveDown(k);
-    expectLatex("◼^2", k);
+    expectLatex("wow >> ◼ << wow", k);
   });
 });
 
-class SquaredNode extends BranchingNode {
-  /* Real applications will probably use the PowerNode.
-    This SquaredNode class is merely meant to test a theoretically possible BranchingNode structure
-    with a single placeholder and no support for moving up or down. */
+class DummyBranchingNode extends BranchingNode {
   Base: Placeholder;
   constructor() {
     super([new Placeholder()]);
     this.Base = this.Placeholders[0];
   }
   override getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
-    return this.Base.getLatex(keyboardMemory, latexConfiguration) + "^2";
+    return "wow >> " + this.Base.getLatex(keyboardMemory, latexConfiguration) + " << wow";
   }
 }
