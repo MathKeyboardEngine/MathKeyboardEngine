@@ -1,14 +1,14 @@
-import { firstAfter } from "../../../helpers/arrayhelpers/firstAfter";
-import { remove } from "../../../helpers/arrayhelpers/remove";
-import { TreeNode } from "../../../SyntaxTreeComponents/Nodes/Base/TreeNode";
-import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/BranchingNode";
-import { PartOfNumberWithDigits } from "../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits";
-import { RoundBracketsNode } from "../../../SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode";
-import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
-import { KeyboardMemory } from "../../KeyboardMemory";
-import { MoveRight } from "../Navigation/MoveRight";
-import { Encapsulate } from "./Encapsulate";
-import { Insert } from "./Insert";
+import { firstAfter } from '../../../helpers/arrayhelpers/firstAfter';
+import { remove } from '../../../helpers/arrayhelpers/remove';
+import { TreeNode } from '../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
+import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/BranchingNode';
+import { PartOfNumberWithDigits } from '../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits';
+import { RoundBracketsNode } from '../../../SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
+import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placeholder';
+import { KeyboardMemory } from '../../KeyboardMemory';
+import { MoveRight } from '../Navigation/MoveRight';
+import { Encapsulate } from './Encapsulate';
+import { Insert } from './Insert';
 
 export function InsertWithEncapsulateCurrent(k: KeyboardMemory, newNode: BranchingNode, config?: { deleteOuterRoundBracketsIfAny?: boolean }): void {
   const encapsulatingPlaceholder = newNode.Placeholders[0];

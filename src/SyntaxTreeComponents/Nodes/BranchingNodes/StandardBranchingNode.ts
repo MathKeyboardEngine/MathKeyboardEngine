@@ -1,7 +1,7 @@
-import { Placeholder } from "../../Placeholder/Placeholder";
-import { LatexConfiguration } from "../../../LatexConfiguration";
-import { BranchingNode } from "../Base/BranchingNode";
-import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
+import { Placeholder } from '../../Placeholder/Placeholder';
+import { LatexConfiguration } from '../../../LatexConfiguration';
+import { BranchingNode } from '../Base/BranchingNode';
+import { KeyboardMemory } from '../../../KeyboardEngine/KeyboardMemory';
 
 export class StandardBranchingNode extends BranchingNode {
   private before: string;

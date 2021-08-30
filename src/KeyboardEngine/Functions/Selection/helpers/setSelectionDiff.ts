@@ -1,5 +1,5 @@
-import { Placeholder } from "../../../../SyntaxTreeComponents/Placeholder/Placeholder";
-import { KeyboardMemory } from "../../../KeyboardMemory";
+import { Placeholder } from '../../../../SyntaxTreeComponents/Placeholder/Placeholder';
+import { KeyboardMemory } from '../../../KeyboardMemory';
 
 export function setSelectionDiff(k: KeyboardMemory, diffWithCurrent: number): void {
   k.SelectionDiff = diffWithCurrent;
@@ -21,7 +21,7 @@ export function setSelectionDiff(k: KeyboardMemory, diffWithCurrent: number): vo
     } else if (diffWithCurrent < 0) {
       const index = indexOfCurrent + diffWithCurrent + 1;
       if (index < 0) {
-        throw "The node at index 0 of the current Placeholder is as far as you can go.";
+        throw 'The node at index 0 of the current Placeholder is as far as you can go.';
       } else {
         k.InclusiveSelectionLeftBorder = nodes[index];
       }

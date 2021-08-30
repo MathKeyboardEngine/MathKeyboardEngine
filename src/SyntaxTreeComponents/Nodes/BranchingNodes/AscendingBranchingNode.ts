@@ -1,5 +1,5 @@
-import { Placeholder } from "../../Placeholder/Placeholder";
-import { StandardBranchingNode } from "./StandardBranchingNode";
+import { Placeholder } from '../../Placeholder/Placeholder';
+import { StandardBranchingNode } from './StandardBranchingNode';
 
 export class AscendingBranchingNode extends StandardBranchingNode {
   override GetMoveDownSuggestion(current: Placeholder): Placeholder | null {

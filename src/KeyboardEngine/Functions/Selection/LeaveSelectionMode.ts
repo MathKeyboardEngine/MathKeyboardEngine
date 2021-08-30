@@ -1,4 +1,4 @@
-import { KeyboardMemory } from "../../KeyboardMemory";
+import { KeyboardMemory } from '../../KeyboardMemory';
 
 export function LeaveSelectionMode(k: KeyboardMemory): void {
   k.SelectionDiff = null;

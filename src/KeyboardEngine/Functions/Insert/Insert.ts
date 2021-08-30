@@ -1,7 +1,7 @@
-import { TreeNode } from "../../../SyntaxTreeComponents/Nodes/Base/TreeNode";
-import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
-import { KeyboardMemory } from "../../KeyboardMemory";
-import { MoveRight } from "../Navigation/MoveRight";
+import { TreeNode } from '../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
+import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placeholder';
+import { KeyboardMemory } from '../../KeyboardMemory';
+import { MoveRight } from '../Navigation/MoveRight';
 
 export function Insert(k: KeyboardMemory, newNode: TreeNode): void {
   if (k.Current instanceof Placeholder) {

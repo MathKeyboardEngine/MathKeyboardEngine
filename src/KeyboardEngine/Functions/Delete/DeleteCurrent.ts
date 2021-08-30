@@ -1,14 +1,14 @@
-import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
-import { KeyboardMemory } from "../../KeyboardMemory";
-import { GetFirstNonEmptyOnLeftOf } from "../../../SyntaxTreeComponents/Placeholder/GetFirstNonEmptyOnLeftOf";
-import { lastOrNull } from "../../../helpers/arrayhelpers/lastOrNull";
-import { firstBefore } from "../../../helpers/arrayhelpers/firstBefore";
-import { remove } from "../../../helpers/arrayhelpers/remove";
-import { TreeNode } from "../../../SyntaxTreeComponents/Nodes/Base/TreeNode";
-import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/BranchingNode";
-import { last } from "../../../helpers/arrayhelpers/last";
-import { PartOfNumberWithDigits } from "../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits";
-import { EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex } from "../Insert/InsertWithEncapsulateCurrent";
+import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placeholder';
+import { KeyboardMemory } from '../../KeyboardMemory';
+import { GetFirstNonEmptyOnLeftOf } from '../../../SyntaxTreeComponents/Placeholder/GetFirstNonEmptyOnLeftOf';
+import { lastOrNull } from '../../../helpers/arrayhelpers/lastOrNull';
+import { firstBefore } from '../../../helpers/arrayhelpers/firstBefore';
+import { remove } from '../../../helpers/arrayhelpers/remove';
+import { TreeNode } from '../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
+import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/BranchingNode';
+import { last } from '../../../helpers/arrayhelpers/last';
+import { PartOfNumberWithDigits } from '../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits';
+import { EncapsulateAll_PartsOfNumberWithDigits_LeftOfIndex } from '../Insert/InsertWithEncapsulateCurrent';
 
 export function DeleteCurrent(k: KeyboardMemory): void {
   if (k.Current instanceof Placeholder) {

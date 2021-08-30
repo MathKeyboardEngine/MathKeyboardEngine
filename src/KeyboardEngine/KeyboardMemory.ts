@@ -1,5 +1,5 @@
-import { TreeNode } from "../SyntaxTreeComponents/Nodes/Base/TreeNode";
-import { Placeholder } from "../SyntaxTreeComponents/Placeholder/Placeholder";
+import { TreeNode } from '../SyntaxTreeComponents/Nodes/Base/TreeNode';
+import { Placeholder } from '../SyntaxTreeComponents/Placeholder/Placeholder';
 
 export class KeyboardMemory {
   readonly SyntaxTreeRoot: Placeholder = new Placeholder();

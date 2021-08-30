@@ -1,7 +1,7 @@
-import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
-import { LatexConfiguration } from "../../../LatexConfiguration";
-import { Placeholder } from "../../Placeholder/Placeholder";
-import { BranchingNode } from "../Base/BranchingNode";
+import { KeyboardMemory } from '../../../KeyboardEngine/KeyboardMemory';
+import { LatexConfiguration } from '../../../LatexConfiguration';
+import { Placeholder } from '../../Placeholder/Placeholder';
+import { BranchingNode } from '../Base/BranchingNode';
 
 export class MatrixNode extends BranchingNode {
   readonly MatrixType: string;
@@ -29,7 +29,7 @@ export class MatrixNode extends BranchingNode {
 
   override getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
     let latex = String.raw`\begin{${this.MatrixType}}`;
-    latex += this.Grid.map((row) => row.map((placeholder) => placeholder.getLatex(keyboardMemory, latexConfiguration)).join(" & ")).join(String.raw` \\ `);
+    latex += this.Grid.map((row) => row.map((placeholder) => placeholder.getLatex(keyboardMemory, latexConfiguration)).join(' & ')).join(String.raw` \\ `);
     latex += String.raw`\end{${this.MatrixType}}`;
     return latex;
   }
@@ -64,6 +64,6 @@ export class MatrixNode extends BranchingNode {
         }
       }
     }
-    throw "The provided placeholder is not part of the Grid.";
+    throw 'The provided placeholder is not part of the Grid.';
   }
 }

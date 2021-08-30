@@ -1,9 +1,9 @@
-import { firstBefore } from "../../../helpers/arrayhelpers/firstBefore";
-import { last } from "../../../helpers/arrayhelpers/last";
-import { TreeNode } from "../../../SyntaxTreeComponents/Nodes/Base/TreeNode";
-import { BranchingNode } from "../../../SyntaxTreeComponents/Nodes/Base/BranchingNode";
-import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
-import { KeyboardMemory } from "../../KeyboardMemory";
+import { firstBefore } from '../../../helpers/arrayhelpers/firstBefore';
+import { last } from '../../../helpers/arrayhelpers/last';
+import { TreeNode } from '../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
+import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/BranchingNode';
+import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placeholder';
+import { KeyboardMemory } from '../../KeyboardMemory';
 
 export function MoveLeft(k: KeyboardMemory): void {
   if (k.Current instanceof Placeholder) {

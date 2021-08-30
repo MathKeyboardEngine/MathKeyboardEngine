@@ -1,4 +1,4 @@
-import { Placeholder } from "./Placeholder";
+import { Placeholder } from './Placeholder';
 
 export function GetFirstNonEmptyOnLeftOf(placeholderArray: Placeholder[], input: Placeholder): Placeholder | null {
   let isOnTheLeft = false;

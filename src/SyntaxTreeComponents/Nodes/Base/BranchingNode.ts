@@ -1,5 +1,5 @@
-import { TreeNode } from "./TreeNode";
-import { Placeholder } from "../../Placeholder/Placeholder";
+import { TreeNode } from './TreeNode';
+import { Placeholder } from '../../Placeholder/Placeholder';
 
 export abstract class BranchingNode extends TreeNode {
   Placeholders: Placeholder[];

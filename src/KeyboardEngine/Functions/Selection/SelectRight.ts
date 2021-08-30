@@ -1,7 +1,7 @@
-import { TreeNode } from "../../../SyntaxTreeComponents/Nodes/Base/TreeNode";
-import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
-import { KeyboardMemory } from "../../KeyboardMemory";
-import { setSelectionDiff } from "./helpers/setSelectionDiff";
+import { TreeNode } from '../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
+import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placeholder';
+import { KeyboardMemory } from '../../KeyboardMemory';
+import { setSelectionDiff } from './helpers/setSelectionDiff';
 
 export function SelectRight(k: KeyboardMemory): void {
   const diff = k.SelectionDiff ?? 0;

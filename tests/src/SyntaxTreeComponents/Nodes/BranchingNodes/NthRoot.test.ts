@@ -1,29 +1,29 @@
-import { describe } from "mocha";
-import { KeyboardMemory } from "../../../../../src/KeyboardEngine/KeyboardMemory";
-import { Insert } from "../../../../../src/KeyboardEngine/Functions/Insert/Insert";
-import { DescendingBranchingNode } from "../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode";
-import { DigitNode } from "../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode";
-import { MoveRight } from "../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight";
-import { expectLatex } from "../../../../helpers/expectLatex";
-import { MoveDown } from "../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown";
-import { MoveUp } from "../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp";
+import { describe } from 'mocha';
+import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
+import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
+import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
+import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
+import { expectLatex } from '../../../../helpers/expectLatex';
+import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
+import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 
-describe("NthRoot", () => {
-  it("basic test", () => {
+describe('NthRoot', () => {
+  it('basic test', () => {
     const k = new KeyboardMemory();
-    Insert(k, new DescendingBranchingNode(String.raw`\sqrt[`, "]{", "}"));
+    Insert(k, new DescendingBranchingNode(String.raw`\sqrt[`, ']{', '}'));
     expectLatex(String.raw`\sqrt[◼]{◻}`, k);
-    Insert(k, new DigitNode("3"));
+    Insert(k, new DigitNode('3'));
     MoveRight(k);
     expectLatex(String.raw`\sqrt[3]{◼}`, k);
-    Insert(k, new DigitNode("2"));
-    Insert(k, new DigitNode("7"));
+    Insert(k, new DigitNode('2'));
+    Insert(k, new DigitNode('7'));
     expectLatex(String.raw`\sqrt[3]{27◼}`, k);
   });
 
-  it("up/down (including impossible up/down requests)", () => {
+  it('up/down (including impossible up/down requests)', () => {
     const k = new KeyboardMemory();
-    Insert(k, new DescendingBranchingNode(String.raw`\sqrt[`, "]{", "}"));
+    Insert(k, new DescendingBranchingNode(String.raw`\sqrt[`, ']{', '}'));
     MoveDown(k);
     expectLatex(String.raw`\sqrt[◻]{◼}`, k);
     MoveDown(k);

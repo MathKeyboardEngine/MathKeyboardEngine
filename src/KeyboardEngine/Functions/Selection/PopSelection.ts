@@ -1,12 +1,12 @@
-import { firstBefore } from "../../../helpers/arrayhelpers/firstBefore";
-import { TreeNode } from "../../../SyntaxTreeComponents/Nodes/Base/TreeNode";
-import { Placeholder } from "../../../SyntaxTreeComponents/Placeholder/Placeholder";
-import { KeyboardMemory } from "../../KeyboardMemory";
-import { LeaveSelectionMode } from "./LeaveSelectionMode";
+import { firstBefore } from '../../../helpers/arrayhelpers/firstBefore';
+import { TreeNode } from '../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
+import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placeholder';
+import { KeyboardMemory } from '../../KeyboardMemory';
+import { LeaveSelectionMode } from './LeaveSelectionMode';
 
 export function PopSelection(k: KeyboardMemory): TreeNode[] {
   if (k.SelectionDiff == null) {
-    throw "Turn on selection mode before calling this method.";
+    throw 'Turn on selection mode before calling this method.';
   }
   if (k.SelectionDiff == 0) {
     LeaveSelectionMode(k);

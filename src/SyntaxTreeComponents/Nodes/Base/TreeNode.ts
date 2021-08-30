@@ -1,6 +1,6 @@
-import { KeyboardMemory } from "../../../KeyboardEngine/KeyboardMemory";
-import { LatexConfiguration } from "../../../LatexConfiguration";
-import { Placeholder } from "../../Placeholder/Placeholder";
+import { KeyboardMemory } from '../../../KeyboardEngine/KeyboardMemory';
+import { LatexConfiguration } from '../../../LatexConfiguration';
+import { Placeholder } from '../../Placeholder/Placeholder';
 
 export abstract class TreeNode {
   ParentPlaceholder!: Placeholder;
