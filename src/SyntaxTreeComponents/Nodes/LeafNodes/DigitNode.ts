@@ -8,7 +8,7 @@ export class DigitNode extends PartOfNumberWithDigits {
     super();
     this.value = digit;
   }
-  override getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
+  override getLatexPart(_keyboardMemory: KeyboardMemory, _latexConfiguration: LatexConfiguration): string {
     return this.value;
   }
 }

@@ -8,7 +8,7 @@ export class StandardLeafNode extends LeafNode {
     super();
     this.Latex = typeof latex === "string" ? () => latex : latex;
   }
-  override getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
+  override getLatexPart(_keyboardMemory: KeyboardMemory, _latexConfiguration: LatexConfiguration): string {
     return this.Latex();
   }
 }
