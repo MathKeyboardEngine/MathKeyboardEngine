@@ -1,4 +1,4 @@
-﻿export class LatexConfiguration {
+export class LatexConfiguration {
   activePlaceholderShape: string = String.raw`\blacksquare `;
   activePlaceholderColor?: string;
   passivePlaceholderShape: string = String.raw`\square `;
