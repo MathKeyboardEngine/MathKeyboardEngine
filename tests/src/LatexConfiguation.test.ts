@@ -9,8 +9,8 @@ import { GetEditModeLatex } from '../../src/GetLatex/GetEditModeLatex';
 describe(LatexConfiguration.name, () => {
   it('allows customizing the shape of the "cursor" and placeholders', () => {
     const myLatexConfiguration = new LatexConfiguration();
-    myLatexConfiguration.activePlaceholderNucleus = 'myCursor';
-    myLatexConfiguration.passivePlaceholderNucleus = 'myEmptyPlace';
+    myLatexConfiguration.activePlaceholderShape = 'myCursor';
+    myLatexConfiguration.passivePlaceholderShape = 'myEmptyPlace';
 
     const k = new KeyboardMemory();
     Insert(k, new AscendingBranchingNode('', '^{', '}'));
@@ -19,8 +19,8 @@ describe(LatexConfiguration.name, () => {
 
   it('allows customizing the color of the "cursor" and placeholders', () => {
     const myLatexConfiguration = new LatexConfiguration();
-    myLatexConfiguration.activePlaceholderNucleus = '◼';
-    myLatexConfiguration.passivePlaceholderNucleus = '◼';
+    myLatexConfiguration.activePlaceholderShape = '◼';
+    myLatexConfiguration.passivePlaceholderShape = '◼';
     myLatexConfiguration.activePlaceholderColor = 'orange';
     myLatexConfiguration.passivePlaceholderColor = 'gray';
 

@@ -10,8 +10,8 @@ import { MoveDown } from '../../../src/KeyboardEngine/Functions/Navigation/MoveD
 import { DescendingBranchingNode } from '../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
 
 const config = new LatexConfiguration();
-config.activePlaceholderNucleus = '◼';
-config.passivePlaceholderNucleus = '◻';
+config.activePlaceholderShape = '◼';
+config.passivePlaceholderShape = '◻';
 
 describe('GetLatex', () => {
   it('BranchingNode', () => {
