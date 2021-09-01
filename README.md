@@ -18,7 +18,7 @@ Live examples can be tested at [MathKeyboardEngine.GitHub.io](https://mathkeyboa
 <i>Unique about MathKeyboardEngine:</i>
 
 - it supports (almost?) all math LaTeX (please share if you know anything that is not supported), including matrices.
-- the syntax tree exists of very few different parts: the `StandardLeafNode`, `StandardBranchingNode`, `AscendingBranchingNode` and `DescendingBranchingNode` can be used for almost all LaTeX, including fractions, powers, combinations, subscript, etc. with ready-to-use up/down/left/right navigation.
+- the syntax tree consists of very few different parts: the `StandardLeafNode`, `StandardBranchingNode`, `AscendingBranchingNode` and `DescendingBranchingNode` can be used for almost all LaTeX, including fractions, powers, combinations, subscript, etc. with ready-to-use up/down/left/right navigation.
 - it can be used with any LaTeX math typesetting library you like.
 
 <i>A con:</i>
@@ -48,7 +48,7 @@ You can replace ".js" by ".min.js" to get the minified version: this is a smalle
 
 Quick start for using the "esm" format:
 
-```
+```html
   <script type="module" type="text/javascript">
     import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.5/dist/MathKeyboardEngine.es2017-esm.min.js';
     let latexConfiguration = new mke.LatexConfiguration();
