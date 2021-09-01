@@ -104,14 +104,12 @@
       const matrixWidthInputElement = document.getElementById('matrixWidth');
       const matrixHeightInputElement = document.getElementById('matrixHeight');
       function ReRegisterMatrix() {
-        const getPMatrixNode = () => new mke.MatrixNode({ matrixType: 'pmatrix', width: matrixWidthInputElement.value, height: matrixHeightInputElement.value });
-        registerNodeKey('pmatrix', getPMatrixNode);
-        const getVMatrixNode = () => new mke.MatrixNode({ matrixType: 'vmatrix', width: matrixWidthInputElement.value, height: matrixHeightInputElement.value });
-        registerNodeKey('vmatrix', getVMatrixNode);
+        registerNodeKey('pmatrix', () => new mke.MatrixNode('pmatrix', matrixWidthInputElement.value, matrixHeightInputElement.value));
+        registerNodeKey('vmatrix', () => new mke.MatrixNode('vmatrix', matrixWidthInputElement.value, matrixHeightInputElement.value));
       }
       ReRegisterMatrix();
-      matrixWidthInputElement.onclick = ReRegisterMatrix;
-      matrixHeightInputElement.onclick = ReRegisterMatrix;
+      matrixWidthInputElement.onchange = ReRegisterMatrix;
+      matrixHeightInputElement.onchange = ReRegisterMatrix;
 
       registerKey('moveLeft', mke.MoveLeft, mke.SelectLeft, false);
       registerKey('moveRight', mke.MoveRight, mke.SelectRight, false);

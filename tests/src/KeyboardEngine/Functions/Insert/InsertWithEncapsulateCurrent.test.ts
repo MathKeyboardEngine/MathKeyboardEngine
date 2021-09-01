@@ -29,7 +29,7 @@ describe(InsertWithEncapsulateCurrent.name, () => {
 
   it('can encapsulate complex stuff like matrixes', () => {
     const k = new KeyboardMemory();
-    Insert(k, new MatrixNode({ matrixType: 'pmatrix', height: 2, width: 2 }));
+    Insert(k, new MatrixNode('pmatrix', 2, 2));
     for (let i = 1; i <= 4; i++) {
       Insert(k, new DigitNode(i.toString()));
       MoveRight(k);
@@ -40,7 +40,7 @@ describe(InsertWithEncapsulateCurrent.name, () => {
 
   it('can also be used inside (for example) a matrix', () => {
     const k = new KeyboardMemory();
-    Insert(k, new MatrixNode({ matrixType: 'pmatrix', height: 2, width: 2 }));
+    Insert(k, new MatrixNode('pmatrix', 2, 2));
     Insert(k, new DigitNode('1'));
     InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     expectLatex(String.raw`\begin{pmatrix}1^{◼} & ◻ \\ ◻ & ◻\end{pmatrix}`, k);

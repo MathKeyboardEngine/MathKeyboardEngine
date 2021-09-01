@@ -7,12 +7,12 @@ export class MatrixNode extends BranchingNode {
   readonly MatrixType: string;
   readonly Grid: Placeholder[][];
 
-  constructor(args: { matrixType: string; height: number; width: number }) {
+  constructor(matrixType: string, width: number, height: number) {
     const grid: Placeholder[][] = [];
     const leftToRight: Placeholder[] = [];
-    for (let i = 0; i < args.height; i++) {
+    for (let i = 0; i < height; i++) {
       const row: Placeholder[] = [];
-      for (let j = 0; j < args.width; j++) {
+      for (let j = 0; j < width; j++) {
         const placeholder = new Placeholder();
         row.push(placeholder);
         leftToRight.push(placeholder);
@@ -24,7 +24,7 @@ export class MatrixNode extends BranchingNode {
       placeholder.ParentNode = this;
     }
     this.Grid = grid;
-    this.MatrixType = args.matrixType;
+    this.MatrixType = matrixType;
   }
 
   override getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {

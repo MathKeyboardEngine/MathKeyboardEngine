@@ -15,14 +15,7 @@ import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder
 describe(MatrixNode.name, () => {
   it('pmatrix(width=2,height=3) 1 right 2 down 4 down 6', () => {
     const k = new KeyboardMemory();
-    Insert(
-      k,
-      new MatrixNode({
-        matrixType: 'pmatrix',
-        height: 3,
-        width: 2,
-      })
-    );
+    Insert(k, new MatrixNode('pmatrix', 2, 3));
     expectLatex(String.raw`\begin{pmatrix}◼ & ◻ \\ ◻ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
     Insert(k, new DigitNode('1'));
     MoveRight(k);
@@ -36,14 +29,7 @@ describe(MatrixNode.name, () => {
 
   it('move with left and right through all cells of the pmatrix(2*2)', () => {
     const k = new KeyboardMemory();
-    Insert(
-      k,
-      new MatrixNode({
-        matrixType: 'pmatrix',
-        height: 2,
-        width: 2,
-      })
-    );
+    Insert(k, new MatrixNode('pmatrix', 2, 2));
     Insert(k, new DigitNode('1'));
     MoveRight(k);
     MoveRight(k);
@@ -86,14 +72,7 @@ describe(MatrixNode.name, () => {
   it('move out of an empty pmatrix(2*2) to the previous node and back in', () => {
     const k = new KeyboardMemory();
     Insert(k, new DigitNode('2'));
-    Insert(
-      k,
-      new MatrixNode({
-        matrixType: 'pmatrix',
-        height: 2,
-        width: 2,
-      })
-    );
+    Insert(k, new MatrixNode('pmatrix', 2, 2));
     expectLatex(String.raw`2\begin{pmatrix}◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
     MoveLeft(k);
     expectLatex(String.raw`2◼\begin{pmatrix}◻ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
@@ -103,14 +82,7 @@ describe(MatrixNode.name, () => {
 
   it('pmatrix(2*2) delete content', () => {
     const k = new KeyboardMemory();
-    Insert(
-      k,
-      new MatrixNode({
-        matrixType: 'pmatrix',
-        height: 2,
-        width: 2,
-      })
-    );
+    Insert(k, new MatrixNode('pmatrix', 2, 2));
     Insert(k, new DigitNode('1'));
     MoveRight(k);
     Insert(k, new DigitNode('2'));
@@ -133,14 +105,7 @@ describe(MatrixNode.name, () => {
 
   it('pmatrix(2*2) right down left up', () => {
     const k = new KeyboardMemory();
-    Insert(
-      k,
-      new MatrixNode({
-        matrixType: 'pmatrix',
-        height: 2,
-        width: 2,
-      })
-    );
+    Insert(k, new MatrixNode('pmatrix', 2, 2));
     expectLatex(String.raw`\begin{pmatrix}◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
     MoveRight(k);
     expectLatex(String.raw`\begin{pmatrix}◻ & ◼ \\ ◻ & ◻\end{pmatrix}`, k);
@@ -154,14 +119,7 @@ describe(MatrixNode.name, () => {
 
   it('impossible up/down requests in empty pmatrix(2*2) should not throw', () => {
     const k = new KeyboardMemory();
-    Insert(
-      k,
-      new MatrixNode({
-        matrixType: 'pmatrix',
-        height: 2,
-        width: 2,
-      })
-    );
+    Insert(k, new MatrixNode('pmatrix', 2, 2));
     expectLatex(String.raw`\begin{pmatrix}◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
     MoveDown(k);
     expectLatex(String.raw`\begin{pmatrix}◻ & ◻ \\ ◼ & ◻\end{pmatrix}`, k);
@@ -179,14 +137,7 @@ describe(MatrixNode.name, () => {
 
   it('impossible up/down requests in filled pmatrix(2*2) should not throw', () => {
     const k = new KeyboardMemory();
-    Insert(
-      k,
-      new MatrixNode({
-        matrixType: 'pmatrix',
-        height: 2,
-        width: 2,
-      })
-    );
+    Insert(k, new MatrixNode('pmatrix', 2, 2));
     Insert(k, new DigitNode('1'));
     MoveRight(k);
     Insert(k, new DigitNode('2'));
@@ -205,14 +156,7 @@ describe(MatrixNode.name, () => {
 
   it('impossible up/down requests in filled pmatrix(2*2) should not throw', () => {
     const k = new KeyboardMemory();
-    Insert(
-      k,
-      new MatrixNode({
-        matrixType: 'pmatrix',
-        height: 2,
-        width: 2,
-      })
-    );
+    Insert(k, new MatrixNode('pmatrix', 2, 2));
     Insert(k, new DigitNode('1'));
     MoveRight(k);
     Insert(k, new DigitNode('2'));
@@ -230,13 +174,8 @@ describe(MatrixNode.name, () => {
   });
 
   it('bug in logic somewhere else throws', () => {
-    const matrix = new MatrixNode({
-      matrixType: 'pmatrix',
-      height: 2,
-      width: 2,
-    });
+    const matrix = new MatrixNode('pmatrix', 2, 2);
     const placeholderThatIsNotPartOfTheMatrix = new Placeholder();
-
     expect(() => matrix.GetMoveDownSuggestion(placeholderThatIsNotPartOfTheMatrix)).throws();
   });
 });

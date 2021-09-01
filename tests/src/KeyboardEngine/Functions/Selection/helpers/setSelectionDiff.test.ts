@@ -16,6 +16,6 @@ describe(setSelectionDiff.name, () => {
     expectLatex(String.raw`\colorbox{blue}{1}`, k); // All nodes (at the left of Current) within the current placeholder have been selected
 
     // Act & assert
-    expect(() => setSelectionDiff(k, k.SelectionDiff - 1)).throws(); // Trying to go even more to the left.
+    expect(() => setSelectionDiff(k, k.SelectionDiff! - 1)).throws(); // Trying to go even more to the left.
   });
 });
