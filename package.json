@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "tsc": "tsc --noEmit --strict",
     "test": "nyc ./node_modules/.bin/_mocha 'tests/**/*.test.ts'",
     "lint": "npx eslint . --fix",
     "prettier": "npx prettier --write . --loglevel=warn",
