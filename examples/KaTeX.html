@@ -21,12 +21,6 @@
 
       displayResult();
 
-      registerNodeKey('infinity', () => new mke.StandardLeafNode(String.raw`\infty `));
-      registerNodeKey('leftarrow', () => new mke.StandardLeafNode(String.raw`\leftarrow `));
-      registerNodeKey('rightarrow', () => new mke.StandardLeafNode(String.raw`\rightarrow `));
-      registerNodeKey('uparrow', () => new mke.StandardLeafNode('\\uparrow '));
-      registerNodeKey('downarrow', () => new mke.StandardLeafNode(String.raw`\downarrow `));
-
       for (let i = 0; i < 10; i++) {
         registerNodeKey('digit' + i, () => new mke.DigitNode(i.toString()));
       }
@@ -35,13 +29,12 @@
         registerNodeKey(letter, () => new mke.StandardLeafNode(letter));
       }
 
-      for (let afterslash of ['alpha', 'beta', 'gamma', 'lambda', 'mu', 'pi', 'div', 'sin', 'tan', 'cos', 'arcsin', 'arccos', 'arctan']) {
-        registerNodeKey(afterslash, () => new mke.StandardLeafNode('\\' + afterslash + ' '));
+      for (let s of ['alpha', 'beta', 'gamma', 'lambda', 'mu', 'pi', 'div', 'sin', 'tan', 'cos', 'arcsin', 'arccos', 'arctan', 'infty', 'leftarrow', 'rightarrow', 'uparrow', 'downarrow', 'approx']) {
+        registerNodeKey(s, () => new mke.StandardLeafNode('\\' + s + ' '));
       }
 
       registerNodeKey('decimalSeparator', () => new mke.DecimalSeparatorNode());
 
-      registerNodeKey('approx', () => new mke.StandardLeafNode(String.raw`\approx `));
       registerNodeKey('equal', () => new mke.StandardLeafNode('='));
       registerNodeKey('notEqual', () => new mke.StandardLeafNode(String.raw`\neq `));
 
@@ -261,7 +254,7 @@
   </head>
   <body>
     <h1>MathKeyboardEngine + KaTeX</h1>
-    <h3>Example keys - to be styled - to help you design your keyboard</h3>
+    <h3>Example keys - to be styled - to help you design your virtual math keyboard</h3>
     <div id="renderedEditModeLatex"></div>
     <div id="viewModeLatex"></div>
     <br />
@@ -374,7 +367,7 @@
       <div id="rightarrow"></div>
       <div id="uparrow"></div>
       <div id="downarrow"></div>
-      <div id="infinity"></div>
+      <div id="infty"></div>
     </div>
   </body>
 </html>
