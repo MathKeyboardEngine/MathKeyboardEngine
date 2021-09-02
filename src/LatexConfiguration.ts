@@ -3,8 +3,8 @@ export class LatexConfiguration {
   activePlaceholderColor?: string;
   passivePlaceholderShape: string = String.raw`\square `;
   passivePlaceholderColor?: string;
-  selectionHightlightStart: string = String.raw`\colorbox{#ADD8E6}{`;
-  selectionHightlightEnd = '}';
+  selectionHightlightStart: string = String.raw`\colorbox{#ADD8E6}{\(\displaystyle `;
+  selectionHightlightEnd = String.raw`\)}`;
 
   get activePlaceholderLatex(): string {
     if (this.activePlaceholderColor == null) {
