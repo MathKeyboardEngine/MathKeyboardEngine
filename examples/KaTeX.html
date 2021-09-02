@@ -19,6 +19,11 @@
       let keyboardMemory = new mke.KeyboardMemory();
       const supportsSelectionMode = 'supportsSelectionMode';
 
+      // === KaTeX specific code START ===
+      latexConfiguration.selectionHightlightStart = String.raw`\colorbox{#ADD8E6}{\(`;
+      latexConfiguration.selectionHightlightEnd = String.raw`\)}`;
+      // === KaTeX specific code END ===
+
       displayResult();
 
       for (let i = 0; i < 10; i++) {
