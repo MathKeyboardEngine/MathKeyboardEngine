@@ -29,7 +29,20 @@
         registerNodeKey(s, () => new mke.StandardLeafNode('\\' + s + ' '));
       }
 
-      registerNodeKey('decimalSeparator', () => new mke.DecimalSeparatorNode());
+      const decimalSeparatorTypeElement = document.getElementById('decimalSeparatorType');
+      document.getElementById('decimalSeparatorToggle').onclick = () => {
+        const key = document.getElementById('decimalSeparator');
+        if (decimalSeparatorTypeElement.innerText == "decimal comma") {
+          decimalSeparatorTypeElement.innerText = "decimal point";
+          renderLatexInKey('.', key);
+        } else {
+          decimalSeparatorTypeElement.innerText = "decimal comma";
+          renderLatexInKey('{,}', key);
+        }
+        displayResult();
+      }
+
+      registerNodeKey('decimalSeparator', () => new mke.DecimalSeparatorNode(() => decimalSeparatorTypeElement.innerText == "decimal comma" ? '{,}' : '.'));
 
       registerNodeKey('equal', () => new mke.StandardLeafNode('='));
       registerNodeKey('notEqual', () => new mke.StandardLeafNode(String.raw`\neq `));
@@ -39,9 +52,17 @@
       registerNodeKey('lessThanOrEqual', () => new mke.StandardLeafNode(String.raw`\leq `));
       registerNodeKey('greaterThanOrEqual', () => new mke.StandardLeafNode(String.raw`\geq `));
 
+      registerNodeKey('plusminus', () => new mke.StandardLeafNode(String.raw`\pm `));
       registerNodeKey('plus', () => new mke.StandardLeafNode('+'));
       registerNodeKey('minus', () => new mke.StandardLeafNode('-'));
-      registerNodeKey('times', () => new mke.StandardLeafNode(String.raw`\times `));
+
+      const multiplicationSignTypeElement = document.getElementById('multiplicationSignType');
+      document.getElementById('multiplicationSignToggle').onclick = () => {
+        multiplicationSignTypeElement.innerText = multiplicationSignTypeElement.innerText == "cross" ? "dot" : "cross";
+        displayResult();
+      }
+      registerNodeKey('multiply', () => new mke.StandardLeafNode(() => multiplicationSignTypeElement.innerText == "cross" ? String.raw`\times ` : String.raw`\cdot `));
+      
       registerNodeKey('ratio', () => new mke.StandardLeafNode(':'));
       registerNodeKey('faculty', () => new mke.StandardLeafNode('!'));
 
@@ -245,6 +266,15 @@
         width: 15px;
         height: 15px;
       }
+
+      .setting {
+        margin: 10px;
+      }
+      
+      .setting-value {
+        border: 1px solid black;
+        padding: 3px;
+      }
     </style>
   </head>
   <body>
@@ -286,9 +316,10 @@
       <div id="mu"></div>
       <div id="pi"></div>
       <br />
+      <div id="plusminus"></div>
       <div id="plus"></div>
       <div id="minus"></div>
-      <div id="times"></div>
+      <div id="multiply"></div>
       <div id="ratio"></div>
       <div id="div"></div>
       <div id="faculty"></div>
@@ -364,5 +395,8 @@
       <div id="downarrow"></div>
       <div id="infty"></div>
     </div>
+    <h4>Settings</h4>
+    <div id="multiplicationSignToggle" class='setting'>Output multiplication sign: <span class='setting-value' id="multiplicationSignType">cross</span></div>
+    <div id="decimalSeparatorToggle" class='setting'>Decimal separator: <span class='setting-value' id="decimalSeparatorType">decimal point</span></div>
   </body>
 </html>
