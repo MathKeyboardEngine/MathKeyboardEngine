@@ -2,7 +2,7 @@ import { Placeholder } from '../../Placeholder/Placeholder';
 import { StandardBranchingNode } from './StandardBranchingNode';
 
 export class AscendingBranchingNode extends StandardBranchingNode {
-  override GetMoveDownSuggestion(current: Placeholder): Placeholder | null {
+  override getMoveDownSuggestion(current: Placeholder): Placeholder | null {
     const currentPlaceholderIndex = this.Placeholders.indexOf(current);
     if (currentPlaceholderIndex > 0) {
       return this.Placeholders[currentPlaceholderIndex - 1];
@@ -11,7 +11,7 @@ export class AscendingBranchingNode extends StandardBranchingNode {
     }
   }
 
-  override GetMoveUpSuggestion(current: Placeholder): Placeholder | null {
+  override getMoveUpSuggestion(current: Placeholder): Placeholder | null {
     const currentPlaceholderIndex = this.Placeholders.indexOf(current);
     if (currentPlaceholderIndex < this.Placeholders.length - 1) {
       return this.Placeholders[currentPlaceholderIndex + 1];

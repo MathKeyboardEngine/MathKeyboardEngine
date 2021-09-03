@@ -176,6 +176,6 @@ describe(MatrixNode.name, () => {
   it('bug in logic somewhere else throws', () => {
     const matrix = new MatrixNode('pmatrix', 2, 2);
     const placeholderThatIsNotPartOfTheMatrix = new Placeholder();
-    expect(() => matrix.GetMoveDownSuggestion(placeholderThatIsNotPartOfTheMatrix)).throws();
+    expect(() => matrix.getMoveDownSuggestion(placeholderThatIsNotPartOfTheMatrix)).throws();
   });
 });

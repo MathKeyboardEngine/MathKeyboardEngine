@@ -34,8 +34,8 @@ export class MatrixNode extends BranchingNode {
     return latex;
   }
 
-  override GetMoveDownSuggestion(current: Placeholder): Placeholder | null {
-    const { rowNumber, indexInRow } = this.GetPositionOf(current);
+  override getMoveDownSuggestion(current: Placeholder): Placeholder | null {
+    const { rowNumber, indexInRow } = this.getPositionOf(current);
     if (rowNumber + 1 < this.Grid.length) {
       return this.Grid[rowNumber + 1][indexInRow];
     } else {
@@ -43,8 +43,8 @@ export class MatrixNode extends BranchingNode {
     }
   }
 
-  override GetMoveUpSuggestion(current: Placeholder): Placeholder | null {
-    const { rowNumber, indexInRow } = this.GetPositionOf(current);
+  override getMoveUpSuggestion(current: Placeholder): Placeholder | null {
+    const { rowNumber, indexInRow } = this.getPositionOf(current);
     if (rowNumber - 1 >= 0) {
       return this.Grid[rowNumber - 1][indexInRow];
     } else {
@@ -52,7 +52,7 @@ export class MatrixNode extends BranchingNode {
     }
   }
 
-  private GetPositionOf(placeholder: Placeholder): {
+  private getPositionOf(placeholder: Placeholder): {
     rowNumber: number;
     indexInRow: number;
   } {

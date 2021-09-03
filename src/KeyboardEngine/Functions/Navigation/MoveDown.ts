@@ -12,7 +12,7 @@ export function MoveDown(k: KeyboardMemory): void {
     }
     suggestingNode = moveFromPlaceholder.ParentNode;
     if (suggestingNode instanceof BranchingNode) {
-      const suggestion = suggestingNode.GetMoveDownSuggestion(moveFromPlaceholder);
+      const suggestion = suggestingNode.getMoveDownSuggestion(moveFromPlaceholder);
       if (suggestion != null) {
         k.Current = lastOrNull(suggestion.Nodes) ?? suggestion;
         return;

@@ -12,11 +12,11 @@ export abstract class BranchingNode extends TreeNode {
     });
   }
 
-  GetMoveDownSuggestion(_from: Placeholder): Placeholder | null {
+  getMoveDownSuggestion(_from: Placeholder): Placeholder | null {
     return null;
   }
 
-  GetMoveUpSuggestion(_from: Placeholder): Placeholder | null {
+  getMoveUpSuggestion(_from: Placeholder): Placeholder | null {
     return null;
   }
 }
