@@ -4,7 +4,7 @@ MathKeyboardEngine provides the logic - in JavaScript and LaTeX - for a highly c
 
 #### An execution timeline
 
-1. You load an html page with your customized virtual math keyboard (based on one of the examples). On load, the LaTeX for each key is rendered (by KaTeX or MathJax) and a cursor is displayed in a textbox-look-a-like div.
+1. You load an html page with your customized virtual math keyboard (based on one of the examples). On load the LaTeX for each key is typeset (by KaTeX or MathJax) and a cursor is displayed in a textbox-look-a-like div.
 1. On your customized virtual keyboard, you press a key. The key calls a MathKeyboardEngine function, for example Insert(someMatrixNode) or MoveUp(), DeleteCurrent(), etc.
 1. Calling GetEditModeLatex() outputs the total of LaTeX you typed, for example `\frac{3}{4}\blacksquare` (if `\blacksquare` is your cursor), which you then feed to KaTeX or MathJax for display.
 1. Calling GetViewModeLatex outputs the LaTeX without a cursor.
@@ -93,6 +93,6 @@ Doing a localhost test with an example from the 'examples' folder is probably th
 
 ## Goal
 
-<strong>Goal</strong>: make a future proof, not complex, highly customizable virtual math keyboard library.<br/>
+<strong>Goal</strong>: make a future proof, not complex library for a highly customizable virtual math keyboard.<br/>
 <strong>First draft of this library</strong>: July 2021.<br/>
 <strong>Founder and maintainer</strong>: SymboLinker
