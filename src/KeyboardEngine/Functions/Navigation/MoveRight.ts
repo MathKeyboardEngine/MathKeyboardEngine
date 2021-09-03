@@ -2,7 +2,7 @@ import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placehold
 import { KeyboardMemory } from '../../KeyboardMemory';
 import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/BranchingNode';
 import { TreeNode } from '../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
-import { firstAfter } from '../../../helpers/arrayhelpers/firstAfter';
+import { firstAfterOrNull } from '../../../helpers/arrayhelpers/firstAfterOrNull';
 
 export function MoveRight(k: KeyboardMemory): void {
   if (k.Current instanceof Placeholder) {
@@ -12,10 +12,10 @@ export function MoveRight(k: KeyboardMemory): void {
     } else if (k.Current.ParentNode == null) {
       return;
     } else {
-      k.Current = firstAfter(k.Current.ParentNode.Placeholders, k.Current) ?? k.Current.ParentNode;
+      k.Current = firstAfterOrNull(k.Current.ParentNode.Placeholders, k.Current) ?? k.Current.ParentNode;
     }
   } else {
-    const nextNode: TreeNode | null = firstAfter(k.Current.ParentPlaceholder.Nodes, k.Current);
+    const nextNode: TreeNode | null = firstAfterOrNull(k.Current.ParentPlaceholder.Nodes, k.Current);
     if (nextNode != null) {
       if (nextNode instanceof BranchingNode) {
         k.Current = nextNode.Placeholders[0];
@@ -25,7 +25,7 @@ export function MoveRight(k: KeyboardMemory): void {
     } else {
       const ancestorNode = k.Current.ParentPlaceholder.ParentNode;
       if (ancestorNode != null) {
-        const nextPlaceholder: Placeholder | null = firstAfter(ancestorNode.Placeholders, k.Current.ParentPlaceholder);
+        const nextPlaceholder: Placeholder | null = firstAfterOrNull(ancestorNode.Placeholders, k.Current.ParentPlaceholder);
         k.Current = nextPlaceholder ?? ancestorNode;
       }
     }

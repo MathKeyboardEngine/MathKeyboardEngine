@@ -2,7 +2,7 @@ import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placehold
 import { KeyboardMemory } from '../../KeyboardMemory';
 import { getFirstNonEmptyOnLeftOf } from '../helpers/getFirstNonEmptyOnLeftOf';
 import { lastOrNull } from '../../../helpers/arrayhelpers/lastOrNull';
-import { firstBefore } from '../../../helpers/arrayhelpers/firstBefore';
+import { firstBeforeOrNull } from '../../../helpers/arrayhelpers/firstBeforeOrNull';
 import { remove } from '../../../helpers/arrayhelpers/remove';
 import { TreeNode } from '../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
 import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/BranchingNode';
@@ -30,11 +30,11 @@ export function DeleteCurrent(k: KeyboardMemory): void {
         }
       } else if (k.Current.ParentNode.Placeholders.every((ph) => ph.Nodes.length == 0)) {
         const ancestorPlaceholder = k.Current.ParentNode.ParentPlaceholder;
-        const previousNode = firstBefore(ancestorPlaceholder.Nodes, k.Current.ParentNode);
+        const previousNode = firstBeforeOrNull(ancestorPlaceholder.Nodes, k.Current.ParentNode);
         remove(ancestorPlaceholder.Nodes, k.Current.ParentNode);
         k.Current = previousNode ?? ancestorPlaceholder;
       } else if (k.Current.ParentNode.Placeholders[0] === k.Current && k.Current.Nodes.length == 0 && k.Current.ParentNode.Placeholders.some((ph) => ph.Nodes.length != 0)) {
-        const previousNode = firstBefore(k.Current.ParentNode!.ParentPlaceholder.Nodes, k.Current.ParentNode);
+        const previousNode = firstBeforeOrNull(k.Current.ParentNode!.ParentPlaceholder.Nodes, k.Current.ParentNode);
         if (previousNode != null) {
           encapsulatePreviousInto(previousNode, k.Current);
           k.Current = last(k.Current.Nodes);
@@ -66,7 +66,7 @@ export function DeleteCurrent(k: KeyboardMemory): void {
       lastPlaceholderWithContent.Nodes.pop();
       k.Current = lastPlaceholderWithContent.Nodes.length == 0 ? lastPlaceholderWithContent : last(lastPlaceholderWithContent.Nodes);
     } else {
-      const previousNode: TreeNode | null = firstBefore(k.Current.ParentPlaceholder.Nodes, k.Current);
+      const previousNode: TreeNode | null = firstBeforeOrNull(k.Current.ParentPlaceholder.Nodes, k.Current);
       remove(k.Current.ParentPlaceholder.Nodes, k.Current);
       k.Current = previousNode ?? k.Current.ParentPlaceholder;
     }

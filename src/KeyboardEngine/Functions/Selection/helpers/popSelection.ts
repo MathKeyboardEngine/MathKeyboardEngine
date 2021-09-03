@@ -1,4 +1,4 @@
-import { firstBefore } from '../../../../helpers/arrayhelpers/firstBefore';
+import { firstBeforeOrNull } from '../../../../helpers/arrayhelpers/firstBeforeOrNull';
 import { TreeNode } from '../../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
 import { Placeholder } from '../../../../SyntaxTreeComponents/Placeholder/Placeholder';
 import { KeyboardMemory } from '../../../KeyboardMemory';
@@ -19,7 +19,7 @@ export function popSelection(k: KeyboardMemory): TreeNode[] {
   } else {
     const siblings = k.Current.ParentPlaceholder.Nodes;
     const indexOfLeftBorder = siblings.indexOf(k.InclusiveSelectionLeftBorder as TreeNode);
-    k.Current = firstBefore(siblings, k.InclusiveSelectionLeftBorder) ?? k.Current.ParentPlaceholder;
+    k.Current = firstBeforeOrNull(siblings, k.InclusiveSelectionLeftBorder) ?? k.Current.ParentPlaceholder;
     LeaveSelectionMode(k);
     return siblings.splice(indexOfLeftBorder, abs(diff));
   }

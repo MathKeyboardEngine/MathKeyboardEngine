@@ -1,4 +1,4 @@
-import { firstAfter } from '../../../helpers/arrayhelpers/firstAfter';
+import { firstAfterOrNull } from '../../../helpers/arrayhelpers/firstAfterOrNull';
 import { TreeNode } from '../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
 import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/BranchingNode';
 import { PartOfNumberWithDigits } from '../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits';
@@ -18,7 +18,7 @@ export function InsertWithEncapsulateCurrent(k: KeyboardMemory, newNode: Branchi
     newNode.ParentPlaceholder = k.Current.ParentPlaceholder;
     if (k.Current instanceof RoundBracketsNode && config?.deleteOuterRoundBracketsIfAny) {
       encapsulate(k.Current.Placeholders[0].Nodes, encapsulatingPlaceholder);
-      k.Current = firstAfter(newNode.Placeholders, encapsulatingPlaceholder) ?? newNode;
+      k.Current = firstAfterOrNull(newNode.Placeholders, encapsulatingPlaceholder) ?? newNode;
     } else if (k.Current instanceof PartOfNumberWithDigits) {
       encapsulatingPlaceholder.Nodes.push(k.Current);
       k.Current.ParentPlaceholder = encapsulatingPlaceholder;
