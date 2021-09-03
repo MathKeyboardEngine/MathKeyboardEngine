@@ -21,12 +21,10 @@ describe(BranchingNode.name, () => {
 });
 
 class DummyBranchingNode extends BranchingNode {
-  Base: Placeholder;
   constructor() {
     super([new Placeholder()]);
-    this.Base = this.Placeholders[0];
   }
   override getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
-    return 'wow >> ' + this.Base.getLatex(keyboardMemory, latexConfiguration) + ' << wow';
+    return 'wow >> ' + this.Placeholders[0].getLatex(keyboardMemory, latexConfiguration) + ' << wow';
   }
 }
