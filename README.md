@@ -85,10 +85,11 @@ Doing a localhost test with an example from the 'examples' folder is probably th
 
 ## Ask or contribute
 
-- ask questions about anything that is not clear or when you'd like help (issue). That is also a contribution to this repo, because it may lead to improvements in the documentation.
-- report a bug (issue).
-- request an enhancement (issue).
-- open a pull request (PR). (The command `npm run clean` runs eslint and prettier.)
+- [ask questions](https://github.com/MathKeyboardEngine/MathKeyboardEngine/discussions) about anything that is not clear or when you'd like help.
+- [share](https://github.com/MathKeyboardEngine/MathKeyboardEngine/discussions) ideas or what you've made.
+- [report a bug](https://github.com/MathKeyboardEngine/MathKeyboardEngine/issues).
+- [request an enhancement](https://github.com/MathKeyboardEngine/MathKeyboardEngine/issues).
+- [open a pull request](https://github.com/MathKeyboardEngine/MathKeyboardEngine/pulls). (The command `npm run clean` runs eslint and prettier.)
 
 ## Goal
 
