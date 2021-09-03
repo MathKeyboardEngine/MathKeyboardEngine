@@ -49,13 +49,13 @@ You can replace ".js" by ".min.js" to get the minified version: this is a smalle
 Quick start for using the "esm" format:
 
 ```html
-  <script type="module" type="text/javascript">
-    import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.6/dist/MathKeyboardEngine.es2017-esm.min.js';
-    let latexConfiguration = new mke.LatexConfiguration();
-    let keyboardMemory = new mke.KeyboardMemory();
+<script type="module" type="text/javascript">
+  import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.6/dist/MathKeyboardEngine.es2017-esm.min.js';
+  let latexConfiguration = new mke.LatexConfiguration();
+  let keyboardMemory = new mke.KeyboardMemory();
 
-    // Subscribe to onclick events of virtual key presses, etc.
-  </script>
+  // Subscribe to onclick events of virtual key presses, etc.
+</script>
 ```
 
 Notes:

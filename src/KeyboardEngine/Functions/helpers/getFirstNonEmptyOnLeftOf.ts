@@ -1,6 +1,6 @@
-import { Placeholder } from './Placeholder';
+import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placeholder';
 
-export function GetFirstNonEmptyOnLeftOf(placeholderArray: Placeholder[], input: Placeholder): Placeholder | null {
+export function getFirstNonEmptyOnLeftOf(placeholderArray: Placeholder[], input: Placeholder): Placeholder | null {
   let isOnTheLeft = false;
   for (let i: number = placeholderArray.length - 1; i >= 0; i--) {
     const placeholder: Placeholder = placeholderArray[i];

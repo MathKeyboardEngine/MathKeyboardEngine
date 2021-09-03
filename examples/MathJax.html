@@ -32,17 +32,17 @@
       const decimalSeparatorTypeElement = document.getElementById('decimalSeparatorType');
       document.getElementById('decimalSeparatorToggle').onclick = () => {
         const key = document.getElementById('decimalSeparator');
-        if (decimalSeparatorTypeElement.innerText == "decimal comma") {
-          decimalSeparatorTypeElement.innerText = "decimal point";
+        if (decimalSeparatorTypeElement.innerText == 'decimal comma') {
+          decimalSeparatorTypeElement.innerText = 'decimal point';
           renderLatexInKey('.', key);
         } else {
-          decimalSeparatorTypeElement.innerText = "decimal comma";
+          decimalSeparatorTypeElement.innerText = 'decimal comma';
           renderLatexInKey('{,}', key);
         }
         displayResult();
-      }
+      };
 
-      registerNodeKey('decimalSeparator', () => new mke.DecimalSeparatorNode(() => decimalSeparatorTypeElement.innerText == "decimal comma" ? '{,}' : '.'));
+      registerNodeKey('decimalSeparator', () => new mke.DecimalSeparatorNode(() => (decimalSeparatorTypeElement.innerText == 'decimal comma' ? '{,}' : '.')));
 
       registerNodeKey('equal', () => new mke.StandardLeafNode('='));
       registerNodeKey('notEqual', () => new mke.StandardLeafNode(String.raw`\neq `));
@@ -58,11 +58,11 @@
 
       const multiplicationSignTypeElement = document.getElementById('multiplicationSignType');
       document.getElementById('multiplicationSignToggle').onclick = () => {
-        multiplicationSignTypeElement.innerText = multiplicationSignTypeElement.innerText == "cross" ? "dot" : "cross";
+        multiplicationSignTypeElement.innerText = multiplicationSignTypeElement.innerText == 'cross' ? 'dot' : 'cross';
         displayResult();
-      }
-      registerNodeKey('multiply', () => new mke.StandardLeafNode(() => multiplicationSignTypeElement.innerText == "cross" ? String.raw`\times ` : String.raw`\cdot `));
-      
+      };
+      registerNodeKey('multiply', () => new mke.StandardLeafNode(() => (multiplicationSignTypeElement.innerText == 'cross' ? String.raw`\times ` : String.raw`\cdot `)));
+
       registerNodeKey('ratio', () => new mke.StandardLeafNode(':'));
       registerNodeKey('faculty', () => new mke.StandardLeafNode('!'));
 
@@ -113,13 +113,13 @@
 
       const matrixWidthInputElement = document.getElementById('matrixWidth');
       const matrixHeightInputElement = document.getElementById('matrixHeight');
-      function ReRegisterMatrix() {
+      function reRegisterMatrix() {
         registerNodeKey('pmatrix', () => new mke.MatrixNode('pmatrix', matrixWidthInputElement.value, matrixHeightInputElement.value));
         registerNodeKey('vmatrix', () => new mke.MatrixNode('vmatrix', matrixWidthInputElement.value, matrixHeightInputElement.value));
       }
-      ReRegisterMatrix();
-      matrixWidthInputElement.onchange = ReRegisterMatrix;
-      matrixHeightInputElement.onchange = ReRegisterMatrix;
+      reRegisterMatrix();
+      matrixWidthInputElement.onchange = reRegisterMatrix;
+      matrixHeightInputElement.onchange = reRegisterMatrix;
 
       registerKey('moveLeft', mke.MoveLeft, mke.SelectLeft, false);
       registerKey('moveRight', mke.MoveRight, mke.SelectRight, false);
@@ -130,20 +130,20 @@
 
       registerKey('selectionModeToggle', (k) => {
         if (mke.InSelectionMode(k)) {
-          MyLeaveSelectionMode(k);
+          myLeaveSelectionMode(k);
         } else {
-          MyEnterSelectionMode(k);
+          myEnterSelectionMode(k);
         }
       });
 
-      function MyLeaveSelectionMode(k) {
+      function myLeaveSelectionMode(k) {
         mke.LeaveSelectionMode(k);
         let elements = document.getElementsByClassName(supportsSelectionMode);
         for (let element of elements) {
           element.classList.remove('inSelectionMode');
         }
       }
-      function MyEnterSelectionMode(k) {
+      function myEnterSelectionMode(k) {
         mke.EnterSelectionMode(k);
         let elements = document.getElementsByClassName(supportsSelectionMode);
         for (let element of elements) {
@@ -164,7 +164,7 @@
             if (onclickSelectionModeArrowFuncForKeyboardMemoryAndNode != null) {
               onclickSelectionModeArrowFuncForKeyboardMemoryAndNode(keyboardMemory, nodeGetter());
             }
-            MyLeaveSelectionMode(keyboardMemory);
+            myLeaveSelectionMode(keyboardMemory);
           } else {
             onclickFuncForKeyboardMemoryAndNode(keyboardMemory, nodeGetter());
           }
@@ -184,7 +184,7 @@
               onclickSelectionModeFuncForKeyboardMemory(keyboardMemory);
             }
             if (leaveSelectionMode) {
-              MyLeaveSelectionMode(keyboardMemory);
+              myLeaveSelectionMode(keyboardMemory);
             }
           } else {
             onclickArrowFuncForKeyboardMemory(keyboardMemory);
@@ -270,7 +270,7 @@
       .setting {
         margin: 10px;
       }
-      
+
       .setting-value {
         border: 1px solid black;
         padding: 3px;
@@ -396,7 +396,7 @@
       <div id="infty"></div>
     </div>
     <h4>Settings</h4>
-    <div id="multiplicationSignToggle" class='setting'>Output multiplication sign: <span class='setting-value' id="multiplicationSignType">cross</span></div>
-    <div id="decimalSeparatorToggle" class='setting'>Decimal separator: <span class='setting-value' id="decimalSeparatorType">decimal point</span></div>
+    <div id="multiplicationSignToggle" class="setting">Output multiplication sign: <span class="setting-value" id="multiplicationSignType">cross</span></div>
+    <div id="decimalSeparatorToggle" class="setting">Decimal separator: <span class="setting-value" id="decimalSeparatorType">decimal point</span></div>
   </body>
 </html>
