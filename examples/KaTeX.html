@@ -43,10 +43,10 @@
         const key = document.getElementById('decimalSeparator');
         if (decimalSeparatorTypeElement.innerText == 'decimal comma') {
           decimalSeparatorTypeElement.innerText = 'decimal point';
-          renderLatexInKey('.', key);
+          typesetLatexInKey('.', key);
         } else {
           decimalSeparatorTypeElement.innerText = 'decimal comma';
-          renderLatexInKey('{,}', key);
+          typesetLatexInKey('{,}', key);
         }
         displayResult();
       };
@@ -166,7 +166,7 @@
         }
 
         let latex = mke.GetViewModeLatex(nodeGetter(), latexConfiguration);
-        renderLatexInKey(latex, element);
+        typesetLatexInKey(latex, element);
         element.onclick = () => {
           if (mke.InSelectionMode(keyboardMemory)) {
             if (onclickSelectionModeArrowFuncForKeyboardMemoryAndNode != null) {
@@ -203,18 +203,18 @@
 
       function displayResult() {
         let editModeLatex = mke.GetEditModeLatex(keyboardMemory, latexConfiguration);
-        renderLatexInOutputBox(editModeLatex, document.getElementById('renderedEditModeLatex'));
+        typesetLatexInOutputBox(editModeLatex, document.getElementById('typesetEditModeLatex'));
 
         let viewModeLatex = mke.GetViewModeLatex(keyboardMemory, latexConfiguration);
         document.getElementById('viewModeLatex').innerText = viewModeLatex;
       }
 
       // === KaTeX specific code START ===
-      function renderLatexInKey(latex, element) {
+      function typesetLatexInKey(latex, element) {
         katex.render(latex, element, { throwOnError: false });
       }
 
-      function renderLatexInOutputBox(latex, element) {
+      function typesetLatexInOutputBox(latex, element) {
         katex.render(latex, element, {
           displayMode: true,
           throwOnError: false,
@@ -223,7 +223,7 @@
       // === KaTeX specific code END ===
     </script>
     <style>
-      #renderedEditModeLatex {
+      #typesetEditModeLatex {
         border: 1px solid gray;
         padding: 5px;
       }
@@ -289,7 +289,7 @@
   <body>
     <h1>MathKeyboardEngine + KaTeX</h1>
     <h3>Example keys - to be styled - to help you design your virtual math keyboard</h3>
-    <div id="renderedEditModeLatex"></div>
+    <div id="typesetEditModeLatex"></div>
     <div id="viewModeLatex"></div>
     <br />
     <div id="mathKeyboard">
