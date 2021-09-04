@@ -18,11 +18,37 @@
       let latexConfiguration = new mke.LatexConfiguration();
       let keyboardMemory = new mke.KeyboardMemory();
       const supportsSelectionMode = 'supportsSelectionMode';
+      const darkSelectionModeColor = '#88422c';
+      const lightSelectionModeColor = '#add8e6';
+      
+      const colorScheme = document.getElementById('colorScheme'); 
+      const bodyClassList = document.body.classList;
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        bodyClassList.remove('dark');
+        colorScheme.innerText ='light';
+        setSelectionModeColor(lightSelectionModeColor)
+      } else {
+        colorScheme.innerText ='dark';
+        setSelectionModeColor(darkSelectionModeColor)
+      }
 
-      // === KaTeX specific code START ===
-      latexConfiguration.selectionHightlightStart = String.raw`\colorbox{#ADD8E6}{\(\displaystyle `;
-      latexConfiguration.selectionHightlightEnd = String.raw`\)}`;
-      // === KaTeX specific code END ===
+      document.getElementById('colorSchemeToggle').onclick = () => {
+        if (colorScheme.innerText == 'light') {
+          bodyClassList.add('dark');
+          colorScheme.innerText = 'dark';
+          setSelectionModeColor(darkSelectionModeColor)
+        } else {
+          bodyClassList.remove('dark');
+          colorScheme.innerText = 'light';
+          setSelectionModeColor(lightSelectionModeColor)
+        }
+        displayResult();
+      };
+
+      function setSelectionModeColor(color) {
+        document.body.style.setProperty('--selection-mode-color', color);
+        setSelectionHightlightStart(color);
+      }
 
       displayResult();
 
@@ -220,9 +246,17 @@
           throwOnError: false,
         });
       }
+
+      function setSelectionHightlightStart(color) {
+        latexConfiguration.selectionHightlightStart = String.raw`\colorbox{` + color + String.raw`}{\(\displaystyle `;
+        }
+      latexConfiguration.selectionHightlightEnd = String.raw`\)}`;
       // === KaTeX specific code END ===
     </script>
     <style>
+      :root {
+          --selection-mode-color:#06c;
+      }
       .dark { background-color: black; color: white; }
 
       #typesetEditModeLatex {
@@ -270,10 +304,10 @@
         border-right: 10px solid gray;
       }
       .inSelectionMode {
-        background-color: #add8e6;
+        background-color: var(--selection-mode-color);
       }
       #selectionModeToggle {
-        background-color: #add8e6;
+        background-color: var(--selection-mode-color);
         width: 15px;
         height: 15px;
       }
@@ -411,30 +445,7 @@
     <h4>Settings</h4>
     <div id="multiplicationSignToggle" class="setting">Output multiplication sign: <span class="setting-value" id="multiplicationSignType">cross</span></div>
     <div id="decimalSeparatorToggle" class="setting">Decimal separator: <span class="setting-value" id="decimalSeparatorType">decimal point</span></div>
-  
     <div id="colorSchemeToggle" class="setting">Color scheme: <span class="setting-value" id="colorScheme"></span></div>
-    <script type="text/javascript">
-      const colorScheme = document.getElementById('colorScheme'); 
-      const bodyClassList = document.body.classList;
-
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-        bodyClassList.remove('dark');
-        colorScheme.innerText ='light';
-      } else {
-        colorScheme.innerText ='dark';
-      }
-
-      document.getElementById('colorSchemeToggle').onclick = () => {
-        if (colorScheme.innerText == 'light') {
-          bodyClassList.add('dark');
-          colorScheme.innerText = 'dark';
-        } else {
-          bodyClassList.remove('dark');
-          colorScheme.innerText = 'light';
-        }
-      };
-    </script>
-
     <div style="text-align: center;">
       <a href="https://github.com/MathKeyboardEngine/MathKeyboardEngine">View on GitHub</a>
     </div>
