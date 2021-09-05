@@ -148,9 +148,13 @@
       matrixHeightInputElement.onchange = reRegisterMatrix;
 
       registerKey('moveLeft', mke.MoveLeft, mke.SelectLeft, false);
+      typesetLatexInKey(String.raw`\leftarrow`, document.getElementById('moveLeft'));
       registerKey('moveRight', mke.MoveRight, mke.SelectRight, false);
+      typesetLatexInKey(String.raw`\rightarrow`, document.getElementById('moveRight'));
       registerKey('moveUp', mke.MoveUp);
+      typesetLatexInKey('\\uparrow', document.getElementById('moveUp'));
       registerKey('moveDown', mke.MoveDown);
+      typesetLatexInKey(String.raw`\downarrow`, document.getElementById('moveDown'));
 
       registerKey('deleteCurrent', mke.DeleteCurrent, mke.DeleteSelection);
 
