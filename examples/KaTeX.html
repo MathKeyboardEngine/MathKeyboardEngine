@@ -241,10 +241,7 @@
       }
 
       function typesetLatexInOutputBox(latex, element) {
-        katex.render(latex, element, {
-          displayMode: true,
-          throwOnError: false,
-        });
+        katex.render(String.raw`\displaystyle ` + latex, element, { throwOnError: false });
       }
 
       function setSelectionHightlightStart(color) {
@@ -259,6 +256,16 @@
       }
       .dark { background-color: black; color: white; }
 
+      body {
+        font-size: 18px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      h1 { font-size: 20px; }
+      .sub-title { font-size: 16px; margin-bottom: 5px; }
+      h2 { font-size: 18px; }
+      input {font-size: 18px; }
+
       #typesetEditModeLatex {
         border: 1px solid gray;
         padding: 5px;
@@ -266,43 +273,22 @@
       #viewModeLatex {
         text-align: right;
       }
+
       #mathKeyboard > * {
         display: inline-block;
-        vertical-align: top;
         border: 1px solid gray;
         padding: 5px;
         margin: 2px;
+        min-width: 25px;
+        min-height: 25px;
+        vertical-align: middle;
+        text-align: center;
         cursor: default;
       }
 
-      .arrow-up {
-        width: 0;
-        height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-bottom: 10px solid gray;
-      }
-      .arrow-down {
-        width: 0;
-        height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 10px solid gray;
-      }
-      .arrow-right {
-        width: 0;
-        height: 0;
-        border-top: 10px solid transparent;
-        border-bottom: 10px solid transparent;
-        border-left: 10px solid gray;
-      }
-      .arrow-left {
-        width: 0;
-        height: 0;
-        border-top: 10px solid transparent;
-        border-bottom: 10px solid transparent;
-        border-right: 10px solid gray;
-      }
+      #toggleSettings { display: none; }
+      #hoverableSettings:hover #toggleSettings { display: block; }
+
       .inSelectionMode {
         background-color: var(--selection-mode-color);
       }
@@ -316,28 +302,35 @@
         margin: 10px;
         cursor: default;
       }
-
       .setting-value {
         border: 1px solid gray;
         padding: 3px;
       }
 
-      a { color: #1668c7; }
+      a { color: #58a6ff; text-decoration: none; border: 1px solid #58a6ff; padding: 5px; }
     </style>
   </head>
   <body class="dark">
     <h1>MathKeyboardEngine + KaTeX</h1>
-    <h3>Example keys - to be styled - to help you design your virtual math keyboard</h3>
+    <div class="sub-title">Example keys - to be styled - to help you design your virtual math keyboard</div>
     <div id="typesetEditModeLatex"></div>
     <div id="viewModeLatex"></div>
     <br />
     <div id="mathKeyboard">
-      <div id="moveLeft"><div class="arrow-left"></div></div>
-      <div id="moveRight"><div class="arrow-right"></div></div>
-      <div id="moveDown"><div class="arrow-down"></div></div>
-      <div id="moveUp"><div class="arrow-up"></div></div>
+      <div id="moveLeft" >&#x25C0;</div>
+      <div id="moveRight">&#x25B6;</div>
+      <div id="moveDown">&#x25BC;</div>
+      <div id="moveUp">&#x25B2;</div>
       <div id="selectionModeToggle"></div>
       <div id="deleteCurrent">&#128293;</div>
+      <div id="hoverableSettings">
+        <strong>Settings</strong>
+        <div id="toggleSettings">
+          <div id="multiplicationSignToggle" class="setting">Output multiplication sign: <span class="setting-value" id="multiplicationSignType">cross</span></div>
+          <div id="decimalSeparatorToggle" class="setting">Decimal separator: <span class="setting-value" id="decimalSeparatorType">decimal point</span></div>
+          <div id="colorSchemeToggle" class="setting">Color scheme: <span class="setting-value" id="colorScheme"></span></div>
+        </div>
+      </div>
       <br />
       <div id="digit0"></div>
       <div id="digit1"></div>
@@ -443,11 +436,7 @@
       <div id="downarrow"></div>
       <div id="infty"></div>
     </div>
-    <h4>Settings</h4>
-    <div id="multiplicationSignToggle" class="setting">Output multiplication sign: <span class="setting-value" id="multiplicationSignType">cross</span></div>
-    <div id="decimalSeparatorToggle" class="setting">Decimal separator: <span class="setting-value" id="decimalSeparatorType">decimal point</span></div>
-    <div id="colorSchemeToggle" class="setting">Color scheme: <span class="setting-value" id="colorScheme"></span></div>
-    <div style="text-align: center;">
+    <div style="text-align: center; margin-top: 15px;">
       <a href="https://github.com/MathKeyboardEngine/MathKeyboardEngine">View on GitHub</a>
     </div>
   </body>
