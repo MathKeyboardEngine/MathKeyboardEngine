@@ -12,27 +12,27 @@
       const supportsSelectionMode = 'supportsSelectionMode';
       const darkSelectionModeColor = '#1668c7';
       const lightSelectionModeColor = '#add8e6';
-      
-      const colorScheme = document.getElementById('colorScheme'); 
+
+      const colorScheme = document.getElementById('colorScheme');
       const bodyClassList = document.body.classList;
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
         bodyClassList.remove('dark');
-        colorScheme.innerText ='light';
-        setSelectionModeColor(lightSelectionModeColor)
+        colorScheme.innerText = 'light';
+        setSelectionModeColor(lightSelectionModeColor);
       } else {
-        colorScheme.innerText ='dark';
-        setSelectionModeColor(darkSelectionModeColor)
+        colorScheme.innerText = 'dark';
+        setSelectionModeColor(darkSelectionModeColor);
       }
 
       document.getElementById('colorSchemeToggle').onclick = () => {
         if (colorScheme.innerText == 'light') {
           bodyClassList.add('dark');
           colorScheme.innerText = 'dark';
-          setSelectionModeColor(darkSelectionModeColor)
+          setSelectionModeColor(darkSelectionModeColor);
         } else {
           bodyClassList.remove('dark');
           colorScheme.innerText = 'light';
-          setSelectionModeColor(lightSelectionModeColor)
+          setSelectionModeColor(lightSelectionModeColor);
         }
         displayResult();
       };
@@ -234,31 +234,43 @@
       }
 
       function typesetLatexInOutputBox(latex, element) {
-        element.innerText = String.raw`\(\displaystyle ` + latex + String.raw`\)`
+        element.innerText = String.raw`\(\displaystyle ` + latex + String.raw`\)`;
         MathJax.Hub.Typeset(element);
       }
 
       function setSelectionHightlightStart(color) {
         latexConfiguration.selectionHightlightStart = String.raw`\bbox[` + color + ']{';
-        }
+      }
       latexConfiguration.selectionHightlightEnd = '}';
       // === MathJax specific code END ===
     </script>
     <style>
       :root {
-          --selection-mode-color:#1668c7;
+        --selection-mode-color: #1668c7;
       }
-      .dark { background-color: black; color: white; }
+      .dark {
+        background-color: black;
+        color: white;
+      }
 
       body {
         font-size: 18px;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       }
 
-      h1 { font-size: 20px; }
-      .sub-title { font-size: 16px; margin-bottom: 5px; }
-      h2 { font-size: 18px; }
-      input {font-size: 18px; }
+      h1 {
+        font-size: 20px;
+      }
+      .sub-title {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+      h2 {
+        font-size: 18px;
+      }
+      input {
+        font-size: 18px;
+      }
 
       #typesetEditModeLatex {
         border: 1px solid gray;
@@ -283,8 +295,12 @@
         cursor: default;
       }
 
-      #toggleSettings { display: none; }
-      #hoverableSettings:hover #toggleSettings { display: block; }
+      #toggleSettings {
+        display: none;
+      }
+      #hoverableSettings:hover #toggleSettings {
+        display: block;
+      }
 
       .inSelectionMode {
         background-color: var(--selection-mode-color);
@@ -304,7 +320,12 @@
         padding: 3px;
       }
 
-      a { color: #58a6ff; text-decoration: none; border: 1px solid #58a6ff; padding: 5px; }
+      a {
+        color: #58a6ff;
+        text-decoration: none;
+        border: 1px solid #58a6ff;
+        padding: 5px;
+      }
     </style>
   </head>
   <body class="dark">
@@ -314,7 +335,7 @@
     <div id="viewModeLatex"></div>
     <br />
     <div id="mathKeyboard">
-      <div id="moveLeft" >&#x25C0;</div>
+      <div id="moveLeft">&#x25C0;</div>
       <div id="moveRight">&#x25B6;</div>
       <div id="moveDown">&#x25BC;</div>
       <div id="moveUp">&#x25B2;</div>
@@ -433,7 +454,7 @@
       <div id="downarrow"></div>
       <div id="infty"></div>
     </div>
-    <div style="text-align: center; margin-top: 15px;">
+    <div style="text-align: center; margin-top: 15px">
       <a href="https://github.com/MathKeyboardEngine/MathKeyboardEngine">View on GitHub</a>
     </div>
   </body>

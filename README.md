@@ -17,7 +17,7 @@ Live examples can be tested at [MathKeyboardEngine.GitHub.io](https://mathkeyboa
 
 <i>Unique about MathKeyboardEngine:</i>
 
-- it supports (almost?) all math LaTeX, including matrices (please share if you know anything that is not supported).
+- it supports (almost?) all math LaTeX, including matrices. (Please share if anything is not but should be supported).
 - the syntax tree consists of very few different parts: the `StandardLeafNode`, `StandardBranchingNode`, `AscendingBranchingNode` and `DescendingBranchingNode` can be used for almost all LaTeX, including fractions, powers, combinations, subscript, etc. with ready-to-use up/down/left/right navigation.
 - it can be used with any LaTeX math typesetting library you like.
 
