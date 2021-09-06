@@ -262,18 +262,9 @@
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       }
 
-      h1 {
-        font-size: 1rem;
-      }
-      .sub-title {
-        font-size: 0.8rem;
-        margin-bottom: 0.5rem;
-      }
-      h2 {
-        font-size: 0.9rem;
-      }
       input {
         font-size: 1rem;
+        width: 2.5rem;
       }
 
       #typesetEditModeLatex {
@@ -305,7 +296,7 @@
 
       #settingsContainer {
         display: none;
-        text-align: left
+        text-align: left;
       }
 
       .setting {
@@ -332,10 +323,9 @@
   </head>
   <body class="dark">
     <h1>MathKeyboardEngine + MathJax</h1>
-    <div class="sub-title">Example keys - to be styled - to help you design your virtual math keyboard</div>
     <div id="typesetEditModeLatex"></div>
     <div id="viewModeLatex"></div>
-    <br />
+    <i>Example keys - to be styled - to help you design your virtual math keyboard</i>
     <div id="mathKeyboard">
       <div id="moveLeft">&#x25C0;</div>
       <div id="moveRight">&#x25B6;</div>
@@ -344,7 +334,7 @@
       <div id="selectionModeToggle"></div>
       <div id="deleteCurrent">&#128293;</div>
       <div onclick="const settingsContainer = document.getElementById('settingsContainer'); settingsContainer.style.display = settingsContainer.style.display == 'block' ? 'none' : 'block';">
-          <strong>Settings</strong>
+        <strong>Settings</strong>
       </div>
       <div id="settingsContainer">
         <div id="multiplicationSignToggle" class="setting">Output multiplication sign: <span class="setting-value" id="multiplicationSignType">cross</span></div>
@@ -400,10 +390,10 @@
       <br />
       <div style="text-align: right">
         <label for="matrixHeight">Height</label>
-        <input id="matrixHeight" type="number" value="2" min="1" style="width: 50px" />
+        <input id="matrixHeight" type="number" value="2" min="1" />
         <br />
         <label for="matrixWidth">Width</label>
-        <input id="matrixWidth" type="number" value="2" min="1" style="width: 50px" />
+        <input id="matrixWidth" type="number" value="2" min="1" />
       </div>
       <div id="pmatrix"></div>
       <div id="vmatrix"></div>
