@@ -302,18 +302,16 @@
         cursor: default;
       }
 
-      #toggleSettings {
-        display: none;
-      }
-      #hoverableSettings:hover #toggleSettings {
-        display: block;
-      }
-
       .inSelectionMode {
         background-color: var(--selection-mode-color);
       }
       #selectionModeToggle {
         background-color: var(--selection-mode-color);
+      }
+
+      #settingsContainer {
+        display: none;
+        text-align: left
       }
 
       .setting {
@@ -323,6 +321,11 @@
       .setting-value {
         border: 1px solid gray;
         padding: 0.15rem;
+      }
+
+      .footer {
+        text-align: center;
+        margin: 15px;
       }
 
       a {
@@ -346,13 +349,13 @@
       <div id="moveUp">&#x25B2;</div>
       <div id="selectionModeToggle"></div>
       <div id="deleteCurrent">&#128293;</div>
-      <div id="hoverableSettings">
-        <strong>Settings</strong>
-        <div id="toggleSettings">
-          <div id="multiplicationSignToggle" class="setting">Output multiplication sign: <span class="setting-value" id="multiplicationSignType">cross</span></div>
-          <div id="decimalSeparatorToggle" class="setting">Decimal separator: <span class="setting-value" id="decimalSeparatorType">decimal point</span></div>
-          <div id="colorSchemeToggle" class="setting">Color scheme: <span class="setting-value" id="colorScheme"></span></div>
-        </div>
+      <div onclick="const settingsContainer = document.getElementById('settingsContainer'); settingsContainer.style.display = settingsContainer.style.display == 'block' ? 'none' : 'block';">
+          <strong>Settings</strong>
+      </div>
+      <div id="settingsContainer">
+        <div id="multiplicationSignToggle" class="setting">Output multiplication sign: <span class="setting-value" id="multiplicationSignType">cross</span></div>
+        <div id="decimalSeparatorToggle" class="setting">Decimal separator: <span class="setting-value" id="decimalSeparatorType">decimal point</span></div>
+        <div id="colorSchemeToggle" class="setting">Color scheme: <span class="setting-value" id="colorScheme"></span></div>
       </div>
       <br />
       <div id="digit0"></div>
