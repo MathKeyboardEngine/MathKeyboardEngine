@@ -76,8 +76,9 @@ export function DeleteCurrent(k: KeyboardMemory): void {
 function encapsulatePreviousInto(previousNode: TreeNode, targetPlaceholder: Placeholder) {
   remove(targetPlaceholder.ParentNode!.ParentPlaceholder.Nodes, previousNode);
   targetPlaceholder.Nodes.push(previousNode);
+  const previousNodeOldParentPlaceholder = previousNode.ParentPlaceholder;
   previousNode.ParentPlaceholder = targetPlaceholder;
   if (previousNode instanceof PartOfNumberWithDigits) {
-    encapsulateAllPartsOfNumberWithDigitsLeftOfIndex(previousNode.ParentPlaceholder.Nodes.length, previousNode.ParentPlaceholder.Nodes, targetPlaceholder);
+    encapsulateAllPartsOfNumberWithDigitsLeftOfIndex(previousNodeOldParentPlaceholder.Nodes.length - 1, previousNodeOldParentPlaceholder.Nodes, targetPlaceholder);
   }
 }
