@@ -135,4 +135,15 @@ describe(InsertWithEncapsulateCurrent.name, () => {
     expectLatex(String.raw`1+\frac{|x+3|}{◼}`, k);
     expect(fraction.Placeholders[0].getLatex(k, null!)).to.be.equal('|x+3|');
   });
+
+  it('RoundBracketsNode & config.deleteOuterRoundBracketsIfAny: encapsulation by single-placeholder BranchingNode sets the cursor right outside of the new node', () => {
+    const k = new KeyboardMemory();
+    Insert(k, new RoundBracketsNode('(', ')'));
+    Insert(k, new StandardLeafNode('A'));
+    Insert(k, new StandardLeafNode('B'));
+    MoveRight(k);
+    expectLatex('(AB)◼', k);
+    InsertWithEncapsulateCurrent(k, new StandardBranchingNode(String.raw`\overrightarrow{`, '}'), { deleteOuterRoundBracketsIfAny: true });
+    expectLatex(String.raw`\overrightarrow{AB}◼`, k);
+  });
 });

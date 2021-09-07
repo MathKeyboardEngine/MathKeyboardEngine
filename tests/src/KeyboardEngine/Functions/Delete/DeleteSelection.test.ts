@@ -68,4 +68,16 @@ describe(DeleteSelection.name, () => {
     DeleteSelection(k);
     expectLatex('◼', k);
   });
+
+  it('multiple Nodes, with left border is TreeNode (via SelectRight)', () => {
+    const k = new KeyboardMemory();
+    Insert(k, new DigitNode('1'));
+    Insert(k, new DigitNode('2'));
+    MoveLeft(k);
+    expectLatex('1◼2', k);
+    SelectRight(k);
+    expectLatex(String.raw`1\colorbox{blue}{2}`, k);
+    DeleteSelection(k);
+    expectLatex('1◼', k);
+  });
 });

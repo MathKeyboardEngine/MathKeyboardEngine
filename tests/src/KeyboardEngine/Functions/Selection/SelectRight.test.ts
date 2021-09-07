@@ -63,4 +63,15 @@ describe(SelectRight.name, () => {
     expectLatex('1◼', k);
     assert.isTrue(InSelectionMode(k));
   });
+
+  it('SelectRight if all Nodes have already been selected does nothing, with left border is Placeholder', () => {
+    const k = new KeyboardMemory();
+    Insert(k, new DigitNode('1'));
+    MoveLeft(k);
+    expectLatex('◼1', k);
+    SelectRight(k);
+    expectLatex(String.raw`\colorbox{blue}{1}`, k);
+    SelectRight(k);
+    expectLatex(String.raw`\colorbox{blue}{1}`, k);
+  });
 });

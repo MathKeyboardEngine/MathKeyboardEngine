@@ -6,10 +6,7 @@ export function setSelectionDiff(k: KeyboardMemory, diffWithCurrent: number): vo
   if (diffWithCurrent == 0) {
     k.InclusiveSelectionLeftBorder = null;
     k.InclusiveSelectionRightBorder = null;
-    return;
-  }
-
-  if (k.Current instanceof Placeholder) {
+  } else if (k.Current instanceof Placeholder) {
     k.InclusiveSelectionLeftBorder = k.Current;
     k.InclusiveSelectionRightBorder = k.Current.Nodes[diffWithCurrent - 1];
   } else {
@@ -19,12 +16,11 @@ export function setSelectionDiff(k: KeyboardMemory, diffWithCurrent: number): vo
       k.InclusiveSelectionLeftBorder = nodes[indexOfCurrent + 1];
       k.InclusiveSelectionRightBorder = nodes[indexOfCurrent + diffWithCurrent];
     } else {
-      const index = indexOfCurrent + diffWithCurrent + 1;
-      if (index < 0) {
-        throw 'The node at index 0 of the current Placeholder is as far as you can go.';
-      } else {
-        k.InclusiveSelectionLeftBorder = nodes[index];
+      const indexOfNewInclusiveSelectionLeftBorder = indexOfCurrent + diffWithCurrent + 1;
+      if (indexOfNewInclusiveSelectionLeftBorder < 0) {
+        throw 'The node at index 0 of the current Placeholder is as far as you can left if Current is a TreeNode.';
       }
+      k.InclusiveSelectionLeftBorder = nodes[indexOfNewInclusiveSelectionLeftBorder];
       k.InclusiveSelectionRightBorder = k.Current;
     }
   }
