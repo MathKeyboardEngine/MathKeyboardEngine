@@ -15,7 +15,29 @@ import { InsertWithEncapsulateSelectionAndPrevious } from '../../../../../src/Ke
 import { SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
 
 describe(DeleteCurrent.name, () => {
-  it('can also be used to "delete empty placeholders in some cases" (in the experience of the user)', () => {
+  it('can also be used to "delete empty placeholders in some cases" (in the experience of the user) - x', () => {
+    // Arrange
+    const k = new KeyboardMemory();
+    Insert(k, new DigitNode('2'));
+    Insert(k, new StandardLeafNode('x'));
+    Insert(k, new StandardLeafNode('+')); // oops, typo!
+    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    Insert(k, new DigitNode('3'));
+    MoveDown(k);
+    DeleteCurrent(k); // trying to fix typo
+    expectLatex('2x{◼}^{3}', k);
+    MoveUp(k);
+    expectLatex('2x{◻}^{3◼}', k); // Huh? Let's delete that empty placeholder!
+    MoveDown(k);
+    expectLatex('2x{◼}^{3}', k);
+    // Act
+    DeleteCurrent(k);
+    MoveUp(k);
+    // Assert
+    expectLatex('2{x}^{3◼}', k);
+  });
+
+  it('can also be used to "delete empty placeholders in some cases" (in the experience of the user) - 1+2.5', () => {
     // Arrange
     const k = new KeyboardMemory();
     Insert(k, new DigitNode('1'));
@@ -40,7 +62,7 @@ describe(DeleteCurrent.name, () => {
     expectLatex('1+{2.5}^{3◼}', k);
   });
 
-  it('can also be used to "delete empty placeholders in some cases" (in the experience of the user)', () => {
+  it('can also be used to "delete empty placeholders in some cases" (in the experience of the user) - 2.5', () => {
     // Arrange
     const k = new KeyboardMemory();
     Insert(k, new DigitNode('2'));
