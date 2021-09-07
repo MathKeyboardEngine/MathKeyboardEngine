@@ -18,7 +18,7 @@ export function setSelectionDiff(k: KeyboardMemory, diffWithCurrent: number): vo
     if (diffWithCurrent > 0) {
       k.InclusiveSelectionLeftBorder = nodes[indexOfCurrent + 1];
       k.InclusiveSelectionRightBorder = nodes[indexOfCurrent + diffWithCurrent];
-    } else if (diffWithCurrent < 0) {
+    } else {
       const index = indexOfCurrent + diffWithCurrent + 1;
       if (index < 0) {
         throw 'The node at index 0 of the current Placeholder is as far as you can go.';
