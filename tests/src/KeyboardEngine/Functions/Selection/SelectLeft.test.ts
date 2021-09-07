@@ -6,6 +6,9 @@ import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNod
 import { SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
 import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 import { EnterSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/EnterSelectionMode';
+import { InSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/InSelectionMode';
+import { SelectRight } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectRight';
+import { assert } from 'chai';
 
 describe(SelectLeft.name, () => {
   it('a single Node, with left border is Node', () => {
@@ -63,5 +66,16 @@ describe(SelectLeft.name, () => {
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
     SelectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
+  });
+
+  it('on deselecting until nothing selected, still in selection mode', () => {
+    const k = new KeyboardMemory();
+    Insert(k, new DigitNode('1'));
+    MoveLeft(k);
+    SelectRight(k);
+    expectLatex(String.raw`\colorbox{blue}{1}`, k);
+    SelectLeft(k);
+    expectLatex('◼1', k);
+    assert.isTrue(InSelectionMode(k));
   });
 });
