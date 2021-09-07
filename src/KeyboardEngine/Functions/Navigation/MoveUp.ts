@@ -11,14 +11,11 @@ export function MoveUp(k: KeyboardMemory): void {
       return;
     }
     suggestingNode = moveFromPlaceholder.ParentNode;
-    if (suggestingNode instanceof BranchingNode) {
-      const suggestion = suggestingNode.getMoveUpSuggestion(moveFromPlaceholder);
-      if (suggestion != null) {
-        k.Current = lastOrNull(suggestion.Nodes) ?? suggestion;
-        return;
-      }
+    const suggestion = suggestingNode.getMoveUpSuggestion(moveFromPlaceholder);
+    if (suggestion != null) {
+      k.Current = lastOrNull(suggestion.Nodes) ?? suggestion;
+      return;
     }
-
     moveFromPlaceholder = suggestingNode.ParentPlaceholder;
   }
 }
