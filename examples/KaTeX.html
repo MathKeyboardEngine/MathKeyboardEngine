@@ -201,6 +201,8 @@
           if (mke.InSelectionMode(keyboardMemory)) {
             if (onclickSelectionModeArrowFuncForKeyboardMemoryAndNode != null) {
               onclickSelectionModeArrowFuncForKeyboardMemoryAndNode(keyboardMemory, nodeGetter());
+            } else {
+              onclickFuncForKeyboardMemoryAndNode(keyboardMemory, nodeGetter());
             }
             myLeaveSelectionMode(keyboardMemory);
           } else {
