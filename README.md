@@ -18,7 +18,7 @@ Live examples can be tested at [MathKeyboardEngine.GitHub.io](https://mathkeyboa
 <i>Unique about MathKeyboardEngine:</i>
 
 - it supports (almost?) all math mode LaTeX, including matrices. (Please share if you know anything that is not supported.)
-- the syntax tree consists of very few different parts: the `StandardLeafNode`, `StandardBranchingNode`, `AscendingBranchingNode` and `DescendingBranchingNode` can be used for almost all LaTeX, including fractions, powers, combinations, subscript, etc. with ready-to-use up/down/left/right navigation.
+- its syntax tree consists of very few different parts: the `StandardLeafNode`, `StandardBranchingNode`, `AscendingBranchingNode` and `DescendingBranchingNode` can be used for almost all LaTeX, including fractions, powers, combinations, subscript, etc. with ready-to-use up/down/left/right navigation.
 - it can be used with any LaTeX math typesetting library you like.
 
 <i>A con:</i>
@@ -32,9 +32,9 @@ Live examples can be tested at [MathKeyboardEngine.GitHub.io](https://mathkeyboa
 - this library also supports handling input from a physical keyboard, where - for example - the forward slash "/" key can be programmed to result in encapsulating a previously typed number as the numerator of a fraction. (Examples will come.)
 - almost forgotten: it's open source, free to use, free to modify (please fork this repo)!
 
-## How to use the library
+## How to use this library
 
-The library is distributed as a single file in several language versions and formats:
+This library is distributed as a single file in several language versions and formats:
 
 - MathKeyboardEngine.es2020-esm.js
 - MathKeyboardEngine.es2017-esm.js
