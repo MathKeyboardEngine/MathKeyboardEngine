@@ -89,6 +89,35 @@ describe(DeleteCurrent.name, () => {
     expectLatex('{2.5}^{3◼}', k);
   });
 
+  it('Nothing happens at DeleteCurrent sometimes...', () => {
+    // Arrange
+    const k = new KeyboardMemory();
+    Insert(k, new MatrixNode('pmatrix', 2, 2));
+    MoveDown(k);
+    Insert(k, new DigitNode('3'));
+    MoveUp(k);
+    MoveRight(k);
+    expectLatex(String.raw`\begin{pmatrix}◻ & ◼ \\ 3 & ◻\end{pmatrix}`, k);
+    // Act
+    DeleteCurrent(k);
+    // Assert
+    expectLatex(String.raw`\begin{pmatrix}◻ & ◼ \\ 3 & ◻\end{pmatrix}`, k);
+  });
+
+  it('Delete the last node from the previous placeholder', () => {
+    // Arrange
+    const k = new KeyboardMemory();
+    Insert(k, new MatrixNode('pmatrix', 2, 2));
+    Insert(k, new DigitNode('1'));
+    Insert(k, new DigitNode('2'));
+    MoveRight(k);
+    expectLatex(String.raw`\begin{pmatrix}12 & ◼ \\ ◻ & ◻\end{pmatrix}`, k);
+    // Act
+    DeleteCurrent(k);
+    // Assert
+    expectLatex(String.raw`\begin{pmatrix}1◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
+  });
+
   it('inverse of TryEncapsulateCurrent - execution path with digits', () => {
     // Arrange
     const k = new KeyboardMemory();
@@ -206,5 +235,16 @@ describe(DeleteCurrent.name, () => {
     DeleteCurrent(k);
     // Assert
     expectLatex(String.raw`\begin{pmatrix}◼ & 2 \\ ◻ & 4\end{pmatrix}`, k);
+  });
+
+  it('delete BranchingNode from one of its placeholders: sets active placeholder right of previous node', () => {
+    // Arrange
+    const k = new KeyboardMemory();
+    Insert(k, new DigitNode('2'));
+    Insert(k, new StandardLeafNode(String.raw`\times `));
+    Insert(k, new MatrixNode('pmatrix', 2, 2));
+    expectLatex(String.raw`2\times \begin{pmatrix}◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
+    DeleteCurrent(k);
+    expectLatex(String.raw`2\times ◼`, k);
   });
 });
