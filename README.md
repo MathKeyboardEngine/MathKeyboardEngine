@@ -5,9 +5,9 @@ MathKeyboardEngine provides the logic - in JavaScript and LaTeX - for a highly c
 #### An execution timeline
 
 1. You load an html page with your customized virtual math keyboard (based on one of the examples). On load the LaTeX for each key is typeset (by KaTeX or MathJax) and a cursor is displayed in a textbox-look-a-like div.
-1. On your customized virtual keyboard, you press a key. The key calls a MathKeyboardEngine function, for example Insert(someMatrixNode) or MoveUp(), DeleteCurrent(), etc.
+1. On your customized virtual math keyboard, you press a key. The key calls a MathKeyboardEngine function, for example Insert(someMatrixNode) or MoveUp(), DeleteCurrent(), etc.
 1. Calling GetEditModeLatex() outputs the total of LaTeX you typed, for example `\frac{3}{4}\blacksquare` (if `\blacksquare` is your cursor), which you then feed to KaTeX or MathJax for display.
-1. Calling GetViewModeLatex outputs the LaTeX without a cursor.
+1. Calling GetViewModeLatex() outputs the LaTeX without a cursor.
 
 #### Let me test it now!
 
@@ -17,7 +17,7 @@ Live examples can be tested at [MathKeyboardEngine.GitHub.io](https://mathkeyboa
 
 <i>Unique about MathKeyboardEngine:</i>
 
-- it supports (almost?) all math LaTeX, including matrices. (Please share if anything is not but should be supported).
+- it supports (almost?) all math mode LaTeX, including matrices. (Please share if you know anything that is not supported.)
 - the syntax tree consists of very few different parts: the `StandardLeafNode`, `StandardBranchingNode`, `AscendingBranchingNode` and `DescendingBranchingNode` can be used for almost all LaTeX, including fractions, powers, combinations, subscript, etc. with ready-to-use up/down/left/right navigation.
 - it can be used with any LaTeX math typesetting library you like.
 
