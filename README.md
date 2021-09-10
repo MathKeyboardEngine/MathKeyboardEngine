@@ -29,7 +29,7 @@ Live examples can be tested at [MathKeyboardEngine.GitHub.io](https://mathkeyboa
 
 - you have full control over what you display on the virtual keyboard keys and what a virtual key press actually does.
 - customize the editor output at runtime: dot or comma as decimal separator, cross or dot for multiplication, cursor style, colors, etc.
-- this library also supports handling input from a physical keyboard, where - for example - the forward slash "/" key can be programmed to result in encapsulating a previously typed number as the numerator of a fraction. (Examples will come.)
+- this library also supports handling input from a physical keyboard, where - for example - the forward slash "/" key can be programmed to result in encapsulating a previously typed number as the numerator of a fraction. (See the examples.)
 - almost forgotten: it's open source, free to use, free to modify (please fork this repo)!
 
 ## How to use this library
