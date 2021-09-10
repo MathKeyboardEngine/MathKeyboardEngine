@@ -95,32 +95,44 @@
         multiplicationSignTypeElement.innerText = multiplicationSignTypeElement.innerText == 'cross' ? 'dot' : 'cross';
         displayResult();
       };
-      function getMultiplicationSign() { return multiplicationSignTypeElement.innerText == 'cross' ? String.raw`\times ` : String.raw`\cdot `; }
+      function getMultiplicationSign() {
+        return multiplicationSignTypeElement.innerText == 'cross' ? String.raw`\times ` : String.raw`\cdot `;
+      }
       registerNodeKey('multiply', () => new mke.StandardLeafNode(getMultiplicationSign));
 
       registerNodeKey('ratio', () => new mke.StandardLeafNode(':'));
       registerNodeKey('faculty', () => new mke.StandardLeafNode('!'));
 
-      function getFractionNode() { return new mke.DescendingBranchingNode(String.raw`\frac{`, '}{', '}'); }
+      function getFractionNode() {
+        return new mke.DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
+      }
       registerNodeKey('fraction', getFractionNode, mke.Insert, mke.InsertWithEncapsulateSelection);
 
       registerNodeKey('binomial', () => new mke.DescendingBranchingNode(String.raw`\binom{`, '}{', '}'), mke.Insert, mke.InsertWithEncapsulateSelection);
 
-      function getPowerNode() { return new mke.AscendingBranchingNode('{', '}^{', '}'); }
+      function getPowerNode() {
+        return new mke.AscendingBranchingNode('{', '}^{', '}');
+      }
       registerNodeKey('power', getPowerNode, mke.InsertWithEncapsulateCurrent, mke.InsertWithEncapsulateSelectionAndPrevious);
 
-      function getSubscriptNode() { return new mke.DescendingBranchingNode('{', '}_{', '}'); }
+      function getSubscriptNode() {
+        return new mke.DescendingBranchingNode('{', '}_{', '}');
+      }
       registerNodeKey('subscript', getSubscriptNode, mke.InsertWithEncapsulateCurrent, mke.InsertWithEncapsulateSelectionAndPrevious);
 
       registerNodeKey('squareRoot', () => new mke.StandardBranchingNode(String.raw`\sqrt{`, '}'), mke.Insert, mke.InsertWithEncapsulateSelection);
       registerNodeKey('nthRoot', () => new mke.DescendingBranchingNode(String.raw`\sqrt[`, ']{', '}'));
 
       registerNodeKey('roundBrackets', () => new mke.RoundBracketsNode(), mke.Insert, mke.InsertWithEncapsulateSelection);
-      function getSquareBracketsNode() { return new mke.StandardBranchingNode(String.raw`\left[`, String.raw`\right]`); }
+      function getSquareBracketsNode() {
+        return new mke.StandardBranchingNode(String.raw`\left[`, String.raw`\right]`);
+      }
       registerNodeKey('squareBrackets', getSquareBracketsNode, mke.Insert, mke.InsertWithEncapsulateSelection);
       registerNodeKey('pipes', () => new mke.StandardBranchingNode(String.raw`\left|`, String.raw`\right|`), mke.Insert, mke.InsertWithEncapsulateSelection);
       registerNodeKey('doublePipes', () => new mke.StandardBranchingNode(String.raw`\left\|`, String.raw`\right\|`), mke.Insert, mke.InsertWithEncapsulateSelection);
-      function getCurlyBracketsNode() { return new mke.StandardBranchingNode(String.raw`\left\{`, String.raw`\right\}`); }
+      function getCurlyBracketsNode() {
+        return new mke.StandardBranchingNode(String.raw`\left\{`, String.raw`\right\}`);
+      }
       registerNodeKey('curlyBrackets', getCurlyBracketsNode, mke.Insert, mke.InsertWithEncapsulateSelection);
 
       registerNodeKey('naturalNumbers', () => new mke.StandardLeafNode(String.raw`\mathbb{N}`));
@@ -268,7 +280,7 @@
       document.onkeyup = (e) => {
         if (e.code.startsWith('Shift')) {
           inShift = false;
-        }      
+        }
       };
       document.onkeydown = (e) => {
         const key = e.code;
@@ -289,9 +301,9 @@
             mke.Insert(keyboardMemory, new mke.RoundBracketsNode());
           } else if (digit == '0') {
             mke.MoveRight(keyboardMemory);
-          } 
+          }
         } else if (key == 'Slash') {
-          mke.InsertWithEncapsulateCurrent(keyboardMemory, getFractionNode())
+          mke.InsertWithEncapsulateCurrent(keyboardMemory, getFractionNode());
         } else if (key == 'ArrowLeft') {
           mke.MoveLeft(keyboardMemory);
         } else if (key == 'ArrowRight') {
@@ -315,11 +327,11 @@
           mke.Insert(keyboardMemory, new mke.DigitNode(inShift ? letter : letter.toLocaleLowerCase()));
         } else if (key == 'BracketLeft') {
           mke.Insert(keyboardMemory, inShift ? getCurlyBracketsNode() : getSquareBracketsNode());
-        } else if (key == 'BracketRight') { 
+        } else if (key == 'BracketRight') {
           mke.MoveRight(keyboardMemory);
-        }        
+        }
         displayResult();
-      }
+      };
       // Handle a few key presses of a physical keyboard END
     </script>
     <style>
