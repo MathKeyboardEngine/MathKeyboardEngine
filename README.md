@@ -40,7 +40,7 @@ This library is distributed as a single file in several language versions and fo
 - MathKeyboardEngine.es2017-esm.js
 - MathKeyboardEngine.es2015-iife.js
 
-<strong>esXXXX</strong>: those are JavaScript language versions.<br/>
+<strong>esYEAR</strong>: those are JavaScript language versions.<br/>
 <strong>esm</strong>: the ECMAScript module is simply the best choice: easy, safe, future proof.<br/>
 <strong>iife</strong>: an immediately invoked function expression for browsers that do not support ESM.
 
