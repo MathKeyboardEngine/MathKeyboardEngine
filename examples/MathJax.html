@@ -68,7 +68,9 @@
         }
         displayResult();
       };
-      function getDecimalSeparatorNode() { return new mke.DecimalSeparatorNode(() => (decimalSeparatorTypeElement.innerText == 'decimal comma' ? '{,}' : '.'))}
+      function getDecimalSeparatorNode() {
+        return new mke.DecimalSeparatorNode(() => (decimalSeparatorTypeElement.innerText == 'decimal comma' ? '{,}' : '.'));
+      }
       registerNodeKey('decimalSeparator', getDecimalSeparatorNode);
 
       registerNodeKey('equal', () => new mke.StandardLeafNode('='));
@@ -89,7 +91,7 @@
         displayResult();
       };
       function getMultiplicationNode() {
-        return new mke.StandardLeafNode(() => multiplicationSignTypeElement.innerText == 'cross' ? String.raw`\times ` : String.raw`\cdot `);
+        return new mke.StandardLeafNode(() => (multiplicationSignTypeElement.innerText == 'cross' ? String.raw`\times ` : String.raw`\cdot `));
       }
       registerNodeKey('multiply', getMultiplicationNode);
 
@@ -121,7 +123,9 @@
         return new mke.StandardBranchingNode(String.raw`\left[`, String.raw`\right]`);
       }
       registerNodeKey('squareBrackets', getSquareBracketsNode, mke.Insert, mke.InsertWithEncapsulateSelection);
-      function getPipesNode() { return new mke.StandardBranchingNode(String.raw`\left|`, String.raw`\right|`); }
+      function getPipesNode() {
+        return new mke.StandardBranchingNode(String.raw`\left|`, String.raw`\right|`);
+      }
       registerNodeKey('pipes', getPipesNode, mke.Insert, mke.InsertWithEncapsulateSelection);
       registerNodeKey('doublePipes', () => new mke.StandardBranchingNode(String.raw`\left\|`, String.raw`\right\|`), mke.Insert, mke.InsertWithEncapsulateSelection);
       function getCurlyBracketsNode() {
@@ -278,7 +282,7 @@
         if (key.startsWith('Shift')) {
           inShift = false;
         } else if (key == 'ControlLeft') {
-          if (mke.InSelectionMode(keyboardMemory)){
+          if (mke.InSelectionMode(keyboardMemory)) {
             myLeaveSelectionMode(keyboardMemory);
           } else {
             myEnterSelectionMode(keyboardMemory);
@@ -290,7 +294,7 @@
       function createHandler(matchingPredicateForKey, handleForKeyboardMemoryAndKey) {
         return { canHandle: matchingPredicateForKey, handle: handleForKeyboardMemoryAndKey };
       }
-      
+      // prettier-ignore
       const physicalKeydownHandlersForShift = [
         createHandler((key) => key == 'Digit6', (k, key) => mke.InsertWithEncapsulateCurrent(k, getPowerNode())),
         createHandler((key) => key == 'Digit9', (k, key) => mke.Insert(k, new mke.RoundBracketsNode())),
@@ -307,20 +311,22 @@
         createHandler((key) => key == 'Comma', (k, key) => mke.Insert(k, new mke.StandardLeafNode('<'))),
         createHandler((key) => key == 'Period', (k, key) => mke.Insert(k, new mke.StandardLeafNode('>'))),
         createHandler((key) => key == 'Semicolon', (k, key) => mke.Insert(k, new mke.StandardLeafNode(':'))),
-
       ];
+      // prettier-ignore
       const selectionModePhysicalKeydownHandlersForShift = [
         createHandler((key) => key == 'Digit6', (k, key) => mke.InsertWithEncapsulateSelectionAndPrevious(k, getPowerNode())),
         createHandler((key) => key == 'BracketLeft', (k, key) => mke.InsertWithEncapsulateSelection(k, getCurlyBracketsNode())),
         createHandler((key) => key == 'Backslash', (k, key) => mke.InsertWithEncapsulateSelection(k, getPipesNode())),
         createHandler((key) => key == 'Digit9', (k, key) => mke.InsertWithEncapsulateSelection(k, new mke.RoundBracketsNode())),
       ];
+      // prettier-ignore
       const selectionModePhysicalKeydownHandlersNoShift = [
         createHandler((key) => key == 'Backspace', (k, key) => mke.DeleteSelection(k)),
         createHandler((key) => key == 'BracketLeft', (k, key) => mke.InsertWithEncapsulateSelection(k, getSquareBracketsNode())),
         createHandler((key) => key == 'Slash', (k, key) => mke.InsertWithEncapsulateSelection(k, getFractionNode())),
 
       ];
+      // prettier-ignore
       const physicalKeydownHandlersNoShift = [
         createHandler((key) => key.startsWith('Digit'), (k, key) => mke.Insert(k, new mke.DigitNode(key[5]))),
         createHandler((key) => key.startsWith('Key'), (k, key) => mke.Insert(k, new mke.StandardLeafNode(key[3].toLocaleLowerCase()))),
@@ -355,29 +361,29 @@
           } else if (key == 'ArrowRight') {
             mke.SelectRight(keyboardMemory);
           } else if (inShift) {
-            let handler = selectionModePhysicalKeydownHandlersForShift.find(handler => handler.canHandle(key));
+            let handler = selectionModePhysicalKeydownHandlersForShift.find((handler) => handler.canHandle(key));
             if (handler != null) {
               handler.handle(keyboardMemory, key);
               myLeaveSelectionMode(keyboardMemory);
             } else {
               myLeaveSelectionMode(keyboardMemory, key);
-              physicalKeydownHandlersForShift.find(handler => handler.canHandle(key))?.handle(keyboardMemory, key);
+              physicalKeydownHandlersForShift.find((handler) => handler.canHandle(key))?.handle(keyboardMemory, key);
             }
           } else {
-            let handler = selectionModePhysicalKeydownHandlersNoShift.find(handler => handler.canHandle(key));
+            let handler = selectionModePhysicalKeydownHandlersNoShift.find((handler) => handler.canHandle(key));
             if (handler != null) {
               handler.handle(keyboardMemory, key);
               myLeaveSelectionMode(keyboardMemory);
             } else {
               myLeaveSelectionMode(keyboardMemory);
-              physicalKeydownHandlersNoShift.find(handler => handler.canHandle(key))?.handle(keyboardMemory, key);
+              physicalKeydownHandlersNoShift.find((handler) => handler.canHandle(key))?.handle(keyboardMemory, key);
             }
-          } 
+          }
         } else {
           if (inShift) {
-            physicalKeydownHandlersForShift.find(handler => handler.canHandle(key))?.handle(keyboardMemory, key);
+            physicalKeydownHandlersForShift.find((handler) => handler.canHandle(key))?.handle(keyboardMemory, key);
           } else {
-            physicalKeydownHandlersNoShift.find(handler => handler.canHandle(key))?.handle(keyboardMemory, key);
+            physicalKeydownHandlersNoShift.find((handler) => handler.canHandle(key))?.handle(keyboardMemory, key);
           }
         }
         displayResult();
