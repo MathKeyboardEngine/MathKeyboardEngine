@@ -64,7 +64,7 @@ describe(SelectRight.name, () => {
     assert.isTrue(InSelectionMode(k));
   });
 
-  it('SelectRight if all Nodes have already been selected does nothing, with left border is Placeholder', () => {
+  it('SelectRight if there are no more selectable nodes on the right does nothing, with left exclusive border is Placeholder', () => {
     const k = new KeyboardMemory();
     Insert(k, new DigitNode('1'));
     MoveLeft(k);
@@ -73,5 +73,17 @@ describe(SelectRight.name, () => {
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
     SelectRight(k);
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
+  });
+
+  it('SelectRight if there are no more selectable nodes on the right does nothing, with left exclusive border is Node', () => {
+    const k = new KeyboardMemory();
+    Insert(k, new DigitNode('1'));
+    Insert(k, new DigitNode('2'));
+    MoveLeft(k);
+    expectLatex('1◼2', k);
+    SelectRight(k);
+    expectLatex(String.raw`1\colorbox{blue}{2}`, k);
+    SelectRight(k);
+    expectLatex(String.raw`1\colorbox{blue}{2}`, k);
   });
 });

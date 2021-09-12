@@ -7,7 +7,7 @@ export function SelectRight(k: KeyboardMemory): void {
   const diff = k.SelectionDiff ?? 0;
   if (
     (k.Current instanceof Placeholder && diff < k.Current.Nodes.length) ||
-    (k.Current instanceof TreeNode && k.Current.ParentPlaceholder.Nodes.indexOf(k.Current) + diff < k.Current.ParentPlaceholder.Nodes.length)
+    (k.Current instanceof TreeNode && k.Current.ParentPlaceholder.Nodes.indexOf(k.Current) + diff < k.Current.ParentPlaceholder.Nodes.length - 1)
   ) {
     setSelectionDiff(k, diff + 1);
   }
