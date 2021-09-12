@@ -17,7 +17,7 @@
     "katex",
     "mathjax"
   ],
-  "version": "v0.1.0-beta.7",
+  "version": "v0.1.0-beta.8",
   "files": [
     "dist/"
   ],
