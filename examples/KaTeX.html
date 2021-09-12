@@ -76,7 +76,8 @@
         }
         displayResult();
       };
-      registerNodeKey('decimalSeparator', () => new mke.DecimalSeparatorNode(() => (decimalSeparatorTypeElement.innerText == 'decimal comma' ? '{,}' : '.')));
+      function getDecimalSeparatorNode() { return new mke.DecimalSeparatorNode(() => (decimalSeparatorTypeElement.innerText == 'decimal comma' ? '{,}' : '.'))}
+      registerNodeKey('decimalSeparator', getDecimalSeparatorNode);
 
       registerNodeKey('equal', () => new mke.StandardLeafNode('='));
       registerNodeKey('notEqual', () => new mke.StandardLeafNode(String.raw`\neq `));
@@ -95,10 +96,10 @@
         multiplicationSignTypeElement.innerText = multiplicationSignTypeElement.innerText == 'cross' ? 'dot' : 'cross';
         displayResult();
       };
-      function getMultiplicationSign() {
-        return multiplicationSignTypeElement.innerText == 'cross' ? String.raw`\times ` : String.raw`\cdot `;
+      function getMultiplicationNode() {
+        return new mke.StandardLeafNode(() => multiplicationSignTypeElement.innerText == 'cross' ? String.raw`\times ` : String.raw`\cdot `);
       }
-      registerNodeKey('multiply', () => new mke.StandardLeafNode(getMultiplicationSign));
+      registerNodeKey('multiply', getMultiplicationNode);
 
       registerNodeKey('ratio', () => new mke.StandardLeafNode(':'));
       registerNodeKey('faculty', () => new mke.StandardLeafNode('!'));
@@ -128,7 +129,8 @@
         return new mke.StandardBranchingNode(String.raw`\left[`, String.raw`\right]`);
       }
       registerNodeKey('squareBrackets', getSquareBracketsNode, mke.Insert, mke.InsertWithEncapsulateSelection);
-      registerNodeKey('pipes', () => new mke.StandardBranchingNode(String.raw`\left|`, String.raw`\right|`), mke.Insert, mke.InsertWithEncapsulateSelection);
+      function getPipesNode() { return new mke.StandardBranchingNode(String.raw`\left|`, String.raw`\right|`); }
+      registerNodeKey('pipes', getPipesNode, mke.Insert, mke.InsertWithEncapsulateSelection);
       registerNodeKey('doublePipes', () => new mke.StandardBranchingNode(String.raw`\left\|`, String.raw`\right\|`), mke.Insert, mke.InsertWithEncapsulateSelection);
       function getCurlyBracketsNode() {
         return new mke.StandardBranchingNode(String.raw`\left\{`, String.raw`\right\}`);
@@ -275,64 +277,118 @@
       latexConfiguration.selectionHightlightEnd = String.raw`\)}`;
       // === KaTeX specific code END ===
 
-      // Handle a few key presses of a physical keyboard START
+      // === Handle key presses of a physical keyboard START ===
       let inShift = false;
       document.onkeyup = (e) => {
-        if (e.code.startsWith('Shift')) {
+        const key = e.code;
+        if (key.startsWith('Shift')) {
           inShift = false;
+        } else if (key == 'ControlLeft') {
+          if (mke.InSelectionMode(keyboardMemory)){
+            myLeaveSelectionMode(keyboardMemory);
+          } else {
+            myEnterSelectionMode(keyboardMemory);
+          }
+          displayResult();
         }
       };
+
+      function createHandler(matchingPredicateForKey, handleForKeyboardMemoryAndKey) {
+        return { canHandle: matchingPredicateForKey, handle: handleForKeyboardMemoryAndKey };
+      }
+      
+      const physicalKeydownHandlersForShift = [
+        createHandler((key) => key == 'Digit6', (k, key) => mke.InsertWithEncapsulateCurrent(k, getPowerNode())),
+        createHandler((key) => key == 'Digit9', (k, key) => mke.Insert(k, new mke.RoundBracketsNode())),
+        createHandler((key) => key == 'Digit0', (k, key) => mke.MoveRight(k)),
+        createHandler((key) => key == 'Digit8', (k, key) => mke.Insert(k, getMultiplicationNode())),
+        createHandler((key) => key == 'Equal', (k, key) => mke.Insert(k, new mke.StandardLeafNode('+'))),
+        createHandler((key) => key == 'Minus', (k, key) => mke.InsertWithEncapsulateCurrent(k, getSubscriptNode())),
+        createHandler((key) => key == 'Digit1', (k, key) => mke.Insert(k, new mke.StandardLeafNode('!'))),
+        createHandler((key) => key == 'Digit5', (k, key) => mke.Insert(k, new mke.StandardLeafNode(String.raw`\%`))),
+        createHandler((key) => key.startsWith('Key'), (k, key) => mke.Insert(k, new mke.StandardLeafNode(key[3]))),
+        createHandler((key) => key == 'Backslash', (k, key) => mke.Insert(k, getPipesNode())),
+        createHandler((key) => key == 'BracketLeft', (k, key) => mke.Insert(k, getCurlyBracketsNode())),
+        createHandler((key) => key == 'BracketRight', (k, key) => mke.MoveRight(k)),
+        createHandler((key) => key == 'Comma', (k, key) => mke.Insert(k, new mke.StandardLeafNode('<'))),
+        createHandler((key) => key == 'Period', (k, key) => mke.Insert(k, new mke.StandardLeafNode('>'))),
+        createHandler((key) => key == 'Semicolon', (k, key) => mke.Insert(k, new mke.StandardLeafNode(':'))),
+
+      ];
+      const selectionModePhysicalKeydownHandlersForShift = [
+        createHandler((key) => key == 'Digit6', (k, key) => mke.InsertWithEncapsulateSelectionAndPrevious(k, getPowerNode())),
+        createHandler((key) => key == 'BracketLeft', (k, key) => mke.InsertWithEncapsulateSelection(k, getCurlyBracketsNode())),
+        createHandler((key) => key == 'Backslash', (k, key) => mke.InsertWithEncapsulateSelection(k, getPipesNode())),
+        createHandler((key) => key == 'Digit9', (k, key) => mke.InsertWithEncapsulateSelection(k, new mke.RoundBracketsNode())),
+      ];
+      const selectionModePhysicalKeydownHandlersNoShift = [
+        createHandler((key) => key == 'Backspace', (k, key) => mke.DeleteSelection(k)),
+        createHandler((key) => key == 'BracketLeft', (k, key) => mke.InsertWithEncapsulateSelection(k, getSquareBracketsNode())),
+        createHandler((key) => key == 'Slash', (k, key) => mke.InsertWithEncapsulateSelection(k, getFractionNode())),
+
+      ];
+      const physicalKeydownHandlersNoShift = [
+        createHandler((key) => key.startsWith('Digit'), (k, key) => mke.Insert(k, new mke.DigitNode(key[5]))),
+        createHandler((key) => key.startsWith('Key'), (k, key) => mke.Insert(k, new mke.StandardLeafNode(key[3].toLocaleLowerCase()))),
+        createHandler((key) => key == 'Backspace', (k, key) => mke.DeleteCurrent(k)),
+        createHandler((key) => key == 'ArrowLeft', (k, key) => mke.MoveLeft(k)),
+        createHandler((key) => key == 'ArrowRight', (k, key) => mke.MoveRight(k)),
+        createHandler((key) => key == 'ArrowUp', (k, key) => mke.MoveUp(k)),
+        createHandler((key) => key == 'ArrowDown', (k, key) => mke.MoveDown(k)),
+        createHandler((key) => key == 'Slash', (k, key) => mke.InsertWithEncapsulateCurrent(k, getFractionNode())),
+        createHandler((key) => key == 'Equal', (k, key) => mke.Insert(k, new mke.StandardLeafNode('='))),
+        createHandler((key) => key == 'Minus', (k, key) => mke.Insert(k, new mke.StandardLeafNode('-'))),
+        createHandler((key) => key == 'Period' || key == 'Comma', (k, key) => mke.Insert(k, getDecimalSeparatorNode())),
+        createHandler((key) => key == 'BracketLeft', (k, key) => mke.Insert(k, getSquareBracketsNode())),
+        createHandler((key) => key == 'BracketRight', (k, key) => mke.MoveRight(k)),
+        createHandler((key) => key == 'Backslash', (k, key) => mke.Insert(k, new mke.StandardLeafNode(String.raw`\setminus `))),
+      ];
+
+      let nrKeysPressed = 0;
       document.onkeydown = (e) => {
         const key = e.code;
         console.log(key);
+        if (++nrKeysPressed == 40) {
+          alert('That looks good!\nDid you know you can use the ctrl key to enter selection mode?');
+        }
         if (key.startsWith('Shift')) {
           inShift = true;
-        } else if (key.startsWith('Digit')) {
-          const digit = key[5];
-          if (!inShift) {
-            mke.Insert(keyboardMemory, new mke.DigitNode(digit));
-          } else if (digit == '1') {
-            mke.Insert(keyboardMemory, new mke.StandardLeafNode('!'));
-          } else if (digit == '6') {
-            mke.InsertWithEncapsulateCurrent(keyboardMemory, getPowerNode());
-          } else if (digit == '8') {
-            mke.Insert(keyboardMemory, new mke.StandardLeafNode(getMultiplicationSign));
-          } else if (digit == '9') {
-            mke.Insert(keyboardMemory, new mke.RoundBracketsNode());
-          } else if (digit == '0') {
-            mke.MoveRight(keyboardMemory);
-          }
-        } else if (key == 'Slash') {
-          mke.InsertWithEncapsulateCurrent(keyboardMemory, getFractionNode());
-        } else if (key == 'ArrowLeft') {
-          mke.MoveLeft(keyboardMemory);
-        } else if (key == 'ArrowRight') {
-          mke.MoveRight(keyboardMemory);
-        } else if (key == 'ArrowUp') {
-          mke.MoveUp(keyboardMemory);
-        } else if (key == 'ArrowDown') {
-          mke.MoveDown(keyboardMemory);
-        } else if (key == 'Minus') {
-          if (inShift) {
-            mke.InsertWithEncapsulateCurrent(keyboardMemory, getSubscriptNode());
+        } else if (key == 'ControlLeft') {
+          return;
+        } else if (mke.InSelectionMode(keyboardMemory)) {
+          if (key == 'ArrowLeft') {
+            mke.SelectLeft(keyboardMemory);
+          } else if (key == 'ArrowRight') {
+            mke.SelectRight(keyboardMemory);
+          } else if (inShift) {
+            let handler = selectionModePhysicalKeydownHandlersForShift.find(handler => handler.canHandle(key));
+            if (handler != null) {
+              handler.handle(keyboardMemory, key);
+              myLeaveSelectionMode(keyboardMemory);
+            } else {
+              myLeaveSelectionMode(keyboardMemory, key);
+              physicalKeydownHandlersForShift.find(handler => handler.canHandle(key))?.handle(keyboardMemory, key);
+            }
           } else {
-            mke.Insert(keyboardMemory, new mke.StandardLeafNode('-'));
+            let handler = selectionModePhysicalKeydownHandlersNoShift.find(handler => handler.canHandle(key));
+            if (handler != null) {
+              handler.handle(keyboardMemory, key);
+              myLeaveSelectionMode(keyboardMemory);
+            } else {
+              myLeaveSelectionMode(keyboardMemory);
+              physicalKeydownHandlersNoShift.find(handler => handler.canHandle(key))?.handle(keyboardMemory, key);
+            }
+          } 
+        } else {
+          if (inShift) {
+            physicalKeydownHandlersForShift.find(handler => handler.canHandle(key))?.handle(keyboardMemory, key);
+          } else {
+            physicalKeydownHandlersNoShift.find(handler => handler.canHandle(key))?.handle(keyboardMemory, key);
           }
-        } else if (key == 'Equal') {
-          mke.Insert(keyboardMemory, new mke.StandardLeafNode(inShift ? '+' : '='));
-        } else if (key == 'Backspace') {
-          mke.DeleteCurrent(keyboardMemory);
-        } else if (key.startsWith('Key')) {
-          const letter = key[3];
-          mke.Insert(keyboardMemory, new mke.DigitNode(inShift ? letter : letter.toLocaleLowerCase()));
-        } else if (key == 'BracketLeft') {
-          mke.Insert(keyboardMemory, inShift ? getCurlyBracketsNode() : getSquareBracketsNode());
-        } else if (key == 'BracketRight') {
-          mke.MoveRight(keyboardMemory);
         }
         displayResult();
       };
-      // Handle a few key presses of a physical keyboard END
+      // === Handle key presses of a physical keyboard END ===
     </script>
     <style>
       :root {
