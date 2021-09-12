@@ -340,7 +340,7 @@
         createHandler((key) => key == 'ArrowRight', (k, key) => mke.MoveRight(k)),
         createHandler((key) => key == 'ArrowUp', (k, key) => mke.MoveUp(k)),
         createHandler((key) => key == 'ArrowDown', (k, key) => mke.MoveDown(k)),
-        createHandler((key) => key == 'Slash', (k, key) => mke.InsertWithEncapsulateCurrent(k, getFractionNode())),
+        createHandler((key) => key == 'Slash', (k, key) => mke.InsertWithEncapsulateCurrent(k, getFractionNode(), { deleteOuterRoundBracketsIfAny: true })),
         createHandler((key) => key == 'Equal', (k, key) => mke.Insert(k, new mke.StandardLeafNode('='))),
         createHandler((key) => key == 'Minus', (k, key) => mke.Insert(k, new mke.StandardLeafNode('-'))),
         createHandler((key) => key == 'Period' || key == 'Comma', (k, key) => mke.Insert(k, getDecimalSeparatorNode())),
