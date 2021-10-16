@@ -52,7 +52,7 @@
         registerNodeKey(letter, () => new mke.StandardLeafNode(letter));
       }
 
-      for (let s of ['alpha', 'beta', 'gamma', 'lambda', 'mu', 'pi', 'div', 'sin', 'tan', 'cos', 'arcsin', 'arccos', 'arctan', 'infty', 'leftarrow', 'rightarrow', 'uparrow', 'downarrow', 'approx']) {
+      for (let s of ['alpha', 'beta', 'gamma', 'lambda', 'mu', 'pi', 'div', 'sin', 'tan', 'cos', 'arcsin', 'infty', 'leftarrow', 'rightarrow', 'uparrow', 'downarrow', 'approx']) {
         registerNodeKey(s, () => new mke.StandardLeafNode('\\' + s + ' '));
       }
 
@@ -142,7 +142,6 @@
       registerNodeKey('isSubsetOf', () => new mke.StandardLeafNode(String.raw`\subseteq `));
       registerNodeKey('setDifference', () => new mke.StandardLeafNode(String.raw`\setminus `));
       registerNodeKey('exists', () => new mke.StandardLeafNode(String.raw`\exists `));
-      registerNodeKey('existsOne', () => new mke.StandardLeafNode(String.raw`\exists! `));
       registerNodeKey('forAll', () => new mke.StandardLeafNode(String.raw`\forall `));
       registerNodeKey('not', () => new mke.StandardLeafNode(String.raw`\neg `));
       registerNodeKey('or', () => new mke.StandardLeafNode(String.raw`\lor `));
@@ -150,11 +149,7 @@
       registerNodeKey('doubleRightArrow', () => new mke.StandardLeafNode(String.raw`\Rightarrow `));
       registerNodeKey('doubleLeftArrow', () => new mke.StandardLeafNode(String.raw`\Leftarrow `));
 
-      registerNodeKey('sin-1', () => new mke.StandardLeafNode(String.raw`\sin^{-1}`));
       registerNodeKey('cos-1', () => new mke.StandardLeafNode(String.raw`\cos^{-1}`));
-      registerNodeKey('tan-1', () => new mke.StandardLeafNode(String.raw`\tan^{-1}`));
-      registerNodeKey('sininv', () => new mke.StandardLeafNode(String.raw`\sin^{inv}`));
-      registerNodeKey('cosinv', () => new mke.StandardLeafNode(String.raw`\cos^{inv}`));
       registerNodeKey('taninv', () => new mke.StandardLeafNode(String.raw`\tan^{inv}`));
 
       registerNodeKey('integral', () => new mke.AscendingBranchingNode(String.raw`\int_{`, '}^{', '}'));
@@ -324,7 +319,6 @@
         createHandler((key) => key == 'Backspace', (k, key) => mke.DeleteSelection(k)),
         createHandler((key) => key == 'BracketLeft', (k, key) => mke.InsertWithEncapsulateSelection(k, getSquareBracketsNode())),
         createHandler((key) => key == 'Slash', (k, key) => mke.InsertWithEncapsulateSelection(k, getFractionNode())),
-
       ];
       // prettier-ignore
       const physicalKeydownHandlersNoShift = [
@@ -468,12 +462,13 @@
     <div id="viewModeLatex"></div>
     <i>Example keys - to be styled - to help you design your virtual math keyboard</i>
     <div id="mathKeyboard">
-      <div id="moveLeft">&#x25C0;</div>
-      <div id="moveRight">&#x25B6;</div>
-      <div id="moveDown">&#x25BC;</div>
-      <div id="moveUp">&#x25B2;</div>
       <div id="selectionModeToggle"></div>
+      <div id="moveUp">&#x25B2;</div>
       <div id="deleteCurrent">&#128293;</div>
+      <br/>
+      <div id="moveLeft">&#x25C0;</div>
+      <div id="moveDown">&#x25BC;</div>
+      <div id="moveRight">&#x25B6;</div>
       <div onclick="const settingsContainer = document.getElementById('settingsContainer'); settingsContainer.style.display = settingsContainer.style.display == 'block' ? 'none' : 'block';">
         <strong>Settings</strong>
       </div>
@@ -556,7 +551,6 @@
       <div id="isSubsetOf"></div>
       <div id="setDifference"></div>
       <div id="exists"></div>
-      <div id="existsOne"></div>
       <div id="forAll"></div>
       <div id="not"></div>
       <div id="or"></div>
@@ -568,13 +562,7 @@
       <div id="cos"></div>
       <div id="tan"></div>
       <div id="arcsin"></div>
-      <div id="arccos"></div>
-      <div id="arctan"></div>
-      <div id="sin-1"></div>
       <div id="cos-1"></div>
-      <div id="tan-1"></div>
-      <div id="sininv"></div>
-      <div id="cosinv"></div>
       <div id="taninv"></div>
       <br />
       <div id="integral"></div>
