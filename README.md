@@ -90,9 +90,3 @@ Doing a localhost test with an example from the 'examples' folder is probably th
 - [report a bug](https://github.com/MathKeyboardEngine/MathKeyboardEngine/issues).
 - [request an enhancement](https://github.com/MathKeyboardEngine/MathKeyboardEngine/issues).
 - [open a pull request](https://github.com/MathKeyboardEngine/MathKeyboardEngine/pulls). (The command `npm run clean` runs eslint and prettier.)
-
-## Goal
-
-<strong>Goal</strong>: make a future proof, not complex library for a highly customizable virtual math keyboard.<br/>
-<strong>First draft of this library</strong>: July 2021.<br/>
-<strong>Founder and maintainer</strong>: SymboLinker
