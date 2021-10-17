@@ -61,7 +61,8 @@ Quick start for using the "esm" format:
 Notes:
 
 - "mke" is an abbreviation of "MathKeyboardEngine". You can choose something different. (But the iife format forces you to use "mke".)
-- Visit (the right version of)\* the 'examples' folder for more implementation details.
+- Visit (the right version of)\* the [examples](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/examples) folder for more implementation details.
+- The [documentation page](https://mathkeyboardengine.github.io/docs/0.1/) may also help building insight in the classes and methods of this library.
 
 \* If you use a version tag in the url like this: https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/v0.1.0-beta.8, you can see the git repository (e.g. 'examples' folder, etc.) as it was for that version.
 
