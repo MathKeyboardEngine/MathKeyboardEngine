@@ -61,7 +61,9 @@ Quick start for using the "esm" format:
 </script>
 ```
 
-Note: "mke" is an abbreviation of "MathKeyboardEngine". You can choose something different. (But the iife format forces you to use "mke".)
+<i>Note: "mke" is an abbreviation of "MathKeyboardEngine". You can choose something different. (But the iife format forces you to use "mke".)</i>
+
+All functions that are are exposed by the library have "PascalCase" names - helper functions that are not exposed have "camelCase" names (as do object members). Knowing what the final module exports are, may help understand the source code more quickly.
 
 Visit the [documentation](https://mathkeyboardengine.github.io/docs/0.1/) and (the right version of)\* the [examples folder](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/examples) for more implementation details.
 
@@ -75,7 +77,7 @@ Doing a localhost test with an example from the 'examples' folder is probably th
 2. Fork (or clone), checkout and then open the root folder of this repository in VS Code.
 3. Open the VS Code Terminal and run:<br/>
    `npm ci`<br/>
-   This loads all dependencies from the tree as specified in package-lock.json.
+   This loads all the devDependencies from the tree as specified in package-lock.json.
 4. Compiling the library:<br/>
    All of the following commands run some script as defined in package.json:<br/>
    `npm run tsc` to do type checking, to check whether a successful compilation is possible.<br/>
