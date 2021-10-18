@@ -8,6 +8,9 @@ import { SelectRight } from '../../../../../src/KeyboardEngine/Functions/Selecti
 import { SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
 import { InSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/InSelectionMode';
 import { assert } from 'chai';
+import { StandardBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/StandardBranchingNode';
+import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
+import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
 
 describe(SelectRight.name, () => {
   it('a single Node, with left border is Node', () => {
@@ -85,5 +88,50 @@ describe(SelectRight.name, () => {
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
     SelectRight(k);
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
+  });
+
+  it('A selection can break out of the current Placeholder (to be consistent with SelectLeft, for which this behaviour is expected) - new Current is Placeholder', () => {
+    const k = new KeyboardMemory();
+    Insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'));
+    Insert(k, new DigitNode('2'));
+    MoveRight(k);
+    Insert(k, new StandardLeafNode('+'));
+    Insert(k, new DigitNode('x'));
+    MoveLeft(k);
+    MoveLeft(k);
+    MoveLeft(k);
+    MoveLeft(k);
+    expectLatex(String.raw`\sqrt{◼2}+x`, k);
+    SelectRight(k);
+    expectLatex(String.raw`\sqrt{\colorbox{blue}{2}}+x`, k);
+    SelectRight(k);
+    expectLatex(String.raw`\colorbox{blue}{\sqrt{2}}+x`, k);
+    SelectRight(k);
+    expectLatex(String.raw`\colorbox{blue}{\sqrt{2}+}x`, k);
+    SelectRight(k);
+    expectLatex(String.raw`\colorbox{blue}{\sqrt{2}+x}`, k);
+  });
+
+  it('A selection can break out of the current Placeholder (to be consistent with SelectLeft, for which this behaviour is expected) - new Current is TreeNode', () => {
+    const k = new KeyboardMemory();
+    Insert(k, new DigitNode('3'));
+    Insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'));
+    Insert(k, new DigitNode('2'));
+    MoveRight(k);
+    Insert(k, new StandardLeafNode('+'));
+    Insert(k, new DigitNode('x'));
+    MoveLeft(k);
+    MoveLeft(k);
+    MoveLeft(k);
+    MoveLeft(k);
+    expectLatex(String.raw`3\sqrt{◼2}+x`, k);
+    SelectRight(k);
+    expectLatex(String.raw`3\sqrt{\colorbox{blue}{2}}+x`, k);
+    SelectRight(k);
+    expectLatex(String.raw`3\colorbox{blue}{\sqrt{2}}+x`, k);
+    SelectRight(k);
+    expectLatex(String.raw`3\colorbox{blue}{\sqrt{2}+}x`, k);
+    SelectRight(k);
+    expectLatex(String.raw`3\colorbox{blue}{\sqrt{2}+x}`, k);
   });
 });

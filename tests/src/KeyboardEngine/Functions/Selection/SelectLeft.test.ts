@@ -9,6 +9,8 @@ import { EnterSelectionMode } from '../../../../../src/KeyboardEngine/Functions/
 import { InSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/InSelectionMode';
 import { SelectRight } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectRight';
 import { assert } from 'chai';
+import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
+import { InsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
 
 describe(SelectLeft.name, () => {
   it('a single Node, with left border is Node', () => {
@@ -77,5 +79,17 @@ describe(SelectLeft.name, () => {
     SelectLeft(k);
     expectLatex('◼1', k);
     assert.isTrue(InSelectionMode(k));
+  });
+
+  it('A selection can break out of the current Placeholder', () => {
+    const k = new KeyboardMemory();
+    Insert(k, new DigitNode('2'));
+    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    Insert(k, new DigitNode('x'));
+    expectLatex(String.raw`{2}^{x◼}`, k);
+    SelectLeft(k);
+    expectLatex(String.raw`{2}^{\colorbox{blue}{x}}`, k);
+    SelectLeft(k);
+    expectLatex(String.raw`\colorbox{blue}{{2}^{x}}`, k);
   });
 });
