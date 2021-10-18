@@ -1,3 +1,6 @@
+[![](https://badgen.net/npm/v/mathkeyboardengine?label=latest%20release)](https://www.jsdelivr.com/package/npm/mathkeyboardengine?path=dist)
+![](https://badgen.net/badge/test%20coverage/100%25/green)
+
 ## What is MathKeyboardEngine?
 
 MathKeyboardEngine provides the logic - in JavaScript and LaTeX - for a highly customizable virtual math keyboard. It is intended for use together with any LaTeX typesetting library (for example MathJax or KaTeX).
