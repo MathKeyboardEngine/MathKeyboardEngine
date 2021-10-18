@@ -4,15 +4,15 @@ import { KeyboardMemory } from '../../KeyboardMemory';
 import { setSelectionDiff } from './helpers/setSelectionDiff';
 
 export function SelectLeft(k: KeyboardMemory): void {
-  const oldDiffWithCurrent = k.SelectionDiff ?? 0;
-  if ((k.Current instanceof TreeNode && k.Current.ParentPlaceholder.Nodes.indexOf(k.Current) + oldDiffWithCurrent >= 0) || (k.Current instanceof Placeholder && oldDiffWithCurrent > 0)) {
+  const oldDiffWithCurrent = k.selectionDiff ?? 0;
+  if ((k.current instanceof TreeNode && k.current.parentPlaceholder.nodes.indexOf(k.current) + oldDiffWithCurrent >= 0) || (k.current instanceof Placeholder && oldDiffWithCurrent > 0)) {
     setSelectionDiff(k, oldDiffWithCurrent - 1);
   } else if (
-    k.InclusiveSelectionLeftBorder instanceof TreeNode &&
-    k.InclusiveSelectionLeftBorder.ParentPlaceholder.Nodes.indexOf(k.InclusiveSelectionLeftBorder) == 0 &&
-    k.InclusiveSelectionLeftBorder.ParentPlaceholder.ParentNode != null
+    k.inclusiveSelectionLeftBorder instanceof TreeNode &&
+    k.inclusiveSelectionLeftBorder.parentPlaceholder.nodes.indexOf(k.inclusiveSelectionLeftBorder) == 0 &&
+    k.inclusiveSelectionLeftBorder.parentPlaceholder.parentNode != null
   ) {
-    k.Current = k.InclusiveSelectionLeftBorder.ParentPlaceholder.ParentNode;
+    k.current = k.inclusiveSelectionLeftBorder.parentPlaceholder.parentNode;
     setSelectionDiff(k, -1);
   }
 }

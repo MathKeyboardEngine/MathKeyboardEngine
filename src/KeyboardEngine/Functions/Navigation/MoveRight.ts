@@ -5,28 +5,28 @@ import { TreeNode } from '../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
 import { firstAfterOrNull } from '../../../helpers/arrayhelpers/firstAfterOrNull';
 
 export function MoveRight(k: KeyboardMemory): void {
-  if (k.Current instanceof Placeholder) {
-    if (k.Current.Nodes.length > 0) {
-      const nextNode = k.Current.Nodes[0];
-      k.Current = nextNode instanceof BranchingNode ? nextNode.Placeholders[0] : nextNode;
-    } else if (k.Current.ParentNode == null) {
+  if (k.current instanceof Placeholder) {
+    if (k.current.nodes.length > 0) {
+      const nextNode = k.current.nodes[0];
+      k.current = nextNode instanceof BranchingNode ? nextNode.placeholders[0] : nextNode;
+    } else if (k.current.parentNode == null) {
       return;
     } else {
-      k.Current = firstAfterOrNull(k.Current.ParentNode.Placeholders, k.Current) ?? k.Current.ParentNode;
+      k.current = firstAfterOrNull(k.current.parentNode.placeholders, k.current) ?? k.current.parentNode;
     }
   } else {
-    const nextNode: TreeNode | null = firstAfterOrNull(k.Current.ParentPlaceholder.Nodes, k.Current);
+    const nextNode: TreeNode | null = firstAfterOrNull(k.current.parentPlaceholder.nodes, k.current);
     if (nextNode != null) {
       if (nextNode instanceof BranchingNode) {
-        k.Current = nextNode.Placeholders[0];
+        k.current = nextNode.placeholders[0];
       } else {
-        k.Current = nextNode;
+        k.current = nextNode;
       }
     } else {
-      const ancestorNode = k.Current.ParentPlaceholder.ParentNode;
+      const ancestorNode = k.current.parentPlaceholder.parentNode;
       if (ancestorNode != null) {
-        const nextPlaceholder: Placeholder | null = firstAfterOrNull(ancestorNode.Placeholders, k.Current.ParentPlaceholder);
-        k.Current = nextPlaceholder ?? ancestorNode;
+        const nextPlaceholder: Placeholder | null = firstAfterOrNull(ancestorNode.placeholders, k.current.parentPlaceholder);
+        k.current = nextPlaceholder ?? ancestorNode;
       }
     }
   }

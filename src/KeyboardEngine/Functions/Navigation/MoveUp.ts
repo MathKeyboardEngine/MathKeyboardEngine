@@ -4,18 +4,18 @@ import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placehold
 import { KeyboardMemory } from '../../KeyboardMemory';
 
 export function MoveUp(k: KeyboardMemory): void {
-  let moveFromPlaceholder = k.Current instanceof Placeholder ? k.Current : k.Current.ParentPlaceholder;
+  let moveFromPlaceholder = k.current instanceof Placeholder ? k.current : k.current.parentPlaceholder;
   let suggestingNode: BranchingNode;
   while (true) {
-    if (moveFromPlaceholder.ParentNode == null) {
+    if (moveFromPlaceholder.parentNode == null) {
       return;
     }
-    suggestingNode = moveFromPlaceholder.ParentNode;
+    suggestingNode = moveFromPlaceholder.parentNode;
     const suggestion = suggestingNode.getMoveUpSuggestion(moveFromPlaceholder);
     if (suggestion != null) {
-      k.Current = lastOrNull(suggestion.Nodes) ?? suggestion;
+      k.current = lastOrNull(suggestion.nodes) ?? suggestion;
       return;
     }
-    moveFromPlaceholder = suggestingNode.ParentPlaceholder;
+    moveFromPlaceholder = suggestingNode.parentPlaceholder;
   }
 }

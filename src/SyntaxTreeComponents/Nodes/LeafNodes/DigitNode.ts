@@ -3,12 +3,12 @@ import { LatexConfiguration } from '../../../LatexConfiguration';
 import { PartOfNumberWithDigits } from './Base/PartOfNumberWithDigits';
 
 export class DigitNode extends PartOfNumberWithDigits {
-  readonly value: string;
+  private readonly latex: string;
   constructor(digit: string) {
     super();
-    this.value = digit;
+    this.latex = digit;
   }
   override getLatexPart(_keyboardMemory: KeyboardMemory, _latexConfiguration: LatexConfiguration): string {
-    return this.value;
+    return this.latex;
   }
 }

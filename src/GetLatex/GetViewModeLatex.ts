@@ -5,6 +5,6 @@ import { Placeholder } from '../SyntaxTreeComponents/Placeholder/Placeholder';
 
 const emptyKeyboardMemory = new KeyboardMemory();
 export function GetViewModeLatex(x: TreeNode | Placeholder | KeyboardMemory, latexConfiguration: LatexConfiguration): string {
-  const syntaxTreeComponent: TreeNode | Placeholder = x instanceof KeyboardMemory ? x.SyntaxTreeRoot : x;
+  const syntaxTreeComponent: TreeNode | Placeholder = x instanceof KeyboardMemory ? x.syntaxTreeRoot : x;
   return syntaxTreeComponent.getLatex(emptyKeyboardMemory, latexConfiguration);
 }

@@ -2,10 +2,10 @@ import { TreeNode } from '../SyntaxTreeComponents/Nodes/Base/TreeNode';
 import { Placeholder } from '../SyntaxTreeComponents/Placeholder/Placeholder';
 
 export class KeyboardMemory {
-  readonly SyntaxTreeRoot: Placeholder = new Placeholder();
-  Current: Placeholder | TreeNode = this.SyntaxTreeRoot;
+  readonly syntaxTreeRoot: Placeholder = new Placeholder();
+  current: Placeholder | TreeNode = this.syntaxTreeRoot;
 
-  SelectionDiff: number | null = null;
-  InclusiveSelectionRightBorder: TreeNode | null = null;
-  InclusiveSelectionLeftBorder: TreeNode | Placeholder | null = null;
+  selectionDiff: number | null = null;
+  inclusiveSelectionRightBorder: TreeNode | null = null;
+  inclusiveSelectionLeftBorder: TreeNode | Placeholder | null = null;
 }

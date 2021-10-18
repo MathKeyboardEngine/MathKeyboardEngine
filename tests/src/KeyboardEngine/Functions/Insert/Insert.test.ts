@@ -13,7 +13,7 @@ describe(Insert.name, () => {
     Insert(k, digitNode1);
     expectLatex('1◼', k);
     MoveLeft(k);
-    expect(k.Current).to.equal(digitNode1.ParentPlaceholder);
+    expect(k.current).to.equal(digitNode1.parentPlaceholder);
     expectLatex('◼1', k);
     Insert(k, new DigitNode('2'));
     expectLatex('2◼1', k);
@@ -23,12 +23,12 @@ describe(Insert.name, () => {
     const k = new KeyboardMemory();
     const digitNode1 = new DigitNode('1');
     Insert(k, digitNode1);
-    expect(k.Current).to.equal(digitNode1);
+    expect(k.current).to.equal(digitNode1);
     expectLatex('1◼', k);
     Insert(k, new DigitNode('2'));
     expectLatex('12◼', k);
     MoveLeft(k);
-    expect(k.Current).to.equal(digitNode1);
+    expect(k.current).to.equal(digitNode1);
     expectLatex('1◼2', k);
     Insert(k, new DigitNode('3'));
     expectLatex('13◼2', k);
@@ -37,15 +37,15 @@ describe(Insert.name, () => {
   it('sets the ParentPlaceholder of the inserted Node', () => {
     const k = new KeyboardMemory();
     const node = new DigitNode('1');
-    assert.isUndefined(node.ParentPlaceholder);
+    assert.isUndefined(node.parentPlaceholder);
     Insert(k, node);
-    assert.isNotNull(node.ParentPlaceholder);
+    assert.isNotNull(node.parentPlaceholder);
   });
 
   it('sets Current', () => {
     const k = new KeyboardMemory();
-    const originalCurrent = k.Current;
+    const originalCurrent = k.current;
     Insert(k, new DigitNode('1'));
-    expect(originalCurrent).not.to.equal(k.Current);
+    expect(originalCurrent).not.to.equal(k.current);
   });
 });

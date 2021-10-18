@@ -4,8 +4,8 @@ import { Placeholder } from '../../Placeholder/Placeholder';
 import { BranchingNode } from '../Base/BranchingNode';
 
 export class MatrixNode extends BranchingNode {
-  readonly MatrixType: string;
-  readonly Grid: Placeholder[][];
+  private readonly matrixType: string;
+  private readonly grid: Placeholder[][];
 
   constructor(matrixType: string, width: number, height: number) {
     const grid: Placeholder[][] = [];
@@ -21,23 +21,23 @@ export class MatrixNode extends BranchingNode {
     }
     super(leftToRight);
     for (const placeholder of leftToRight) {
-      placeholder.ParentNode = this;
+      placeholder.parentNode = this;
     }
-    this.Grid = grid;
-    this.MatrixType = matrixType;
+    this.grid = grid;
+    this.matrixType = matrixType;
   }
 
   override getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
-    let latex = String.raw`\begin{${this.MatrixType}}`;
-    latex += this.Grid.map((row) => row.map((placeholder) => placeholder.getLatex(keyboardMemory, latexConfiguration)).join(' & ')).join(String.raw` \\ `);
-    latex += String.raw`\end{${this.MatrixType}}`;
+    let latex = String.raw`\begin{${this.matrixType}}`;
+    latex += this.grid.map((row) => row.map((placeholder) => placeholder.getLatex(keyboardMemory, latexConfiguration)).join(' & ')).join(String.raw` \\ `);
+    latex += String.raw`\end{${this.matrixType}}`;
     return latex;
   }
 
   override getMoveDownSuggestion(current: Placeholder): Placeholder | null {
     const { rowNumber, indexInRow } = this.getPositionOf(current);
-    if (rowNumber + 1 < this.Grid.length) {
-      return this.Grid[rowNumber + 1][indexInRow];
+    if (rowNumber + 1 < this.grid.length) {
+      return this.grid[rowNumber + 1][indexInRow];
     } else {
       return null;
     }
@@ -46,7 +46,7 @@ export class MatrixNode extends BranchingNode {
   override getMoveUpSuggestion(current: Placeholder): Placeholder | null {
     const { rowNumber, indexInRow } = this.getPositionOf(current);
     if (rowNumber - 1 >= 0) {
-      return this.Grid[rowNumber - 1][indexInRow];
+      return this.grid[rowNumber - 1][indexInRow];
     } else {
       return null;
     }
@@ -56,8 +56,8 @@ export class MatrixNode extends BranchingNode {
     rowNumber: number;
     indexInRow: number;
   } {
-    for (let rowNumber = 0; rowNumber < this.Grid.length; rowNumber++) {
-      const row = this.Grid[rowNumber];
+    for (let rowNumber = 0; rowNumber < this.grid.length; rowNumber++) {
+      const row = this.grid[rowNumber];
       for (let indexInRow = 0; indexInRow < row.length; indexInRow++) {
         if (row[indexInRow] === placeholder) {
           return { rowNumber, indexInRow };

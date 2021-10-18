@@ -10,9 +10,9 @@ export function InsertWithEncapsulateSelection(k: KeyboardMemory, newNode: Branc
   const selection = popSelection(k);
   Insert(k, newNode);
   if (selection.length > 0) {
-    const encapsulatingPlaceholder = newNode.Placeholders[0];
+    const encapsulatingPlaceholder = newNode.placeholders[0];
     encapsulate(selection, encapsulatingPlaceholder);
-    k.Current = last(selection);
+    k.current = last(selection);
     MoveRight(k);
   }
 }

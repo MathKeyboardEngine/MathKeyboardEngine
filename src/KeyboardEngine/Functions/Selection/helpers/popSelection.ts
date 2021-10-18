@@ -5,21 +5,21 @@ import { KeyboardMemory } from '../../../KeyboardMemory';
 import { LeaveSelectionMode } from '../LeaveSelectionMode';
 
 export function popSelection(k: KeyboardMemory): TreeNode[] {
-  if (k.SelectionDiff == null) {
+  if (k.selectionDiff == null) {
     throw 'Turn on selection mode before calling this method.';
   }
-  if (k.SelectionDiff == 0) {
+  if (k.selectionDiff == 0) {
     LeaveSelectionMode(k);
     return [];
   }
-  const diff = k.SelectionDiff;
-  if (k.Current instanceof Placeholder) {
+  const diff = k.selectionDiff;
+  if (k.current instanceof Placeholder) {
     LeaveSelectionMode(k);
-    return k.Current.Nodes.splice(0, diff);
+    return k.current.nodes.splice(0, diff);
   } else {
-    const siblings = k.Current.ParentPlaceholder.Nodes;
-    const indexOfLeftBorder = siblings.indexOf(k.InclusiveSelectionLeftBorder as TreeNode);
-    k.Current = firstBeforeOrNull(siblings, k.InclusiveSelectionLeftBorder) ?? k.Current.ParentPlaceholder;
+    const siblings = k.current.parentPlaceholder.nodes;
+    const indexOfLeftBorder = siblings.indexOf(k.inclusiveSelectionLeftBorder as TreeNode);
+    k.current = firstBeforeOrNull(siblings, k.inclusiveSelectionLeftBorder) ?? k.current.parentPlaceholder;
     LeaveSelectionMode(k);
     return siblings.splice(indexOfLeftBorder, abs(diff));
   }

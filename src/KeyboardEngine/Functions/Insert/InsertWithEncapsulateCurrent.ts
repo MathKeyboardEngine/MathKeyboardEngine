@@ -10,23 +10,23 @@ import { Insert } from './Insert';
 import { encapsulateAllPartsOfNumberWithDigitsLeftOfIndex } from '../helpers/encapsulateAllPartsOfNumberWithDigitsLeftOfIndex';
 
 export function InsertWithEncapsulateCurrent(k: KeyboardMemory, newNode: BranchingNode, config?: { deleteOuterRoundBracketsIfAny?: boolean }): void {
-  const encapsulatingPlaceholder = newNode.Placeholders[0];
-  if (k.Current instanceof TreeNode) {
-    const siblingNodes = k.Current.ParentPlaceholder.Nodes;
-    const currentIndex = siblingNodes.indexOf(k.Current);
+  const encapsulatingPlaceholder = newNode.placeholders[0];
+  if (k.current instanceof TreeNode) {
+    const siblingNodes = k.current.parentPlaceholder.nodes;
+    const currentIndex = siblingNodes.indexOf(k.current);
     siblingNodes[currentIndex] = newNode;
-    newNode.ParentPlaceholder = k.Current.ParentPlaceholder;
-    if (k.Current instanceof RoundBracketsNode && config?.deleteOuterRoundBracketsIfAny) {
-      encapsulate(k.Current.Placeholders[0].Nodes, encapsulatingPlaceholder);
-      k.Current = firstAfterOrNull(newNode.Placeholders, encapsulatingPlaceholder) ?? newNode;
-    } else if (k.Current instanceof PartOfNumberWithDigits) {
-      encapsulatingPlaceholder.Nodes.push(k.Current);
-      k.Current.ParentPlaceholder = encapsulatingPlaceholder;
+    newNode.parentPlaceholder = k.current.parentPlaceholder;
+    if (k.current instanceof RoundBracketsNode && config?.deleteOuterRoundBracketsIfAny) {
+      encapsulate(k.current.placeholders[0].nodes, encapsulatingPlaceholder);
+      k.current = firstAfterOrNull(newNode.placeholders, encapsulatingPlaceholder) ?? newNode;
+    } else if (k.current instanceof PartOfNumberWithDigits) {
+      encapsulatingPlaceholder.nodes.push(k.current);
+      k.current.parentPlaceholder = encapsulatingPlaceholder;
       encapsulateAllPartsOfNumberWithDigitsLeftOfIndex(currentIndex, siblingNodes, encapsulatingPlaceholder);
       MoveRight(k);
     } else {
-      encapsulatingPlaceholder.Nodes.push(k.Current);
-      k.Current.ParentPlaceholder = encapsulatingPlaceholder;
+      encapsulatingPlaceholder.nodes.push(k.current);
+      k.current.parentPlaceholder = encapsulatingPlaceholder;
       MoveRight(k);
     }
   } else {

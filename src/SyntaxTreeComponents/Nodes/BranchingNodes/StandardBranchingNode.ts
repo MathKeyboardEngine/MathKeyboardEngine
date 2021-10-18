@@ -4,9 +4,9 @@ import { BranchingNode } from '../Base/BranchingNode';
 import { KeyboardMemory } from '../../../KeyboardEngine/KeyboardMemory';
 
 export class StandardBranchingNode extends BranchingNode {
-  private before: string;
-  private then: string;
-  private rest: string[];
+  private readonly before: string;
+  private readonly then: string;
+  private readonly rest: string[];
 
   constructor(before: string, then: string, ...rest: string[]) {
     const placeholderCount = rest.length + 1;
@@ -21,9 +21,9 @@ export class StandardBranchingNode extends BranchingNode {
   }
 
   getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
-    let latex = this.before + this.Placeholders[0].getLatex(keyboardMemory, latexConfiguration) + this.then;
+    let latex = this.before + this.placeholders[0].getLatex(keyboardMemory, latexConfiguration) + this.then;
     for (let i = 0; i < this.rest.length; i++) {
-      latex += this.Placeholders[i + 1].getLatex(keyboardMemory, latexConfiguration) + this.rest[i];
+      latex += this.placeholders[i + 1].getLatex(keyboardMemory, latexConfiguration) + this.rest[i];
     }
     return latex;
   }

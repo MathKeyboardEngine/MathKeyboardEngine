@@ -4,14 +4,14 @@ import { KeyboardMemory } from '../../KeyboardMemory';
 import { MoveRight } from '../Navigation/MoveRight';
 
 export function Insert(k: KeyboardMemory, newNode: TreeNode): void {
-  if (k.Current instanceof Placeholder) {
-    k.Current.Nodes.unshift(newNode);
-    newNode.ParentPlaceholder = k.Current;
+  if (k.current instanceof Placeholder) {
+    k.current.nodes.unshift(newNode);
+    newNode.parentPlaceholder = k.current;
   } else {
-    const parent: Placeholder = k.Current.ParentPlaceholder;
-    const indexOfCurrent = parent.Nodes.indexOf(k.Current);
-    parent.Nodes.splice(indexOfCurrent + 1, 0, newNode);
-    newNode.ParentPlaceholder = parent;
+    const parent: Placeholder = k.current.parentPlaceholder;
+    const indexOfCurrent = parent.nodes.indexOf(k.current);
+    parent.nodes.splice(indexOfCurrent + 1, 0, newNode);
+    newNode.parentPlaceholder = parent;
   }
   MoveRight(k);
 }

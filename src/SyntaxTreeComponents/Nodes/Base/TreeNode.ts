@@ -3,21 +3,21 @@ import { LatexConfiguration } from '../../../LatexConfiguration';
 import { Placeholder } from '../../Placeholder/Placeholder';
 
 export abstract class TreeNode {
-  ParentPlaceholder!: Placeholder;
+  parentPlaceholder!: Placeholder;
 
   abstract getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string;
   getLatex(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
     let latex = this.getLatexPart(keyboardMemory, latexConfiguration);
-    if (keyboardMemory.SelectionDiff != null && keyboardMemory.SelectionDiff != 0) {
-      if (keyboardMemory.InclusiveSelectionLeftBorder === this) {
+    if (keyboardMemory.selectionDiff != null && keyboardMemory.selectionDiff != 0) {
+      if (keyboardMemory.inclusiveSelectionLeftBorder === this) {
         latex = latexConfiguration.selectionHightlightStart + latex;
       }
-      if (keyboardMemory.InclusiveSelectionRightBorder === this) {
+      if (keyboardMemory.inclusiveSelectionRightBorder === this) {
         latex = latex + latexConfiguration.selectionHightlightEnd;
       }
       return latex;
     } else {
-      if (keyboardMemory.Current === this) {
+      if (keyboardMemory.current === this) {
         return latex + latexConfiguration.activePlaceholderLatex;
       } else {
         return latex;

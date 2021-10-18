@@ -2,13 +2,13 @@ import { TreeNode } from './TreeNode';
 import { Placeholder } from '../../Placeholder/Placeholder';
 
 export abstract class BranchingNode extends TreeNode {
-  Placeholders: Placeholder[];
+  placeholders: Placeholder[];
 
   constructor(leftToRight: Placeholder[]) {
     super();
-    this.Placeholders = leftToRight;
-    this.Placeholders.forEach((ph) => {
-      ph.ParentNode = this;
+    this.placeholders = leftToRight;
+    this.placeholders.forEach((ph) => {
+      ph.parentNode = this;
     });
   }
 

@@ -132,7 +132,7 @@ describe(DeleteCurrent.name, () => {
     // Act & assert
     DeleteCurrent(k);
     expectLatex('{2}^{3◼}', k);
-    assert.isTrue(d3.ParentPlaceholder == p.Placeholders[1]);
+    assert.isTrue(d3.parentPlaceholder == p.placeholders[1]);
     DeleteCurrent(k);
     expectLatex('{2}^{◼}', k);
   });
@@ -151,7 +151,7 @@ describe(DeleteCurrent.name, () => {
     // Act & assert
     DeleteCurrent(k);
     expectLatex('{2}^{3◼}', k);
-    assert.isTrue(d3.ParentPlaceholder == p.Placeholders[1]);
+    assert.isTrue(d3.parentPlaceholder == p.placeholders[1]);
     DeleteCurrent(k);
     expectLatex('{2}^{◼}', k);
   });

@@ -6,19 +6,19 @@ import { KeyboardMemory } from '../../KeyboardMemory';
 import { setSelectionDiff } from './helpers/setSelectionDiff';
 
 export function SelectRight(k: KeyboardMemory): void {
-  const oldDiffWithCurrent = k.SelectionDiff ?? 0;
+  const oldDiffWithCurrent = k.selectionDiff ?? 0;
   if (
-    (k.Current instanceof Placeholder && oldDiffWithCurrent < k.Current.Nodes.length) ||
-    (k.Current instanceof TreeNode && k.Current.ParentPlaceholder.Nodes.indexOf(k.Current) + oldDiffWithCurrent < k.Current.ParentPlaceholder.Nodes.length - 1)
+    (k.current instanceof Placeholder && oldDiffWithCurrent < k.current.nodes.length) ||
+    (k.current instanceof TreeNode && k.current.parentPlaceholder.nodes.indexOf(k.current) + oldDiffWithCurrent < k.current.parentPlaceholder.nodes.length - 1)
   ) {
     setSelectionDiff(k, oldDiffWithCurrent + 1);
   } else if (
-    k.InclusiveSelectionRightBorder instanceof TreeNode &&
-    last(k.InclusiveSelectionRightBorder.ParentPlaceholder.Nodes) == k.InclusiveSelectionRightBorder &&
-    k.InclusiveSelectionRightBorder.ParentPlaceholder.ParentNode != null
+    k.inclusiveSelectionRightBorder instanceof TreeNode &&
+    last(k.inclusiveSelectionRightBorder.parentPlaceholder.nodes) == k.inclusiveSelectionRightBorder &&
+    k.inclusiveSelectionRightBorder.parentPlaceholder.parentNode != null
   ) {
-    const ancestorNode = k.InclusiveSelectionRightBorder.ParentPlaceholder.ParentNode;
-    k.Current = firstBeforeOrNull(ancestorNode.ParentPlaceholder.Nodes, ancestorNode) ?? ancestorNode.ParentPlaceholder;
+    const ancestorNode = k.inclusiveSelectionRightBorder.parentPlaceholder.parentNode;
+    k.current = firstBeforeOrNull(ancestorNode.parentPlaceholder.nodes, ancestorNode) ?? ancestorNode.parentPlaceholder;
     setSelectionDiff(k, 1);
   }
 }

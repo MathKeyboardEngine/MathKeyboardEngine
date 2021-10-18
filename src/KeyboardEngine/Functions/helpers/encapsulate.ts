@@ -3,7 +3,7 @@ import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placehold
 
 export function encapsulate(nodes: TreeNode[], encapsulatingPlaceholder: Placeholder): void {
   for (const node of nodes) {
-    node.ParentPlaceholder = encapsulatingPlaceholder;
-    encapsulatingPlaceholder.Nodes.push(node);
+    node.parentPlaceholder = encapsulatingPlaceholder;
+    encapsulatingPlaceholder.nodes.push(node);
   }
 }

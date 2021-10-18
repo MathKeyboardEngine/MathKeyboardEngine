@@ -6,12 +6,12 @@ import { encapsulate } from '../helpers/encapsulate';
 import { InsertWithEncapsulateCurrent } from './InsertWithEncapsulateCurrent';
 
 export function InsertWithEncapsulateSelectionAndPrevious(keyboardMemory: KeyboardMemory, newNode: BranchingNode): void {
-  if (newNode.Placeholders.length < 2) {
+  if (newNode.placeholders.length < 2) {
     throw 'Expected 2 placeholders.';
   }
   const selection = popSelection(keyboardMemory);
-  const secondPlaceholder = newNode.Placeholders[1];
+  const secondPlaceholder = newNode.placeholders[1];
   encapsulate(selection, secondPlaceholder);
   InsertWithEncapsulateCurrent(keyboardMemory, newNode);
-  keyboardMemory.Current = lastOrNull(selection) ?? secondPlaceholder;
+  keyboardMemory.current = lastOrNull(selection) ?? secondPlaceholder;
 }

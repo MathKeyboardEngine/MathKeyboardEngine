@@ -21,7 +21,7 @@ import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents
 describe(InsertWithEncapsulateCurrent.name, () => {
   it('does a regular insert if current is a placeholder', () => {
     const k = new KeyboardMemory();
-    assert.isTrue(k.Current instanceof Placeholder);
+    assert.isTrue(k.current instanceof Placeholder);
     expectLatex('◼', k);
     InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
     expectLatex('{◼}^{◻}', k);
@@ -95,7 +95,7 @@ describe(InsertWithEncapsulateCurrent.name, () => {
     const powerNode = new AscendingBranchingNode('', '^{', '}');
     InsertWithEncapsulateCurrent(k, powerNode);
     expectLatex(String.raw`1+(2+3)^{◼}`, k);
-    expect(powerNode.Placeholders[0].getLatex(k, null!)).to.be.equal('(2+3)');
+    expect(powerNode.placeholders[0].getLatex(k, null!)).to.be.equal('(2+3)');
   });
 
   it('config.deleteOuterRoundBracketsIfAny: deletes outer round brackets during encapsulation', () => {
@@ -133,7 +133,7 @@ describe(InsertWithEncapsulateCurrent.name, () => {
       deleteOuterRoundBracketsIfAny: true,
     });
     expectLatex(String.raw`1+\frac{|x+3|}{◼}`, k);
-    expect(fraction.Placeholders[0].getLatex(k, null!)).to.be.equal('|x+3|');
+    expect(fraction.placeholders[0].getLatex(k, null!)).to.be.equal('|x+3|');
   });
 
   it('RoundBracketsNode & config.deleteOuterRoundBracketsIfAny: encapsulation by single-placeholder BranchingNode sets the cursor right outside of the new node', () => {

@@ -6,33 +6,33 @@ import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placehold
 import { KeyboardMemory } from '../../KeyboardMemory';
 
 export function MoveLeft(k: KeyboardMemory): void {
-  if (k.Current instanceof Placeholder) {
-    if (k.Current.ParentNode == null) {
+  if (k.current instanceof Placeholder) {
+    if (k.current.parentNode == null) {
       return;
     }
 
-    const previousPlaceholder: Placeholder | null = firstBeforeOrNull(k.Current.ParentNode.Placeholders, k.Current);
+    const previousPlaceholder: Placeholder | null = firstBeforeOrNull(k.current.parentNode.placeholders, k.current);
     if (previousPlaceholder !== null) {
-      if (previousPlaceholder.Nodes.length == 0) {
-        k.Current = previousPlaceholder;
+      if (previousPlaceholder.nodes.length == 0) {
+        k.current = previousPlaceholder;
       } else {
-        k.Current = last(previousPlaceholder.Nodes);
+        k.current = last(previousPlaceholder.nodes);
       }
     } else {
-      const ancestorPlaceholder = k.Current.ParentNode.ParentPlaceholder;
-      const nodePreviousToParentOfCurrent: TreeNode | null = firstBeforeOrNull(ancestorPlaceholder.Nodes, k.Current.ParentNode);
+      const ancestorPlaceholder = k.current.parentNode.parentPlaceholder;
+      const nodePreviousToParentOfCurrent: TreeNode | null = firstBeforeOrNull(ancestorPlaceholder.nodes, k.current.parentNode);
       if (nodePreviousToParentOfCurrent != null) {
-        k.Current = nodePreviousToParentOfCurrent;
+        k.current = nodePreviousToParentOfCurrent;
       } else {
-        k.Current = ancestorPlaceholder;
+        k.current = ancestorPlaceholder;
       }
     }
   } else {
-    if (k.Current instanceof BranchingNode) {
-      const placeholder = last(k.Current.Placeholders);
-      k.Current = last(placeholder.Nodes) ?? placeholder;
+    if (k.current instanceof BranchingNode) {
+      const placeholder = last(k.current.placeholders);
+      k.current = last(placeholder.nodes) ?? placeholder;
     } else {
-      k.Current = firstBeforeOrNull(k.Current.ParentPlaceholder.Nodes, k.Current) ?? k.Current.ParentPlaceholder;
+      k.current = firstBeforeOrNull(k.current.parentPlaceholder.nodes, k.current) ?? k.current.parentPlaceholder;
     }
   }
 }

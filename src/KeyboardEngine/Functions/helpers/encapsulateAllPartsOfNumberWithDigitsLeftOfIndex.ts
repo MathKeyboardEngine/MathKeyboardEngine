@@ -8,8 +8,8 @@ export function encapsulateAllPartsOfNumberWithDigitsLeftOfIndex(exclusiveRightI
     const siblingNode = siblingNodes[i];
     if (siblingNode instanceof PartOfNumberWithDigits) {
       remove(siblingNodes, siblingNode);
-      toPlaceholder.Nodes.unshift(siblingNode);
-      siblingNode.ParentPlaceholder = toPlaceholder;
+      toPlaceholder.nodes.unshift(siblingNode);
+      siblingNode.parentPlaceholder = toPlaceholder;
     } else {
       break;
     }

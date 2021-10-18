@@ -11,74 +11,74 @@ import { PartOfNumberWithDigits } from '../../../SyntaxTreeComponents/Nodes/Leaf
 import { encapsulateAllPartsOfNumberWithDigitsLeftOfIndex } from '../helpers/encapsulateAllPartsOfNumberWithDigitsLeftOfIndex';
 
 export function DeleteCurrent(k: KeyboardMemory): void {
-  if (k.Current instanceof Placeholder) {
-    if (k.Current.ParentNode == null || k.Current.Nodes.length > 0) {
+  if (k.current instanceof Placeholder) {
+    if (k.current.parentNode == null || k.current.nodes.length > 0) {
       return;
     } else {
-      const nonEmptyPlaceholderOnLeft: Placeholder | null = getFirstNonEmptyOnLeftOf(k.Current.ParentNode.Placeholders, k.Current);
+      const nonEmptyPlaceholderOnLeft: Placeholder | null = getFirstNonEmptyOnLeftOf(k.current.parentNode.placeholders, k.current);
       if (nonEmptyPlaceholderOnLeft) {
-        if (k.Current.ParentNode.Placeholders.length == 2 && k.Current === k.Current.ParentNode.Placeholders[1] && k.Current.Nodes.length == 0) {
-          k.Current.ParentNode.ParentPlaceholder.Nodes.pop();
-          for (const node of nonEmptyPlaceholderOnLeft.Nodes) {
-            k.Current.ParentNode.ParentPlaceholder.Nodes.push(node);
-            node.ParentPlaceholder = k.Current.ParentNode.ParentPlaceholder;
+        if (k.current.parentNode.placeholders.length == 2 && k.current === k.current.parentNode.placeholders[1] && k.current.nodes.length == 0) {
+          k.current.parentNode.parentPlaceholder.nodes.pop();
+          for (const node of nonEmptyPlaceholderOnLeft.nodes) {
+            k.current.parentNode.parentPlaceholder.nodes.push(node);
+            node.parentPlaceholder = k.current.parentNode.parentPlaceholder;
           }
-          k.Current = last(nonEmptyPlaceholderOnLeft.Nodes);
+          k.current = last(nonEmptyPlaceholderOnLeft.nodes);
         } else {
-          nonEmptyPlaceholderOnLeft.Nodes.pop();
-          k.Current = lastOrNull(nonEmptyPlaceholderOnLeft.Nodes) ?? nonEmptyPlaceholderOnLeft;
+          nonEmptyPlaceholderOnLeft.nodes.pop();
+          k.current = lastOrNull(nonEmptyPlaceholderOnLeft.nodes) ?? nonEmptyPlaceholderOnLeft;
         }
-      } else if (k.Current.ParentNode.Placeholders.every((ph) => ph.Nodes.length == 0)) {
-        const ancestorPlaceholder = k.Current.ParentNode.ParentPlaceholder;
-        const previousNode = firstBeforeOrNull(ancestorPlaceholder.Nodes, k.Current.ParentNode);
-        remove(ancestorPlaceholder.Nodes, k.Current.ParentNode);
-        k.Current = previousNode ?? ancestorPlaceholder;
-      } else if (k.Current.ParentNode.Placeholders[0] === k.Current && k.Current.Nodes.length == 0 && k.Current.ParentNode.Placeholders.some((ph) => ph.Nodes.length != 0)) {
-        const previousNode = firstBeforeOrNull(k.Current.ParentNode!.ParentPlaceholder.Nodes, k.Current.ParentNode);
+      } else if (k.current.parentNode.placeholders.every((ph) => ph.nodes.length == 0)) {
+        const ancestorPlaceholder = k.current.parentNode.parentPlaceholder;
+        const previousNode = firstBeforeOrNull(ancestorPlaceholder.nodes, k.current.parentNode);
+        remove(ancestorPlaceholder.nodes, k.current.parentNode);
+        k.current = previousNode ?? ancestorPlaceholder;
+      } else if (k.current.parentNode.placeholders[0] === k.current && k.current.nodes.length == 0 && k.current.parentNode.placeholders.some((ph) => ph.nodes.length != 0)) {
+        const previousNode = firstBeforeOrNull(k.current.parentNode!.parentPlaceholder.nodes, k.current.parentNode);
         if (previousNode != null) {
-          encapsulatePreviousInto(previousNode, k.Current);
-          k.Current = last(k.Current.Nodes);
+          encapsulatePreviousInto(previousNode, k.current);
+          k.current = last(k.current.nodes);
         } else {
-          const nonEmptySiblingPlaceholders = k.Current.ParentNode.Placeholders.filter((p) => p.Nodes.length != 0);
+          const nonEmptySiblingPlaceholders = k.current.parentNode.placeholders.filter((p) => p.nodes.length != 0);
           if (nonEmptySiblingPlaceholders.length == 1) {
-            const nodes = nonEmptySiblingPlaceholders[0].Nodes;
-            const ancestorPlaceholder = k.Current.ParentNode.ParentPlaceholder;
-            const indexOfParentNode = ancestorPlaceholder.Nodes.indexOf(k.Current.ParentNode);
+            const nodes = nonEmptySiblingPlaceholders[0].nodes;
+            const ancestorPlaceholder = k.current.parentNode.parentPlaceholder;
+            const indexOfParentNode = ancestorPlaceholder.nodes.indexOf(k.current.parentNode);
             for (const node of nodes) {
-              node.ParentPlaceholder = ancestorPlaceholder;
+              node.parentPlaceholder = ancestorPlaceholder;
             }
-            ancestorPlaceholder.Nodes.splice(indexOfParentNode, 1, ...nodes);
-            k.Current = last(nodes);
+            ancestorPlaceholder.nodes.splice(indexOfParentNode, 1, ...nodes);
+            k.current = last(nodes);
           }
         }
       }
     }
   } else {
-    if (k.Current instanceof BranchingNode && k.Current.Placeholders.some((ph) => ph.Nodes.length > 0)) {
+    if (k.current instanceof BranchingNode && k.current.placeholders.some((ph) => ph.nodes.length > 0)) {
       let lastPlaceholderWithContent!: Placeholder;
-      for (let i = k.Current.Placeholders.length - 1; i >= 0; i--) {
-        const ph = k.Current.Placeholders[i];
-        if (ph.Nodes.length > 0) {
+      for (let i = k.current.placeholders.length - 1; i >= 0; i--) {
+        const ph = k.current.placeholders[i];
+        if (ph.nodes.length > 0) {
           lastPlaceholderWithContent = ph;
           break;
         }
       }
-      lastPlaceholderWithContent.Nodes.pop();
-      k.Current = lastPlaceholderWithContent.Nodes.length == 0 ? lastPlaceholderWithContent : last(lastPlaceholderWithContent.Nodes);
+      lastPlaceholderWithContent.nodes.pop();
+      k.current = lastPlaceholderWithContent.nodes.length == 0 ? lastPlaceholderWithContent : last(lastPlaceholderWithContent.nodes);
     } else {
-      const previousNode: TreeNode | null = firstBeforeOrNull(k.Current.ParentPlaceholder.Nodes, k.Current);
-      remove(k.Current.ParentPlaceholder.Nodes, k.Current);
-      k.Current = previousNode ?? k.Current.ParentPlaceholder;
+      const previousNode: TreeNode | null = firstBeforeOrNull(k.current.parentPlaceholder.nodes, k.current);
+      remove(k.current.parentPlaceholder.nodes, k.current);
+      k.current = previousNode ?? k.current.parentPlaceholder;
     }
   }
 }
 
 function encapsulatePreviousInto(previousNode: TreeNode, targetPlaceholder: Placeholder) {
-  remove(targetPlaceholder.ParentNode!.ParentPlaceholder.Nodes, previousNode);
-  targetPlaceholder.Nodes.push(previousNode);
-  const previousNodeOldParentPlaceholder = previousNode.ParentPlaceholder;
-  previousNode.ParentPlaceholder = targetPlaceholder;
+  remove(targetPlaceholder.parentNode!.parentPlaceholder.nodes, previousNode);
+  targetPlaceholder.nodes.push(previousNode);
+  const previousNodeOldParentPlaceholder = previousNode.parentPlaceholder;
+  previousNode.parentPlaceholder = targetPlaceholder;
   if (previousNode instanceof PartOfNumberWithDigits) {
-    encapsulateAllPartsOfNumberWithDigitsLeftOfIndex(previousNodeOldParentPlaceholder.Nodes.length - 1, previousNodeOldParentPlaceholder.Nodes, targetPlaceholder);
+    encapsulateAllPartsOfNumberWithDigitsLeftOfIndex(previousNodeOldParentPlaceholder.nodes.length - 1, previousNodeOldParentPlaceholder.nodes, targetPlaceholder);
   }
 }

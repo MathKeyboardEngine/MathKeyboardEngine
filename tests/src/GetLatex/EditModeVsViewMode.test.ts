@@ -38,6 +38,6 @@ describe('GetLatex', () => {
     Insert(k, new DigitNode('3'));
     MoveDown(k);
     expect(String.raw`\frac{3}{◼}`).to.equal(GetEditModeLatex(k, config));
-    expect('3').to.equal(GetViewModeLatex(fraction.Placeholders[0], config));
+    expect('3').to.equal(GetViewModeLatex(fraction.placeholders[0], config));
   });
 });

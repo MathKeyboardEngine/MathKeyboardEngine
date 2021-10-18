@@ -25,6 +25,6 @@ class DummyBranchingNode extends BranchingNode {
     super([new Placeholder()]);
   }
   override getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
-    return 'wow >> ' + this.Placeholders[0].getLatex(keyboardMemory, latexConfiguration) + ' << wow';
+    return 'wow >> ' + this.placeholders[0].getLatex(keyboardMemory, latexConfiguration) + ' << wow';
   }
 }

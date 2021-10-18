@@ -2,26 +2,26 @@ import { Placeholder } from '../../../../SyntaxTreeComponents/Placeholder/Placeh
 import { KeyboardMemory } from '../../../KeyboardMemory';
 
 export function setSelectionDiff(k: KeyboardMemory, diffWithCurrent: number): void {
-  k.SelectionDiff = diffWithCurrent;
+  k.selectionDiff = diffWithCurrent;
   if (diffWithCurrent == 0) {
-    k.InclusiveSelectionLeftBorder = null;
-    k.InclusiveSelectionRightBorder = null;
-  } else if (k.Current instanceof Placeholder) {
-    k.InclusiveSelectionLeftBorder = k.Current;
-    k.InclusiveSelectionRightBorder = k.Current.Nodes[diffWithCurrent - 1];
+    k.inclusiveSelectionLeftBorder = null;
+    k.inclusiveSelectionRightBorder = null;
+  } else if (k.current instanceof Placeholder) {
+    k.inclusiveSelectionLeftBorder = k.current;
+    k.inclusiveSelectionRightBorder = k.current.nodes[diffWithCurrent - 1];
   } else {
-    const nodes = k.Current.ParentPlaceholder.Nodes;
-    const indexOfCurrent = nodes.indexOf(k.Current);
+    const nodes = k.current.parentPlaceholder.nodes;
+    const indexOfCurrent = nodes.indexOf(k.current);
     if (diffWithCurrent > 0) {
-      k.InclusiveSelectionLeftBorder = nodes[indexOfCurrent + 1];
-      k.InclusiveSelectionRightBorder = nodes[indexOfCurrent + diffWithCurrent];
+      k.inclusiveSelectionLeftBorder = nodes[indexOfCurrent + 1];
+      k.inclusiveSelectionRightBorder = nodes[indexOfCurrent + diffWithCurrent];
     } else {
       const indexOfNewInclusiveSelectionLeftBorder = indexOfCurrent + diffWithCurrent + 1;
       if (indexOfNewInclusiveSelectionLeftBorder < 0) {
         throw 'The node at index 0 of the current Placeholder is as far as you can left if Current is a TreeNode.';
       }
-      k.InclusiveSelectionLeftBorder = nodes[indexOfNewInclusiveSelectionLeftBorder];
-      k.InclusiveSelectionRightBorder = k.Current;
+      k.inclusiveSelectionLeftBorder = nodes[indexOfNewInclusiveSelectionLeftBorder];
+      k.inclusiveSelectionRightBorder = k.current;
     }
   }
 }
