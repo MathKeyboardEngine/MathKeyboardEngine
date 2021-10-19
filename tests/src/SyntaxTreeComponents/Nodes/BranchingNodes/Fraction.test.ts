@@ -1,14 +1,14 @@
 import { describe } from 'mocha';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert_';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight_';
-import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveDown_';
-import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insertion/insertWithEncapsulateCurrent_';
+import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight';
+import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveDown';
+import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insertion/insertWithEncapsulateCurrent';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { deleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Deletion/deleteCurrent_';
-import { moveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveUp_';
-import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft_';
+import { deleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Deletion/deleteCurrent';
+import { moveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveUp';
+import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft';
 import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
 
 describe('Fraction', () => {

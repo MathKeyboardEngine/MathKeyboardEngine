@@ -1,15 +1,15 @@
 import { describe } from 'mocha';
 import { expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert_';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
 import { MatrixNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MatrixNode';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight_';
-import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveDown_';
-import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft_';
+import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight';
+import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveDown';
+import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { moveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveUp_';
-import { deleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Deletion/deleteCurrent_';
+import { moveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveUp';
+import { deleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Deletion/deleteCurrent';
 import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 import { nameof } from '../../../../helpers/nameof';
 

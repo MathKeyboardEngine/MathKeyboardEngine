@@ -1,52 +1,52 @@
-import { getEditModeLatex } from './GetLatex/getEditModeLatex_';
+import { getEditModeLatex } from './GetLatex/getEditModeLatex';
 export { getEditModeLatex };
 
-import { getViewModeLatex } from './GetLatex/getViewModeLatex_';
+import { getViewModeLatex } from './GetLatex/getViewModeLatex';
 export { getViewModeLatex };
 
-import { deleteCurrent } from './KeyboardEngine/Functions/Deletion/deleteCurrent_';
+import { deleteCurrent } from './KeyboardEngine/Functions/Deletion/deleteCurrent';
 export { deleteCurrent };
 
-import { deleteSelection } from './KeyboardEngine/Functions/Deletion/deleteSelection_';
+import { deleteSelection } from './KeyboardEngine/Functions/Deletion/deleteSelection';
 export { deleteSelection };
 
-import { insert } from './KeyboardEngine/Functions/Insertion/insert_';
+import { insert } from './KeyboardEngine/Functions/Insertion/insert';
 export { insert };
 
-import { insertWithEncapsulateCurrent } from './KeyboardEngine/Functions/Insertion/insertWithEncapsulateCurrent_';
+import { insertWithEncapsulateCurrent } from './KeyboardEngine/Functions/Insertion/insertWithEncapsulateCurrent';
 export { insertWithEncapsulateCurrent };
 
-import { insertWithEncapsulateSelection } from './KeyboardEngine/Functions/Insertion/insertWithEncapsulateSelection_';
+import { insertWithEncapsulateSelection } from './KeyboardEngine/Functions/Insertion/insertWithEncapsulateSelection';
 export { insertWithEncapsulateSelection };
 
-import { insertWithEncapsulateSelectionAndPrevious } from './KeyboardEngine/Functions/Insertion/insertWithEncapsulateSelectionAndPrevious_';
+import { insertWithEncapsulateSelectionAndPrevious } from './KeyboardEngine/Functions/Insertion/insertWithEncapsulateSelectionAndPrevious';
 export { insertWithEncapsulateSelectionAndPrevious };
 
-import { moveDown } from './KeyboardEngine/Functions/Navigation/moveDown_';
+import { moveDown } from './KeyboardEngine/Functions/Navigation/moveDown';
 export { moveDown };
 
-import { moveLeft } from './KeyboardEngine/Functions/Navigation/moveLeft_';
+import { moveLeft } from './KeyboardEngine/Functions/Navigation/moveLeft';
 export { moveLeft };
 
-import { moveRight } from './KeyboardEngine/Functions/Navigation/moveRight_';
+import { moveRight } from './KeyboardEngine/Functions/Navigation/moveRight';
 export { moveRight };
 
-import { moveUp } from './KeyboardEngine/Functions/Navigation/moveUp_';
+import { moveUp } from './KeyboardEngine/Functions/Navigation/moveUp';
 export { moveUp };
 
-import { enterSelectionMode } from './KeyboardEngine/Functions/Selection/enterSelectionMode_';
+import { enterSelectionMode } from './KeyboardEngine/Functions/Selection/enterSelectionMode';
 export { enterSelectionMode };
 
-import { inSelectionMode } from './KeyboardEngine/Functions/Selection/inSelectionMode_';
+import { inSelectionMode } from './KeyboardEngine/Functions/Selection/inSelectionMode';
 export { inSelectionMode };
 
-import { leaveSelectionMode } from './KeyboardEngine/Functions/Selection/leaveSelectionMode_';
+import { leaveSelectionMode } from './KeyboardEngine/Functions/Selection/leaveSelectionMode';
 export { leaveSelectionMode };
 
-import { selectLeft } from './KeyboardEngine/Functions/Selection/selectLeft_';
+import { selectLeft } from './KeyboardEngine/Functions/Selection/selectLeft';
 export { selectLeft };
 
-import { selectRight } from './KeyboardEngine/Functions/Selection/selectRight_';
+import { selectRight } from './KeyboardEngine/Functions/Selection/selectRight';
 export { selectRight };
 
 import { KeyboardMemory } from './KeyboardEngine/KeyboardMemory';
