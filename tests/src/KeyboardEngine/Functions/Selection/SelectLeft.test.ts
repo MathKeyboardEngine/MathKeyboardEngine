@@ -3,7 +3,7 @@ import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { selectLeft as SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
+import { selectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
 import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
 import { enterSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/EnterSelectionMode';
 import { inSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/InSelectionMode';
@@ -15,7 +15,7 @@ import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder
 import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/TreeNode';
 import { nameof } from '../../../../helpers/nameof';
 
-describe(SelectLeft.name, () => {
+describe(selectLeft.name, () => {
   it(`can select a single ${TreeNode.name} and the selection is correctly displayed if the left exlusive border is a ${TreeNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
@@ -23,7 +23,7 @@ describe(SelectLeft.name, () => {
     insert(k, new DigitNode('2'));
     expectLatex('12◼', k);
     // Act
-    SelectLeft(k);
+    selectLeft(k);
     // Assert
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
   });
@@ -34,7 +34,7 @@ describe(SelectLeft.name, () => {
     insert(k, new DigitNode('1'));
     expectLatex('1◼', k);
     // Act
-    SelectLeft(k);
+    selectLeft(k);
     // Assert
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
   });
@@ -47,8 +47,8 @@ describe(SelectLeft.name, () => {
     insert(k, new DigitNode('3'));
     expectLatex('123◼', k);
     // Act
-    SelectLeft(k);
-    SelectLeft(k);
+    selectLeft(k);
+    selectLeft(k);
     // Assert
     expectLatex(String.raw`1\colorbox{blue}{23}`, k);
   });
@@ -60,8 +60,8 @@ describe(SelectLeft.name, () => {
     insert(k, new DigitNode('2'));
     expectLatex('12◼', k);
     // Act
-    SelectLeft(k);
-    SelectLeft(k);
+    selectLeft(k);
+    selectLeft(k);
     // Assert
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
   });
@@ -74,7 +74,7 @@ describe(SelectLeft.name, () => {
     expectLatex('◼1', k);
     enterSelectionMode(k);
     // Act
-    SelectLeft(k);
+    selectLeft(k);
     // Assert
     expectLatex('◼1', k);
   });
@@ -83,10 +83,10 @@ describe(SelectLeft.name, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
-    SelectLeft(k);
+    selectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
     // Act
-    SelectLeft(k);
+    selectLeft(k);
     // Assert
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
   });
@@ -99,7 +99,7 @@ describe(SelectLeft.name, () => {
     selectRight(k);
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
     // Act
-    SelectLeft(k);
+    selectLeft(k);
     // Assert
     expectLatex('◼1', k);
     assert.isTrue(inSelectionMode(k));
@@ -112,10 +112,10 @@ describe(SelectLeft.name, () => {
     insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
     insert(k, new DigitNode('x'));
     expectLatex(String.raw`{2}^{x◼}`, k);
-    SelectLeft(k);
+    selectLeft(k);
     expectLatex(String.raw`{2}^{\colorbox{blue}{x}}`, k);
     // Act
-    SelectLeft(k);
+    selectLeft(k);
     // Assert
     expectLatex(String.raw`\colorbox{blue}{{2}^{x}}`, k);
   });
