@@ -1,10 +1,10 @@
 import { last } from '../../../helpers/arrayhelpers/last';
 import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/BranchingNode';
 import { KeyboardMemory } from '../../KeyboardMemory';
-import { moveRight } from '../Navigation/MoveRight';
+import { moveRight } from '../Navigation/moveRight';
 import { popSelection } from '../Selection/helpers/popSelection';
 import { encapsulate } from '../helpers/encapsulate';
-import { insert } from './Insert';
+import { insert } from './insert';
 
 export function insertWithEncapsulateSelection(k: KeyboardMemory, newNode: BranchingNode): void {
   const selection = popSelection(k);

@@ -1,7 +1,7 @@
 import { TreeNode } from '../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
 import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placeholder';
 import { KeyboardMemory } from '../../KeyboardMemory';
-import { moveRight } from '../Navigation/MoveRight';
+import { moveRight } from '../Navigation/moveRight';
 
 export function insert(k: KeyboardMemory, newNode: TreeNode): void {
   if (k.current instanceof Placeholder) {

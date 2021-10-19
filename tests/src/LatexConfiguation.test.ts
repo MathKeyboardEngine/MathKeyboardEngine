@@ -1,10 +1,10 @@
 import { describe } from 'mocha';
 import { expect } from 'chai';
 import { KeyboardMemory } from '../../src/KeyboardEngine/KeyboardMemory';
-import { insert } from '../../src/KeyboardEngine/Functions/Insert/Insert';
+import { insert } from '../../src/KeyboardEngine/Functions/Insert/insert';
 import { LatexConfiguration } from '../../src/LatexConfiguration';
 import { AscendingBranchingNode } from '../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
-import { getEditModeLatex } from '../../src/GetLatex/GetEditModeLatex';
+import { getEditModeLatex } from '../../src/GetLatex/getEditModeLatex';
 import { Placeholder } from '../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 
 describe(LatexConfiguration.name, () => {

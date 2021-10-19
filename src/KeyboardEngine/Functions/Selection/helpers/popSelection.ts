@@ -2,7 +2,7 @@ import { firstBeforeOrNull } from '../../../../helpers/arrayhelpers/firstBeforeO
 import { TreeNode } from '../../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
 import { Placeholder } from '../../../../SyntaxTreeComponents/Placeholder/Placeholder';
 import { KeyboardMemory } from '../../../KeyboardMemory';
-import { leaveSelectionMode } from '../LeaveSelectionMode';
+import { leaveSelectionMode } from '../leaveSelectionMode';
 
 export function popSelection(k: KeyboardMemory): TreeNode[] {
   if (k.selectionDiff == null) {
