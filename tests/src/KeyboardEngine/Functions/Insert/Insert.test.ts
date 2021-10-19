@@ -2,50 +2,68 @@ import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
+import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
+import { nameof } from '../../../../helpers/nameof';
+import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/TreeNode';
+import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 
-describe(Insert.name, () => {
-  it('inserts at the start of an Node[] - it prepends - if Current is a Placeholder', () => {
+describe(insert.name, () => {
+  it(`inserts at the start of a ${TreeNode.name}[] (it "prepends") if ${nameof<KeyboardMemory>("current")} is a ${Placeholder.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
     const digitNode1 = new DigitNode('1');
-    Insert(k, digitNode1);
+    insert(k, digitNode1);
     expectLatex('1◼', k);
-    MoveLeft(k);
+    moveLeft(k);
     expect(k.current).to.equal(digitNode1.parentPlaceholder);
     expectLatex('◼1', k);
-    Insert(k, new DigitNode('2'));
+    // Act
+    insert(k, new DigitNode('2'));
+    // Assert
     expectLatex('2◼1', k);
   });
 
-  it('inserts at the right of an Node if Current is an Node', () => {
+  it(`inserts at the right of a ${TreeNode.name} if ${nameof<KeyboardMemory>("current")} is a ${TreeNode.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
     const digitNode1 = new DigitNode('1');
-    Insert(k, digitNode1);
+    insert(k, digitNode1);
     expect(k.current).to.equal(digitNode1);
     expectLatex('1◼', k);
-    Insert(k, new DigitNode('2'));
+    // Act 1
+    insert(k, new DigitNode('2'));
+    // Assert 1
     expectLatex('12◼', k);
-    MoveLeft(k);
+    // Arrange 2
+    moveLeft(k);
     expect(k.current).to.equal(digitNode1);
     expectLatex('1◼2', k);
-    Insert(k, new DigitNode('3'));
+    // Act 2
+    insert(k, new DigitNode('3'));
+    // Assert 2
     expectLatex('13◼2', k);
   });
 
-  it('sets the ParentPlaceholder of the inserted Node', () => {
+  it(`sets the ${nameof<TreeNode>("parentPlaceholder")}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
     const node = new DigitNode('1');
     assert.isUndefined(node.parentPlaceholder);
-    Insert(k, node);
+    // Act
+    insert(k, node);
+    // Assert
     assert.isNotNull(node.parentPlaceholder);
   });
 
-  it('sets Current', () => {
+  it(`sets ${nameof<KeyboardMemory>("current")}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
     const originalCurrent = k.current;
-    Insert(k, new DigitNode('1'));
+    // Act
+    insert(k, new DigitNode('1'));
+    // Assert
     expect(originalCurrent).not.to.equal(k.current);
   });
 });

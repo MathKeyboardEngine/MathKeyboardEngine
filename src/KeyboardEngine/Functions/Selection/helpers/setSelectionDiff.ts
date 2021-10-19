@@ -18,7 +18,7 @@ export function setSelectionDiff(k: KeyboardMemory, diffWithCurrent: number): vo
     } else {
       const indexOfNewInclusiveSelectionLeftBorder = indexOfCurrent + diffWithCurrent + 1;
       if (indexOfNewInclusiveSelectionLeftBorder < 0) {
-        throw 'The node at index 0 of the current Placeholder is as far as you can left if Current is a TreeNode.';
+        throw 'The TreeNode at index 0 of the current Placeholder is as far as you can go left if current is a TreeNode.';
       }
       k.inclusiveSelectionLeftBorder = nodes[indexOfNewInclusiveSelectionLeftBorder];
       k.inclusiveSelectionRightBorder = k.current;

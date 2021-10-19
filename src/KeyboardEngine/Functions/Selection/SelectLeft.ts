@@ -3,7 +3,7 @@ import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placehold
 import { KeyboardMemory } from '../../KeyboardMemory';
 import { setSelectionDiff } from './helpers/setSelectionDiff';
 
-export function SelectLeft(k: KeyboardMemory): void {
+export function selectLeft(k: KeyboardMemory): void {
   const oldDiffWithCurrent = k.selectionDiff ?? 0;
   if ((k.current instanceof TreeNode && k.current.parentPlaceholder.nodes.indexOf(k.current) + oldDiffWithCurrent >= 0) || (k.current instanceof Placeholder && oldDiffWithCurrent > 0)) {
     setSelectionDiff(k, oldDiffWithCurrent - 1);

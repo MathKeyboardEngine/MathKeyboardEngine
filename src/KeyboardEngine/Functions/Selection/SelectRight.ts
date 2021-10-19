@@ -5,7 +5,7 @@ import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placehold
 import { KeyboardMemory } from '../../KeyboardMemory';
 import { setSelectionDiff } from './helpers/setSelectionDiff';
 
-export function SelectRight(k: KeyboardMemory): void {
+export function selectRight(k: KeyboardMemory): void {
   const oldDiffWithCurrent = k.selectionDiff ?? 0;
   if (
     (k.current instanceof Placeholder && oldDiffWithCurrent < k.current.nodes.length) ||

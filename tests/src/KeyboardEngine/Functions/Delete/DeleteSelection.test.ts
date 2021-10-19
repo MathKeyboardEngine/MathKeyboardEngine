@@ -1,83 +1,103 @@
 import { describe } from 'mocha';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
-import { DeleteSelection } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteSelection';
-import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
-import { SelectRight } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectRight';
+import { selectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
+import { deleteSelection } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteSelection';
+import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
+import { selectRight } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectRight';
+import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/TreeNode';
+import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 
-describe(DeleteSelection.name, () => {
-  it('a single Node, with left border is Node', () => {
+describe(deleteSelection.name, () => {
+  it(`can delete a single ${TreeNode.name} when the left exclusive border is a ${TreeNode.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
     expectLatex('12◼', k);
-    SelectLeft(k);
+    selectLeft(k);
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
-    DeleteSelection(k);
+    // Act
+    deleteSelection(k);
+    // Assert
     expectLatex('1◼', k);
   });
 
-  it('a single Node, with left border is Placeholder', () => {
+  it(`can delete a single ${TreeNode.name} when the left exclusive border is a ${Placeholder.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('1'));
     expectLatex('1◼', k);
-    SelectLeft(k);
+    selectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
-    DeleteSelection(k);
+    // Act
+    deleteSelection(k);
+    // Assert
     expectLatex('◼', k);
   });
 
-  it('multiple Nodes, with left border is Node', () => {
+  it(`can delete multiple ${TreeNode.name}s when the left exclusive border is a ${TreeNode.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
-    Insert(k, new DigitNode('3'));
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    insert(k, new DigitNode('3'));
     expectLatex('123◼', k);
-    SelectLeft(k);
-    SelectLeft(k);
+    selectLeft(k);
+    selectLeft(k);
     expectLatex(String.raw`1\colorbox{blue}{23}`, k);
-    DeleteSelection(k);
+    // Act
+    deleteSelection(k);
+    // Assert
     expectLatex('1◼', k);
   });
 
-  it('multiple Nodes, with left border is Placeholder (via SelectLeft)', () => {
+  it(`can delete multiple ${TreeNode.name}s when the left exclusive border is a ${Placeholder.name} (via ${selectLeft.name})`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
     expectLatex('12◼', k);
-    SelectLeft(k);
-    SelectLeft(k);
+    selectLeft(k);
+    selectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
-    DeleteSelection(k);
+    // Act
+    deleteSelection(k);
+    // Assert
     expectLatex('◼', k);
   });
 
-  it('multiple Nodes, with left border is Placeholder (via SelectRight)', () => {
+  it(`can delete multiple ${TreeNode.name}s - left exclusive border is a ${Placeholder.name} (via ${selectRight.name})`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
-    MoveLeft(k);
-    MoveLeft(k);
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    moveLeft(k);
+    moveLeft(k);
     expectLatex('◼12', k);
-    SelectRight(k);
-    SelectRight(k);
+    selectRight(k);
+    selectRight(k);
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
-    DeleteSelection(k);
+    // Act
+    deleteSelection(k);
+    // Assert
     expectLatex('◼', k);
   });
 
-  it('multiple Nodes, with left border is TreeNode (via SelectRight)', () => {
+  it(`can delete multiple ${TreeNode.name}s - left exclusive border is a ${TreeNode.name} (via ${selectRight.name})`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
-    MoveLeft(k);
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    moveLeft(k);
     expectLatex('1◼2', k);
-    SelectRight(k);
+    selectRight(k);
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
-    DeleteSelection(k);
+    // Act
+    deleteSelection(k);
+    // Assert
     expectLatex('1◼', k);
   });
 });

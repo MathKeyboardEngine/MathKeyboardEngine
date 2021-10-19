@@ -1,21 +1,22 @@
 import { describe } from 'mocha';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
 
 describe(StandardLeafNode.name, () => {
-  it("allows a customizable multiplication operator sign for nodes that are already in the KeyboardMemory's syntax tree.", () => {
+  it(`allows customizing the multiplication operator sign even if it is are already in the ${KeyboardMemory.name}'s syntax tree.`, () => {
+    // Arrange
     let myMultiplicationSignSetting = String.raw`\times `;
-
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('2'));
-    Insert(k, new StandardLeafNode(() => myMultiplicationSignSetting));
-    Insert(k, new StandardLeafNode('a'));
+    insert(k, new DigitNode('2'));
+    insert(k, new StandardLeafNode(() => myMultiplicationSignSetting));
+    insert(k, new StandardLeafNode('a'));
     expectLatex(String.raw`2\times a◼`, k);
-
+    // Act
     myMultiplicationSignSetting = String.raw`\cdot `;
+    // Assert
     expectLatex(String.raw`2\cdot a◼`, k);
   });
 });

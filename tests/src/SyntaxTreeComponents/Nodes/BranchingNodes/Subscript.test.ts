@@ -1,90 +1,97 @@
 import { describe } from 'mocha';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
-import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
-import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
-import { InsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
+import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
+import { moveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
+import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
-import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
-
-function TestNode() {
-  return new DescendingBranchingNode('', '_{', '}');
-}
+import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
+import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
+import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
 
 describe('Subscript as suffix', () => {
-  it('sub 3 right 4', () => {
+  it('subscript 3 right 4', () => {
     const k = new KeyboardMemory();
-    Insert(k, TestNode());
-    Insert(k, new DigitNode('3'));
-    MoveRight(k);
-    Insert(k, new DigitNode('4'));
+    insert(k, new DescendingBranchingNode('', '_{', '}'));
+    insert(k, new DigitNode('3'));
+    moveRight(k);
+    insert(k, new DigitNode('4'));
     expectLatex('3_{4◼}', k);
   });
 
-  it('sub 3 up 4', () => {
+  it('subscript 3 up 4', () => {
     const k = new KeyboardMemory();
-    Insert(k, TestNode());
-    Insert(k, new DigitNode('3'));
-    MoveDown(k);
-    Insert(k, new DigitNode('4'));
+    insert(k, new DescendingBranchingNode('', '_{', '}'));
+    insert(k, new DigitNode('3'));
+    moveDown(k);
+    insert(k, new DigitNode('4'));
     expectLatex('3_{4◼}', k);
   });
 
-  it('3 encapsulated', () => {
+  it('3 subscript', () => {
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('3'));
-    InsertWithEncapsulateCurrent(k, TestNode());
+    insert(k, new DigitNode('3'));
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode('', '_{', '}'));
     expectLatex('3_{◼}', k);
   });
 
   it('subscriptNode 3 up down', () => {
     const k = new KeyboardMemory();
-    Insert(k, TestNode());
-    Insert(k, new DigitNode('3'));
-    MoveDown(k);
-    Insert(k, new DigitNode('4'));
-    MoveUp(k);
+    insert(k, new DescendingBranchingNode('', '_{', '}'));
+    insert(k, new DigitNode('3'));
+    moveDown(k);
+    insert(k, new DigitNode('4'));
+    moveUp(k);
     expectLatex('3◼_{4}', k);
   });
 
   it('can be left empty, moving out and back in', () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, TestNode());
-    expectLatex('◼_{◻}', k);
-    MoveLeft(k);
-    expectLatex('◼◻_{◻}', k);
-    MoveRight(k);
-    expectLatex('◼_{◻}', k);
+    insert(k, new DescendingBranchingNode('{', '}_{', '}'));
+    expectLatex('{◼}_{◻}', k);
+    // Act & Assert
+    moveLeft(k);
+    expectLatex('◼{◻}_{◻}', k);
+    moveRight(k);
+    expectLatex('{◼}_{◻}', k);
   });
 
   it('impossible up/down requests in empty node should not throw', () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, TestNode());
-    MoveDown(k);
-    expectLatex('◻_{◼}', k);
-    MoveDown(k);
-    expectLatex('◻_{◼}', k);
-    MoveUp(k);
-    expectLatex('◼_{◻}', k);
-    MoveUp(k);
-    expectLatex('◼_{◻}', k);
+    insert(k, new DescendingBranchingNode('{', '}_{', '}'));
+    moveDown(k);
+    expectLatex('{◻}_{◼}', k);
+    // Act & Assert 1
+    moveDown(k);
+    expectLatex('{◻}_{◼}', k);
+    // Arrange 2
+    moveUp(k);
+    expectLatex('{◼}_{◻}', k);
+    // Act & Assert 2
+    moveUp(k);
+    expectLatex('{◼}_{◻}', k);
   });
 
   it('impossible up/down requests in filled subscriptNode should not throw', () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, TestNode());
-    Insert(k, new DigitNode('3'));
-    expectLatex('3◼_{◻}', k);
-    MoveUp(k);
-    expectLatex('3◼_{◻}', k);
-    MoveDown(k);
-    expectLatex('3_{◼}', k);
-    Insert(k, new DigitNode('4'));
-    expectLatex('3_{4◼}', k);
-    MoveDown(k);
-    expectLatex('3_{4◼}', k);
+    insert(k, new DescendingBranchingNode('', '_{', '}'));
+    insert(k, new StandardLeafNode('a'));
+    expectLatex('a◼_{◻}', k);
+    // Act & Assert 1
+    moveUp(k);
+    expectLatex('a◼_{◻}', k);
+    // Arrange 2
+    moveDown(k);
+    expectLatex('a_{◼}', k);
+    insert(k, new DigitNode('4'));
+    expectLatex('a_{4◼}', k);
+    // Act & Assert 2
+    moveDown(k);
+    expectLatex('a_{4◼}', k);
   });
 });

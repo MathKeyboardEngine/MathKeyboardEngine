@@ -3,7 +3,7 @@ import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/Branchin
 import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placeholder';
 import { KeyboardMemory } from '../../KeyboardMemory';
 
-export function MoveUp(k: KeyboardMemory): void {
+export function moveUp(k: KeyboardMemory): void {
   let moveFromPlaceholder = k.current instanceof Placeholder ? k.current : k.current.parentPlaceholder;
   let suggestingNode: BranchingNode;
   while (true) {

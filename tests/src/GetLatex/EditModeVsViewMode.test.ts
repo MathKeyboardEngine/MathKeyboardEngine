@@ -2,42 +2,50 @@ import { describe } from 'mocha';
 import { expect } from 'chai';
 import { LatexConfiguration } from '../../../src/LatexConfiguration';
 import { KeyboardMemory } from '../../../src/KeyboardEngine/KeyboardMemory';
-import { Insert } from '../../../src/KeyboardEngine/Functions/Insert/Insert';
-import { GetViewModeLatex } from '../../../src/GetLatex/GetViewModeLatex';
-import { GetEditModeLatex } from '../../../src/GetLatex/GetEditModeLatex';
+import { insert } from '../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { getViewModeLatex } from '../../../src/GetLatex/GetViewModeLatex';
+import { getEditModeLatex } from '../../../src/GetLatex/GetEditModeLatex';
 import { DigitNode } from '../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { MoveDown } from '../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
+import { moveDown } from '../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 import { DescendingBranchingNode } from '../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
+import { BranchingNode } from '../../../src/SyntaxTreeComponents/Nodes/Base/BranchingNode';
+import { LeafNode } from '../../../src/SyntaxTreeComponents/Nodes/Base/LeafNode';
+import { Placeholder } from '../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 
 const config = new LatexConfiguration();
 config.activePlaceholderShape = '◼';
 config.passivePlaceholderShape = '◻';
 
-describe('GetLatex', () => {
-  it('BranchingNode', () => {
+describe(`${getEditModeLatex.name} and ${getViewModeLatex.name}`, () => {
+  it(`can get the LaTeX for a ${BranchingNode.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
-
-    expect(String.raw`\frac{◼}{◻}`).to.equal(GetEditModeLatex(k, config));
-    expect(String.raw`\frac{◻}{◻}`).to.equal(GetViewModeLatex(k, config));
-    expect(String.raw`\frac{◻}{◻}`).to.equal(GetViewModeLatex(new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'), config));
+    insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    // Act & Assert
+    expect(String.raw`\frac{◼}{◻}`).to.equal(getEditModeLatex(k, config));
+    expect(String.raw`\frac{◻}{◻}`).to.equal(getViewModeLatex(k, config));
+    expect(String.raw`\frac{◻}{◻}`).to.equal(getViewModeLatex(new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'), config));
   });
 
-  it('LeafNode', () => {
+  it(`can get the LaTeX for a ${LeafNode.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('3'));
-    expect(`3◼`).to.equal(GetEditModeLatex(k, config));
-    expect(`3`).to.equal(GetViewModeLatex(k, config));
-    expect(`3`).to.equal(GetViewModeLatex(new DigitNode('3'), config));
+    insert(k, new DigitNode('3'));
+    // Act & Assert
+    expect(`3◼`).to.equal(getEditModeLatex(k, config));
+    expect(`3`).to.equal(getViewModeLatex(k, config));
+    expect(`3`).to.equal(getViewModeLatex(new DigitNode('3'), config));
   });
 
-  it('Placeholder', () => {
+  it(`can get the LaTeX for a ${Placeholder.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
     const fraction = new DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
-    Insert(k, fraction);
-    Insert(k, new DigitNode('3'));
-    MoveDown(k);
-    expect(String.raw`\frac{3}{◼}`).to.equal(GetEditModeLatex(k, config));
-    expect('3').to.equal(GetViewModeLatex(fraction.placeholders[0], config));
+    insert(k, fraction);
+    insert(k, new DigitNode('3'));
+    moveDown(k);
+    // Act & Assert
+    expect(String.raw`\frac{3}{◼}`).to.equal(getEditModeLatex(k, config));
+    expect('3').to.equal(getViewModeLatex(fraction.placeholders[0], config));
   });
 });

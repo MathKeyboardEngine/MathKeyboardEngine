@@ -4,7 +4,7 @@ import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/Branchin
 import { TreeNode } from '../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
 import { firstAfterOrNull } from '../../../helpers/arrayhelpers/firstAfterOrNull';
 
-export function MoveRight(k: KeyboardMemory): void {
+export function moveRight(k: KeyboardMemory): void {
   if (k.current instanceof Placeholder) {
     if (k.current.nodes.length > 0) {
       const nextNode = k.current.nodes[0];

@@ -1,53 +1,53 @@
-import { GetEditModeLatex } from './GetLatex/GetEditModeLatex';
-export { GetEditModeLatex };
+import { getEditModeLatex } from './GetLatex/GetEditModeLatex';
+export { getEditModeLatex };
 
-import { GetViewModeLatex } from './GetLatex/GetViewModeLatex';
-export { GetViewModeLatex };
+import { getViewModeLatex } from './GetLatex/GetViewModeLatex';
+export { getViewModeLatex };
 
-import { DeleteCurrent } from './KeyboardEngine/Functions/Delete/DeleteCurrent';
-export { DeleteCurrent };
+import { deleteCurrent } from './KeyboardEngine/Functions/Delete/DeleteCurrent';
+export { deleteCurrent };
 
-import { DeleteSelection } from './KeyboardEngine/Functions/Delete/DeleteSelection';
-export { DeleteSelection };
+import { deleteSelection } from './KeyboardEngine/Functions/Delete/DeleteSelection';
+export { deleteSelection };
 
-import { Insert } from './KeyboardEngine/Functions/Insert/Insert';
-export { Insert };
+import { insert } from './KeyboardEngine/Functions/Insert/Insert';
+export { insert };
 
-import { InsertWithEncapsulateCurrent } from './KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
-export { InsertWithEncapsulateCurrent };
+import { insertWithEncapsulateCurrent } from './KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
+export { insertWithEncapsulateCurrent };
 
-import { InsertWithEncapsulateSelection } from './KeyboardEngine/Functions/Insert/InsertWithEncapsulateSelection';
-export { InsertWithEncapsulateSelection };
+import { insertWithEncapsulateSelection } from './KeyboardEngine/Functions/Insert/InsertWithEncapsulateSelection';
+export { insertWithEncapsulateSelection };
 
-import { InsertWithEncapsulateSelectionAndPrevious } from './KeyboardEngine/Functions/Insert/InsertWithEncapsulateSelectionAndPrevious';
-export { InsertWithEncapsulateSelectionAndPrevious };
+import { insertWithEncapsulateSelectionAndPrevious } from './KeyboardEngine/Functions/Insert/InsertWithEncapsulateSelectionAndPrevious';
+export { insertWithEncapsulateSelectionAndPrevious };
 
-import { MoveDown } from './KeyboardEngine/Functions/Navigation/MoveDown';
-export { MoveDown };
+import { moveDown } from './KeyboardEngine/Functions/Navigation/MoveDown';
+export { moveDown };
 
-import { MoveLeft } from './KeyboardEngine/Functions/Navigation/MoveLeft';
-export { MoveLeft };
+import { moveLeft } from './KeyboardEngine/Functions/Navigation/MoveLeft';
+export { moveLeft };
 
-import { MoveRight } from './KeyboardEngine/Functions/Navigation/MoveRight';
-export { MoveRight };
+import { moveRight } from './KeyboardEngine/Functions/Navigation/MoveRight';
+export { moveRight };
 
-import { MoveUp } from './KeyboardEngine/Functions/Navigation/MoveUp';
-export { MoveUp };
+import { moveUp } from './KeyboardEngine/Functions/Navigation/MoveUp';
+export { moveUp };
 
-import { EnterSelectionMode } from './KeyboardEngine/Functions/Selection/EnterSelectionMode';
-export { EnterSelectionMode };
+import { enterSelectionMode } from './KeyboardEngine/Functions/Selection/EnterSelectionMode';
+export { enterSelectionMode };
 
-import { InSelectionMode } from './KeyboardEngine/Functions/Selection/InSelectionMode';
-export { InSelectionMode };
+import { inSelectionMode } from './KeyboardEngine/Functions/Selection/InSelectionMode';
+export { inSelectionMode };
 
-import { LeaveSelectionMode } from './KeyboardEngine/Functions/Selection/LeaveSelectionMode';
-export { LeaveSelectionMode };
+import { leaveSelectionMode } from './KeyboardEngine/Functions/Selection/LeaveSelectionMode';
+export { leaveSelectionMode };
 
-import { SelectLeft } from './KeyboardEngine/Functions/Selection/SelectLeft';
-export { SelectLeft };
+import { selectLeft } from './KeyboardEngine/Functions/Selection/SelectLeft';
+export { selectLeft };
 
-import { SelectRight } from './KeyboardEngine/Functions/Selection/SelectRight';
-export { SelectRight };
+import { selectRight } from './KeyboardEngine/Functions/Selection/SelectRight';
+export { selectRight };
 
 import { KeyboardMemory } from './KeyboardEngine/KeyboardMemory';
 export { KeyboardMemory };

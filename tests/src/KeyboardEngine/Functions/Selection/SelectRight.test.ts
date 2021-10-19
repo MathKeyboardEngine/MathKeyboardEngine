@@ -1,137 +1,165 @@
 import { describe } from 'mocha';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
-import { SelectRight } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectRight';
-import { SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
-import { InSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/InSelectionMode';
+import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
+import { selectRight } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectRight';
+import { selectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
+import { inSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/InSelectionMode';
 import { assert } from 'chai';
 import { StandardBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/StandardBranchingNode';
-import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
+import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
+import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/TreeNode';
+import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
+import { nameof } from '../../../../helpers/nameof';
 
-describe(SelectRight.name, () => {
-  it('a single Node, with left border is Node', () => {
+describe(selectRight.name, () => {
+  it(`can select a single ${TreeNode.name} and the selection is correctly displayed if the left exlusive border is a ${TreeNode.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
-    MoveLeft(k);
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    moveLeft(k);
     expectLatex('1◼2', k);
-    SelectRight(k);
+    // Act
+    selectRight(k);
+    // Assert
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
   });
 
-  it('a single Node, with left border is Placeholder', () => {
+  it(`can select a single ${TreeNode.name} and the selection is correctly displayed if the left exlusive border is a ${Placeholder.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    MoveLeft(k);
+    insert(k, new DigitNode('1'));
+    moveLeft(k);
     expectLatex('◼1', k);
-    SelectRight(k);
+    // Act
+    selectRight(k);
+    // Assert
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
   });
 
-  it('multiple Nodes, with left border is Node', () => {
+  it(`can select multiple ${TreeNode.name}s and the selection is correctly displayed if the left exlusive border is a ${TreeNode.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
-    Insert(k, new DigitNode('3'));
-    MoveLeft(k);
-    MoveLeft(k);
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    insert(k, new DigitNode('3'));
+    moveLeft(k);
+    moveLeft(k);
     expectLatex('1◼23', k);
-    SelectRight(k);
-    SelectRight(k);
+    // Act
+    selectRight(k);
+    selectRight(k);
+    // Assert
     expectLatex(String.raw`1\colorbox{blue}{23}`, k);
   });
 
-  it('multiple Nodes, with left border is Placeholder', () => {
+  it(`can select multiple ${TreeNode.name}s and the selection is correctly displayed if the left exlusive border is a ${Placeholder.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
-    MoveLeft(k);
-    MoveLeft(k);
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    moveLeft(k);
+    moveLeft(k);
     expectLatex('◼12', k);
-    SelectRight(k);
-    SelectRight(k);
+    // Act
+    selectRight(k);
+    selectRight(k);
+    // Assert
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
   });
 
-  it('on deselecting until nothing selected, still in selection mode', () => {
+  it('stays in selection mode after deselecting until nothing is selected', () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    SelectLeft(k);
+    insert(k, new DigitNode('1'));
+    selectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
-    SelectRight(k);
+    // Act
+    selectRight(k);
+    // Assert
     expectLatex('1◼', k);
-    assert.isTrue(InSelectionMode(k));
+    assert.isTrue(inSelectionMode(k));
   });
 
-  it('SelectRight if there are no more selectable nodes on the right does nothing, with left exclusive border is Placeholder', () => {
+  it(`does nothing if all on-the-right-available ${TreeNode.name}s are selected and the left exclusive border is a ${Placeholder.name} (and the ${nameof<KeyboardMemory>("syntaxTreeRoot")})`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    MoveLeft(k);
+    insert(k, new DigitNode('1'));
+    moveLeft(k);
     expectLatex('◼1', k);
-    SelectRight(k);
+    selectRight(k);
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
-    SelectRight(k);
+    // Act
+    selectRight(k);
+    // Assert
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
   });
 
-  it('SelectRight if there are no more selectable nodes on the right does nothing, with left exclusive border is Node', () => {
+  it(`does nothing if all on-the-right-available ${TreeNode.name}s are selected and the left exclusive border is a ${TreeNode.name} (and the ${nameof<TreeNode>("parentPlaceholder")} is the ${nameof<KeyboardMemory>("syntaxTreeRoot")})`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
-    MoveLeft(k);
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    moveLeft(k);
     expectLatex('1◼2', k);
-    SelectRight(k);
+    selectRight(k);
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
-    SelectRight(k);
+    // Act
+    selectRight(k);
+    // Assert
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
   });
 
-  it('A selection can break out of the current Placeholder (to be consistent with SelectLeft, for which this behaviour is expected) - new Current is Placeholder', () => {
+  it(`can break out of the current ${Placeholder.name} - case: set a ${Placeholder.name} as the new ${nameof<KeyboardMemory>("current")}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'));
-    Insert(k, new DigitNode('2'));
-    MoveRight(k);
-    Insert(k, new StandardLeafNode('+'));
-    Insert(k, new DigitNode('x'));
-    MoveLeft(k);
-    MoveLeft(k);
-    MoveLeft(k);
-    MoveLeft(k);
+    insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'));
+    insert(k, new DigitNode('2'));
+    moveRight(k);
+    insert(k, new StandardLeafNode('+'));
+    insert(k, new DigitNode('x'));
+    moveLeft(k);
+    moveLeft(k);
+    moveLeft(k);
+    moveLeft(k);
     expectLatex(String.raw`\sqrt{◼2}+x`, k);
-    SelectRight(k);
+    selectRight(k);
     expectLatex(String.raw`\sqrt{\colorbox{blue}{2}}+x`, k);
-    SelectRight(k);
+    // Act & Assert
+    selectRight(k);
     expectLatex(String.raw`\colorbox{blue}{\sqrt{2}}+x`, k);
-    SelectRight(k);
+    selectRight(k);
     expectLatex(String.raw`\colorbox{blue}{\sqrt{2}+}x`, k);
-    SelectRight(k);
+    selectRight(k);
     expectLatex(String.raw`\colorbox{blue}{\sqrt{2}+x}`, k);
   });
 
-  it('A selection can break out of the current Placeholder (to be consistent with SelectLeft, for which this behaviour is expected) - new Current is TreeNode', () => {
+  it(`can break out of the current ${Placeholder.name} - case: set a ${TreeNode.name} as the new ${nameof<KeyboardMemory>("current")}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('3'));
-    Insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'));
-    Insert(k, new DigitNode('2'));
-    MoveRight(k);
-    Insert(k, new StandardLeafNode('+'));
-    Insert(k, new DigitNode('x'));
-    MoveLeft(k);
-    MoveLeft(k);
-    MoveLeft(k);
-    MoveLeft(k);
+    insert(k, new DigitNode('3'));
+    insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'));
+    insert(k, new DigitNode('2'));
+    moveRight(k);
+    insert(k, new StandardLeafNode('+'));
+    insert(k, new DigitNode('x'));
+    moveLeft(k);
+    moveLeft(k);
+    moveLeft(k);
+    moveLeft(k);
     expectLatex(String.raw`3\sqrt{◼2}+x`, k);
-    SelectRight(k);
+    selectRight(k);
     expectLatex(String.raw`3\sqrt{\colorbox{blue}{2}}+x`, k);
-    SelectRight(k);
+    // Act & Assert
+    selectRight(k);
     expectLatex(String.raw`3\colorbox{blue}{\sqrt{2}}+x`, k);
-    SelectRight(k);
+    selectRight(k);
     expectLatex(String.raw`3\colorbox{blue}{\sqrt{2}+}x`, k);
-    SelectRight(k);
+    selectRight(k);
     expectLatex(String.raw`3\colorbox{blue}{\sqrt{2}+x}`, k);
   });
 });

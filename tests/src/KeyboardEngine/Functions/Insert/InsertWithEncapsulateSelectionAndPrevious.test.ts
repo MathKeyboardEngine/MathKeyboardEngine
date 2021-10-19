@@ -2,76 +2,96 @@ import { describe } from 'mocha';
 import { expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
-import { EnterSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/EnterSelectionMode';
-import { InsertWithEncapsulateSelectionAndPrevious } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateSelectionAndPrevious';
+import { selectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
+import { enterSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/EnterSelectionMode';
+import { insertWithEncapsulateSelectionAndPrevious } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateSelectionAndPrevious';
 import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
 import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
 import { StandardBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/StandardBranchingNode';
+import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/TreeNode';
+import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
+import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
+import { inSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/InSelectionMode';
+import { BranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/BranchingNode';
 
-describe(InsertWithEncapsulateSelectionAndPrevious.name, () => {
-  it('a single Node selected, with left exclusive border is Node', () => {
+describe(insertWithEncapsulateSelectionAndPrevious.name, () => {
+  it(`when a single ${TreeNode.name} is selected and the left exclusive border is a ${TreeNode.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('2'));
-    Insert(k, new DigitNode('3'));
+    insert(k, new DigitNode('2'));
+    insert(k, new DigitNode('3'));
     expectLatex('23◼', k);
-    SelectLeft(k);
+    selectLeft(k);
     expectLatex(String.raw`2\colorbox{blue}{3}`, k);
-    InsertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Act
+    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Assert
     expectLatex('{2}^{3◼}', k);
   });
 
-  it('a single Node selected, with left exclusive border is Placeholder', () => {
+  it(`when a single ${TreeNode.name} is selected and the left exclusive border is a ${Placeholder.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('2'));
+    insert(k, new DigitNode('2'));
     expectLatex('2◼', k);
-    SelectLeft(k);
+    selectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{2}`, k);
-    InsertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Act
+    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Assert
     expectLatex('{◻}^{2◼}', k);
   });
 
-  it('multiple Nodes selected, with left exclusive border is Node', () => {
+  it(`when multiple ${TreeNode.name}s are selected and the left exclusive border is a ${TreeNode.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('2'));
-    Insert(k, new DigitNode('2'));
-    Insert(k, new DigitNode('3'));
+    insert(k, new DigitNode('2'));
+    insert(k, new DigitNode('2'));
+    insert(k, new DigitNode('3'));
     expectLatex('223◼', k);
-    SelectLeft(k);
-    SelectLeft(k);
+    selectLeft(k);
+    selectLeft(k);
     expectLatex(String.raw`2\colorbox{blue}{23}`, k);
-    InsertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Act
+    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Assert
     expectLatex('{2}^{23◼}', k);
   });
 
-  it('multiple Nodes selected, with left border is Placeholder', () => {
+  it(`when multiple ${TreeNode.name}s are selected and the left exclusive border is a ${Placeholder.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
     expectLatex('12◼', k);
-    SelectLeft(k);
-    SelectLeft(k);
+    selectLeft(k);
+    selectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
-    InsertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Act
+    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Assert
     expectLatex('{◻}^{12◼}', k);
   });
 
-  it('selection mode entered but nothing selected => encapsulate current', () => {
+  it(`invokes ${insertWithEncapsulateCurrent.name} if ${inSelectionMode.name} but nothing selected`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new StandardLeafNode('+'));
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
-    EnterSelectionMode(k);
+    insert(k, new DigitNode('1'));
+    insert(k, new StandardLeafNode('+'));
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    enterSelectionMode(k);
     expectLatex('1+12◼', k);
-    InsertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Act
+    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Assert
     expectLatex('1+{12}^{◼}', k);
   });
 
-  it('throws on inserting branching node with single placeholder', () => {
+  it(`throws on inserting ${BranchingNode.name} with single ${Placeholder.name}`, () => {
     const k = new KeyboardMemory();
-    expect(() => InsertWithEncapsulateSelectionAndPrevious(k, new StandardBranchingNode('[', ']'))).to.throw();
+    expect(() => insertWithEncapsulateSelectionAndPrevious(k, new StandardBranchingNode('[', ']'))).to.throw();
   });
 });

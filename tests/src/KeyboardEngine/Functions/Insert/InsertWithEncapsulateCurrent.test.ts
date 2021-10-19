@@ -2,148 +2,169 @@ import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
 import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
-import { InsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
+import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
-import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { MatrixNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MatrixNode';
-import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
+import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { DecimalSeparatorNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DecimalSeparatorNode';
 import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
-import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
-import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
-import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
 import { RoundBracketsNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
 import { StandardBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/StandardBranchingNode';
 import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
+import { nameof } from '../../../../helpers/nameof';
+import { BranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/BranchingNode';
 
-describe(InsertWithEncapsulateCurrent.name, () => {
-  it('does a regular insert if current is a placeholder', () => {
+describe(insertWithEncapsulateCurrent.name, () => {
+  it(`does a regular insert if ${nameof<KeyboardMemory>("current")} is a ${Placeholder.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
     assert.isTrue(k.current instanceof Placeholder);
     expectLatex('◼', k);
-    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Act
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Assert
     expectLatex('{◼}^{◻}', k);
   });
 
   it('can encapsulate complex stuff like matrixes', () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new MatrixNode('pmatrix', 2, 2));
+    insert(k, new MatrixNode('pmatrix', 2, 2));
     for (let i = 1; i <= 4; i++) {
-      Insert(k, new DigitNode(i.toString()));
-      MoveRight(k);
+      insert(k, new DigitNode(i.toString()));
+      moveRight(k);
     }
-    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
-    expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & 4\end{pmatrix}^{◼}`, k);
+    // Act
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Assert
+    expectLatex(String.raw`{\begin{pmatrix}1 & 2 \\ 3 & 4\end{pmatrix}}^{◼}`, k);
   });
 
   it('can also be used inside (for example) a matrix', () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new MatrixNode('pmatrix', 2, 2));
-    Insert(k, new DigitNode('1'));
-    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
-    expectLatex(String.raw`\begin{pmatrix}1^{◼} & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
+    insert(k, new MatrixNode('pmatrix', 2, 2));
+    insert(k, new DigitNode('1'));
+    // Act
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Assert
+    expectLatex(String.raw`\begin{pmatrix}{1}^{◼} & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
   });
 
   it('can encapsulate multiple digits', () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
-    InsertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    // Act
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    // Assert
     expectLatex(String.raw`\frac{12}{◼}`, k);
   });
 
   it('can encapsulate a decimal number', () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
-    Insert(k, new DecimalSeparatorNode());
-    Insert(k, new DigitNode('3'));
-
-    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
-    expectLatex('12.3^{◼}', k);
-    MoveLeft(k);
-    expectLatex('12.3◼^{◻}', k);
-    DeleteCurrent(k);
-    DeleteCurrent(k);
-    expectLatex('12◼^{◻}', k);
-    MoveUp(k);
-    expectLatex('12^{◼}', k);
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    insert(k, new DecimalSeparatorNode());
+    insert(k, new DigitNode('3'));
+    // Act
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    // Assert
+    expectLatex('{12.3}^{◼}', k);
   });
 
   it('does not encapsulate more than it should', () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new StandardLeafNode('+'));
-    Insert(k, new DigitNode('2'));
-    Insert(k, new DigitNode('3'));
-    InsertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    insert(k, new DigitNode('1'));
+    insert(k, new StandardLeafNode('+'));
+    insert(k, new DigitNode('2'));
+    insert(k, new DigitNode('3'));
+    // Act
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    // Assert
     expectLatex(String.raw`1+\frac{23}{◼}`, k);
   });
 
   it('can encapsulate round brackets', () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new StandardLeafNode('+'));
-    Insert(k, new RoundBracketsNode('(', ')'));
-    Insert(k, new DigitNode('2'));
-    Insert(k, new StandardLeafNode('+'));
-    Insert(k, new DigitNode('3'));
-    MoveRight(k);
+    insert(k, new DigitNode('1'));
+    insert(k, new StandardLeafNode('+'));
+    insert(k, new RoundBracketsNode('(', ')'));
+    insert(k, new DigitNode('2'));
+    insert(k, new StandardLeafNode('+'));
+    insert(k, new DigitNode('3'));
+    moveRight(k);
     expectLatex(String.raw`1+(2+3)◼`, k);
-    const powerNode = new AscendingBranchingNode('', '^{', '}');
-    InsertWithEncapsulateCurrent(k, powerNode);
-    expectLatex(String.raw`1+(2+3)^{◼}`, k);
+    const powerNode = new AscendingBranchingNode('{', '}^{', '}');
+    // Act
+    insertWithEncapsulateCurrent(k, powerNode);
+    // Assert
+    expectLatex(String.raw`1+{(2+3)}^{◼}`, k);
     expect(powerNode.placeholders[0].getLatex(k, null!)).to.be.equal('(2+3)');
   });
 
-  it('config.deleteOuterRoundBracketsIfAny: deletes outer round brackets during encapsulation', () => {
+  it('with config.deleteOuterRoundBracketsIfAny: deletes outer round brackets during encapsulation', () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new StandardLeafNode('+'));
-    Insert(k, new RoundBracketsNode('(', ')'));
-    Insert(k, new RoundBracketsNode('(', ')'));
-    Insert(k, new StandardLeafNode('x'));
-    Insert(k, new StandardLeafNode('+'));
-    Insert(k, new DigitNode('2'));
-    MoveRight(k);
-    Insert(k, new RoundBracketsNode('(', ')'));
-    Insert(k, new StandardLeafNode('x'));
-    Insert(k, new StandardLeafNode('-'));
-    Insert(k, new DigitNode('3'));
-    MoveRight(k);
-    MoveRight(k);
+    insert(k, new DigitNode('1'));
+    insert(k, new StandardLeafNode('+'));
+    insert(k, new RoundBracketsNode('(', ')'));
+    insert(k, new RoundBracketsNode('(', ')'));
+    insert(k, new StandardLeafNode('x'));
+    insert(k, new StandardLeafNode('+'));
+    insert(k, new DigitNode('2'));
+    moveRight(k);
+    insert(k, new RoundBracketsNode('(', ')'));
+    insert(k, new StandardLeafNode('x'));
+    insert(k, new StandardLeafNode('-'));
+    insert(k, new DigitNode('3'));
+    moveRight(k);
+    moveRight(k);
     expectLatex(String.raw`1+((x+2)(x-3))◼`, k);
-    InsertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'), { deleteOuterRoundBracketsIfAny: true });
+    // Act
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'), { deleteOuterRoundBracketsIfAny: true });
+    // Assert
     expectLatex(String.raw`1+\frac{(x+2)(x-3)}{◼}`, k);
   });
 
-  it('config.deleteOuterRoundBracketsIfAny does not delete square brackets during encapsulation', () => {
+  it('with config.deleteOuterRoundBracketsIfAny: does not delete square brackets during encapsulation', () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new StandardLeafNode('+'));
-    Insert(k, new StandardBranchingNode(String.raw`|`, String.raw`|`));
-    Insert(k, new StandardLeafNode('x'));
-    Insert(k, new StandardLeafNode('+'));
-    Insert(k, new DigitNode('3'));
-    MoveRight(k);
+    insert(k, new DigitNode('1'));
+    insert(k, new StandardLeafNode('+'));
+    insert(k, new StandardBranchingNode(String.raw`|`, String.raw`|`));
+    insert(k, new StandardLeafNode('x'));
+    insert(k, new StandardLeafNode('+'));
+    insert(k, new DigitNode('3'));
+    moveRight(k);
+    // Act
     const fraction = new DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
-    InsertWithEncapsulateCurrent(k, fraction, {
+    insertWithEncapsulateCurrent(k, fraction, {
       deleteOuterRoundBracketsIfAny: true,
     });
+    // Assert
     expectLatex(String.raw`1+\frac{|x+3|}{◼}`, k);
     expect(fraction.placeholders[0].getLatex(k, null!)).to.be.equal('|x+3|');
   });
 
-  it('RoundBracketsNode & config.deleteOuterRoundBracketsIfAny: encapsulation by single-placeholder BranchingNode sets the cursor right outside of the new node', () => {
+  it(`with config.deleteOuterRoundBracketsIfAny: encapsulation by single-placeholder ${BranchingNode.name} sets the cursor at the right of ("outside of") the new ${BranchingNode.name}`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new RoundBracketsNode('(', ')'));
-    Insert(k, new StandardLeafNode('A'));
-    Insert(k, new StandardLeafNode('B'));
-    MoveRight(k);
+    insert(k, new RoundBracketsNode('(', ')'));
+    insert(k, new StandardLeafNode('A'));
+    insert(k, new StandardLeafNode('B'));
+    moveRight(k);
     expectLatex('(AB)◼', k);
-    InsertWithEncapsulateCurrent(k, new StandardBranchingNode(String.raw`\overrightarrow{`, '}'), { deleteOuterRoundBracketsIfAny: true });
+    // Act
+    insertWithEncapsulateCurrent(k, new StandardBranchingNode(String.raw`\overrightarrow{`, '}'), { deleteOuterRoundBracketsIfAny: true });
+    // Assert
     expectLatex(String.raw`\overrightarrow{AB}◼`, k);
   });
 });

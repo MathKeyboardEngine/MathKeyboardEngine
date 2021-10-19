@@ -1,21 +1,25 @@
 import { describe } from 'mocha';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
+import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
-import { InsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
+import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
 import { RoundBracketsNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
+import { BranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/BranchingNode';
 
-describe(MoveDown.name, () => {
-  it('MoveDown in ancestor node', () => {
+describe(moveDown.name, () => {
+  it(`can move the cursor down via an ancestors, if the current ${BranchingNode.name} does not support up/down navigation`, () => {
+    // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('2'));
-    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
-    Insert(k, new RoundBracketsNode('(', ')'));
+    insert(k, new DigitNode('2'));
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insert(k, new RoundBracketsNode('(', ')'));
     expectLatex('{2}^{(◼)}', k);
-    MoveDown(k);
+    // Act
+    moveDown(k);
+    // Assert
     expectLatex('{2◼}^{(◻)}', k);
   });
 });

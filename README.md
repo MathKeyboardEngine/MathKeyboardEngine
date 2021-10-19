@@ -63,7 +63,7 @@ Quick start for using the "esm" format:
 
 <i>Note: "mke" is an abbreviation of "MathKeyboardEngine". You can choose something different. (But the iife format forces you to use "mke".)</i>
 
-All functions that are are exposed by the library have "PascalCase" names - helper functions that are not exposed have "camelCase" names (as do object members). Knowing what the final module exports are, may help understand the source code more quickly.
+All functions that are exposed by the library have "PascalCase" names - helper functions that are not exposed have "camelCase" names (as do object members). Knowing what the final module exports are, may help understand the source code more quickly.
 
 Visit the [documentation](https://mathkeyboardengine.github.io/docs/0.1/) and (the right version of)\* the [examples folder](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/examples) for more implementation details.
 

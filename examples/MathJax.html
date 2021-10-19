@@ -101,37 +101,37 @@
       function getFractionNode() {
         return new mke.DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
       }
-      registerNodeKey('fraction', getFractionNode, mke.Insert, mke.InsertWithEncapsulateSelection);
+      registerNodeKey('fraction', getFractionNode, mke.insert, mke.insertWithEncapsulateSelection);
 
-      registerNodeKey('binomial', () => new mke.DescendingBranchingNode(String.raw`\binom{`, '}{', '}'), mke.Insert, mke.InsertWithEncapsulateSelection);
+      registerNodeKey('binomial', () => new mke.DescendingBranchingNode(String.raw`\binom{`, '}{', '}'), mke.insert, mke.insertWithEncapsulateSelection);
 
       function getPowerNode() {
         return new mke.AscendingBranchingNode('{', '}^{', '}');
       }
-      registerNodeKey('power', getPowerNode, mke.InsertWithEncapsulateCurrent, mke.InsertWithEncapsulateSelectionAndPrevious);
+      registerNodeKey('power', getPowerNode, mke.insertWithEncapsulateCurrent, mke.insertWithEncapsulateSelectionAndPrevious);
 
       function getSubscriptNode() {
         return new mke.DescendingBranchingNode('{', '}_{', '}');
       }
-      registerNodeKey('subscript', getSubscriptNode, mke.InsertWithEncapsulateCurrent, mke.InsertWithEncapsulateSelectionAndPrevious);
+      registerNodeKey('subscript', getSubscriptNode, mke.insertWithEncapsulateCurrent, mke.insertWithEncapsulateSelectionAndPrevious);
 
-      registerNodeKey('squareRoot', () => new mke.StandardBranchingNode(String.raw`\sqrt{`, '}'), mke.Insert, mke.InsertWithEncapsulateSelection);
+      registerNodeKey('squareRoot', () => new mke.StandardBranchingNode(String.raw`\sqrt{`, '}'), mke.insert, mke.insertWithEncapsulateSelection);
       registerNodeKey('nthRoot', () => new mke.DescendingBranchingNode(String.raw`\sqrt[`, ']{', '}'));
 
-      registerNodeKey('roundBrackets', () => new mke.RoundBracketsNode(), mke.Insert, mke.InsertWithEncapsulateSelection);
+      registerNodeKey('roundBrackets', () => new mke.RoundBracketsNode(), mke.insert, mke.insertWithEncapsulateSelection);
       function getSquareBracketsNode() {
         return new mke.StandardBranchingNode(String.raw`\left[`, String.raw`\right]`);
       }
-      registerNodeKey('squareBrackets', getSquareBracketsNode, mke.Insert, mke.InsertWithEncapsulateSelection);
+      registerNodeKey('squareBrackets', getSquareBracketsNode, mke.insert, mke.insertWithEncapsulateSelection);
       function getPipesNode() {
         return new mke.StandardBranchingNode(String.raw`\left|`, String.raw`\right|`);
       }
-      registerNodeKey('pipes', getPipesNode, mke.Insert, mke.InsertWithEncapsulateSelection);
-      registerNodeKey('doublePipes', () => new mke.StandardBranchingNode(String.raw`\left\|`, String.raw`\right\|`), mke.Insert, mke.InsertWithEncapsulateSelection);
+      registerNodeKey('pipes', getPipesNode, mke.insert, mke.insertWithEncapsulateSelection);
+      registerNodeKey('doublePipes', () => new mke.StandardBranchingNode(String.raw`\left\|`, String.raw`\right\|`), mke.insert, mke.insertWithEncapsulateSelection);
       function getCurlyBracketsNode() {
         return new mke.StandardBranchingNode(String.raw`\left\{`, String.raw`\right\}`);
       }
-      registerNodeKey('curlyBrackets', getCurlyBracketsNode, mke.Insert, mke.InsertWithEncapsulateSelection);
+      registerNodeKey('curlyBrackets', getCurlyBracketsNode, mke.insert, mke.insertWithEncapsulateSelection);
 
       registerNodeKey('naturalNumbers', () => new mke.StandardLeafNode(String.raw`\mathbb{N}`));
       registerNodeKey('integers', () => new mke.StandardLeafNode(String.raw`\mathbb{Z}`));
@@ -167,19 +167,19 @@
       matrixWidthInputElement.onchange = reRegisterMatrix;
       matrixHeightInputElement.onchange = reRegisterMatrix;
 
-      registerKey('moveLeft', mke.MoveLeft, mke.SelectLeft, false);
+      registerKey('moveLeft', mke.moveLeft, mke.selectLeft, false);
       typesetLatexInKey(String.raw`\leftarrow`, document.getElementById('moveLeft'));
-      registerKey('moveRight', mke.MoveRight, mke.SelectRight, false);
+      registerKey('moveRight', mke.moveRight, mke.selectRight, false);
       typesetLatexInKey(String.raw`\rightarrow`, document.getElementById('moveRight'));
-      registerKey('moveUp', mke.MoveUp);
+      registerKey('moveUp', mke.moveUp);
       typesetLatexInKey('\\uparrow', document.getElementById('moveUp'));
-      registerKey('moveDown', mke.MoveDown);
+      registerKey('moveDown', mke.moveDown);
       typesetLatexInKey(String.raw`\downarrow`, document.getElementById('moveDown'));
 
-      registerKey('deleteCurrent', mke.DeleteCurrent, mke.DeleteSelection);
+      registerKey('deleteCurrent', mke.deleteCurrent, mke.deleteSelection);
 
       registerKey('selectionModeToggle', (k) => {
-        if (mke.InSelectionMode(k)) {
+        if (mke.inSelectionMode(k)) {
           myLeaveSelectionMode(k);
         } else {
           myEnterSelectionMode(k);
@@ -187,30 +187,30 @@
       });
 
       function myLeaveSelectionMode(k) {
-        mke.LeaveSelectionMode(k);
+        mke.leaveSelectionMode(k);
         let elements = document.getElementsByClassName(supportsSelectionMode);
         for (let element of elements) {
           element.classList.remove('inSelectionMode');
         }
       }
       function myEnterSelectionMode(k) {
-        mke.EnterSelectionMode(k);
+        mke.enterSelectionMode(k);
         let elements = document.getElementsByClassName(supportsSelectionMode);
         for (let element of elements) {
           element.classList.add('inSelectionMode');
         }
       }
 
-      function registerNodeKey(elementId, nodeGetter, onclickFuncForKeyboardMemoryAndNode = mke.Insert, onclickSelectionModeArrowFuncForKeyboardMemoryAndNode = null) {
+      function registerNodeKey(elementId, nodeGetter, onclickFuncForKeyboardMemoryAndNode = mke.insert, onclickSelectionModeArrowFuncForKeyboardMemoryAndNode = null) {
         let element = document.getElementById(elementId);
         if (onclickSelectionModeArrowFuncForKeyboardMemoryAndNode != null) {
           element.classList.add(supportsSelectionMode);
         }
 
-        let latex = mke.GetViewModeLatex(nodeGetter(), latexConfiguration);
+        let latex = mke.getViewModeLatex(nodeGetter(), latexConfiguration);
         typesetLatexInKey(latex, element);
         element.onclick = () => {
-          if (mke.InSelectionMode(keyboardMemory)) {
+          if (mke.inSelectionMode(keyboardMemory)) {
             if (onclickSelectionModeArrowFuncForKeyboardMemoryAndNode != null) {
               onclickSelectionModeArrowFuncForKeyboardMemoryAndNode(keyboardMemory, nodeGetter());
             } else {
@@ -231,7 +231,7 @@
         }
 
         element.onclick = () => {
-          if (mke.InSelectionMode(keyboardMemory)) {
+          if (mke.inSelectionMode(keyboardMemory)) {
             if (onclickSelectionModeFuncForKeyboardMemory != null) {
               onclickSelectionModeFuncForKeyboardMemory(keyboardMemory);
             }
@@ -246,10 +246,10 @@
       }
 
       function displayResult() {
-        let editModeLatex = mke.GetEditModeLatex(keyboardMemory, latexConfiguration);
+        let editModeLatex = mke.getEditModeLatex(keyboardMemory, latexConfiguration);
         typesetLatexInOutputBox(editModeLatex, document.getElementById('typesetEditModeLatex'));
 
-        let viewModeLatex = mke.GetViewModeLatex(keyboardMemory, latexConfiguration);
+        let viewModeLatex = mke.getViewModeLatex(keyboardMemory, latexConfiguration);
         document.getElementById('viewModeLatex').innerText = viewModeLatex;
       }
 
@@ -277,7 +277,7 @@
         if (key.startsWith('Shift')) {
           inShift = false;
         } else if (key == 'ControlLeft') {
-          if (mke.InSelectionMode(keyboardMemory)) {
+          if (mke.inSelectionMode(keyboardMemory)) {
             myLeaveSelectionMode(keyboardMemory);
           } else {
             myEnterSelectionMode(keyboardMemory);
@@ -291,51 +291,51 @@
       }
       // prettier-ignore
       const physicalKeydownHandlersForShift = [
-        createHandler((key) => key == 'Digit6', (k, key) => mke.InsertWithEncapsulateCurrent(k, getPowerNode())),
-        createHandler((key) => key == 'Digit9', (k, key) => mke.Insert(k, new mke.RoundBracketsNode())),
-        createHandler((key) => key == 'Digit0', (k, key) => mke.MoveRight(k)),
-        createHandler((key) => key == 'Digit8', (k, key) => mke.Insert(k, getMultiplicationNode())),
-        createHandler((key) => key == 'Equal', (k, key) => mke.Insert(k, new mke.StandardLeafNode('+'))),
-        createHandler((key) => key == 'Minus', (k, key) => mke.InsertWithEncapsulateCurrent(k, getSubscriptNode())),
-        createHandler((key) => key == 'Digit1', (k, key) => mke.Insert(k, new mke.StandardLeafNode('!'))),
-        createHandler((key) => key == 'Digit5', (k, key) => mke.Insert(k, new mke.StandardLeafNode(String.raw`\%`))),
-        createHandler((key) => key.startsWith('Key'), (k, key) => mke.Insert(k, new mke.StandardLeafNode(key[3]))),
-        createHandler((key) => key == 'Backslash', (k, key) => mke.Insert(k, getPipesNode())),
-        createHandler((key) => key == 'BracketLeft', (k, key) => mke.Insert(k, getCurlyBracketsNode())),
-        createHandler((key) => key == 'BracketRight', (k, key) => mke.MoveRight(k)),
-        createHandler((key) => key == 'Comma', (k, key) => mke.Insert(k, new mke.StandardLeafNode('<'))),
-        createHandler((key) => key == 'Period', (k, key) => mke.Insert(k, new mke.StandardLeafNode('>'))),
-        createHandler((key) => key == 'Semicolon', (k, key) => mke.Insert(k, new mke.StandardLeafNode(':'))),
+        createHandler((key) => key == 'Digit6', (k, key) => mke.insertWithEncapsulateCurrent(k, getPowerNode())),
+        createHandler((key) => key == 'Digit9', (k, key) => mke.insert(k, new mke.RoundBracketsNode())),
+        createHandler((key) => key == 'Digit0', (k, key) => mke.moveRight(k)),
+        createHandler((key) => key == 'Digit8', (k, key) => mke.insert(k, getMultiplicationNode())),
+        createHandler((key) => key == 'Equal', (k, key) => mke.insert(k, new mke.StandardLeafNode('+'))),
+        createHandler((key) => key == 'Minus', (k, key) => mke.insertWithEncapsulateCurrent(k, getSubscriptNode())),
+        createHandler((key) => key == 'Digit1', (k, key) => mke.insert(k, new mke.StandardLeafNode('!'))),
+        createHandler((key) => key == 'Digit5', (k, key) => mke.insert(k, new mke.StandardLeafNode(String.raw`\%`))),
+        createHandler((key) => key.startsWith('Key'), (k, key) => mke.insert(k, new mke.StandardLeafNode(key[3]))),
+        createHandler((key) => key == 'Backslash', (k, key) => mke.insert(k, getPipesNode())),
+        createHandler((key) => key == 'BracketLeft', (k, key) => mke.insert(k, getCurlyBracketsNode())),
+        createHandler((key) => key == 'BracketRight', (k, key) => mke.moveRight(k)),
+        createHandler((key) => key == 'Comma', (k, key) => mke.insert(k, new mke.StandardLeafNode('<'))),
+        createHandler((key) => key == 'Period', (k, key) => mke.insert(k, new mke.StandardLeafNode('>'))),
+        createHandler((key) => key == 'Semicolon', (k, key) => mke.insert(k, new mke.StandardLeafNode(':'))),
       ];
       // prettier-ignore
       const selectionModePhysicalKeydownHandlersForShift = [
-        createHandler((key) => key == 'Digit6', (k, key) => mke.InsertWithEncapsulateSelectionAndPrevious(k, getPowerNode())),
-        createHandler((key) => key == 'BracketLeft', (k, key) => mke.InsertWithEncapsulateSelection(k, getCurlyBracketsNode())),
-        createHandler((key) => key == 'Backslash', (k, key) => mke.InsertWithEncapsulateSelection(k, getPipesNode())),
-        createHandler((key) => key == 'Digit9', (k, key) => mke.InsertWithEncapsulateSelection(k, new mke.RoundBracketsNode())),
+        createHandler((key) => key == 'Digit6', (k, key) => mke.insertWithEncapsulateSelectionAndPrevious(k, getPowerNode())),
+        createHandler((key) => key == 'BracketLeft', (k, key) => mke.insertWithEncapsulateSelection(k, getCurlyBracketsNode())),
+        createHandler((key) => key == 'Backslash', (k, key) => mke.insertWithEncapsulateSelection(k, getPipesNode())),
+        createHandler((key) => key == 'Digit9', (k, key) => mke.insertWithEncapsulateSelection(k, new mke.RoundBracketsNode())),
       ];
       // prettier-ignore
       const selectionModePhysicalKeydownHandlersNoShift = [
-        createHandler((key) => key == 'Backspace', (k, key) => mke.DeleteSelection(k)),
-        createHandler((key) => key == 'BracketLeft', (k, key) => mke.InsertWithEncapsulateSelection(k, getSquareBracketsNode())),
-        createHandler((key) => key == 'Slash', (k, key) => mke.InsertWithEncapsulateSelection(k, getFractionNode())),
+        createHandler((key) => key == 'Backspace', (k, key) => mke.deleteSelection(k)),
+        createHandler((key) => key == 'BracketLeft', (k, key) => mke.insertWithEncapsulateSelection(k, getSquareBracketsNode())),
+        createHandler((key) => key == 'Slash', (k, key) => mke.insertWithEncapsulateSelection(k, getFractionNode())),
       ];
       // prettier-ignore
       const physicalKeydownHandlersNoShift = [
-        createHandler((key) => key.startsWith('Digit'), (k, key) => mke.Insert(k, new mke.DigitNode(key[5]))),
-        createHandler((key) => key.startsWith('Key'), (k, key) => mke.Insert(k, new mke.StandardLeafNode(key[3].toLocaleLowerCase()))),
-        createHandler((key) => key == 'Backspace', (k, key) => mke.DeleteCurrent(k)),
-        createHandler((key) => key == 'ArrowLeft', (k, key) => mke.MoveLeft(k)),
-        createHandler((key) => key == 'ArrowRight', (k, key) => mke.MoveRight(k)),
-        createHandler((key) => key == 'ArrowUp', (k, key) => mke.MoveUp(k)),
-        createHandler((key) => key == 'ArrowDown', (k, key) => mke.MoveDown(k)),
-        createHandler((key) => key == 'Slash', (k, key) => mke.InsertWithEncapsulateCurrent(k, getFractionNode(), { deleteOuterRoundBracketsIfAny: true })),
-        createHandler((key) => key == 'Equal', (k, key) => mke.Insert(k, new mke.StandardLeafNode('='))),
-        createHandler((key) => key == 'Minus', (k, key) => mke.Insert(k, new mke.StandardLeafNode('-'))),
-        createHandler((key) => key == 'Period' || key == 'Comma', (k, key) => mke.Insert(k, getDecimalSeparatorNode())),
-        createHandler((key) => key == 'BracketLeft', (k, key) => mke.Insert(k, getSquareBracketsNode())),
-        createHandler((key) => key == 'BracketRight', (k, key) => mke.MoveRight(k)),
-        createHandler((key) => key == 'Backslash', (k, key) => mke.Insert(k, new mke.StandardLeafNode(String.raw`\setminus `))),
+        createHandler((key) => key.startsWith('Digit'), (k, key) => mke.insert(k, new mke.DigitNode(key[5]))),
+        createHandler((key) => key.startsWith('Key'), (k, key) => mke.insert(k, new mke.StandardLeafNode(key[3].toLocaleLowerCase()))),
+        createHandler((key) => key == 'Backspace', (k, key) => mke.deleteCurrent(k)),
+        createHandler((key) => key == 'ArrowLeft', (k, key) => mke.moveLeft(k)),
+        createHandler((key) => key == 'ArrowRight', (k, key) => mke.moveRight(k)),
+        createHandler((key) => key == 'ArrowUp', (k, key) => mke.moveUp(k)),
+        createHandler((key) => key == 'ArrowDown', (k, key) => mke.moveDown(k)),
+        createHandler((key) => key == 'Slash', (k, key) => mke.insertWithEncapsulateCurrent(k, getFractionNode(), { deleteOuterRoundBracketsIfAny: true })),
+        createHandler((key) => key == 'Equal', (k, key) => mke.insert(k, new mke.StandardLeafNode('='))),
+        createHandler((key) => key == 'Minus', (k, key) => mke.insert(k, new mke.StandardLeafNode('-'))),
+        createHandler((key) => key == 'Period' || key == 'Comma', (k, key) => mke.insert(k, getDecimalSeparatorNode())),
+        createHandler((key) => key == 'BracketLeft', (k, key) => mke.insert(k, getSquareBracketsNode())),
+        createHandler((key) => key == 'BracketRight', (k, key) => mke.moveRight(k)),
+        createHandler((key) => key == 'Backslash', (k, key) => mke.insert(k, new mke.StandardLeafNode(String.raw`\setminus `))),
       ];
 
       let nrKeysPressed = 0;
@@ -348,11 +348,11 @@
           inShift = true;
         } else if (key == 'ControlLeft') {
           return;
-        } else if (mke.InSelectionMode(keyboardMemory)) {
+        } else if (mke.inSelectionMode(keyboardMemory)) {
           if (key == 'ArrowLeft') {
-            mke.SelectLeft(keyboardMemory);
+            mke.selectLeft(keyboardMemory);
           } else if (key == 'ArrowRight') {
-            mke.SelectRight(keyboardMemory);
+            mke.selectRight(keyboardMemory);
           } else if (inShift) {
             let handler = selectionModePhysicalKeydownHandlersForShift.find((handler) => handler.canHandle(key));
             if (handler != null) {

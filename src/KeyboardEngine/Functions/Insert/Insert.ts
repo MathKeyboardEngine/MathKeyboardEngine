@@ -1,9 +1,9 @@
 import { TreeNode } from '../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
 import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placeholder';
 import { KeyboardMemory } from '../../KeyboardMemory';
-import { MoveRight } from '../Navigation/MoveRight';
+import { moveRight } from '../Navigation/MoveRight';
 
-export function Insert(k: KeyboardMemory, newNode: TreeNode): void {
+export function insert(k: KeyboardMemory, newNode: TreeNode): void {
   if (k.current instanceof Placeholder) {
     k.current.nodes.unshift(newNode);
     newNode.parentPlaceholder = k.current;
@@ -13,5 +13,5 @@ export function Insert(k: KeyboardMemory, newNode: TreeNode): void {
     parent.nodes.splice(indexOfCurrent + 1, 0, newNode);
     newNode.parentPlaceholder = parent;
   }
-  MoveRight(k);
+  moveRight(k);
 }

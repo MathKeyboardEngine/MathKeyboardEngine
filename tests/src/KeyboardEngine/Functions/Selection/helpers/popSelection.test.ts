@@ -2,17 +2,18 @@ import { describe } from 'mocha';
 import { expect } from 'chai';
 import { KeyboardMemory } from '../../../../../../src/KeyboardEngine/KeyboardMemory';
 import { popSelection } from '../../../../../../src/KeyboardEngine/Functions/Selection/helpers/popSelection';
-import { EnterSelectionMode } from '../../../../../../src/KeyboardEngine/Functions/Selection/EnterSelectionMode';
+import { enterSelectionMode } from '../../../../../../src/KeyboardEngine/Functions/Selection/EnterSelectionMode';
+import { inSelectionMode } from '../../../../../../src/KeyboardEngine/Functions/Selection/InSelectionMode';
 
 describe(popSelection.name, () => {
-  it('throws if not in selection mode', () => {
+  it(`throws if not in ${inSelectionMode.name}`, () => {
     const k = new KeyboardMemory();
     expect(() => popSelection(k)).throws();
   });
 
-  it('In selection mode: returns an empty array when nothing is selected', () => {
+  it(`returns an empty array when ${inSelectionMode.name} but nothing is selected`, () => {
     const k = new KeyboardMemory();
-    EnterSelectionMode(k);
+    enterSelectionMode(k);
     expect(0).to.equal(popSelection(k).length);
   });
 });

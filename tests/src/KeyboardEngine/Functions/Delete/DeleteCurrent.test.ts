@@ -1,250 +1,249 @@
 import { describe } from 'mocha';
 import { assert } from 'chai';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
-import { InsertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
+import { moveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
+import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateCurrent';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
-import { DeleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
+import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
+import { deleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
 import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
 import { DecimalSeparatorNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DecimalSeparatorNode';
-import { InsertWithEncapsulateSelectionAndPrevious } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateSelectionAndPrevious';
-import { SelectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
+import { insertWithEncapsulateSelectionAndPrevious } from '../../../../../src/KeyboardEngine/Functions/Insert/InsertWithEncapsulateSelectionAndPrevious';
+import { selectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/SelectLeft';
 import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
-import { MoveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
+import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { MatrixNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MatrixNode';
-import { MoveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
+import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
+import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
+import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/TreeNode';
+import { BranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/BranchingNode';
+import { LeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/LeafNode';
+import { nameof } from '../../../../helpers/nameof';
 
-describe(DeleteCurrent.name, () => {
-  it('can also be used to "delete empty placeholders in some cases" (in the experience of the user) - x', () => {
+describe(deleteCurrent.name, () => {
+  it(`can also be used to "delete empty ${Placeholder.name}s in some cases" (in the experience of the user) - x`, () => {
     // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('2'));
-    Insert(k, new StandardLeafNode('x'));
-    Insert(k, new StandardLeafNode('+')); // oops, typo!
-    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
-    Insert(k, new DigitNode('3'));
-    MoveDown(k);
-    DeleteCurrent(k); // trying to fix typo
+    insert(k, new DigitNode('2'));
+    insert(k, new StandardLeafNode('x'));
+    insert(k, new StandardLeafNode('+')); // oops, typo!
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insert(k, new DigitNode('3'));
+    moveDown(k);
+    deleteCurrent(k); // trying to fix typo
     expectLatex('2x{◼}^{3}', k);
-    MoveUp(k);
+    moveUp(k);
     expectLatex('2x{◻}^{3◼}', k); // Huh? Let's delete that empty placeholder!
-    MoveDown(k);
+    moveDown(k);
     expectLatex('2x{◼}^{3}', k);
     // Act
-    DeleteCurrent(k);
-    MoveUp(k);
+    deleteCurrent(k);
+    moveUp(k);
     // Assert
     expectLatex('2{x}^{3◼}', k);
   });
 
-  it('can also be used to "delete empty placeholders in some cases" (in the experience of the user) - 1+2.5', () => {
+  it(`can also be used to "delete empty ${Placeholder.name}s in some cases" (in the experience of the user) - 1+2.5`, () => {
     // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new StandardLeafNode('+'));
-    Insert(k, new DigitNode('2'));
-    Insert(k, new DecimalSeparatorNode());
-    Insert(k, new DigitNode('5'));
-    Insert(k, new StandardLeafNode('+')); // oops, typo!
-    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
-    Insert(k, new DigitNode('3'));
-    MoveDown(k);
-    DeleteCurrent(k); // trying to fix typo
+    insert(k, new DigitNode('1'));
+    insert(k, new StandardLeafNode('+'));
+    insert(k, new DigitNode('2'));
+    insert(k, new DecimalSeparatorNode());
+    insert(k, new DigitNode('5'));
+    insert(k, new StandardLeafNode('+')); // oops, typo!
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insert(k, new DigitNode('3'));
+    moveDown(k);
+    deleteCurrent(k); // trying to fix typo
     expectLatex('1+2.5{◼}^{3}', k);
-    MoveUp(k);
+    moveUp(k);
     expectLatex('1+2.5{◻}^{3◼}', k); // Huh? Let's delete that empty placeholder!
-    MoveDown(k);
+    moveDown(k);
     expectLatex('1+2.5{◼}^{3}', k);
     // Act
-    DeleteCurrent(k);
-    MoveUp(k);
+    deleteCurrent(k);
+    moveUp(k);
     // Assert
     expectLatex('1+{2.5}^{3◼}', k);
   });
 
-  it('can also be used to "delete empty placeholders in some cases" (in the experience of the user) - 2.5', () => {
+  it(`can also be used to "delete empty ${Placeholder.name}s in some cases" (in the experience of the user) - 2.5`, () => {
     // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('2'));
-    Insert(k, new DecimalSeparatorNode());
-    Insert(k, new DigitNode('5'));
-    Insert(k, new StandardLeafNode('+')); // oops, typo!
-    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
-    Insert(k, new DigitNode('3'));
-    MoveDown(k);
-    DeleteCurrent(k); // trying to fix typo
+    insert(k, new DigitNode('2'));
+    insert(k, new DecimalSeparatorNode());
+    insert(k, new DigitNode('5'));
+    insert(k, new StandardLeafNode('+')); // oops, typo!
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insert(k, new DigitNode('3'));
+    moveDown(k);
+    deleteCurrent(k); // trying to fix typo
     expectLatex('2.5{◼}^{3}', k);
-    MoveUp(k);
+    moveUp(k);
     expectLatex('2.5{◻}^{3◼}', k); // Huh? Let's delete that empty placeholder!
-    MoveDown(k);
+    moveDown(k);
     expectLatex('2.5{◼}^{3}', k);
     // Act
-    DeleteCurrent(k);
-    MoveUp(k);
+    deleteCurrent(k);
+    moveUp(k);
     // Assert
     expectLatex('{2.5}^{3◼}', k);
   });
 
-  it('Nothing happens at DeleteCurrent sometimes...', () => {
+  it('does nothing sometimes', () => {
     // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new MatrixNode('pmatrix', 2, 2));
-    MoveDown(k);
-    Insert(k, new DigitNode('3'));
-    MoveUp(k);
-    MoveRight(k);
+    insert(k, new MatrixNode('pmatrix', 2, 2));
+    moveDown(k);
+    insert(k, new DigitNode('3'));
+    moveUp(k);
+    moveRight(k);
     expectLatex(String.raw`\begin{pmatrix}◻ & ◼ \\ 3 & ◻\end{pmatrix}`, k);
     // Act
-    DeleteCurrent(k);
+    deleteCurrent(k);
     // Assert
     expectLatex(String.raw`\begin{pmatrix}◻ & ◼ \\ 3 & ◻\end{pmatrix}`, k);
   });
 
-  it('Delete the last node from the previous placeholder', () => {
+  it(`deletes the last ${TreeNode.name}s from the previous ${Placeholder.name}s`, () => {
     // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new MatrixNode('pmatrix', 2, 2));
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
-    MoveRight(k);
+    insert(k, new MatrixNode('pmatrix', 2, 2));
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    moveRight(k);
     expectLatex(String.raw`\begin{pmatrix}12 & ◼ \\ ◻ & ◻\end{pmatrix}`, k);
     // Act
-    DeleteCurrent(k);
+    deleteCurrent(k);
     // Assert
     expectLatex(String.raw`\begin{pmatrix}1◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
   });
 
-  it('inverse of TryEncapsulateCurrent - execution path with digits', () => {
+  it(`can revert ${insertWithEncapsulateCurrent.name} sometimes - execution path with multiple digits treated as a single thing`, () => {
     // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('2'));
-    const p = new AscendingBranchingNode('{', '}^{', '}');
-    InsertWithEncapsulateCurrent(k, p);
+    insert(k, new DigitNode('2'));
+    const powerNode = new AscendingBranchingNode('{', '}^{', '}');
+    insertWithEncapsulateCurrent(k, powerNode);
     const d3 = new DigitNode('3');
-    Insert(k, d3);
-    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insert(k, d3);
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
     expectLatex('{2}^{{3}^{◼}}', k);
-
     // Act & assert
-    DeleteCurrent(k);
+    deleteCurrent(k);
     expectLatex('{2}^{3◼}', k);
-    assert.isTrue(d3.parentPlaceholder == p.placeholders[1]);
-    DeleteCurrent(k);
+    assert.isTrue(d3.parentPlaceholder == powerNode.placeholders[1]);
+    deleteCurrent(k);
     expectLatex('{2}^{◼}', k);
   });
 
-  it('delete from first placeholder', () => {
+  it(`can delete from the first placeholder of a ${BranchingNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('2'));
-    const p = new AscendingBranchingNode('{', '}^{', '}');
-    InsertWithEncapsulateCurrent(k, p);
-    const d3 = new DigitNode('3');
-    Insert(k, d3);
-    InsertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
-    expectLatex('{2}^{{3}^{◼}}', k);
-
-    // Act & assert
-    DeleteCurrent(k);
-    expectLatex('{2}^{3◼}', k);
-    assert.isTrue(d3.parentPlaceholder == p.placeholders[1]);
-    DeleteCurrent(k);
-    expectLatex('{2}^{◼}', k);
-  });
-
-  it('Inverse of "raise selected to the power of an empty placeholder"', () => {
-    // Arrange
-    const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
-    expectLatex('12◼', k);
-    SelectLeft(k);
-    SelectLeft(k);
-    expectLatex(String.raw`\colorbox{blue}{12}`, k);
-    InsertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
-    expectLatex('{◻}^{12◼}', k);
-    MoveDown(k);
-    expectLatex('{◼}^{12}', k);
-
+    insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    expectLatex(String.raw`\frac{12◼}{◻}`, k);
     // Act
-    DeleteCurrent(k);
+    deleteCurrent(k);
+    // Assert
+    expectLatex(String.raw`\frac{1◼}{◻}`, k);
+});
+
+  it(`can revert "raise selected to the power of an empty ${Placeholder.name}`, () => {
+    // Arrange
+    const k = new KeyboardMemory();
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    expectLatex('12◼', k);
+    selectLeft(k);
+    selectLeft(k);
+    expectLatex(String.raw`\colorbox{blue}{12}`, k);
+    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    expectLatex('{◻}^{12◼}', k);
+    moveDown(k);
+    expectLatex('{◼}^{12}', k);
+    // Act
+    deleteCurrent(k);
     // Assert
     expectLatex('12◼', k);
   });
 
-  it('Delete from right of BranchingNode - last placeholder filled"', () => {
+  it(`from the right of a ${BranchingNode.name} - last ${Placeholder.name} filled`, () => {
     // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    InsertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
-    Insert(k, new StandardLeafNode('x'));
-    MoveRight(k);
+    insert(k, new DigitNode('1'));
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    insert(k, new StandardLeafNode('x'));
+    moveRight(k);
     expectLatex(String.raw`\frac{1}{x}◼`, k);
     // Act
-    DeleteCurrent(k);
+    deleteCurrent(k);
     // Assert
     expectLatex(String.raw`\frac{1}{◼}`, k);
   });
 
-  it('Delete from right of BranchingNode - last placeholder empty and first contains 1 node"', () => {
+  it(`from the right of a ${BranchingNode.name} - last ${Placeholder.name} is empty and first ${Placeholder.name} contains 1 ${LeafNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    InsertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
-    MoveRight(k);
-    MoveRight(k);
+    insert(k, new DigitNode('1'));
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    moveRight(k);
+    moveRight(k);
     expectLatex(String.raw`\frac{1}{◻}◼`, k);
     // Act
-    DeleteCurrent(k);
+    deleteCurrent(k);
     // Assert
     expectLatex(String.raw`\frac{◼}{◻}`, k);
   });
 
-  it('Delete from right of BranchingNode - last placeholder empty and first contains multiple nodes"', () => {
+  it(`from the right of a ${BranchingNode.name} - last ${Placeholder.name} is empty and first ${Placeholder.name} contains multiple ${LeafNode.name}s`, () => {
     // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('1'));
-    Insert(k, new DigitNode('2'));
-    InsertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
-    MoveRight(k);
-    MoveRight(k);
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    moveRight(k);
+    moveRight(k);
     expectLatex(String.raw`\frac{12}{◻}◼`, k);
     // Act
-    DeleteCurrent(k);
+    deleteCurrent(k);
     // Assert
     expectLatex(String.raw`\frac{1◼}{◻}`, k);
   });
 
-  it('Does nothing at deletion from first placeholder if multiple sibling placeholders are filled"', () => {
+  it(`does nothing from the first ${Placeholder.name} if multiple sibling ${Placeholder.name}s are filled`, () => {
     // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new MatrixNode('pmatrix', 2, 2));
-    MoveRight(k);
-    Insert(k, new DigitNode('2'));
-    MoveDown(k);
-    Insert(k, new DigitNode('4'));
-    MoveLeft(k);
-    MoveLeft(k);
-    MoveUp(k);
+    insert(k, new MatrixNode('pmatrix', 2, 2));
+    moveRight(k);
+    insert(k, new DigitNode('2'));
+    moveDown(k);
+    insert(k, new DigitNode('4'));
+    moveLeft(k);
+    moveLeft(k);
+    moveUp(k);
     expectLatex(String.raw`\begin{pmatrix}◼ & 2 \\ ◻ & 4\end{pmatrix}`, k);
     // Act
-    DeleteCurrent(k);
+    deleteCurrent(k);
     // Assert
     expectLatex(String.raw`\begin{pmatrix}◼ & 2 \\ ◻ & 4\end{pmatrix}`, k);
   });
 
-  it('delete BranchingNode from one of its placeholders: sets active placeholder right of previous node', () => {
+  it(`deletes a ${BranchingNode.name} from one of its ${Placeholder.name}s: sets ${nameof<KeyboardMemory>("current")} at (the right of) the previous ${TreeNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
-    Insert(k, new DigitNode('2'));
-    Insert(k, new StandardLeafNode(String.raw`\times `));
-    Insert(k, new MatrixNode('pmatrix', 2, 2));
+    insert(k, new DigitNode('2'));
+    insert(k, new StandardLeafNode(String.raw`\times `));
+    insert(k, new MatrixNode('pmatrix', 2, 2));
     expectLatex(String.raw`2\times \begin{pmatrix}◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
-    DeleteCurrent(k);
+    // Act
+    deleteCurrent(k);
+    // Assert
     expectLatex(String.raw`2\times ◼`, k);
   });
 });

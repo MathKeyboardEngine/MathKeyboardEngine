@@ -2,18 +2,19 @@ import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { KeyboardMemory } from '../../../src/KeyboardEngine/KeyboardMemory';
 import { Placeholder } from '../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
-import { DeleteCurrent } from '../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
-import { Insert } from '../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { deleteCurrent } from '../../../src/KeyboardEngine/Functions/Delete/DeleteCurrent';
+import { insert } from '../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { expectLatex } from '../../helpers/expectLatex';
-import { MoveLeft } from '../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
-import { MoveDown } from '../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
-import { MoveUp } from '../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
-import { MoveRight } from '../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
+import { moveLeft } from '../../../src/KeyboardEngine/Functions/Navigation/MoveLeft';
+import { moveDown } from '../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
+import { moveUp } from '../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
+import { moveRight } from '../../../src/KeyboardEngine/Functions/Navigation/MoveRight';
 import { DigitNode } from '../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { DescendingBranchingNode } from '../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
+import { nameof } from '../../helpers/nameof';
 
 describe(KeyboardMemory.name, () => {
-  describe('SyntaxTreeRoot', () => {
+  describe(nameof<KeyboardMemory>("syntaxTreeRoot"), () => {
     it('is equal to Current on KeyboardMemory initialization', () => {
       const k = new KeyboardMemory();
       assert.isNotNull(k.syntaxTreeRoot);
@@ -28,7 +29,7 @@ describe(KeyboardMemory.name, () => {
 
     it('cannot be deleted', () => {
       const k = new KeyboardMemory();
-      DeleteCurrent(k);
+      deleteCurrent(k);
       assert.isNotNull(k.current);
       assert.isTrue(k.current instanceof Placeholder);
     });
@@ -37,11 +38,11 @@ describe(KeyboardMemory.name, () => {
       const k = new KeyboardMemory();
 
       const fraction1 = new DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
-      Insert(k, fraction1);
+      insert(k, fraction1);
       assert.isTrue(k.current === fraction1.placeholders[0]);
 
       const fraction2 = new DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
-      Insert(k, fraction2);
+      insert(k, fraction2);
       assert.isTrue(k.current === fraction2.placeholders[0]);
 
       assert.isTrue(k.current instanceof Placeholder);
@@ -53,33 +54,33 @@ describe(KeyboardMemory.name, () => {
     it('impossible move requests in empty root placeholder do not throw', () => {
       const k = new KeyboardMemory();
       expectLatex('◼', k);
-      MoveLeft(k);
+      moveLeft(k);
       expectLatex('◼', k);
-      MoveDown(k);
+      moveDown(k);
       expectLatex('◼', k);
-      MoveUp(k);
+      moveUp(k);
       expectLatex('◼', k);
-      MoveRight(k);
+      moveRight(k);
       expectLatex('◼', k);
     });
 
     it('impossible move requests in filled root placeholder do not throw', () => {
       const k = new KeyboardMemory();
-      Insert(k, new DigitNode('1'));
+      insert(k, new DigitNode('1'));
       expectLatex('1◼', k);
-      MoveUp(k);
+      moveUp(k);
       expectLatex('1◼', k);
-      MoveRight(k);
+      moveRight(k);
       expectLatex('1◼', k);
-      MoveDown(k);
+      moveDown(k);
       expectLatex('1◼', k);
-      MoveLeft(k);
+      moveLeft(k);
       expectLatex('◼1', k);
-      MoveDown(k);
+      moveDown(k);
       expectLatex('◼1', k);
-      MoveLeft(k);
+      moveLeft(k);
       expectLatex('◼1', k);
-      MoveUp(k);
+      moveUp(k);
       expectLatex('◼1', k);
     });
   });

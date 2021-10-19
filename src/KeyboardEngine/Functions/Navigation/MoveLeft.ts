@@ -5,7 +5,7 @@ import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/Branchin
 import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placeholder';
 import { KeyboardMemory } from '../../KeyboardMemory';
 
-export function MoveLeft(k: KeyboardMemory): void {
+export function moveLeft(k: KeyboardMemory): void {
   if (k.current instanceof Placeholder) {
     if (k.current.parentNode == null) {
       return;

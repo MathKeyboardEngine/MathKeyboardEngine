@@ -1,21 +1,21 @@
 import { describe } from 'mocha';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { Insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insert/Insert';
 import { BranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/BranchingNode';
 import { LatexConfiguration } from '../../../../../src/LatexConfiguration';
 import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
-import { MoveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
-import { MoveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
+import { moveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveUp';
+import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/MoveDown';
 
 describe(BranchingNode.name, () => {
-  it('calling MoveUp or MoveDown does not throw even if not implemented', () => {
+  it(`calling ${moveUp.name} or ${moveDown.name} does not throw even if not implemented`, () => {
     const k = new KeyboardMemory();
-    Insert(k, new DummyBranchingNode());
+    insert(k, new DummyBranchingNode());
     expectLatex('wow >> ◼ << wow', k);
-    MoveUp(k);
+    moveUp(k);
     expectLatex('wow >> ◼ << wow', k);
-    MoveDown(k);
+    moveDown(k);
     expectLatex('wow >> ◼ << wow', k);
   });
 });

@@ -10,7 +10,7 @@ import { last } from '../../../helpers/arrayhelpers/last';
 import { PartOfNumberWithDigits } from '../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits';
 import { encapsulateAllPartsOfNumberWithDigitsLeftOfIndex } from '../helpers/encapsulateAllPartsOfNumberWithDigitsLeftOfIndex';
 
-export function DeleteCurrent(k: KeyboardMemory): void {
+export function deleteCurrent(k: KeyboardMemory): void {
   if (k.current instanceof Placeholder) {
     if (k.current.parentNode == null || k.current.nodes.length > 0) {
       return;

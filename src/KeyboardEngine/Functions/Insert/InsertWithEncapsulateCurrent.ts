@@ -4,12 +4,12 @@ import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/Branchin
 import { PartOfNumberWithDigits } from '../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits';
 import { RoundBracketsNode } from '../../../SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
 import { KeyboardMemory } from '../../KeyboardMemory';
-import { MoveRight } from '../Navigation/MoveRight';
+import { moveRight } from '../Navigation/MoveRight';
 import { encapsulate } from '../helpers/encapsulate';
-import { Insert } from './Insert';
+import { insert } from './Insert';
 import { encapsulateAllPartsOfNumberWithDigitsLeftOfIndex } from '../helpers/encapsulateAllPartsOfNumberWithDigitsLeftOfIndex';
 
-export function InsertWithEncapsulateCurrent(k: KeyboardMemory, newNode: BranchingNode, config?: { deleteOuterRoundBracketsIfAny?: boolean }): void {
+export function insertWithEncapsulateCurrent(k: KeyboardMemory, newNode: BranchingNode, config?: { deleteOuterRoundBracketsIfAny?: boolean }): void {
   const encapsulatingPlaceholder = newNode.placeholders[0];
   if (k.current instanceof TreeNode) {
     const siblingNodes = k.current.parentPlaceholder.nodes;
@@ -23,13 +23,13 @@ export function InsertWithEncapsulateCurrent(k: KeyboardMemory, newNode: Branchi
       encapsulatingPlaceholder.nodes.push(k.current);
       k.current.parentPlaceholder = encapsulatingPlaceholder;
       encapsulateAllPartsOfNumberWithDigitsLeftOfIndex(currentIndex, siblingNodes, encapsulatingPlaceholder);
-      MoveRight(k);
+      moveRight(k);
     } else {
       encapsulatingPlaceholder.nodes.push(k.current);
       k.current.parentPlaceholder = encapsulatingPlaceholder;
-      MoveRight(k);
+      moveRight(k);
     }
   } else {
-    Insert(k, newNode);
+    insert(k, newNode);
   }
 }
