@@ -1,12 +1,12 @@
 import { describe } from 'mocha';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insert/insert';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert_';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { selectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/selectLeft';
-import { deleteSelection } from '../../../../../src/KeyboardEngine/Functions/Delete/deleteSelection';
-import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft';
-import { selectRight } from '../../../../../src/KeyboardEngine/Functions/Selection/selectRight';
+import { selectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/selectLeft_';
+import { deleteSelection } from '../../../../../src/KeyboardEngine/Functions/Deletion/deleteSelection_';
+import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft_';
+import { selectRight } from '../../../../../src/KeyboardEngine/Functions/Selection/selectRight_';
 import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/TreeNode';
 import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 

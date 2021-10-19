@@ -3,7 +3,7 @@ import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/Branchin
 import { KeyboardMemory } from '../../KeyboardMemory';
 import { popSelection } from '../Selection/helpers/popSelection';
 import { encapsulate } from '../helpers/encapsulate';
-import { insertWithEncapsulateCurrent } from './insertWithEncapsulateCurrent';
+import { insertWithEncapsulateCurrent } from './insertWithEncapsulateCurrent_';
 
 export function insertWithEncapsulateSelectionAndPrevious(keyboardMemory: KeyboardMemory, newNode: BranchingNode): void {
   if (newNode.placeholders.length < 2) {

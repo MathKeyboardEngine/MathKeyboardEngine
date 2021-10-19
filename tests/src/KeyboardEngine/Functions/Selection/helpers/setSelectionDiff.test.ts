@@ -2,10 +2,10 @@ import { describe } from 'mocha';
 import { expect } from 'chai';
 import { KeyboardMemory } from '../../../../../../src/KeyboardEngine/KeyboardMemory';
 import { expectLatex } from '../../../../../helpers/expectLatex';
-import { insert } from '../../../../../../src/KeyboardEngine/Functions/Insert/insert';
+import { insert } from '../../../../../../src/KeyboardEngine/Functions/Insertion/insert_';
 import { DigitNode } from '../../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { setSelectionDiff } from '../../../../../../src/KeyboardEngine/Functions/Selection/helpers/setSelectionDiff';
-import { selectLeft } from '../../../../../../src/KeyboardEngine/Functions/Selection/selectLeft';
+import { selectLeft } from '../../../../../../src/KeyboardEngine/Functions/Selection/selectLeft_';
 
 describe(setSelectionDiff.name, () => {
   it('throws at nonsensical request', () => {

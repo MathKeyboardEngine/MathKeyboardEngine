@@ -4,9 +4,9 @@ import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/Branchin
 import { PartOfNumberWithDigits } from '../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits';
 import { RoundBracketsNode } from '../../../SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
 import { KeyboardMemory } from '../../KeyboardMemory';
-import { moveRight } from '../Navigation/moveRight';
+import { moveRight } from '../Navigation/moveRight_';
 import { encapsulate } from '../helpers/encapsulate';
-import { insert } from './insert';
+import { insert } from './insert_';
 import { encapsulateAllPartsOfNumberWithDigitsLeftOfIndex } from '../helpers/encapsulateAllPartsOfNumberWithDigitsLeftOfIndex';
 
 export function insertWithEncapsulateCurrent(k: KeyboardMemory, newNode: BranchingNode, config?: { deleteOuterRoundBracketsIfAny?: boolean }): void {

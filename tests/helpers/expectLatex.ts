@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { KeyboardMemory } from '../../src/KeyboardEngine/KeyboardMemory';
 import { LatexConfiguration } from '../../src/LatexConfiguration';
-import { getEditModeLatex } from '../../src/GetLatex/getEditModeLatex';
+import { getEditModeLatex } from '../../src/GetLatex/getEditModeLatex_';
 
 const testConfig = new LatexConfiguration();
 testConfig.activePlaceholderShape = '◼';

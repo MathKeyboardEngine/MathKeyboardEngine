@@ -2,8 +2,8 @@ import { describe } from 'mocha';
 import { expect } from 'chai';
 import { KeyboardMemory } from '../../../../../../src/KeyboardEngine/KeyboardMemory';
 import { popSelection } from '../../../../../../src/KeyboardEngine/Functions/Selection/helpers/popSelection';
-import { enterSelectionMode } from '../../../../../../src/KeyboardEngine/Functions/Selection/enterSelectionMode';
-import { inSelectionMode } from '../../../../../../src/KeyboardEngine/Functions/Selection/inSelectionMode';
+import { enterSelectionMode } from '../../../../../../src/KeyboardEngine/Functions/Selection/enterSelectionMode_';
+import { inSelectionMode } from '../../../../../../src/KeyboardEngine/Functions/Selection/inSelectionMode_';
 
 describe(popSelection.name, () => {
   it(`throws if not in ${inSelectionMode.name}`, () => {

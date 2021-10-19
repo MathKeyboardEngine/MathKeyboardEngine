@@ -1,14 +1,14 @@
 import { describe } from 'mocha';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insert/insert';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert_';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
-import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight';
-import { moveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveUp';
-import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insert/insertWithEncapsulateCurrent';
+import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight_';
+import { moveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveUp_';
+import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insertion/insertWithEncapsulateCurrent_';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveDown';
-import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft';
+import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveDown_';
+import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft_';
 import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
 
 describe('Subscript as suffix', () => {

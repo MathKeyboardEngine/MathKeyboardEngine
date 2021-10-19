@@ -1,12 +1,12 @@
 import { describe } from 'mocha';
 import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insert/insert';
+import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert_';
 import { StandardBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/StandardBranchingNode';
 import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight';
+import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight_';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft';
-import { deleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Delete/deleteCurrent';
+import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft_';
+import { deleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Deletion/deleteCurrent_';
 
 describe(StandardBranchingNode.name, () => {
   it('sqrt 3 right left left left right', () => {
