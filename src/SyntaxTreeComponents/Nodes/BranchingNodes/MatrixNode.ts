@@ -34,8 +34,8 @@ export class MatrixNode extends BranchingNode {
     return latex;
   }
 
-  override getMoveDownSuggestion(current: Placeholder): Placeholder | null {
-    const { rowNumber, indexInRow } = this.getPositionOf(current);
+  override getMoveDownSuggestion(fromPlaceholder: Placeholder): Placeholder | null {
+    const { rowNumber, indexInRow } = this.getPositionOf(fromPlaceholder);
     if (rowNumber + 1 < this.grid.length) {
       return this.grid[rowNumber + 1][indexInRow];
     } else {
@@ -43,8 +43,8 @@ export class MatrixNode extends BranchingNode {
     }
   }
 
-  override getMoveUpSuggestion(current: Placeholder): Placeholder | null {
-    const { rowNumber, indexInRow } = this.getPositionOf(current);
+  override getMoveUpSuggestion(fromPlaceholder: Placeholder): Placeholder | null {
+    const { rowNumber, indexInRow } = this.getPositionOf(fromPlaceholder);
     if (rowNumber - 1 >= 0) {
       return this.grid[rowNumber - 1][indexInRow];
     } else {
@@ -64,6 +64,6 @@ export class MatrixNode extends BranchingNode {
         }
       }
     }
-    throw 'The provided placeholder is not part of the Grid.';
+    throw 'The provided Placeholder is not part of this MatrixNode.';
   }
 }
