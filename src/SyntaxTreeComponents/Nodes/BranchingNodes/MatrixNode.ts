@@ -27,9 +27,9 @@ export class MatrixNode extends BranchingNode {
     this.matrixType = matrixType;
   }
 
-  override getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
+  override getLatexPart(k: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
     let latex = String.raw`\begin{${this.matrixType}}`;
-    latex += this.grid.map((row) => row.map((placeholder) => placeholder.getLatex(keyboardMemory, latexConfiguration)).join(' & ')).join(String.raw` \\ `);
+    latex += this.grid.map((row) => row.map((placeholder) => placeholder.getLatex(k, latexConfiguration)).join(' & ')).join(String.raw` \\ `);
     latex += String.raw`\end{${this.matrixType}}`;
     return latex;
   }

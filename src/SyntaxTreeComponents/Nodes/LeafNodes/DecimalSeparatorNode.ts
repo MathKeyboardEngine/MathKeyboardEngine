@@ -8,7 +8,7 @@ export class DecimalSeparatorNode extends PartOfNumberWithDigits {
     super();
     this.latex = typeof latex === 'string' ? () => latex : latex;
   }
-  override getLatexPart(_keyboardMemory: KeyboardMemory, _latexConfiguration: LatexConfiguration): string {
+  override getLatexPart(_k: KeyboardMemory, _latexConfiguration: LatexConfiguration): string {
     return this.latex();
   }
 }

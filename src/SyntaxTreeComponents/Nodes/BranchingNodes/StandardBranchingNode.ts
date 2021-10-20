@@ -20,10 +20,10 @@ export class StandardBranchingNode extends BranchingNode {
     this.rest = rest;
   }
 
-  getLatexPart(keyboardMemory: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
-    let latex = this.before + this.placeholders[0].getLatex(keyboardMemory, latexConfiguration) + this.then;
+  getLatexPart(k: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
+    let latex = this.before + this.placeholders[0].getLatex(k, latexConfiguration) + this.then;
     for (let i = 0; i < this.rest.length; i++) {
-      latex += this.placeholders[i + 1].getLatex(keyboardMemory, latexConfiguration) + this.rest[i];
+      latex += this.placeholders[i + 1].getLatex(k, latexConfiguration) + this.rest[i];
     }
     return latex;
   }
