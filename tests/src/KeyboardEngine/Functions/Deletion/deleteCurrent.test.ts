@@ -173,7 +173,7 @@ describe(deleteCurrent.name, () => {
     expectLatex('12◼', k);
   });
 
-  it(`from the right of a ${BranchingNode.name} - last ${Placeholder.name} filled`, () => {
+  it(`from the right of a ${BranchingNode.name} - last ${Placeholder.name} contains a ${LeafNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -185,6 +185,26 @@ describe(deleteCurrent.name, () => {
     deleteCurrent(k);
     // Assert
     expectLatex(String.raw`\frac{1}{◼}`, k);
+  });
+
+  it(`from the right of a ${BranchingNode.name} - last ${Placeholder.name} contains nested ${BranchingNode.name}s`, () => {
+    // Arrange
+    const k = new KeyboardMemory();
+    insert(k, new DigitNode('1'));
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    insert(k, new DigitNode('1'));
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    insert(k, new DigitNode('1'));
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+    insert(k, new StandardLeafNode('x'));
+    moveRight(k);
+    moveRight(k);
+    moveRight(k);
+    expectLatex(String.raw`\frac{1}{\frac{1}{\frac{1}{x}}}◼`, k);
+    // Act
+    deleteCurrent(k);
+    // Assert
+    expectLatex(String.raw`\frac{1}{\frac{1}{\frac{1}{◼}}}`, k);
   });
 
   it(`from the right of a ${BranchingNode.name} - last ${Placeholder.name} is empty and first ${Placeholder.name} contains 1 ${LeafNode.name}`, () => {

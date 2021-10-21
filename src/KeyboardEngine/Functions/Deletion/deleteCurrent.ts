@@ -63,8 +63,8 @@ export function deleteCurrent(k: KeyboardMemory): void {
           break;
         }
       }
-      lastPlaceholderWithContent.nodes.pop();
-      k.current = lastPlaceholderWithContent.nodes.length == 0 ? lastPlaceholderWithContent : last(lastPlaceholderWithContent.nodes);
+      k.current = last(lastPlaceholderWithContent.nodes);
+      deleteCurrent(k);
     } else {
       const previousNode: TreeNode | null = firstBeforeOrNull(k.current.parentPlaceholder.nodes, k.current);
       remove(k.current.parentPlaceholder.nodes, k.current);
