@@ -153,7 +153,7 @@ describe(deleteCurrent.name, () => {
     deleteCurrent(k);
     // Assert
     expectLatex(String.raw`\frac{1◼}{◻}`, k);
-});
+  });
 
   it(`can revert "raise selected to the power of an empty ${Placeholder.name}`, () => {
     // Arrange
@@ -270,7 +270,7 @@ describe(deleteCurrent.name, () => {
     expectLatex(String.raw`\begin{pmatrix}◼ & 2 \\ ◻ & 4\end{pmatrix}`, k);
   });
 
-  it(`deletes a ${BranchingNode.name} from one of its ${Placeholder.name}s: sets ${nameof<KeyboardMemory>("current")} at (the right of) the previous ${TreeNode.name}`, () => {
+  it(`deletes a ${BranchingNode.name} from one of its ${Placeholder.name}s: sets ${nameof<KeyboardMemory>('current')} at (the right of) the previous ${TreeNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('2'));

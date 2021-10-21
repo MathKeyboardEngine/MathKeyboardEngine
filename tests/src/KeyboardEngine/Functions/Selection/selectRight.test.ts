@@ -85,7 +85,7 @@ describe(selectRight.name, () => {
     assert.isTrue(inSelectionMode(k));
   });
 
-  it(`does nothing if all on-the-right-available ${TreeNode.name}s are selected and the left exclusive border is a ${Placeholder.name} (and the ${nameof<KeyboardMemory>("syntaxTreeRoot")})`, () => {
+  it(`does nothing if all on-the-right-available ${TreeNode.name}s are selected and the left exclusive border is a ${Placeholder.name} (and the ${nameof<KeyboardMemory>('syntaxTreeRoot')})`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -99,7 +99,9 @@ describe(selectRight.name, () => {
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
   });
 
-  it(`does nothing if all on-the-right-available ${TreeNode.name}s are selected and the left exclusive border is a ${TreeNode.name} (and the ${nameof<TreeNode>("parentPlaceholder")} is the ${nameof<KeyboardMemory>("syntaxTreeRoot")})`, () => {
+  it(`does nothing if all on-the-right-available ${TreeNode.name}s are selected and the left exclusive border is a ${TreeNode.name} (and the ${nameof<TreeNode>(
+    'parentPlaceholder'
+  )} is the ${nameof<KeyboardMemory>('syntaxTreeRoot')})`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -114,7 +116,7 @@ describe(selectRight.name, () => {
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
   });
 
-  it(`can break out of the current ${Placeholder.name} - case: set a ${Placeholder.name} as the new ${nameof<KeyboardMemory>("current")}`, () => {
+  it(`can break out of the current ${Placeholder.name} - case: set a ${Placeholder.name} as the new ${nameof<KeyboardMemory>('current')}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'));
@@ -138,7 +140,7 @@ describe(selectRight.name, () => {
     expectLatex(String.raw`\colorbox{blue}{\sqrt{2}+x}`, k);
   });
 
-  it(`can break out of the current ${Placeholder.name} - case: set a ${TreeNode.name} as the new ${nameof<KeyboardMemory>("current")}`, () => {
+  it(`can break out of the current ${Placeholder.name} - case: set a ${TreeNode.name} as the new ${nameof<KeyboardMemory>('current')}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('3'));

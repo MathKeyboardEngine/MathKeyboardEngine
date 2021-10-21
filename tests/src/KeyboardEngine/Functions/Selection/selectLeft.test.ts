@@ -66,7 +66,7 @@ describe(selectLeft.name, () => {
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
   });
 
-  it(`does nothing if ${nameof<KeyboardMemory>("current")} is the ${nameof<KeyboardMemory>("syntaxTreeRoot")}`, () => {
+  it(`does nothing if ${nameof<KeyboardMemory>('current')} is the ${nameof<KeyboardMemory>('syntaxTreeRoot')}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -79,7 +79,7 @@ describe(selectLeft.name, () => {
     expectLatex('◼1', k);
   });
 
-  it(`does nothing if all on-the-left-available ${TreeNode.name}s are selected (and ${nameof<KeyboardMemory>("current")} is the ${nameof<KeyboardMemory>("syntaxTreeRoot")})`, () => {
+  it(`does nothing if all on-the-left-available ${TreeNode.name}s are selected (and ${nameof<KeyboardMemory>('current')} is the ${nameof<KeyboardMemory>('syntaxTreeRoot')})`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));

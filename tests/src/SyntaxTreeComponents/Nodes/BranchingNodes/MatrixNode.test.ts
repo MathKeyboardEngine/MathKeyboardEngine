@@ -174,7 +174,7 @@ describe(MatrixNode.name, () => {
     expectLatex(String.raw`\begin{pmatrix}1 & 2◼ \\ 3 & 4\end{pmatrix}`, k);
   });
 
-  it(`${nameof<MatrixNode>("getMoveDownSuggestion")} throws if it is called for a ${Placeholder.name} that is not part of the matrix`, () => {
+  it(`${nameof<MatrixNode>('getMoveDownSuggestion')} throws if it is called for a ${Placeholder.name} that is not part of the matrix`, () => {
     const matrix = new MatrixNode('pmatrix', 2, 2);
     const placeholderThatIsNotPartOfTheMatrix = new Placeholder();
     expect(() => matrix.getMoveDownSuggestion(placeholderThatIsNotPartOfTheMatrix)).throws();

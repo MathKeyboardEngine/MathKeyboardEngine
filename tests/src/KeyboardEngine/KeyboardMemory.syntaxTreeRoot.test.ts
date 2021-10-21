@@ -14,7 +14,7 @@ import { DescendingBranchingNode } from '../../../src/SyntaxTreeComponents/Nodes
 import { nameof } from '../../helpers/nameof';
 
 describe(KeyboardMemory.name, () => {
-  describe(nameof<KeyboardMemory>("syntaxTreeRoot"), () => {
+  describe(nameof<KeyboardMemory>('syntaxTreeRoot'), () => {
     it('is equal to Current on KeyboardMemory initialization', () => {
       const k = new KeyboardMemory();
       assert.isNotNull(k.syntaxTreeRoot);

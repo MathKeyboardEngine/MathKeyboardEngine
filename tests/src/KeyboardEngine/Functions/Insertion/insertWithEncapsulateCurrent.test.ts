@@ -18,7 +18,7 @@ import { nameof } from '../../../../helpers/nameof';
 import { BranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/BranchingNode';
 
 describe(insertWithEncapsulateCurrent.name, () => {
-  it(`does a regular insert if ${nameof<KeyboardMemory>("current")} is a ${Placeholder.name}`, () => {
+  it(`does a regular insert if ${nameof<KeyboardMemory>('current')} is a ${Placeholder.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     assert.isTrue(k.current instanceof Placeholder);

@@ -49,10 +49,9 @@ export function deleteCurrent(k: KeyboardMemory): void {
       }
     }
   } else {
-    if (k.current instanceof BranchingNode && k.current.placeholders.length == 1 && k.current.placeholders[0].nodes.length > 0){
-      deleteOuterBranchingNodeButNotItsContents(k,  k.current.placeholders[0]);
-    }
-    else if (k.current instanceof BranchingNode && k.current.placeholders.some((ph) => ph.nodes.length > 0)) {
+    if (k.current instanceof BranchingNode && k.current.placeholders.length == 1 && k.current.placeholders[0].nodes.length > 0) {
+      deleteOuterBranchingNodeButNotItsContents(k, k.current.placeholders[0]);
+    } else if (k.current instanceof BranchingNode && k.current.placeholders.some((ph) => ph.nodes.length > 0)) {
       let lastPlaceholderWithContent!: Placeholder;
       for (let i = k.current.placeholders.length - 1; i >= 0; i--) {
         const ph = k.current.placeholders[i];
@@ -82,7 +81,7 @@ function encapsulatePreviousInto(previousNode: TreeNode, targetPlaceholder: Plac
 }
 
 function deleteOuterBranchingNodeButNotItsContents(k: KeyboardMemory, nonEmptyPlaceholder: Placeholder) {
-  let outerBranchingNode = nonEmptyPlaceholder.parentNode!;
+  const outerBranchingNode = nonEmptyPlaceholder.parentNode!;
   outerBranchingNode.parentPlaceholder.nodes.pop();
   for (const node of nonEmptyPlaceholder.nodes) {
     outerBranchingNode.parentPlaceholder.nodes.push(node);

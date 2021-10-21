@@ -10,7 +10,7 @@ import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/Tre
 import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 
 describe(insert.name, () => {
-  it(`inserts at the start of a ${TreeNode.name}[] (it "prepends") if ${nameof<KeyboardMemory>("current")} is a ${Placeholder.name}`, () => {
+  it(`inserts at the start of a ${TreeNode.name}[] (it "prepends") if ${nameof<KeyboardMemory>('current')} is a ${Placeholder.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     const digitNode1 = new DigitNode('1');
@@ -25,7 +25,7 @@ describe(insert.name, () => {
     expectLatex('2◼1', k);
   });
 
-  it(`inserts at the right of a ${TreeNode.name} if ${nameof<KeyboardMemory>("current")} is a ${TreeNode.name}`, () => {
+  it(`inserts at the right of a ${TreeNode.name} if ${nameof<KeyboardMemory>('current')} is a ${TreeNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     const digitNode1 = new DigitNode('1');
@@ -46,7 +46,7 @@ describe(insert.name, () => {
     expectLatex('13◼2', k);
   });
 
-  it(`sets the ${nameof<TreeNode>("parentPlaceholder")}`, () => {
+  it(`sets the ${nameof<TreeNode>('parentPlaceholder')}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     const node = new DigitNode('1');
@@ -57,7 +57,7 @@ describe(insert.name, () => {
     assert.isNotNull(node.parentPlaceholder);
   });
 
-  it(`sets ${nameof<KeyboardMemory>("current")}`, () => {
+  it(`sets ${nameof<KeyboardMemory>('current')}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     const originalCurrent = k.current;
