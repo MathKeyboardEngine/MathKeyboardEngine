@@ -22,6 +22,7 @@ import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/Tre
 import { BranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/BranchingNode';
 import { LeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/LeafNode';
 import { nameof } from '../../../../helpers/nameof';
+import { RoundBracketsNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
 
 describe(deleteCurrent.name, () => {
   it(`can also be used to "delete empty ${Placeholder.name}s in some cases" (in the experience of the user) - x`, () => {
@@ -171,6 +172,21 @@ describe(deleteCurrent.name, () => {
     deleteCurrent(k);
     // Assert
     expectLatex('12◼', k);
+  });
+
+  it(`from the right of a single-${Placeholder.name} ${BranchingNode.name} - ${Placeholder.name} contains ${TreeNode.name}s`, () => {
+    // Arrange
+    const k = new KeyboardMemory();
+    insert(k, new RoundBracketsNode('(', ')'));
+    insert(k, new DigitNode('1'));
+    insert(k, new StandardLeafNode('+'));
+    insert(k, new StandardLeafNode('x'));
+    moveRight(k);
+    expectLatex('(1+x)◼', k);
+    // Act
+    deleteCurrent(k);
+    // Assert
+    expectLatex('1+x◼', k);
   });
 
   it(`from the right of a ${BranchingNode.name} - last ${Placeholder.name} contains a ${LeafNode.name}`, () => {

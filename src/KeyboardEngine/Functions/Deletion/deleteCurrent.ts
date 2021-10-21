@@ -18,12 +18,7 @@ export function deleteCurrent(k: KeyboardMemory): void {
       const nonEmptyPlaceholderOnLeft: Placeholder | null = getFirstNonEmptyOnLeftOf(k.current.parentNode.placeholders, k.current);
       if (nonEmptyPlaceholderOnLeft) {
         if (k.current.parentNode.placeholders.length == 2 && k.current === k.current.parentNode.placeholders[1] && k.current.nodes.length == 0) {
-          k.current.parentNode.parentPlaceholder.nodes.pop();
-          for (const node of nonEmptyPlaceholderOnLeft.nodes) {
-            k.current.parentNode.parentPlaceholder.nodes.push(node);
-            node.parentPlaceholder = k.current.parentNode.parentPlaceholder;
-          }
-          k.current = last(nonEmptyPlaceholderOnLeft.nodes);
+          deleteOuterBranchingNodeButNotItsContents(k, nonEmptyPlaceholderOnLeft);
         } else {
           nonEmptyPlaceholderOnLeft.nodes.pop();
           k.current = lastOrNull(nonEmptyPlaceholderOnLeft.nodes) ?? nonEmptyPlaceholderOnLeft;
@@ -54,7 +49,10 @@ export function deleteCurrent(k: KeyboardMemory): void {
       }
     }
   } else {
-    if (k.current instanceof BranchingNode && k.current.placeholders.some((ph) => ph.nodes.length > 0)) {
+    if (k.current instanceof BranchingNode && k.current.placeholders.length == 1 && k.current.placeholders[0].nodes.length > 0){
+      deleteOuterBranchingNodeButNotItsContents(k,  k.current.placeholders[0]);
+    }
+    else if (k.current instanceof BranchingNode && k.current.placeholders.some((ph) => ph.nodes.length > 0)) {
       let lastPlaceholderWithContent!: Placeholder;
       for (let i = k.current.placeholders.length - 1; i >= 0; i--) {
         const ph = k.current.placeholders[i];
@@ -81,4 +79,14 @@ function encapsulatePreviousInto(previousNode: TreeNode, targetPlaceholder: Plac
   if (previousNode instanceof PartOfNumberWithDigits) {
     encapsulateAllPartsOfNumberWithDigitsLeftOfIndex(previousNodeOldParentPlaceholder.nodes.length - 1, previousNodeOldParentPlaceholder.nodes, targetPlaceholder);
   }
+}
+
+function deleteOuterBranchingNodeButNotItsContents(k: KeyboardMemory, nonEmptyPlaceholder: Placeholder) {
+  let outerBranchingNode = nonEmptyPlaceholder.parentNode!;
+  outerBranchingNode.parentPlaceholder.nodes.pop();
+  for (const node of nonEmptyPlaceholder.nodes) {
+    outerBranchingNode.parentPlaceholder.nodes.push(node);
+    node.parentPlaceholder = outerBranchingNode.parentPlaceholder;
+  }
+  k.current = last(nonEmptyPlaceholder.nodes);
 }
