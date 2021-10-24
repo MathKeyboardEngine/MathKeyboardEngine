@@ -1,0 +1,22 @@
+Deploy steps:
+
+npm run clean
+npm test
+npm run build
+
+> manually test examples
+
+replace "v0.1.0-beta.old" by "0.1.0-beta.new"
+
+npm pack
+> manually check zip contents
+
+npm login
+npm publish
+
+> commit changes with title "v0.1.0-beta.new"
+
+git tag -a v0.1.0-beta.new
+git push origin --tags
+
+> update the Live examples in the mathkeyboardengine.github.io repository
