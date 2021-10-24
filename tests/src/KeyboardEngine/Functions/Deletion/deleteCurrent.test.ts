@@ -31,20 +31,20 @@ describe(deleteCurrent.name, () => {
     insert(k, new DigitNode('2'));
     insert(k, new StandardLeafNode('x'));
     insert(k, new StandardLeafNode('+')); // oops, typo!
-    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     insert(k, new DigitNode('3'));
     moveDown(k);
     deleteCurrent(k); // trying to fix typo
-    expectLatex('2x{◼}^{3}', k);
+    expectLatex('2x◼^{3}', k);
     moveUp(k);
-    expectLatex('2x{◻}^{3◼}', k); // Huh? Let's delete that empty placeholder!
+    expectLatex('2x◻^{3◼}', k); // Huh? Let's delete that empty placeholder!
     moveDown(k);
-    expectLatex('2x{◼}^{3}', k);
+    expectLatex('2x◼^{3}', k);
     // Act
     deleteCurrent(k);
     moveUp(k);
     // Assert
-    expectLatex('2{x}^{3◼}', k);
+    expectLatex('2x^{3◼}', k);
   });
 
   it(`can also be used to "delete empty ${Placeholder.name}s in some cases" (in the experience of the user) - 1+2.5`, () => {
@@ -56,20 +56,20 @@ describe(deleteCurrent.name, () => {
     insert(k, new DecimalSeparatorNode());
     insert(k, new DigitNode('5'));
     insert(k, new StandardLeafNode('+')); // oops, typo!
-    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     insert(k, new DigitNode('3'));
     moveDown(k);
     deleteCurrent(k); // trying to fix typo
-    expectLatex('1+2.5{◼}^{3}', k);
+    expectLatex('1+2.5◼^{3}', k);
     moveUp(k);
-    expectLatex('1+2.5{◻}^{3◼}', k); // Huh? Let's delete that empty placeholder!
+    expectLatex('1+2.5◻^{3◼}', k); // Huh? Let's delete that empty placeholder!
     moveDown(k);
-    expectLatex('1+2.5{◼}^{3}', k);
+    expectLatex('1+2.5◼^{3}', k);
     // Act
     deleteCurrent(k);
     moveUp(k);
     // Assert
-    expectLatex('1+{2.5}^{3◼}', k);
+    expectLatex('1+2.5^{3◼}', k);
   });
 
   it(`can also be used to "delete empty ${Placeholder.name}s in some cases" (in the experience of the user) - 2.5`, () => {
@@ -79,20 +79,20 @@ describe(deleteCurrent.name, () => {
     insert(k, new DecimalSeparatorNode());
     insert(k, new DigitNode('5'));
     insert(k, new StandardLeafNode('+')); // oops, typo!
-    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     insert(k, new DigitNode('3'));
     moveDown(k);
     deleteCurrent(k); // trying to fix typo
-    expectLatex('2.5{◼}^{3}', k);
+    expectLatex('2.5◼^{3}', k);
     moveUp(k);
-    expectLatex('2.5{◻}^{3◼}', k); // Huh? Let's delete that empty placeholder!
+    expectLatex('2.5◻^{3◼}', k); // Huh? Let's delete that empty placeholder!
     moveDown(k);
-    expectLatex('2.5{◼}^{3}', k);
+    expectLatex('2.5◼^{3}', k);
     // Act
     deleteCurrent(k);
     moveUp(k);
     // Assert
-    expectLatex('{2.5}^{3◼}', k);
+    expectLatex('2.5^{3◼}', k);
   });
 
   it('does nothing sometimes', () => {
@@ -128,18 +128,18 @@ describe(deleteCurrent.name, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('2'));
-    const powerNode = new AscendingBranchingNode('{', '}^{', '}');
+    const powerNode = new AscendingBranchingNode('', '^{', '}');
     insertWithEncapsulateCurrent(k, powerNode);
     const d3 = new DigitNode('3');
     insert(k, d3);
-    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
-    expectLatex('{2}^{{3}^{◼}}', k);
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
+    expectLatex('2^{3^{◼}}', k);
     // Act & assert
     deleteCurrent(k);
-    expectLatex('{2}^{3◼}', k);
+    expectLatex('2^{3◼}', k);
     assert.isTrue(d3.parentPlaceholder == powerNode.placeholders[1]);
     deleteCurrent(k);
-    expectLatex('{2}^{◼}', k);
+    expectLatex('2^{◼}', k);
   });
 
   it(`can delete from the first placeholder of a ${BranchingNode.name}`, () => {
@@ -164,10 +164,10 @@ describe(deleteCurrent.name, () => {
     selectLeft(k);
     selectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
-    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
-    expectLatex('{◻}^{12◼}', k);
+    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('', '^{', '}'));
+    expectLatex('◻^{12◼}', k);
     moveDown(k);
-    expectLatex('{◼}^{12}', k);
+    expectLatex('◼^{12}', k);
     // Act
     deleteCurrent(k);
     // Assert

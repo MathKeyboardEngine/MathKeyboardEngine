@@ -114,12 +114,12 @@
       registerNodeKey('binomial', () => new mke.DescendingBranchingNode(String.raw`\binom{`, '}{', '}'), mke.insert, mke.insertWithEncapsulateSelection);
 
       function getPowerNode() {
-        return new mke.AscendingBranchingNode('{', '}^{', '}');
+        return new mke.AscendingBranchingNode('', '^{', '}');
       }
       registerNodeKey('power', getPowerNode, mke.insertWithEncapsulateCurrent, mke.insertWithEncapsulateSelectionAndPrevious);
 
       function getSubscriptNode() {
-        return new mke.DescendingBranchingNode('{', '}_{', '}');
+        return new mke.DescendingBranchingNode('', '_{', '}');
       }
       registerNodeKey('subscript', getSubscriptNode, mke.insertWithEncapsulateCurrent, mke.insertWithEncapsulateSelectionAndPrevious);
 

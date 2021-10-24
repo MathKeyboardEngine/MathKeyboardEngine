@@ -50,30 +50,30 @@ describe('Subscript as suffix', () => {
   it('can be left empty, moving out and back in', () => {
     // Arrange
     const k = new KeyboardMemory();
-    insert(k, new DescendingBranchingNode('{', '}_{', '}'));
-    expectLatex('{◼}_{◻}', k);
+    insert(k, new DescendingBranchingNode('', '_{', '}'));
+    expectLatex('◼_{◻}', k);
     // Act & Assert
     moveLeft(k);
-    expectLatex('◼{◻}_{◻}', k);
+    expectLatex('◼◻_{◻}', k);
     moveRight(k);
-    expectLatex('{◼}_{◻}', k);
+    expectLatex('◼_{◻}', k);
   });
 
   it('impossible up/down requests in empty node should not throw', () => {
     // Arrange
     const k = new KeyboardMemory();
-    insert(k, new DescendingBranchingNode('{', '}_{', '}'));
+    insert(k, new DescendingBranchingNode('', '_{', '}'));
     moveDown(k);
-    expectLatex('{◻}_{◼}', k);
+    expectLatex('◻_{◼}', k);
     // Act & Assert 1
     moveDown(k);
-    expectLatex('{◻}_{◼}', k);
+    expectLatex('◻_{◼}', k);
     // Arrange 2
     moveUp(k);
-    expectLatex('{◼}_{◻}', k);
+    expectLatex('◼_{◻}', k);
     // Act & Assert 2
     moveUp(k);
-    expectLatex('{◼}_{◻}', k);
+    expectLatex('◼_{◻}', k);
   });
 
   it('impossible up/down requests in filled subscriptNode should not throw', () => {

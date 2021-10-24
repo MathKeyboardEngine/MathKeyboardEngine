@@ -14,12 +14,12 @@ describe(moveDown.name, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('2'));
-    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     insert(k, new RoundBracketsNode('(', ')'));
-    expectLatex('{2}^{(◼)}', k);
+    expectLatex('2^{(◼)}', k);
     // Act
     moveDown(k);
     // Assert
-    expectLatex('{2◼}^{(◻)}', k);
+    expectLatex('2◼^{(◻)}', k);
   });
 });

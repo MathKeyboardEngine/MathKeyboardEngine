@@ -24,9 +24,9 @@ describe(insertWithEncapsulateCurrent.name, () => {
     assert.isTrue(k.current instanceof Placeholder);
     expectLatex('◼', k);
     // Act
-    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     // Assert
-    expectLatex('{◼}^{◻}', k);
+    expectLatex('◼^{◻}', k);
   });
 
   it('can encapsulate complex stuff like matrixes', () => {
@@ -38,20 +38,20 @@ describe(insertWithEncapsulateCurrent.name, () => {
       moveRight(k);
     }
     // Act
-    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     // Assert
-    expectLatex(String.raw`{\begin{pmatrix}1 & 2 \\ 3 & 4\end{pmatrix}}^{◼}`, k);
+    expectLatex(String.raw`\frac{\begin{pmatrix}1 & 2 \\ 3 & 4\end{pmatrix}}{◼}`, k);
   });
 
   it('can also be used inside (for example) a matrix', () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new MatrixNode('pmatrix', 2, 2));
-    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
     // Act
-    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     // Assert
-    expectLatex(String.raw`\begin{pmatrix}{1}^{◼} & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
+    expectLatex(String.raw`\begin{pmatrix}2^{◼} & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
   });
 
   it('can encapsulate multiple digits', () => {
@@ -73,9 +73,9 @@ describe(insertWithEncapsulateCurrent.name, () => {
     insert(k, new DecimalSeparatorNode());
     insert(k, new DigitNode('3'));
     // Act
-    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     // Assert
-    expectLatex('{12.3}^{◼}', k);
+    expectLatex(String.raw`\frac{12.3}{◼}`, k);
   });
 
   it('does not encapsulate more than it should', () => {
@@ -102,11 +102,11 @@ describe(insertWithEncapsulateCurrent.name, () => {
     insert(k, new DigitNode('3'));
     moveRight(k);
     expectLatex(String.raw`1+(2+3)◼`, k);
-    const powerNode = new AscendingBranchingNode('{', '}^{', '}');
+    const powerNode = new AscendingBranchingNode('', '^{', '}');
     // Act
     insertWithEncapsulateCurrent(k, powerNode);
     // Assert
-    expectLatex(String.raw`1+{(2+3)}^{◼}`, k);
+    expectLatex(String.raw`1+(2+3)^{◼}`, k);
     expect(powerNode.placeholders[0].getLatex(k, null!)).to.be.equal('(2+3)');
   });
 

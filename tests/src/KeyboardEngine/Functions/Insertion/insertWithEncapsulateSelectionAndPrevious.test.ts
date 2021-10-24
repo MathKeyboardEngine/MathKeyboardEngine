@@ -15,6 +15,7 @@ import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder
 import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insertion/insertWithEncapsulateCurrent';
 import { inSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/inSelectionMode';
 import { BranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/BranchingNode';
+import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
 
 describe(insertWithEncapsulateSelectionAndPrevious.name, () => {
   it(`when a single ${TreeNode.name} is selected and the left exclusive border is a ${TreeNode.name}`, () => {
@@ -26,9 +27,9 @@ describe(insertWithEncapsulateSelectionAndPrevious.name, () => {
     selectLeft(k);
     expectLatex(String.raw`2\colorbox{blue}{3}`, k);
     // Act
-    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('', '^{', '}'));
     // Assert
-    expectLatex('{2}^{3◼}', k);
+    expectLatex('2^{3◼}', k);
   });
 
   it(`when a single ${TreeNode.name} is selected and the left exclusive border is a ${Placeholder.name}`, () => {
@@ -39,25 +40,25 @@ describe(insertWithEncapsulateSelectionAndPrevious.name, () => {
     selectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{2}`, k);
     // Act
-    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('', '^{', '}'));
     // Assert
-    expectLatex('{◻}^{2◼}', k);
+    expectLatex('◻^{2◼}', k);
   });
 
   it(`when multiple ${TreeNode.name}s are selected and the left exclusive border is a ${TreeNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('2'));
-    insert(k, new DigitNode('2'));
-    insert(k, new DigitNode('3'));
-    expectLatex('223◼', k);
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('0'));
+    expectLatex('210◼', k);
     selectLeft(k);
     selectLeft(k);
-    expectLatex(String.raw`2\colorbox{blue}{23}`, k);
+    expectLatex(String.raw`2\colorbox{blue}{10}`, k);
     // Act
-    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('', '^{', '}'));
     // Assert
-    expectLatex('{2}^{23◼}', k);
+    expectLatex('2^{10◼}', k);
   });
 
   it(`when multiple ${TreeNode.name}s are selected and the left exclusive border is a ${Placeholder.name}`, () => {
@@ -70,9 +71,9 @@ describe(insertWithEncapsulateSelectionAndPrevious.name, () => {
     selectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
     // Act
-    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('', '^{', '}'));
     // Assert
-    expectLatex('{◻}^{12◼}', k);
+    expectLatex('◻^{12◼}', k);
   });
 
   it(`invokes ${insertWithEncapsulateCurrent.name} if ${inSelectionMode.name} but nothing selected`, () => {
@@ -85,9 +86,9 @@ describe(insertWithEncapsulateSelectionAndPrevious.name, () => {
     enterSelectionMode(k);
     expectLatex('1+12◼', k);
     // Act
-    insertWithEncapsulateSelectionAndPrevious(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insertWithEncapsulateSelectionAndPrevious(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     // Assert
-    expectLatex('1+{12}^{◼}', k);
+    expectLatex(String.raw`1+\frac{12}{◼}`, k);
   });
 
   it(`throws on inserting ${BranchingNode.name} with single ${Placeholder.name}`, () => {

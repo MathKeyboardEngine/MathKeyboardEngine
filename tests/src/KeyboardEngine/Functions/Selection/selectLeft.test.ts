@@ -109,14 +109,14 @@ describe(selectLeft.name, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('2'));
-    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     insert(k, new DigitNode('x'));
-    expectLatex(String.raw`{2}^{x◼}`, k);
+    expectLatex(String.raw`2^{x◼}`, k);
     selectLeft(k);
-    expectLatex(String.raw`{2}^{\colorbox{blue}{x}}`, k);
+    expectLatex(String.raw`2^{\colorbox{blue}{x}}`, k);
     // Act
     selectLeft(k);
     // Assert
-    expectLatex(String.raw`\colorbox{blue}{{2}^{x}}`, k);
+    expectLatex(String.raw`\colorbox{blue}{2^{x}}`, k);
   });
 });

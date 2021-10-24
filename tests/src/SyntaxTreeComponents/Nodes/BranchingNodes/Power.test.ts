@@ -13,11 +13,11 @@ import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation
 describe('Power', () => {
   it('pow 3 right 4', () => {
     const k = new KeyboardMemory();
-    insert(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insert(k, new AscendingBranchingNode('', '^{', '}'));
     insert(k, new DigitNode('3'));
     moveRight(k);
     insert(k, new DigitNode('4'));
-    expectLatex('{3}^{4◼}', k);
+    expectLatex('3^{4◼}', k);
   });
 
   it('pow 3 up 4', () => {
@@ -32,28 +32,28 @@ describe('Power', () => {
   it('3 encapsulatedBy(pow.Base)', () => {
     const k = new KeyboardMemory();
     insert(k, new DigitNode('3'));
-    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('{', '}^{', '}'));
-    expectLatex('{3}^{◼}', k);
+    insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
+    expectLatex('3^{◼}', k);
   });
 
   it('pow 3 up down', () => {
     const k = new KeyboardMemory();
-    insert(k, new AscendingBranchingNode('{', '}^{', '}'));
+    insert(k, new AscendingBranchingNode('', '^{', '}'));
     insert(k, new DigitNode('3'));
     moveUp(k);
     insert(k, new DigitNode('4'));
     moveDown(k);
-    expectLatex('{3◼}^{4}', k);
+    expectLatex('3◼^{4}', k);
   });
 
   it('pow can be left empty, moving out and back in', () => {
     const k = new KeyboardMemory();
-    insert(k, new AscendingBranchingNode('{', '}^{', '}'));
-    expectLatex('{◼}^{◻}', k);
+    insert(k, new AscendingBranchingNode('', '^{', '}'));
+    expectLatex('◼^{◻}', k);
     moveLeft(k);
-    expectLatex('◼{◻}^{◻}', k);
+    expectLatex('◼◻^{◻}', k);
     moveRight(k);
-    expectLatex('{◼}^{◻}', k);
+    expectLatex('◼^{◻}', k);
   });
 
   it('impossible up/down requests in empty power should not throw', () => {
