@@ -232,7 +232,7 @@
         };
       }
 
-      function registerKey(elementId, onclickArrowFuncForKeyboardMemory, onclickSelectionModeFuncForKeyboardMemory = null, leaveSelectionMode = true) {
+      function registerKey(elementId, onclickArrowFuncForKeyboardMemory, onclickSelectionModeFuncForKeyboardMemory = null, shouldLeaveSelectionMode = true) {
         let element = document.getElementById(elementId);
         if (onclickSelectionModeFuncForKeyboardMemory != null) {
           element.classList.add(supportsSelectionMode);
@@ -243,7 +243,7 @@
             if (onclickSelectionModeFuncForKeyboardMemory != null) {
               onclickSelectionModeFuncForKeyboardMemory(keyboardMemory);
             }
-            if (leaveSelectionMode) {
+            if (shouldLeaveSelectionMode) {
               myLeaveSelectionMode(keyboardMemory);
             }
           } else {
@@ -346,6 +346,9 @@
 
       let nrKeysPressed = 0;
       document.onkeydown = (e) => {
+        if (document.activeElement.classList.contains("disable-physical-keypress-math-input-when-focused")){
+          return;
+        }
         const key = e.code;
         if (++nrKeysPressed == 40) {
           alert('That looks good!\nDid you know you can use the ctrl key to enter selection mode?');
@@ -426,6 +429,8 @@
         vertical-align: middle;
         text-align: center;
         cursor: default;
+        user-select: none;
+        outline: 0;
       }
 
       .inSelectionMode {
@@ -532,10 +537,10 @@
       <br />
       <div style="text-align: right">
         <label for="matrixHeight">Height</label>
-        <input id="matrixHeight" type="number" value="2" min="1" />
+        <input id="matrixHeight" type="number" value="2" min="1" class="disable-physical-keypress-math-input-when-focused" />
         <br />
         <label for="matrixWidth">Width</label>
-        <input id="matrixWidth" type="number" value="2" min="1" />
+        <input id="matrixWidth" type="number" value="2" min="1" class="disable-physical-keypress-math-input-when-focused" />
       </div>
       <div id="pmatrix"></div>
       <div id="vmatrix"></div>
