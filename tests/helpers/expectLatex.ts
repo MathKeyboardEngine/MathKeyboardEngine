@@ -1,4 +1,4 @@
-import { config, expect } from 'chai';
+import { expect } from 'chai';
 import { KeyboardMemory } from '../../src/KeyboardEngine/KeyboardMemory';
 import { LatexConfiguration } from '../../src/LatexConfiguration';
 import { getEditModeLatex } from '../../src/GetLatex/getEditModeLatex';

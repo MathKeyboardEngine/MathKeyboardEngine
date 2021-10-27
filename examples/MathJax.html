@@ -340,7 +340,7 @@
 
       let nrKeysPressed = 0;
       document.onkeydown = (e) => {
-        if (document.activeElement.classList.contains("disable-physical-keypress-math-input-when-focused")){
+        if (document.activeElement.classList.contains('disable-physical-keypress-math-input-when-focused')) {
           return;
         }
         const key = e.code;
@@ -531,7 +531,7 @@
       <br />
       <div style="text-align: right">
         <label for="matrixHeight">Height</label>
-        <input id="matrixHeight" type="number" value="2" min="1" class="disable-physical-keypress-math-input-when-focused"/>
+        <input id="matrixHeight" type="number" value="2" min="1" class="disable-physical-keypress-math-input-when-focused" />
         <br />
         <label for="matrixWidth">Width</label>
         <input id="matrixWidth" type="number" value="2" min="1" class="disable-physical-keypress-math-input-when-focused" />
