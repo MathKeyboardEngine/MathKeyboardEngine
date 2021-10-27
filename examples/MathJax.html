@@ -53,7 +53,7 @@
       }
 
       for (let s of ['alpha', 'beta', 'gamma', 'lambda', 'mu', 'pi', 'div', 'sin', 'tan', 'cos', 'arcsin', 'infty', 'leftarrow', 'rightarrow', 'uparrow', 'downarrow', 'approx']) {
-        registerNodeKey(s, () => new mke.StandardLeafNode('\\' + s + ' '));
+        registerNodeKey(s, () => new mke.StandardLeafNode('\\' + s));
       }
 
       const decimalSeparatorTypeElement = document.getElementById('decimalSeparatorType');
@@ -74,14 +74,14 @@
       registerNodeKey('decimalSeparator', getDecimalSeparatorNode);
 
       registerNodeKey('equal', () => new mke.StandardLeafNode('='));
-      registerNodeKey('notEqual', () => new mke.StandardLeafNode(String.raw`\neq `));
+      registerNodeKey('notEqual', () => new mke.StandardLeafNode(String.raw`\neq`));
 
       registerNodeKey('lessThan', () => new mke.StandardLeafNode('<'));
       registerNodeKey('greaterThan', () => new mke.StandardLeafNode('>'));
-      registerNodeKey('lessThanOrEqual', () => new mke.StandardLeafNode(String.raw`\leq `));
-      registerNodeKey('greaterThanOrEqual', () => new mke.StandardLeafNode(String.raw`\geq `));
+      registerNodeKey('lessThanOrEqual', () => new mke.StandardLeafNode(String.raw`\leq`));
+      registerNodeKey('greaterThanOrEqual', () => new mke.StandardLeafNode(String.raw`\geq`));
 
-      registerNodeKey('plusminus', () => new mke.StandardLeafNode(String.raw`\pm `));
+      registerNodeKey('plusminus', () => new mke.StandardLeafNode(String.raw`\pm`));
       registerNodeKey('plus', () => new mke.StandardLeafNode('+'));
       registerNodeKey('minus', () => new mke.StandardLeafNode('-'));
 
@@ -91,7 +91,7 @@
         displayResult();
       };
       function getMultiplicationNode() {
-        return new mke.StandardLeafNode(() => (multiplicationSignTypeElement.innerText == 'cross' ? String.raw`\times ` : String.raw`\cdot `));
+        return new mke.StandardLeafNode(() => (multiplicationSignTypeElement.innerText == 'cross' ? String.raw`\times` : String.raw`\cdot`));
       }
       registerNodeKey('multiply', getMultiplicationNode);
 
@@ -137,17 +137,17 @@
       registerNodeKey('integers', () => new mke.StandardLeafNode(String.raw`\mathbb{Z}`));
       registerNodeKey('realNumbers', () => new mke.StandardLeafNode(String.raw`\mathbb{R}`));
 
-      registerNodeKey('isMemberOf', () => new mke.StandardLeafNode(String.raw`\in `));
-      registerNodeKey('isProperSubsetOf', () => new mke.StandardLeafNode(String.raw`\subset `));
-      registerNodeKey('isSubsetOf', () => new mke.StandardLeafNode(String.raw`\subseteq `));
-      registerNodeKey('setDifference', () => new mke.StandardLeafNode(String.raw`\setminus `));
-      registerNodeKey('exists', () => new mke.StandardLeafNode(String.raw`\exists `));
-      registerNodeKey('forAll', () => new mke.StandardLeafNode(String.raw`\forall `));
-      registerNodeKey('not', () => new mke.StandardLeafNode(String.raw`\neg `));
-      registerNodeKey('or', () => new mke.StandardLeafNode(String.raw`\lor `));
-      registerNodeKey('and', () => new mke.StandardLeafNode(String.raw`\land `));
-      registerNodeKey('doubleRightArrow', () => new mke.StandardLeafNode(String.raw`\Rightarrow `));
-      registerNodeKey('doubleLeftArrow', () => new mke.StandardLeafNode(String.raw`\Leftarrow `));
+      registerNodeKey('isMemberOf', () => new mke.StandardLeafNode(String.raw`\in`));
+      registerNodeKey('isProperSubsetOf', () => new mke.StandardLeafNode(String.raw`\subset`));
+      registerNodeKey('isSubsetOf', () => new mke.StandardLeafNode(String.raw`\subseteq`));
+      registerNodeKey('setDifference', () => new mke.StandardLeafNode(String.raw`\setminus`));
+      registerNodeKey('exists', () => new mke.StandardLeafNode(String.raw`\exists`));
+      registerNodeKey('forAll', () => new mke.StandardLeafNode(String.raw`\forall`));
+      registerNodeKey('not', () => new mke.StandardLeafNode(String.raw`\neg`));
+      registerNodeKey('or', () => new mke.StandardLeafNode(String.raw`\lor`));
+      registerNodeKey('and', () => new mke.StandardLeafNode(String.raw`\land`));
+      registerNodeKey('doubleRightArrow', () => new mke.StandardLeafNode(String.raw`\Rightarrow`));
+      registerNodeKey('doubleLeftArrow', () => new mke.StandardLeafNode(String.raw`\Leftarrow`));
 
       registerNodeKey('cos-1', () => new mke.StandardLeafNode(String.raw`\cos^{-1}`));
       registerNodeKey('taninv', () => new mke.StandardLeafNode(String.raw`\tan^{inv}`));
@@ -260,7 +260,7 @@
       }
 
       function typesetLatexInOutputBox(latex, element) {
-        element.innerText = String.raw`\(\displaystyle ` + latex + String.raw`\)`;
+        element.innerText = mke.addLatex(String.raw`\(\displaystyle`, latex, String.raw`\)`);
         MathJax.Hub.Typeset(element);
       }
 
@@ -335,7 +335,7 @@
         createHandler((key) => key == 'Period' || key == 'Comma', (k, key) => mke.insert(k, getDecimalSeparatorNode())),
         createHandler((key) => key == 'BracketLeft', (k, key) => mke.insert(k, getSquareBracketsNode())),
         createHandler((key) => key == 'BracketRight', (k, key) => mke.moveRight(k)),
-        createHandler((key) => key == 'Backslash', (k, key) => mke.insert(k, new mke.StandardLeafNode(String.raw`\setminus `))),
+        createHandler((key) => key == 'Backslash', (k, key) => mke.insert(k, new mke.StandardLeafNode(String.raw`\setminus`))),
       ];
 
       let nrKeysPressed = 0;

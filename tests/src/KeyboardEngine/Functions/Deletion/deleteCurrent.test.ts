@@ -274,12 +274,12 @@ describe(deleteCurrent.name, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('2'));
-    insert(k, new StandardLeafNode(String.raw`\times `));
+    insert(k, new StandardLeafNode(String.raw`\times`));
     insert(k, new MatrixNode('pmatrix', 2, 2));
-    expectLatex(String.raw`2\times \begin{pmatrix}◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
+    expectLatex(String.raw`2\times\begin{pmatrix}◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
     // Act
     deleteCurrent(k);
     // Assert
-    expectLatex(String.raw`2\times ◼`, k);
+    expectLatex(String.raw`2\times◼`, k);
   });
 });

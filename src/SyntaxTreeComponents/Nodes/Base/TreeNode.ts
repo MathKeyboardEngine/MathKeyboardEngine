@@ -1,3 +1,4 @@
+import { addLatex } from '../../../helpers/stringhelpers/addLatex';
 import { KeyboardMemory } from '../../../KeyboardEngine/KeyboardMemory';
 import { LatexConfiguration } from '../../../LatexConfiguration';
 import { Placeholder } from '../../Placeholder/Placeholder';
@@ -10,15 +11,15 @@ export abstract class TreeNode {
     let latex = this.getLatexPart(k, latexConfiguration);
     if (k.selectionDiff != null && k.selectionDiff != 0) {
       if (k.inclusiveSelectionLeftBorder === this) {
-        latex = latexConfiguration.selectionHightlightStart + latex;
+        latex = addLatex(latexConfiguration.selectionHightlightStart, latex);
       }
       if (k.inclusiveSelectionRightBorder === this) {
-        latex = latex + latexConfiguration.selectionHightlightEnd;
+        latex = addLatex(latex, latexConfiguration.selectionHightlightEnd);
       }
       return latex;
     } else {
       if (k.current === this) {
-        return latex + latexConfiguration.activePlaceholderLatex;
+        return addLatex(latex, latexConfiguration.activePlaceholderLatex);
       } else {
         return latex;
       }
