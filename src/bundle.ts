@@ -1,6 +1,3 @@
-import { addLatex } from './helpers/stringhelpers/addLatex';
-export { addLatex };
-
 import { getEditModeLatex } from './GetLatex/getEditModeLatex';
 export { getEditModeLatex };
 

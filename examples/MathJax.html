@@ -260,7 +260,7 @@
       }
 
       function typesetLatexInOutputBox(latex, element) {
-        element.innerText = mke.addLatex(String.raw`\(\displaystyle`, latex, String.raw`\)`);
+        element.innerText = String.raw`\(\displaystyle ` + latex + String.raw`\)`;
         MathJax.Hub.Typeset(element);
       }
 

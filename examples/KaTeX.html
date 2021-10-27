@@ -267,7 +267,7 @@
       }
 
       function typesetLatexInOutputBox(latex, element) {
-        katex.render(mke.addLatex(String.raw`\displaystyle`, latex), element, { throwOnError: false });
+        katex.render(String.raw`\displaystyle ` + latex, element, { throwOnError: false });
       }
 
       function setSelectionHightlightStart(color) {
