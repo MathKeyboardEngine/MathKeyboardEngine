@@ -53,7 +53,7 @@ Quick start for using the "esm" format:
 
 ```html
 <script type="module" type="text/javascript">
-  import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.10/dist/MathKeyboardEngine.es2017-esm.min.js';
+  import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.11/dist/MathKeyboardEngine.es2017-esm.min.js';
   let latexConfiguration = new mke.LatexConfiguration();
   let keyboardMemory = new mke.KeyboardMemory();
 
@@ -65,7 +65,7 @@ Quick start for using the "esm" format:
 
 Visit the [documentation](https://mathkeyboardengine.github.io/docs/0.1/) and (the right version of)\* the [examples folder](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/examples) for more implementation details.
 
-\* If you use a version tag in the url like this: https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/v0.1.0-beta.10, you can see the git repository as it was for that version.
+\* If you use a version tag in the url like this: https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/v0.1.0-beta.11, you can see the git repository as it was for that version.
 
 ## How to use this repo
 
