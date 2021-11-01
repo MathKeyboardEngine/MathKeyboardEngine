@@ -26,7 +26,7 @@ Live examples can be tested at [MathKeyboardEngine.GitHub.io](https://mathkeyboa
 
 <i>A con:</i>
 
-- this library will never be able to handle setting the cursor with the touch of a finger on a typeset formula. (But it DOES support up/down/left/right navigation and has a selection mode via arrow keys!).
+- this library will never be able to handle setting the cursor with the touch of a finger on a typeset formula. (But it DOES support up/down/left/right navigation and has a selection mode via arrow keys.)
 
 <i>More pros:</i>
 
@@ -37,7 +37,7 @@ Live examples can be tested at [MathKeyboardEngine.GitHub.io](https://mathkeyboa
 
 ## How to use this library
 
-This library is distributed as a single file in several language versions and formats:
+There is no need to download or install anything. Your website just needs to have a `<script>` element that results in getting one of the following files from [jsDelivr](https://www.jsdelivr.com/package/npm/mathkeyboardengine?path=dist):
 
 - MathKeyboardEngine.es2020-esm.js
 - MathKeyboardEngine.es2017-esm.js
@@ -47,9 +47,9 @@ This library is distributed as a single file in several language versions and fo
 <strong>esm</strong>: the ECMAScript module is simply the best choice: easy, safe, future proof.<br/>
 <strong>iife</strong>: an immediately invoked function expression for browsers that do not support ESM.
 
-You can replace ".js" by ".min.js" to get the minified version: this is a smaller file with the same capabilities.
+For each of those ".js" files there is a minified version (".min.js") - a smaller file (of only 13 kB) with the same capabilities.
 
-Quick start for using the "esm" format:
+A `<script>` element using the recommended "MathKeyboardEngine.es2017-esm.min.js":
 
 ```html
 <script type="module" type="text/javascript">
