@@ -13,7 +13,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!-- MathJax specific code START -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
     <!-- MathJax specific code END -->
@@ -50,7 +50,7 @@
           displayResult();
         };
         registerNodeKey('decimalSeparator', () => new mke.DecimalSeparatorNode(() => (decimalSeparatorTypeElement.innerText == 'decimal comma' ? '{,}' : '.')));
-        
+
         registerNodeKey('equal', () => new mke.StandardLeafNode('='));
         registerNodeKey('notEqual', () => new mke.StandardLeafNode(String.raw`\neq`));
         registerNodeKey('lessThan', () => new mke.StandardLeafNode('<'));
@@ -67,13 +67,13 @@
           displayResult();
         };
         registerNodeKey('multiply', () => new mke.StandardLeafNode(() => (multiplicationSignTypeElement.innerText == 'cross' ? String.raw`\times` : String.raw`\cdot`)));
-        
+
         registerNodeKey('ratio', () => new mke.StandardLeafNode(':'));
         registerNodeKey('faculty', () => new mke.StandardLeafNode('!'));
         registerNodeKey('fraction', () => new mke.DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
         registerNodeKey('binomial', () => new mke.DescendingBranchingNode(String.raw`\binom{`, '}{', '}'));
         registerNodeKey('power', () => new mke.AscendingBranchingNode('', '^{', '}'), mke.insertWithEncapsulateCurrent);
-        registerNodeKey('subscript', () =>new mke.DescendingBranchingNode('', '_{', '}'), mke.insertWithEncapsulateCurrent);
+        registerNodeKey('subscript', () => new mke.DescendingBranchingNode('', '_{', '}'), mke.insertWithEncapsulateCurrent);
         registerNodeKey('squareRoot', () => new mke.StandardBranchingNode(String.raw`\sqrt{`, '}'));
         registerNodeKey('nthRoot', () => new mke.DescendingBranchingNode(String.raw`\sqrt[`, ']{', '}'));
         registerNodeKey('roundBrackets', () => new mke.RoundBracketsNode());
