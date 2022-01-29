@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<!--
+  NOTE: this example is stripped down. It
+  - does not have a selection mode,
+  - does not handle physical key presses,
+  - does not support dark mode.
+  See the other example without the '-easy' suffix in its file name for those functionalities.
+
+  Also note that this example uses no "ECMAScript Module":
+  - the iife-version of the MathKeyboardEngine library (".es2015-iife.js") is used instead of the esm-version.
+  - this example uses `window.addEventListener('DOMContentLoaded', ...`.
+-->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- MathJax specific code START -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <!-- MathJax specific code END -->
+    <script src="../../dist/MathKeyboardEngine.es2015-iife.js"></script>
+    <script type="text/javascript">
+      window.addEventListener('DOMContentLoaded', (event) => {
+        let latexConfiguration = new mke.LatexConfiguration();
+        let keyboardMemory = new mke.KeyboardMemory();
+
+        displayResult();
+
+        for (let i = 0; i < 10; i++) {
+          registerNodeKey('digit' + i, () => new mke.DigitNode(i.toString()));
+        }
+
+        for (let letter of ['a', 'b', 'c', 'x', 'y', 'z']) {
+          registerNodeKey(letter, () => new mke.StandardLeafNode(letter));
+        }
+
+        for (let s of ['alpha', 'beta', 'gamma', 'lambda', 'mu', 'pi', 'div', 'sin', 'tan', 'cos', 'arcsin', 'infty', 'leftarrow', 'rightarrow', 'uparrow', 'downarrow', 'approx']) {
+          registerNodeKey(s, () => new mke.StandardLeafNode('\\' + s));
+        }
+
+        const decimalSeparatorTypeElement = document.getElementById('decimalSeparatorType');
+        document.getElementById('decimalSeparatorToggle').onclick = () => {
+          const key = document.getElementById('decimalSeparator');
+          if (decimalSeparatorTypeElement.innerText == 'decimal comma') {
+            decimalSeparatorTypeElement.innerText = 'decimal point';
+            typesetLatexInKey('.', key);
+          } else {
+            decimalSeparatorTypeElement.innerText = 'decimal comma';
+            typesetLatexInKey('{,}', key);
+          }
+          displayResult();
+        };
+        registerNodeKey('decimalSeparator', () => new mke.DecimalSeparatorNode(() => (decimalSeparatorTypeElement.innerText == 'decimal comma' ? '{,}' : '.')));
+        
+        registerNodeKey('equal', () => new mke.StandardLeafNode('='));
+        registerNodeKey('notEqual', () => new mke.StandardLeafNode(String.raw`\neq`));
+        registerNodeKey('lessThan', () => new mke.StandardLeafNode('<'));
+        registerNodeKey('greaterThan', () => new mke.StandardLeafNode('>'));
+        registerNodeKey('lessThanOrEqual', () => new mke.StandardLeafNode(String.raw`\leq`));
+        registerNodeKey('greaterThanOrEqual', () => new mke.StandardLeafNode(String.raw`\geq`));
+        registerNodeKey('plusminus', () => new mke.StandardLeafNode(String.raw`\pm`));
+        registerNodeKey('plus', () => new mke.StandardLeafNode('+'));
+        registerNodeKey('minus', () => new mke.StandardLeafNode('-'));
+
+        const multiplicationSignTypeElement = document.getElementById('multiplicationSignType');
+        document.getElementById('multiplicationSignToggle').onclick = () => {
+          multiplicationSignTypeElement.innerText = multiplicationSignTypeElement.innerText == 'cross' ? 'dot' : 'cross';
+          displayResult();
+        };
+        registerNodeKey('multiply', () => new mke.StandardLeafNode(() => (multiplicationSignTypeElement.innerText == 'cross' ? String.raw`\times` : String.raw`\cdot`)));
+        
+        registerNodeKey('ratio', () => new mke.StandardLeafNode(':'));
+        registerNodeKey('faculty', () => new mke.StandardLeafNode('!'));
+        registerNodeKey('fraction', () => new mke.DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
+        registerNodeKey('binomial', () => new mke.DescendingBranchingNode(String.raw`\binom{`, '}{', '}'));
+        registerNodeKey('power', () => new mke.AscendingBranchingNode('', '^{', '}'), mke.insertWithEncapsulateCurrent);
+        registerNodeKey('subscript', () =>new mke.DescendingBranchingNode('', '_{', '}'), mke.insertWithEncapsulateCurrent);
+        registerNodeKey('squareRoot', () => new mke.StandardBranchingNode(String.raw`\sqrt{`, '}'));
+        registerNodeKey('nthRoot', () => new mke.DescendingBranchingNode(String.raw`\sqrt[`, ']{', '}'));
+        registerNodeKey('roundBrackets', () => new mke.RoundBracketsNode());
+        registerNodeKey('squareBrackets', () => new mke.StandardBranchingNode(String.raw`\left[`, String.raw`\right]`));
+        registerNodeKey('pipes', () => new mke.StandardBranchingNode(String.raw`\left|`, String.raw`\right|`));
+        registerNodeKey('doublePipes', () => new mke.StandardBranchingNode(String.raw`\left\|`, String.raw`\right\|`));
+        registerNodeKey('curlyBrackets', () => new mke.StandardBranchingNode(String.raw`\left\{`, String.raw`\right\}`));
+        registerNodeKey('naturalNumbers', () => new mke.StandardLeafNode(String.raw`\mathbb{N}`));
+        registerNodeKey('integers', () => new mke.StandardLeafNode(String.raw`\mathbb{Z}`));
+        registerNodeKey('realNumbers', () => new mke.StandardLeafNode(String.raw`\mathbb{R}`));
+        registerNodeKey('isMemberOf', () => new mke.StandardLeafNode(String.raw`\in`));
+        registerNodeKey('isProperSubsetOf', () => new mke.StandardLeafNode(String.raw`\subset`));
+        registerNodeKey('isSubsetOf', () => new mke.StandardLeafNode(String.raw`\subseteq`));
+        registerNodeKey('setDifference', () => new mke.StandardLeafNode(String.raw`\setminus`));
+        registerNodeKey('exists', () => new mke.StandardLeafNode(String.raw`\exists`));
+        registerNodeKey('forAll', () => new mke.StandardLeafNode(String.raw`\forall`));
+        registerNodeKey('not', () => new mke.StandardLeafNode(String.raw`\neg`));
+        registerNodeKey('or', () => new mke.StandardLeafNode(String.raw`\lor`));
+        registerNodeKey('and', () => new mke.StandardLeafNode(String.raw`\land`));
+        registerNodeKey('doubleRightArrow', () => new mke.StandardLeafNode(String.raw`\Rightarrow`));
+        registerNodeKey('doubleLeftArrow', () => new mke.StandardLeafNode(String.raw`\Leftarrow`));
+        registerNodeKey('cos-1', () => new mke.StandardLeafNode(String.raw`\cos^{-1}`));
+        registerNodeKey('taninv', () => new mke.StandardLeafNode(String.raw`\tan^{inv}`));
+        registerNodeKey('integral', () => new mke.AscendingBranchingNode(String.raw`\int_{`, '}^{', '}'));
+        registerNodeKey('sum', () => new mke.AscendingBranchingNode(String.raw`\sum_{`, '}^{', '}'));
+        registerNodeKey('product', () => new mke.AscendingBranchingNode(String.raw`\prod_{`, '}^{', '}'));
+        registerNodeKey('limit', () => new mke.StandardBranchingNode(String.raw`\lim_{`, '}'));
+
+        const matrixWidthInputElement = document.getElementById('matrixWidth');
+        const matrixHeightInputElement = document.getElementById('matrixHeight');
+        function reRegisterMatrix() {
+          registerNodeKey('pmatrix', () => new mke.MatrixNode('pmatrix', matrixWidthInputElement.value, matrixHeightInputElement.value));
+          registerNodeKey('vmatrix', () => new mke.MatrixNode('vmatrix', matrixWidthInputElement.value, matrixHeightInputElement.value));
+        }
+        reRegisterMatrix();
+        matrixWidthInputElement.onchange = reRegisterMatrix;
+        matrixHeightInputElement.onchange = reRegisterMatrix;
+
+        registerKey('moveLeft', mke.moveLeft);
+        typesetLatexInKey(String.raw`\leftarrow`, document.getElementById('moveLeft'));
+        registerKey('moveRight', mke.moveRight);
+        typesetLatexInKey(String.raw`\rightarrow`, document.getElementById('moveRight'));
+        registerKey('moveUp', mke.moveUp);
+        typesetLatexInKey('\\uparrow', document.getElementById('moveUp'));
+        registerKey('moveDown', mke.moveDown);
+        typesetLatexInKey(String.raw`\downarrow`, document.getElementById('moveDown'));
+        registerKey('deleteCurrent', mke.deleteCurrent);
+
+        function registerNodeKey(elementId, nodeGetter, onclickFuncForKeyboardMemoryAndNode = mke.insert) {
+          let element = document.getElementById(elementId);
+          let latex = mke.getViewModeLatex(nodeGetter(), latexConfiguration);
+          typesetLatexInKey(latex, element);
+          element.onclick = () => {
+            onclickFuncForKeyboardMemoryAndNode(keyboardMemory, nodeGetter());
+            displayResult();
+          };
+        }
+
+        function registerKey(elementId, onclickArrowFuncForKeyboardMemory) {
+          let element = document.getElementById(elementId);
+          element.onclick = () => {
+            onclickArrowFuncForKeyboardMemory(keyboardMemory);
+            displayResult();
+          };
+        }
+
+        function displayResult() {
+          let editModeLatex = mke.getEditModeLatex(keyboardMemory, latexConfiguration);
+          typesetLatexInOutputBox(editModeLatex, document.getElementById('typesetEditModeLatex'));
+
+          let viewModeLatex = mke.getViewModeLatex(keyboardMemory, latexConfiguration);
+          document.getElementById('viewModeLatex').innerText = viewModeLatex;
+        }
+
+        // === MathJax specific code START ===
+        function typesetLatexInKey(latex, element) {
+          element.innerText = String.raw`\(` + latex + String.raw`\)`;
+          MathJax.Hub.Typeset(element);
+        }
+
+        function typesetLatexInOutputBox(latex, element) {
+          element.innerText = String.raw`\(\displaystyle ` + latex + String.raw`\)`;
+          MathJax.Hub.Typeset(element);
+        }
+        // === MathJax specific code END ===
+      });
+    </script>
+    <style>
+      html {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      input {
+        font-size: 1rem;
+        width: 2.5rem;
+      }
+
+      #typesetEditModeLatex {
+        border: 1px solid gray;
+        padding: 0.25rem;
+      }
+      #viewModeLatex {
+        text-align: right;
+      }
+
+      #mathKeyboard > * {
+        display: inline-block;
+        border: 1px solid gray;
+        padding: 0.25rem;
+        margin: 1px;
+        min-width: 1.5rem;
+        min-height: 1.5rem;
+        vertical-align: middle;
+        text-align: center;
+        cursor: default;
+        user-select: none;
+        outline: 0;
+      }
+
+      #settingsContainer {
+        display: none;
+        text-align: left;
+      }
+
+      .setting {
+        margin: 1rem;
+        cursor: default;
+      }
+      .setting-value {
+        border: 1px solid gray;
+        padding: 0.15rem;
+      }
+
+      .footer {
+        text-align: center;
+        margin: 15px;
+      }
+
+      a {
+        color: #58a6ff;
+        text-decoration: none;
+        border: 1px solid #58a6ff;
+        padding: 0.25rem;
+      }
+    </style>
+  </head>
+  <body class="dark">
+    <h1>MathKeyboardEngine + MathJax</h1>
+    <div id="typesetEditModeLatex"></div>
+    <div id="viewModeLatex"></div>
+    <i>A stripped down example</i>
+    <div id="mathKeyboard">
+      <div id="deleteCurrent">&#128293;</div>
+      <div id="moveUp">&#x25B2;</div>
+      <br />
+      <div id="moveLeft">&#x25C0;</div>
+      <div id="moveDown">&#x25BC;</div>
+      <div id="moveRight">&#x25B6;</div>
+      <div onclick="const settingsContainer = document.getElementById('settingsContainer'); settingsContainer.style.display = settingsContainer.style.display == 'block' ? 'none' : 'block';">
+        <strong>Settings</strong>
+      </div>
+      <div id="settingsContainer">
+        <div id="multiplicationSignToggle" class="setting">Output multiplication sign: <span class="setting-value" id="multiplicationSignType">cross</span></div>
+        <div id="decimalSeparatorToggle" class="setting">Decimal separator: <span class="setting-value" id="decimalSeparatorType">decimal point</span></div>
+      </div>
+      <br />
+      <div id="digit0"></div>
+      <div id="digit1"></div>
+      <div id="digit2"></div>
+      <div id="digit3"></div>
+      <div id="digit4"></div>
+      <div id="digit5"></div>
+      <div id="digit6"></div>
+      <div id="digit7"></div>
+      <div id="digit8"></div>
+      <div id="digit9"></div>
+      <div id="decimalSeparator"></div>
+      <br />
+      <div id="a"></div>
+      <div id="b"></div>
+      <div id="c"></div>
+      <div id="x"></div>
+      <div id="y"></div>
+      <div id="z"></div>
+      <div id="alpha"></div>
+      <div id="beta"></div>
+      <div id="gamma"></div>
+      <div id="lambda"></div>
+      <div id="mu"></div>
+      <div id="pi"></div>
+      <br />
+      <div id="plusminus"></div>
+      <div id="plus"></div>
+      <div id="minus"></div>
+      <div id="multiply"></div>
+      <div id="ratio"></div>
+      <div id="div"></div>
+      <div id="faculty"></div>
+      <br />
+      <div id="binomial"></div>
+      <div id="fraction"></div>
+      <div id="power"></div>
+      <div id="subscript"></div>
+      <div id="squareRoot"></div>
+      <div id="nthRoot"></div>
+      <br />
+      <div id="roundBrackets"></div>
+      <div id="squareBrackets"></div>
+      <div id="curlyBrackets"></div>
+      <div id="pipes"></div>
+      <div id="doublePipes"></div>
+      <br />
+      <div style="text-align: right">
+        <label for="matrixHeight">Height</label>
+        <input id="matrixHeight" type="number" value="2" min="1" class="disable-physical-keypress-math-input-when-focused" />
+        <br />
+        <label for="matrixWidth">Width</label>
+        <input id="matrixWidth" type="number" value="2" min="1" class="disable-physical-keypress-math-input-when-focused" />
+      </div>
+      <div id="pmatrix"></div>
+      <div id="vmatrix"></div>
+      <br />
+      <div id="approx"></div>
+      <div id="equal"></div>
+      <div id="notEqual"></div>
+      <div id="lessThanOrEqual"></div>
+      <div id="greaterThanOrEqual"></div>
+      <div id="lessThan"></div>
+      <div id="greaterThan"></div>
+      <br />
+      <div id="naturalNumbers"></div>
+      <div id="integers"></div>
+      <div id="realNumbers"></div>
+
+      <div id="isMemberOf"></div>
+      <div id="isProperSubsetOf"></div>
+      <div id="isSubsetOf"></div>
+      <div id="setDifference"></div>
+      <div id="exists"></div>
+      <div id="forAll"></div>
+      <div id="not"></div>
+      <div id="or"></div>
+      <div id="and"></div>
+      <div id="doubleRightArrow"></div>
+      <div id="doubleLeftArrow"></div>
+      <br />
+      <div id="sin"></div>
+      <div id="cos"></div>
+      <div id="tan"></div>
+      <div id="arcsin"></div>
+      <div id="cos-1"></div>
+      <div id="taninv"></div>
+      <br />
+      <div id="integral"></div>
+      <div id="sum"></div>
+      <div id="product"></div>
+      <div id="limit"></div>
+      <div id="leftarrow"></div>
+      <div id="rightarrow"></div>
+      <div id="uparrow"></div>
+      <div id="downarrow"></div>
+      <div id="infty"></div>
+    </div>
+    <div class="footer">
+      <a href="https://github.com/MathKeyboardEngine/MathKeyboardEngine">View on GitHub</a>
+    </div>
+  </body>
+</html>

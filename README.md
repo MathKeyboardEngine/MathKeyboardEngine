@@ -61,6 +61,20 @@ A `<script>` element using the recommended "MathKeyboardEngine.es2017-esm.min.js
 </script>
 ```
 
+A `<script>` element using the with-older-browsers-compatible "MathKeyboardEngine.es2015-iife.min.js":
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.11/dist/MathKeyboardEngine.es2015-iife.min.js"></script>
+<script type="text/javascript">
+  window.addEventListener('DOMContentLoaded', (event) => {
+    let latexConfiguration = new mke.LatexConfiguration();
+    let keyboardMemory = new mke.KeyboardMemory();
+
+    // Subscribe to onclick events of virtual key presses, etc.
+  });
+</script>
+```
+
 <i>Note: "mke" is an abbreviation of "MathKeyboardEngine". You can choose something different. (But the iife format forces you to use "mke".)</i>
 
 Visit the [documentation](https://mathkeyboardengine.github.io/docs/0.1/) and (the right version of)\* the [examples folder](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/examples) for more implementation details.
