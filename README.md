@@ -53,7 +53,7 @@ A `<script>` element using the recommended "MathKeyboardEngine.es2017-esm.min.js
 
 ```html
 <script type="module" type="text/javascript">
-  import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.11/dist/MathKeyboardEngine.es2017-esm.min.js';
+  import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0/dist/MathKeyboardEngine.es2017-esm.min.js';
   let latexConfiguration = new mke.LatexConfiguration();
   let keyboardMemory = new mke.KeyboardMemory();
 
@@ -64,7 +64,7 @@ A `<script>` element using the recommended "MathKeyboardEngine.es2017-esm.min.js
 A `<script>` element using the with-older-browsers-compatible "MathKeyboardEngine.es2015-iife.min.js":
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0-beta.11/dist/MathKeyboardEngine.es2015-iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.1.0/dist/MathKeyboardEngine.es2015-iife.min.js"></script>
 <script type="text/javascript">
   window.addEventListener('DOMContentLoaded', (event) => {
     let latexConfiguration = new mke.LatexConfiguration();
