@@ -336,7 +336,6 @@
         createHandler((key) => key == 'Period' || key == 'Comma', (k, key) => mke.insert(k, getDecimalSeparatorNode())),
         createHandler((key) => key == 'BracketLeft', (k, key) => mke.insert(k, getSquareBracketsNode())),
         createHandler((key) => key == 'BracketRight', (k, key) => mke.moveRight(k)),
-        createHandler((key) => key == 'Backslash', (k, key) => mke.insert(k, new mke.StandardLeafNode(String.raw`\setminus`))),
       ];
 
       let nrKeysPressed = 0;
@@ -377,7 +376,23 @@
             }
           }
         } else {
-          if (inShift) {
+          let pureLatexElement = document.getElementById('pureLatexFromPhysicalKeys');
+          if (!inShift && key == 'Backslash') {
+            pureLatexElement.innerText = '\\';
+          } else if (pureLatexElement.innerText.length > 0) {
+            if (key == 'Space' || key == 'Enter' || key == 'Escape') {
+              mke.insert(keyboardMemory, new mke.StandardLeafNode(pureLatexElement.innerText));
+              pureLatexElement.innerText = '';
+            } else if (key == 'Backspace') {
+              pureLatexElement.innerText = pureLatexElement.innerText.substring(0, pureLatexElement.innerText.length - 1);
+            } else if (key.startsWith('Key')) {
+              if (inShift){
+                pureLatexElement.innerText += key[3];
+              } else {
+                pureLatexElement.innerText += key[3].toLocaleLowerCase();
+              }
+            }
+          } else if (inShift) {
             physicalKeydownHandlersForShift.find((handler) => handler.canHandle(key))?.handle(keyboardMemory, key);
           } else {
             physicalKeydownHandlersNoShift.find((handler) => handler.canHandle(key))?.handle(keyboardMemory, key);
@@ -464,10 +479,19 @@
         border: 1px solid #58a6ff;
         padding: 0.25rem;
       }
+
+      #pureLatexFromPhysicalKeys {
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: green;
+        text-align: right;
+      }
     </style>
   </head>
   <body class="dark">
     <h1>MathKeyboardEngine + MathJax</h1>
+    <div id="pureLatexFromPhysicalKeys"></div>
     <div id="typesetEditModeLatex"></div>
     <div id="viewModeLatex"></div>
     <i>Example keys - to be styled - to help you design your virtual math keyboard</i>
