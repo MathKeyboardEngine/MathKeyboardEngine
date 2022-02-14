@@ -69,19 +69,14 @@
         }
         displayResult();
       };
-      function getDecimalSeparatorNode() {
-        return new mke.DecimalSeparatorNode(() => (decimalSeparatorTypeElement.innerText == 'decimal comma' ? '{,}' : '.'));
-      }
+      const getDecimalSeparatorNode = () => new mke.DecimalSeparatorNode(() => (decimalSeparatorTypeElement.innerText == 'decimal comma' ? '{,}' : '.'));
       registerNodeKey('decimalSeparator', getDecimalSeparatorNode);
-
       registerNodeKey('equal', () => new mke.StandardLeafNode('='));
       registerNodeKey('notEqual', () => new mke.StandardLeafNode(String.raw`\neq`));
-
       registerNodeKey('lessThan', () => new mke.StandardLeafNode('<'));
       registerNodeKey('greaterThan', () => new mke.StandardLeafNode('>'));
       registerNodeKey('lessThanOrEqual', () => new mke.StandardLeafNode(String.raw`\leq`));
       registerNodeKey('greaterThanOrEqual', () => new mke.StandardLeafNode(String.raw`\geq`));
-
       registerNodeKey('plusminus', () => new mke.StandardLeafNode(String.raw`\pm`));
       registerNodeKey('plus', () => new mke.StandardLeafNode('+'));
       registerNodeKey('minus', () => new mke.StandardLeafNode('-'));
@@ -91,53 +86,32 @@
         multiplicationSignTypeElement.innerText = multiplicationSignTypeElement.innerText == 'cross' ? 'dot' : 'cross';
         displayResult();
       };
-      function getMultiplicationNode() {
-        return new mke.StandardLeafNode(() => (multiplicationSignTypeElement.innerText == 'cross' ? String.raw`\times` : String.raw`\cdot`));
-      }
+      const getMultiplicationNode = () => new mke.StandardLeafNode(() => (multiplicationSignTypeElement.innerText == 'cross' ? String.raw`\times` : String.raw`\cdot`));
       registerNodeKey('multiply', getMultiplicationNode);
-
       registerNodeKey('ratio', () => new mke.StandardLeafNode(':'));
       registerNodeKey('faculty', () => new mke.StandardLeafNode('!'));
-
-      function getFractionNode() {
-        return new mke.DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
-      }
+      const getFractionNode = () => new mke.DescendingBranchingNode(String.raw`\frac{`, '}{', '}');
       registerNodeKey('fraction', getFractionNode, mke.insert, mke.insertWithEncapsulateSelection);
-
-      registerNodeKey('binomial', () => new mke.DescendingBranchingNode(String.raw`\binom{`, '}{', '}'), mke.insert, mke.insertWithEncapsulateSelection);
-
-      function getPowerNode() {
-        return new mke.AscendingBranchingNode('', '^{', '}');
-      }
+      const getBinomialNode = () => new mke.DescendingBranchingNode(String.raw`\binom{`, '}{', '}');
+      registerNodeKey('binomial', getBinomialNode, mke.insert, mke.insertWithEncapsulateSelection);
+      const getPowerNode = () => new mke.AscendingBranchingNode('', '^{', '}');
       registerNodeKey('power', getPowerNode, mke.insertWithEncapsulateCurrent, mke.insertWithEncapsulateSelectionAndPrevious);
-
-      function getSubscriptNode() {
-        return new mke.DescendingBranchingNode('', '_{', '}');
-      }
+      const getSubscriptNode = () => new mke.DescendingBranchingNode('', '_{', '}');
       registerNodeKey('subscript', getSubscriptNode, mke.insertWithEncapsulateCurrent, mke.insertWithEncapsulateSelectionAndPrevious);
-
-      registerNodeKey('squareRoot', () => new mke.StandardBranchingNode(String.raw`\sqrt{`, '}'), mke.insert, mke.insertWithEncapsulateSelection);
+      const getSquareRootNode = () => new mke.StandardBranchingNode(String.raw`\sqrt{`, '}');
+      registerNodeKey('squareRoot', getSquareRootNode, mke.insert, mke.insertWithEncapsulateSelection);
       registerNodeKey('nthRoot', () => new mke.DescendingBranchingNode(String.raw`\sqrt[`, ']{', '}'));
-
       registerNodeKey('roundBrackets', () => new mke.RoundBracketsNode(), mke.insert, mke.insertWithEncapsulateSelection);
-      function getSquareBracketsNode() {
-        return new mke.StandardBranchingNode(String.raw`\left[`, String.raw`\right]`);
-      }
+      const getSquareBracketsNode = () => new mke.StandardBranchingNode(String.raw`\left[`, String.raw`\right]`);
       registerNodeKey('squareBrackets', getSquareBracketsNode, mke.insert, mke.insertWithEncapsulateSelection);
-      function getPipesNode() {
-        return new mke.StandardBranchingNode(String.raw`\left|`, String.raw`\right|`);
-      }
+      const getPipesNode = () => new mke.StandardBranchingNode(String.raw`\left|`, String.raw`\right|`);
       registerNodeKey('pipes', getPipesNode, mke.insert, mke.insertWithEncapsulateSelection);
       registerNodeKey('doublePipes', () => new mke.StandardBranchingNode(String.raw`\left\|`, String.raw`\right\|`), mke.insert, mke.insertWithEncapsulateSelection);
-      function getCurlyBracketsNode() {
-        return new mke.StandardBranchingNode(String.raw`\left\{`, String.raw`\right\}`);
-      }
+      const getCurlyBracketsNode = () => new mke.StandardBranchingNode(String.raw`\left\{`, String.raw`\right\}`);
       registerNodeKey('curlyBrackets', getCurlyBracketsNode, mke.insert, mke.insertWithEncapsulateSelection);
-
       registerNodeKey('naturalNumbers', () => new mke.StandardLeafNode(String.raw`\mathbb{N}`));
       registerNodeKey('integers', () => new mke.StandardLeafNode(String.raw`\mathbb{Z}`));
       registerNodeKey('realNumbers', () => new mke.StandardLeafNode(String.raw`\mathbb{R}`));
-
       registerNodeKey('isMemberOf', () => new mke.StandardLeafNode(String.raw`\in`));
       registerNodeKey('isProperSubsetOf', () => new mke.StandardLeafNode(String.raw`\subset`));
       registerNodeKey('isSubsetOf', () => new mke.StandardLeafNode(String.raw`\subseteq`));
@@ -149,10 +123,8 @@
       registerNodeKey('and', () => new mke.StandardLeafNode(String.raw`\land`));
       registerNodeKey('doubleRightArrow', () => new mke.StandardLeafNode(String.raw`\Rightarrow`));
       registerNodeKey('doubleLeftArrow', () => new mke.StandardLeafNode(String.raw`\Leftarrow`));
-
       registerNodeKey('cos-1', () => new mke.StandardLeafNode(String.raw`\cos^{-1}`));
       registerNodeKey('taninv', () => new mke.StandardLeafNode(String.raw`\tan^{inv}`));
-
       registerNodeKey('integral', () => new mke.AscendingBranchingNode(String.raw`\int_{`, '}^{', '}'));
       registerNodeKey('sum', () => new mke.AscendingBranchingNode(String.raw`\sum_{`, '}^{', '}'));
       registerNodeKey('product', () => new mke.AscendingBranchingNode(String.raw`\prod_{`, '}^{', '}'));
@@ -176,7 +148,6 @@
       typesetLatexInKey('\\uparrow', document.getElementById('moveUp'));
       registerKey('moveDown', mke.moveDown);
       typesetLatexInKey(String.raw`\downarrow`, document.getElementById('moveDown'));
-
       registerKey('deleteCurrent', mke.deleteCurrent, mke.deleteSelection);
 
       registerKey('selectionModeToggle', (k) => {
@@ -381,12 +352,20 @@
             pureLatexElement.innerText = '\\';
           } else if (pureLatexElement.innerText.length > 0) {
             if (key == 'Space' || key == 'Enter' || key == 'Escape') {
-              mke.insert(keyboardMemory, new mke.StandardLeafNode(pureLatexElement.innerText));
+              const node =
+                pureLatexElement.innerText == '\\frac'
+                  ? getFractionNode()
+                  : pureLatexElement.innerText == '\\binom'
+                  ? getBinomialNode()
+                  : pureLatexElement.innerText == '\\sqrt'
+                  ? getSquareRootNode()
+                  : new mke.StandardLeafNode(pureLatexElement.innerText);
+              mke.insert(keyboardMemory, node);
               pureLatexElement.innerText = '';
             } else if (key == 'Backspace') {
               pureLatexElement.innerText = pureLatexElement.innerText.substring(0, pureLatexElement.innerText.length - 1);
             } else if (key.startsWith('Key')) {
-              if (inShift){
+              if (inShift) {
                 pureLatexElement.innerText += key[3];
               } else {
                 pureLatexElement.innerText += key[3].toLocaleLowerCase();
