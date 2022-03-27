@@ -16,10 +16,10 @@ describe(moveDown.name, () => {
     insert(k, new DigitNode('2'));
     insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     insert(k, new RoundBracketsNode('(', ')'));
-    expectLatex('2^{(◼)}', k);
+    expectLatex('2^{(▦)}', k);
     // Act
     moveDown(k);
     // Assert
-    expectLatex('2◼^{(◻)}', k);
+    expectLatex('2▦^{(⬚)}', k);
   });
 });

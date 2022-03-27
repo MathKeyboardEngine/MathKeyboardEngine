@@ -17,26 +17,26 @@ describe(insertWithEncapsulateSelection.name, () => {
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
     insert(k, new DigitNode('2'));
-    expectLatex('12◼', k);
+    expectLatex('12▦', k);
     selectLeft(k);
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
     // Act
     insertWithEncapsulateSelection(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     // Assert
-    expectLatex(String.raw`1\frac{2}{◼}`, k);
+    expectLatex(String.raw`1\frac{2}{▦}`, k);
   });
 
   it(`when a single ${TreeNode.name} is selected and the left exclusive border is a ${Placeholder.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
-    expectLatex('1◼', k);
+    expectLatex('1▦', k);
     selectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
     // Act
     insertWithEncapsulateSelection(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     // Assert
-    expectLatex(String.raw`\frac{1}{◼}`, k);
+    expectLatex(String.raw`\frac{1}{▦}`, k);
   });
 
   it(`when multiple ${TreeNode.name}s are selected and the left exclusive border is a ${TreeNode.name}`, () => {
@@ -45,14 +45,14 @@ describe(insertWithEncapsulateSelection.name, () => {
     insert(k, new DigitNode('1'));
     insert(k, new DigitNode('2'));
     insert(k, new DigitNode('3'));
-    expectLatex('123◼', k);
+    expectLatex('123▦', k);
     selectLeft(k);
     selectLeft(k);
     expectLatex(String.raw`1\colorbox{blue}{23}`, k);
     // Act
     insertWithEncapsulateSelection(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     // Assert
-    expectLatex(String.raw`1\frac{23}{◼}`, k);
+    expectLatex(String.raw`1\frac{23}{▦}`, k);
   });
 
   it(`when multiple ${TreeNode.name}s are selected and the left exclusive border is a ${Placeholder.name}`, () => {
@@ -60,14 +60,14 @@ describe(insertWithEncapsulateSelection.name, () => {
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
     insert(k, new DigitNode('2'));
-    expectLatex('12◼', k);
+    expectLatex('12▦', k);
     selectLeft(k);
     selectLeft(k);
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
     // Act
     insertWithEncapsulateSelection(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     // Assert
-    expectLatex(String.raw`\frac{12}{◼}`, k);
+    expectLatex(String.raw`\frac{12}{▦}`, k);
   });
 
   it(`does a regular ${insert.name} when ${inSelectionMode.name} but nothing is selected`, () => {
@@ -76,10 +76,10 @@ describe(insertWithEncapsulateSelection.name, () => {
     insert(k, new DigitNode('1'));
     insert(k, new DigitNode('2'));
     enterSelectionMode(k);
-    expectLatex('12◼', k);
+    expectLatex('12▦', k);
     // Act
     insertWithEncapsulateSelection(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     // Assert
-    expectLatex(String.raw`12\frac{◼}{◻}`, k);
+    expectLatex(String.raw`12\frac{▦}{⬚}`, k);
   });
 });

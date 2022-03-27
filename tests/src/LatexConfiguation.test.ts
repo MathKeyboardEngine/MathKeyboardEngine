@@ -25,12 +25,12 @@ describe(LatexConfiguration.name, () => {
     const k = new KeyboardMemory();
     insert(k, new AscendingBranchingNode('', '^{', '}'));
     const myLatexConfiguration = new LatexConfiguration();
-    myLatexConfiguration.activePlaceholderShape = '◼';
-    myLatexConfiguration.passivePlaceholderShape = '◼';
+    myLatexConfiguration.activePlaceholderShape = String.raw`\blacksquare`;
+    myLatexConfiguration.passivePlaceholderShape = String.raw`\blacksquare`;
     // Act
     myLatexConfiguration.activePlaceholderColor = 'orange';
     myLatexConfiguration.passivePlaceholderColor = 'gray';
     // Assert
-    expect(String.raw`\color{orange}{◼}^{\color{gray}{◼}}`).to.equal(getEditModeLatex(k, myLatexConfiguration));
+    expect(String.raw`\color{orange}{\blacksquare}^{\color{gray}{\blacksquare}}`).to.equal(getEditModeLatex(k, myLatexConfiguration));
   });
 });

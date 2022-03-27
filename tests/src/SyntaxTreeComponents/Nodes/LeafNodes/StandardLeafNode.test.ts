@@ -13,10 +13,10 @@ describe(StandardLeafNode.name, () => {
     insert(k, new DigitNode('2'));
     insert(k, new StandardLeafNode(() => myMultiplicationSignSetting));
     insert(k, new StandardLeafNode('a'));
-    expectLatex(String.raw`2\times a◼`, k);
+    expectLatex(String.raw`2\times a▦`, k);
     // Act
     myMultiplicationSignSetting = String.raw`\cdot`;
     // Assert
-    expectLatex(String.raw`2\cdot a◼`, k);
+    expectLatex(String.raw`2\cdot a▦`, k);
   });
 });

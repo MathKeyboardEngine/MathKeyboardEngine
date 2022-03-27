@@ -22,7 +22,7 @@ describe(selectRight.name, () => {
     insert(k, new DigitNode('1'));
     insert(k, new DigitNode('2'));
     moveLeft(k);
-    expectLatex('1◼2', k);
+    expectLatex('1▦2', k);
     // Act
     selectRight(k);
     // Assert
@@ -34,7 +34,7 @@ describe(selectRight.name, () => {
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
     moveLeft(k);
-    expectLatex('◼1', k);
+    expectLatex('▦1', k);
     // Act
     selectRight(k);
     // Assert
@@ -49,7 +49,7 @@ describe(selectRight.name, () => {
     insert(k, new DigitNode('3'));
     moveLeft(k);
     moveLeft(k);
-    expectLatex('1◼23', k);
+    expectLatex('1▦23', k);
     // Act
     selectRight(k);
     selectRight(k);
@@ -64,7 +64,7 @@ describe(selectRight.name, () => {
     insert(k, new DigitNode('2'));
     moveLeft(k);
     moveLeft(k);
-    expectLatex('◼12', k);
+    expectLatex('▦12', k);
     // Act
     selectRight(k);
     selectRight(k);
@@ -81,7 +81,7 @@ describe(selectRight.name, () => {
     // Act
     selectRight(k);
     // Assert
-    expectLatex('1◼', k);
+    expectLatex('1▦', k);
     assert.isTrue(inSelectionMode(k));
   });
 
@@ -90,7 +90,7 @@ describe(selectRight.name, () => {
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
     moveLeft(k);
-    expectLatex('◼1', k);
+    expectLatex('▦1', k);
     selectRight(k);
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
     // Act
@@ -107,7 +107,7 @@ describe(selectRight.name, () => {
     insert(k, new DigitNode('1'));
     insert(k, new DigitNode('2'));
     moveLeft(k);
-    expectLatex('1◼2', k);
+    expectLatex('1▦2', k);
     selectRight(k);
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
     // Act
@@ -128,7 +128,7 @@ describe(selectRight.name, () => {
     moveLeft(k);
     moveLeft(k);
     moveLeft(k);
-    expectLatex(String.raw`\sqrt{◼2}+x`, k);
+    expectLatex(String.raw`\sqrt{▦2}+x`, k);
     selectRight(k);
     expectLatex(String.raw`\sqrt{\colorbox{blue}{2}}+x`, k);
     // Act & Assert
@@ -153,7 +153,7 @@ describe(selectRight.name, () => {
     moveLeft(k);
     moveLeft(k);
     moveLeft(k);
-    expectLatex(String.raw`3\sqrt{◼2}+x`, k);
+    expectLatex(String.raw`3\sqrt{▦2}+x`, k);
     selectRight(k);
     expectLatex(String.raw`3\sqrt{\colorbox{blue}{2}}+x`, k);
     // Act & Assert

@@ -21,7 +21,7 @@ describe(selectLeft.name, () => {
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
     insert(k, new DigitNode('2'));
-    expectLatex('12◼', k);
+    expectLatex('12▦', k);
     // Act
     selectLeft(k);
     // Assert
@@ -32,7 +32,7 @@ describe(selectLeft.name, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
-    expectLatex('1◼', k);
+    expectLatex('1▦', k);
     // Act
     selectLeft(k);
     // Assert
@@ -45,7 +45,7 @@ describe(selectLeft.name, () => {
     insert(k, new DigitNode('1'));
     insert(k, new DigitNode('2'));
     insert(k, new DigitNode('3'));
-    expectLatex('123◼', k);
+    expectLatex('123▦', k);
     // Act
     selectLeft(k);
     selectLeft(k);
@@ -58,7 +58,7 @@ describe(selectLeft.name, () => {
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
     insert(k, new DigitNode('2'));
-    expectLatex('12◼', k);
+    expectLatex('12▦', k);
     // Act
     selectLeft(k);
     selectLeft(k);
@@ -71,12 +71,12 @@ describe(selectLeft.name, () => {
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
     moveLeft(k);
-    expectLatex('◼1', k);
+    expectLatex('▦1', k);
     enterSelectionMode(k);
     // Act
     selectLeft(k);
     // Assert
-    expectLatex('◼1', k);
+    expectLatex('▦1', k);
   });
 
   it(`does nothing if all on-the-left-available ${TreeNode.name}s are selected (and ${nameof<KeyboardMemory>('current')} is the ${nameof<KeyboardMemory>('syntaxTreeRoot')})`, () => {
@@ -101,7 +101,7 @@ describe(selectLeft.name, () => {
     // Act
     selectLeft(k);
     // Assert
-    expectLatex('◼1', k);
+    expectLatex('▦1', k);
     assert.isTrue(inSelectionMode(k));
   });
 
@@ -111,7 +111,7 @@ describe(selectLeft.name, () => {
     insert(k, new DigitNode('2'));
     insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     insert(k, new DigitNode('x'));
-    expectLatex(String.raw`2^{x◼}`, k);
+    expectLatex(String.raw`2^{x▦}`, k);
     selectLeft(k);
     expectLatex(String.raw`2^{\colorbox{blue}{x}}`, k);
     // Act

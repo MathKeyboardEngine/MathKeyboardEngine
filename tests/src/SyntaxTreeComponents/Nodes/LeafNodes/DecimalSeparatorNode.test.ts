@@ -13,10 +13,10 @@ describe(DecimalSeparatorNode.name, () => {
     insert(k, new DigitNode('1'));
     insert(k, new DecimalSeparatorNode(() => myDecimalSeparatorSetting));
     insert(k, new DigitNode('2'));
-    expectLatex('1{,}2◼', k);
+    expectLatex('1{,}2▦', k);
     // Act
     myDecimalSeparatorSetting = '.';
     // Assert
-    expectLatex('1.2◼', k);
+    expectLatex('1.2▦', k);
   });
 });

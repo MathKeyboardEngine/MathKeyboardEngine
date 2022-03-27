@@ -24,7 +24,7 @@ describe(KeyboardMemory.name, () => {
     it('is a Placeholder', () => {
       const k = new KeyboardMemory();
       assert.isTrue(k.syntaxTreeRoot instanceof Placeholder);
-      expectLatex('◼', k);
+      expectLatex('▦', k);
     });
 
     it('cannot be deleted', () => {
@@ -53,35 +53,35 @@ describe(KeyboardMemory.name, () => {
 
     it('impossible move requests in empty root placeholder do not throw', () => {
       const k = new KeyboardMemory();
-      expectLatex('◼', k);
+      expectLatex('▦', k);
       moveLeft(k);
-      expectLatex('◼', k);
+      expectLatex('▦', k);
       moveDown(k);
-      expectLatex('◼', k);
+      expectLatex('▦', k);
       moveUp(k);
-      expectLatex('◼', k);
+      expectLatex('▦', k);
       moveRight(k);
-      expectLatex('◼', k);
+      expectLatex('▦', k);
     });
 
     it('impossible move requests in filled root placeholder do not throw', () => {
       const k = new KeyboardMemory();
       insert(k, new DigitNode('1'));
-      expectLatex('1◼', k);
+      expectLatex('1▦', k);
       moveUp(k);
-      expectLatex('1◼', k);
+      expectLatex('1▦', k);
       moveRight(k);
-      expectLatex('1◼', k);
+      expectLatex('1▦', k);
       moveDown(k);
-      expectLatex('1◼', k);
+      expectLatex('1▦', k);
       moveLeft(k);
-      expectLatex('◼1', k);
+      expectLatex('▦1', k);
       moveDown(k);
-      expectLatex('◼1', k);
+      expectLatex('▦1', k);
       moveLeft(k);
-      expectLatex('◼1', k);
+      expectLatex('▦1', k);
       moveUp(k);
-      expectLatex('◼1', k);
+      expectLatex('▦1', k);
     });
   });
 });
