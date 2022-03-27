@@ -6,7 +6,8 @@
     "prettier": "npx prettier --write . --loglevel=warn",
     "clean": "npm run lint && npm run prettier",
     "build": "npm run tsc && rimraf dist && esbuild src/bundle.ts --bundle --format=iife --target=es6 --global-name=mke --outfile=dist/MathKeyboardEngine.es2015-iife.js & esbuild src/bundle.ts --bundle --format=esm --target=es2017 --outfile=dist/MathKeyboardEngine.es2017-esm.js & esbuild src/bundle.ts --bundle --minify --format=iife --target=es6 --global-name=mke --outfile=dist/MathKeyboardEngine.es2015-iife.min.js & esbuild src/bundle.ts --bundle --minify --format=esm --target=es2017 --outfile=dist/MathKeyboardEngine.es2017-esm.min.js & esbuild src/bundle.ts --bundle --format=esm --target=es2020 --outfile=dist/MathKeyboardEngine.es2020-esm.js & esbuild src/bundle.ts --bundle --minify --format=esm --target=es2020 --outfile=dist/MathKeyboardEngine.es2020-esm.min.js",
-    "up-packages": "npx npm-check-updates -u"
+    "up-packages": "npx npm-check-updates -u",
+    "up-vulnerable-packages": "npm audit fix"
   },
   "name": "mathkeyboardengine",
   "description": "MathKeyboardEngine provides the logic - in JavaScript and LaTeX - for a highly customizable virtual math keyboard.",
