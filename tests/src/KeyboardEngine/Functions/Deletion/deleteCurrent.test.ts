@@ -256,7 +256,7 @@ describe(deleteCurrent.name, () => {
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
     insert(k, new DigitNode('2'));
-    insertWithEncapsulateCurrent(k, new DescendingBranchingNode('','_{', '}'));
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode('', '_{', '}'));
     moveRight(k);
     expectLatex('12_{⬚}▦', k);
     // Act
@@ -296,16 +296,16 @@ describe(deleteCurrent.name, () => {
     // Assert
     expectLatex('12▦', k);
   });
-  
+
   it(`deletes a fraction (a ${BranchingNode.name} with two ${Placeholder.name}s) from the right - case with a ${BranchingNode.name} on the right`, () => {
     // Arrange
     const k = new KeyboardMemory();
-    insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'))
+    insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     insert(k, new StandardLeafNode('a'));
     insert(k, new StandardLeafNode('b'));
     moveDown(k);
     moveRight(k);
-    insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'))
+    insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'));
     moveLeft(k);
     moveLeft(k);
     expectLatex(String.raw`\frac{ab}{▦}\sqrt{⬚}`, k);
