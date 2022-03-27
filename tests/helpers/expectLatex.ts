@@ -5,8 +5,8 @@ import { getEditModeLatex } from '../../src/GetLatex/getEditModeLatex';
 import { getViewModeLatex } from '../../src/GetLatex/getViewModeLatex';
 
 const testConfig = new LatexConfiguration();
-testConfig.activePlaceholderShape = '◼';
-testConfig.passivePlaceholderShape = '◻';
+testConfig.activePlaceholderShape = '▦';
+testConfig.passivePlaceholderShape = '⬚';
 testConfig.selectionHightlightStart = String.raw`\colorbox{blue}{`;
 testConfig.selectionHightlightEnd = '}';
 
