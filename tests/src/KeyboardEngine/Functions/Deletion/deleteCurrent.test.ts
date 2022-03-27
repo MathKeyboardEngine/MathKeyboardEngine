@@ -23,6 +23,7 @@ import { BranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Bas
 import { LeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/LeafNode';
 import { nameof } from '../../../../helpers/nameof';
 import { RoundBracketsNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
+import { StandardBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/StandardBranchingNode';
 
 describe(deleteCurrent.name, () => {
   it(`can also be used to "delete empty ${Placeholder.name}s in some cases" (in the experience of the user) - x`, () => {
@@ -234,22 +235,105 @@ describe(deleteCurrent.name, () => {
     // Act
     deleteCurrent(k);
     // Assert
-    expectLatex(String.raw`\frac{◼}{◻}`, k);
+    expectLatex('1◼', k);
   });
 
-  it(`from the right of a ${BranchingNode.name} - last ${Placeholder.name} is empty and first ${Placeholder.name} contains multiple ${LeafNode.name}s`, () => {
+  it(`deletes a subscript (a ${BranchingNode.name} with two ${Placeholder.name}s) from its empty ${Placeholder.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
     insert(k, new DigitNode('2'));
-    insertWithEncapsulateCurrent(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
-    moveRight(k);
-    moveRight(k);
-    expectLatex(String.raw`\frac{12}{◻}◼`, k);
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode('', '_{', '}'));
+    expectLatex('12_{◼}', k);
     // Act
     deleteCurrent(k);
     // Assert
-    expectLatex(String.raw`\frac{1◼}{◻}`, k);
+    expectLatex('12◼', k);
+  });
+
+  it(`deletes a subscript (a ${BranchingNode.name} with two ${Placeholder.name}s) from the right`, () => {
+    // Arrange
+    const k = new KeyboardMemory();
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode('','_{', '}'));
+    moveRight(k);
+    expectLatex('12_{◻}◼', k);
+    // Act
+    deleteCurrent(k);
+    // Assert
+    expectLatex('12◼', k);
+  });
+
+  it(`deletes a subscript (a ${BranchingNode.name} with two ${Placeholder.name}s) from the right - case with a ${BranchingNode.name} on the right`, () => {
+    // Arrange
+    const k = new KeyboardMemory();
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    insertWithEncapsulateCurrent(k, new DescendingBranchingNode('', '_{', '}'));
+    moveRight(k);
+    insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'));
+    moveLeft(k);
+    expectLatex(String.raw`12_{◻}◼\sqrt{◻}`, k);
+    // Act
+    deleteCurrent(k);
+    // Assert
+    expectLatex(String.raw`12◼\sqrt{◻}`, k);
+  });
+
+  it(`deletes a single-column matrix (or any ${BranchingNode.name}) from the right if the only non-empty ${Placeholder.name} is at index 0`, () => {
+    // Arrange
+    const k = new KeyboardMemory();
+    insert(k, new MatrixNode('pmatrix', 1, 3));
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    moveDown(k);
+    moveRight(k);
+    moveRight(k);
+    expectLatex(String.raw`\begin{pmatrix}12 \\ ◻ \\ ◻\end{pmatrix}◼`, k);
+    // Act
+    deleteCurrent(k);
+    // Assert
+    expectLatex('12◼', k);
+  });
+  
+  it(`deletes a fraction (a ${BranchingNode.name} with two ${Placeholder.name}s) from the right - case with a ${BranchingNode.name} on the right`, () => {
+    // Arrange
+    const k = new KeyboardMemory();
+    insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'))
+    insert(k, new StandardLeafNode('a'));
+    insert(k, new StandardLeafNode('b'));
+    moveDown(k);
+    moveRight(k);
+    insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'))
+    moveLeft(k);
+    moveLeft(k);
+    expectLatex(String.raw`\frac{ab}{◼}\sqrt{◻}`, k);
+    // Act
+    deleteCurrent(k);
+    // Assert
+    expectLatex(String.raw`ab◼\sqrt{◻}`, k);
+  });
+
+  it(`deletes the last ${TreeNode.name} of the last ${Placeholder.name} with content`, () => {
+    // Arrange
+    const k = new KeyboardMemory();
+    insert(k, new MatrixNode('pmatrix', 2, 2));
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    moveDown(k);
+    insert(k, new DigitNode('3'));
+    insert(k, new DigitNode('4'));
+    moveRight(k);
+    moveRight(k);
+    expectLatex(String.raw`\begin{pmatrix}12 & ◻ \\ 34 & ◻\end{pmatrix}◼`, k);
+    // Act & Assert
+    deleteCurrent(k);
+    expectLatex(String.raw`\begin{pmatrix}12 & ◻ \\ 3◼ & ◻\end{pmatrix}`, k);
+    deleteCurrent(k);
+    expectLatex(String.raw`\begin{pmatrix}12 & ◻ \\ ◼ & ◻\end{pmatrix}`, k);
+    deleteCurrent(k);
+    expectLatex(String.raw`\begin{pmatrix}1◼ & ◻ \\ ◻ & ◻\end{pmatrix}`, k);
   });
 
   it(`does nothing from the first ${Placeholder.name} if multiple sibling ${Placeholder.name}s are filled`, () => {
