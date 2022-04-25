@@ -17,11 +17,7 @@ export function moveRight(k: KeyboardMemory): void {
   } else {
     const nextNode: TreeNode | null = firstAfterOrNull(k.current.parentPlaceholder.nodes, k.current);
     if (nextNode != null) {
-      if (nextNode instanceof BranchingNode) {
-        k.current = nextNode.placeholders[0];
-      } else {
-        k.current = nextNode;
-      }
+      k.current = nextNode instanceof BranchingNode ? nextNode.placeholders[0] : nextNode;
     } else {
       const ancestorNode = k.current.parentPlaceholder.parentNode;
       if (ancestorNode != null) {

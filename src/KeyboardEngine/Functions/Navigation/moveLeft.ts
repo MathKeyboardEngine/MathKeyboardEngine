@@ -4,6 +4,7 @@ import { TreeNode } from '../../../SyntaxTreeComponents/Nodes/Base/TreeNode';
 import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/BranchingNode';
 import { Placeholder } from '../../../SyntaxTreeComponents/Placeholder/Placeholder';
 import { KeyboardMemory } from '../../KeyboardMemory';
+import { lastOrNull } from '../../../helpers/arrayhelpers/lastOrNull';
 
 export function moveLeft(k: KeyboardMemory): void {
   if (k.current instanceof Placeholder) {
@@ -13,19 +14,11 @@ export function moveLeft(k: KeyboardMemory): void {
 
     const previousPlaceholder: Placeholder | null = firstBeforeOrNull(k.current.parentNode.placeholders, k.current);
     if (previousPlaceholder !== null) {
-      if (previousPlaceholder.nodes.length == 0) {
-        k.current = previousPlaceholder;
-      } else {
-        k.current = last(previousPlaceholder.nodes);
-      }
+      k.current = lastOrNull(previousPlaceholder.nodes) ?? previousPlaceholder;
     } else {
       const ancestorPlaceholder = k.current.parentNode.parentPlaceholder;
       const nodePreviousToParentOfCurrent: TreeNode | null = firstBeforeOrNull(ancestorPlaceholder.nodes, k.current.parentNode);
-      if (nodePreviousToParentOfCurrent != null) {
-        k.current = nodePreviousToParentOfCurrent;
-      } else {
-        k.current = ancestorPlaceholder;
-      }
+      k.current = nodePreviousToParentOfCurrent ?? ancestorPlaceholder;
     }
   } else {
     if (k.current instanceof BranchingNode) {
