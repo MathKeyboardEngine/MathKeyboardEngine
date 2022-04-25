@@ -10,10 +10,8 @@ export function endsWithLatexCommand(latex: string): boolean {
       const c = latex[i];
       if (isLetter(c)) {
         continue;
-      } else if (c == '\\') {
-        return true;
       } else {
-        return false;
+        return c == '\\';
       }
     }
   }

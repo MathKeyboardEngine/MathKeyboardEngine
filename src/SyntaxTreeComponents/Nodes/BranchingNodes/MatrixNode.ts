@@ -6,7 +6,7 @@ import { BranchingNode } from '../Base/BranchingNode';
 export class MatrixNode extends BranchingNode {
   private readonly matrixType: string;
   private readonly grid: Placeholder[][];
-
+  private readonly width: number;
   constructor(matrixType: string, width: number, height: number) {
     const grid: Placeholder[][] = [];
     const leftToRight: Placeholder[] = [];
@@ -20,11 +20,9 @@ export class MatrixNode extends BranchingNode {
       grid.push(row);
     }
     super(leftToRight);
-    for (const placeholder of leftToRight) {
-      placeholder.parentNode = this;
-    }
     this.grid = grid;
     this.matrixType = matrixType;
+    this.width = width;
   }
 
   override getLatexPart(k: KeyboardMemory, latexConfiguration: LatexConfiguration): string {
@@ -35,35 +33,33 @@ export class MatrixNode extends BranchingNode {
   }
 
   override getMoveDownSuggestion(fromPlaceholder: Placeholder): Placeholder | null {
-    const { rowNumber, indexInRow } = this.getPositionOf(fromPlaceholder);
-    if (rowNumber + 1 < this.grid.length) {
-      return this.grid[rowNumber + 1][indexInRow];
+    const { rowIndex, columnIndex } = this.getPositionOf(fromPlaceholder);
+    if (rowIndex + 1 < this.grid.length) {
+      return this.grid[rowIndex + 1][columnIndex];
     } else {
       return null;
     }
   }
 
   override getMoveUpSuggestion(fromPlaceholder: Placeholder): Placeholder | null {
-    const { rowNumber, indexInRow } = this.getPositionOf(fromPlaceholder);
-    if (rowNumber - 1 >= 0) {
-      return this.grid[rowNumber - 1][indexInRow];
+    const { rowIndex, columnIndex } = this.getPositionOf(fromPlaceholder);
+    if (rowIndex - 1 >= 0) {
+      return this.grid[rowIndex - 1][columnIndex];
     } else {
       return null;
     }
   }
 
   private getPositionOf(placeholder: Placeholder): {
-    rowNumber: number;
-    indexInRow: number;
+    rowIndex: number;
+    columnIndex: number;
   } {
-    for (let rowNumber = 0; rowNumber < this.grid.length; rowNumber++) {
-      const row = this.grid[rowNumber];
-      for (let indexInRow = 0; indexInRow < row.length; indexInRow++) {
-        if (row[indexInRow] === placeholder) {
-          return { rowNumber, indexInRow };
-        }
-      }
+    const index = this.placeholders.indexOf(placeholder);
+    if (index == -1) {
+      throw 'The provided Placeholder is not part of this MatrixNode.';
     }
-    throw 'The provided Placeholder is not part of this MatrixNode.';
+    const rowIndex = Math.floor(index / this.width);
+    const columnIndex = index - rowIndex * this.width;
+    return { rowIndex, columnIndex };
   }
 }
