@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2019",
     "module": "ES2015",
     "strict": true,
     "noEmitOnError": true,

@@ -52,15 +52,7 @@ export function deleteCurrent(k: KeyboardMemory): void {
     if (k.current instanceof BranchingNode && k.current.placeholders[0].nodes.length > 0 && k.current.placeholders.slice(1).every((ph) => ph.nodes.length == 0)) {
       deleteOuterBranchingNodeButNotItsContents(k, k.current.placeholders[0]);
     } else if (k.current instanceof BranchingNode && k.current.placeholders.some((ph) => ph.nodes.length > 0)) {
-      let lastPlaceholderWithContent!: Placeholder;
-      for (let i = k.current.placeholders.length - 1; i >= 0; i--) {
-        const ph = k.current.placeholders[i];
-        if (ph.nodes.length > 0) {
-          lastPlaceholderWithContent = ph;
-          break;
-        }
-      }
-      k.current = last(lastPlaceholderWithContent.nodes);
+      k.current = last(k.current.placeholders.flatMap((ph) => ph.nodes));
       deleteCurrent(k);
     } else {
       const previousNode: TreeNode | null = firstBeforeOrNull(k.current.parentPlaceholder.nodes, k.current);
