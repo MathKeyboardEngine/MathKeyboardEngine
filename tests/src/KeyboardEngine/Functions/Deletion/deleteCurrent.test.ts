@@ -297,7 +297,7 @@ describe(deleteCurrent.name, () => {
     expectLatex('12▦', k);
   });
 
-  it.only(`deletes a fraction (a ${BranchingNode.name} with two ${Placeholder.name}s) from its second ${Placeholder.name} - case with a ${BranchingNode.name} on the right`, () => {
+  it(`deletes a fraction (a ${BranchingNode.name} with two ${Placeholder.name}s) from its second ${Placeholder.name} - case with a ${BranchingNode.name} on the right`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
