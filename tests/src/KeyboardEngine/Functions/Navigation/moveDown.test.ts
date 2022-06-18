@@ -10,7 +10,7 @@ import { RoundBracketsNode } from '../../../../../src/SyntaxTreeComponents/Nodes
 import { BranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/BranchingNode';
 
 describe(moveDown.name, () => {
-  it(`can move the cursor down via an ancestors, if the current ${BranchingNode.name} does not support up/down navigation`, () => {
+  it(`can move the cursor down via an ancestor, if the current ${BranchingNode.name} does not support up/down navigation`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('2'));

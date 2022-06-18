@@ -156,7 +156,7 @@ describe(deleteCurrent.name, () => {
     expectLatex(String.raw`\frac{1▦}{⬚}`, k);
   });
 
-  it(`can revert "raise selected to the power of an empty ${Placeholder.name}`, () => {
+  it(`can revert "raise selection to the power of an empty ${Placeholder.name}"`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -297,7 +297,7 @@ describe(deleteCurrent.name, () => {
     expectLatex('12▦', k);
   });
 
-  it(`deletes a fraction (a ${BranchingNode.name} with two ${Placeholder.name}s) from the right - case with a ${BranchingNode.name} on the right`, () => {
+  it.only(`deletes a fraction (a ${BranchingNode.name} with two ${Placeholder.name}s) from its second ${Placeholder.name} - case with a ${BranchingNode.name} on the right`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
