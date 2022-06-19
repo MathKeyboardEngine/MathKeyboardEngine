@@ -119,8 +119,12 @@ describe(MatrixNode.name, () => {
   });
 
   it('impossible up/down requests in empty pmatrix(2*2) should not throw', () => {
+    // Arrange
     const k = new KeyboardMemory();
     insert(k, new MatrixNode('pmatrix', 2, 2));
+    expectLatex(String.raw`\begin{pmatrix}▦ & ⬚ \\ ⬚ & ⬚\end{pmatrix}`, k);
+    // Act & Assert
+    moveUp(k);
     expectLatex(String.raw`\begin{pmatrix}▦ & ⬚ \\ ⬚ & ⬚\end{pmatrix}`, k);
     moveDown(k);
     expectLatex(String.raw`\begin{pmatrix}⬚ & ⬚ \\ ▦ & ⬚\end{pmatrix}`, k);
@@ -128,12 +132,12 @@ describe(MatrixNode.name, () => {
     expectLatex(String.raw`\begin{pmatrix}⬚ & ⬚ \\ ▦ & ⬚\end{pmatrix}`, k);
     moveRight(k);
     expectLatex(String.raw`\begin{pmatrix}⬚ & ⬚ \\ ⬚ & ▦\end{pmatrix}`, k);
+    moveDown(k);
+    expectLatex(String.raw`\begin{pmatrix}⬚ & ⬚ \\ ⬚ & ▦\end{pmatrix}`, k);
     moveUp(k);
     expectLatex(String.raw`\begin{pmatrix}⬚ & ▦ \\ ⬚ & ⬚\end{pmatrix}`, k);
     moveUp(k);
     expectLatex(String.raw`\begin{pmatrix}⬚ & ▦ \\ ⬚ & ⬚\end{pmatrix}`, k);
-    moveLeft(k);
-    expectLatex(String.raw`\begin{pmatrix}▦ & ⬚ \\ ⬚ & ⬚\end{pmatrix}`, k);
   });
 
   it('impossible up/down requests in filled pmatrix(2*2) should not throw', () => {

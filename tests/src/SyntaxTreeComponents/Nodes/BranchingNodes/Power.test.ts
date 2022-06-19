@@ -57,16 +57,17 @@ describe('Power', () => {
   });
 
   it('impossible up/down requests in empty power should not throw', () => {
+    // Arrange
     const k = new KeyboardMemory();
     insert(k, new AscendingBranchingNode('', '^{', '}'));
+    expectLatex('▦^{⬚}', k);
+    // Act & Assert
+    moveDown(k);
+    expectLatex('▦^{⬚}', k);
     moveUp(k);
     expectLatex('⬚^{▦}', k);
     moveUp(k);
     expectLatex('⬚^{▦}', k);
-    moveDown(k);
-    expectLatex('▦^{⬚}', k);
-    moveDown(k);
-    expectLatex('▦^{⬚}', k);
   });
 
   it('impossible up/down requests in filled power should not throw', () => {

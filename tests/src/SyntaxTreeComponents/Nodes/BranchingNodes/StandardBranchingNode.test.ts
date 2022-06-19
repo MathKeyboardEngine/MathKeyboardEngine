@@ -26,7 +26,7 @@ describe(StandardBranchingNode.name, () => {
     expectLatex(String.raw`\sqrt{▦3}`, k);
   });
 
-  it('sqrt right left left left right', () => {
+  it('sqrt right left left right', () => {
     const k = new KeyboardMemory();
     insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'));
     expectLatex(String.raw`\sqrt{▦}`, k);

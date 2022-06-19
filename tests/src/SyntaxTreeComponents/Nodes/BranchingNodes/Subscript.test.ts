@@ -12,39 +12,39 @@ import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation
 import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
 
 describe('Subscript as suffix', () => {
-  it('subscript 3 right 4', () => {
+  it('subscript `a` right 4', () => {
     const k = new KeyboardMemory();
     insert(k, new DescendingBranchingNode('', '_{', '}'));
-    insert(k, new DigitNode('3'));
+    insert(k, new StandardLeafNode('a'));
     moveRight(k);
     insert(k, new DigitNode('4'));
-    expectLatex('3_{4▦}', k);
+    expectLatex('a_{4▦}', k);
   });
 
-  it('subscript 3 up 4', () => {
+  it('subscript `a` down 4', () => {
     const k = new KeyboardMemory();
     insert(k, new DescendingBranchingNode('', '_{', '}'));
-    insert(k, new DigitNode('3'));
+    insert(k, new StandardLeafNode('a'));
     moveDown(k);
     insert(k, new DigitNode('4'));
-    expectLatex('3_{4▦}', k);
+    expectLatex('a_{4▦}', k);
   });
 
-  it('3 subscript', () => {
+  it(insertWithEncapsulateCurrent.name, () => {
     const k = new KeyboardMemory();
-    insert(k, new DigitNode('3'));
+    insert(k, new StandardLeafNode('a'));
     insertWithEncapsulateCurrent(k, new DescendingBranchingNode('', '_{', '}'));
-    expectLatex('3_{▦}', k);
+    expectLatex('a_{▦}', k);
   });
 
-  it('subscriptNode 3 up down', () => {
+  it('subscript `a` down 4 up', () => {
     const k = new KeyboardMemory();
     insert(k, new DescendingBranchingNode('', '_{', '}'));
-    insert(k, new DigitNode('3'));
+    insert(k, new StandardLeafNode('a'));
     moveDown(k);
     insert(k, new DigitNode('4'));
     moveUp(k);
-    expectLatex('3▦_{4}', k);
+    expectLatex('a▦_{4}', k);
   });
 
   it('can be left empty, moving out and back in', () => {
@@ -63,17 +63,16 @@ describe('Subscript as suffix', () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DescendingBranchingNode('', '_{', '}'));
-    moveDown(k);
-    expectLatex('⬚_{▦}', k);
+    expectLatex('▦_{⬚}', k);
     // Act & Assert 1
+    moveUp(k);
+    expectLatex('▦_{⬚}', k);
+    // Arrange 2
     moveDown(k);
     expectLatex('⬚_{▦}', k);
-    // Arrange 2
-    moveUp(k);
-    expectLatex('▦_{⬚}', k);
     // Act & Assert 2
-    moveUp(k);
-    expectLatex('▦_{⬚}', k);
+    moveDown(k);
+    expectLatex('⬚_{▦}', k);
   });
 
   it('impossible up/down requests in filled subscriptNode should not throw', () => {
