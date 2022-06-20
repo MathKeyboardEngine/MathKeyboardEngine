@@ -14,9 +14,10 @@ import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/
 import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/TreeNode';
 import { nameof } from '../../../../helpers/nameof';
+import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
 
 describe(selectLeft.name, () => {
-  it(`can select a single ${TreeNode.name} and the selection is correctly displayed if the left exlusive border is a ${TreeNode.name}`, () => {
+  it(`can select a single ${TreeNode.name} and the selection is correctly displayed - case: the exclusive left border is a ${TreeNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -28,7 +29,7 @@ describe(selectLeft.name, () => {
     expectLatex(String.raw`1\colorbox{blue}{2}`, k);
   });
 
-  it(`can select a single ${TreeNode.name} and the selection is correctly displayed if the left exlusive border is a ${Placeholder.name}`, () => {
+  it(`can select a single ${TreeNode.name} and the selection is correctly displayed - case: the exclusive left border is a ${Placeholder.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -39,7 +40,7 @@ describe(selectLeft.name, () => {
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
   });
 
-  it(`can select multiple ${TreeNode.name}s and the selection is correctly displayed if the left exlusive border is a ${TreeNode.name}`, () => {
+  it(`can select multiple ${TreeNode.name}s and the selection is correctly displayed - case: the exclusive left border is a ${TreeNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -53,7 +54,7 @@ describe(selectLeft.name, () => {
     expectLatex(String.raw`1\colorbox{blue}{23}`, k);
   });
 
-  it(`can select multiple ${TreeNode.name}s and the selection is correctly displayed if the left exlusive border is a ${Placeholder.name}`, () => {
+  it(`can select multiple ${TreeNode.name}s and the selection is correctly displayed - case: the exclusive left border is a ${Placeholder.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -66,7 +67,7 @@ describe(selectLeft.name, () => {
     expectLatex(String.raw`\colorbox{blue}{12}`, k);
   });
 
-  it(`does nothing if ${nameof<KeyboardMemory>('current')} is the ${nameof<KeyboardMemory>('syntaxTreeRoot')}`, () => {
+  it(`does nothing if ${nameof<KeyboardMemory>('current')} is the ${nameof<KeyboardMemory>('syntaxTreeRoot')} and no ${selectRight.name} has been done`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -79,7 +80,7 @@ describe(selectLeft.name, () => {
     expectLatex('▦1', k);
   });
 
-  it(`does nothing if all on-the-left-available ${TreeNode.name}s are selected (and ${nameof<KeyboardMemory>('current')} is the ${nameof<KeyboardMemory>('syntaxTreeRoot')})`, () => {
+  it(`does nothing if all on-the-left-available ${TreeNode.name}s are selected`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -91,7 +92,7 @@ describe(selectLeft.name, () => {
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
   });
 
-  it('stays in selection mode after deselecting until nothing is selected', () => {
+  it('stays in selection mode after deselecting', () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -110,7 +111,7 @@ describe(selectLeft.name, () => {
     const k = new KeyboardMemory();
     insert(k, new DigitNode('2'));
     insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
-    insert(k, new DigitNode('x'));
+    insert(k, new StandardLeafNode('x'));
     expectLatex(String.raw`2^{x▦}`, k);
     selectLeft(k);
     expectLatex(String.raw`2^{\colorbox{blue}{x}}`, k);

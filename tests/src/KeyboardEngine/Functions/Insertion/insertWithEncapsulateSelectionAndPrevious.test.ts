@@ -18,7 +18,7 @@ import { BranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Bas
 import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
 
 describe(insertWithEncapsulateSelectionAndPrevious.name, () => {
-  it(`when a single ${TreeNode.name} is selected and the left exclusive border is a ${TreeNode.name}`, () => {
+  it(`when a single ${TreeNode.name} is selected and the exclusive left border is a ${TreeNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('2'));
@@ -32,7 +32,7 @@ describe(insertWithEncapsulateSelectionAndPrevious.name, () => {
     expectLatex('2^{3▦}', k);
   });
 
-  it(`when a single ${TreeNode.name} is selected and the left exclusive border is a ${Placeholder.name}`, () => {
+  it(`when a single ${TreeNode.name} is selected and the exclusive left border is a ${Placeholder.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('2'));
@@ -45,7 +45,7 @@ describe(insertWithEncapsulateSelectionAndPrevious.name, () => {
     expectLatex('⬚^{2▦}', k);
   });
 
-  it(`when multiple ${TreeNode.name}s are selected and the left exclusive border is a ${TreeNode.name}`, () => {
+  it(`when multiple ${TreeNode.name}s are selected and the exclusive left border is a ${TreeNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('2'));
@@ -61,7 +61,7 @@ describe(insertWithEncapsulateSelectionAndPrevious.name, () => {
     expectLatex('2^{10▦}', k);
   });
 
-  it(`when multiple ${TreeNode.name}s are selected and the left exclusive border is a ${Placeholder.name}`, () => {
+  it(`when multiple ${TreeNode.name}s are selected and the exclusive left border is a ${Placeholder.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));

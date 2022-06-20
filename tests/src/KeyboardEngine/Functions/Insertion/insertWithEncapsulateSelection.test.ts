@@ -12,7 +12,7 @@ import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder
 import { inSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/inSelectionMode';
 
 describe(insertWithEncapsulateSelection.name, () => {
-  it(`when a single ${TreeNode.name} is selected and the left exclusive border is a ${TreeNode.name}`, () => {
+  it(`when a single ${TreeNode.name} is selected and the exclusive left border is a ${TreeNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -26,7 +26,7 @@ describe(insertWithEncapsulateSelection.name, () => {
     expectLatex(String.raw`1\frac{2}{▦}`, k);
   });
 
-  it(`when a single ${TreeNode.name} is selected and the left exclusive border is a ${Placeholder.name}`, () => {
+  it(`when a single ${TreeNode.name} is selected and the exclusive left border is a ${Placeholder.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -39,7 +39,7 @@ describe(insertWithEncapsulateSelection.name, () => {
     expectLatex(String.raw`\frac{1}{▦}`, k);
   });
 
-  it(`when multiple ${TreeNode.name}s are selected and the left exclusive border is a ${TreeNode.name}`, () => {
+  it(`when multiple ${TreeNode.name}s are selected and the exclusive left border is a ${TreeNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -55,7 +55,7 @@ describe(insertWithEncapsulateSelection.name, () => {
     expectLatex(String.raw`1\frac{23}{▦}`, k);
   });
 
-  it(`when multiple ${TreeNode.name}s are selected and the left exclusive border is a ${Placeholder.name}`, () => {
+  it(`when multiple ${TreeNode.name}s are selected and the exclusive left border is a ${Placeholder.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));

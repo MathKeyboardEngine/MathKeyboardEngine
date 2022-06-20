@@ -11,7 +11,7 @@ import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/Tre
 import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 
 describe(deleteSelection.name, () => {
-  it(`can delete a single ${TreeNode.name} when the left exclusive border is a ${TreeNode.name}`, () => {
+  it(`can delete a single ${TreeNode.name} when the exclusive left border is a ${TreeNode.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -25,7 +25,7 @@ describe(deleteSelection.name, () => {
     expectLatex('1▦', k);
   });
 
-  it(`can delete a single ${TreeNode.name} when the left exclusive border is a ${Placeholder.name}`, () => {
+  it(`can delete a single ${TreeNode.name} when the exclusive left border is a ${Placeholder.name}`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -38,7 +38,7 @@ describe(deleteSelection.name, () => {
     expectLatex('▦', k);
   });
 
-  it(`can delete multiple ${TreeNode.name}s when the left exclusive border is a ${TreeNode.name}`, () => {
+  it(`can delete multiple ${TreeNode.name}s when the exclusive left border is a ${TreeNode.name} (via ${selectLeft.name})`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -54,7 +54,25 @@ describe(deleteSelection.name, () => {
     expectLatex('1▦', k);
   });
 
-  it(`can delete multiple ${TreeNode.name}s when the left exclusive border is a ${Placeholder.name} (via ${selectLeft.name})`, () => {
+  it(`can delete multiple ${TreeNode.name}s when the exclusive left border is a ${TreeNode.name} (via ${selectRight.name})`, () => {
+    // Arrange
+    const k = new KeyboardMemory();
+    insert(k, new DigitNode('1'));
+    insert(k, new DigitNode('2'));
+    insert(k, new DigitNode('3'));
+    moveLeft(k);
+    moveLeft(k);
+    expectLatex('1▦23', k);
+    selectRight(k);
+    selectRight(k);
+    expectLatex(String.raw`1\colorbox{blue}{23}`, k);
+    // Act
+    deleteSelection(k);
+    // Assert
+    expectLatex('1▦', k);
+  });
+
+  it(`can delete multiple ${TreeNode.name}s when the exclusive left border is a ${Placeholder.name} (via ${selectLeft.name})`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -69,7 +87,7 @@ describe(deleteSelection.name, () => {
     expectLatex('▦', k);
   });
 
-  it(`can delete multiple ${TreeNode.name}s - left exclusive border is a ${Placeholder.name} (via ${selectRight.name})`, () => {
+  it(`can delete multiple ${TreeNode.name}s when the exclusive left border is a ${Placeholder.name} (via ${selectRight.name})`, () => {
     // Arrange
     const k = new KeyboardMemory();
     insert(k, new DigitNode('1'));
@@ -84,20 +102,5 @@ describe(deleteSelection.name, () => {
     deleteSelection(k);
     // Assert
     expectLatex('▦', k);
-  });
-
-  it(`can delete multiple ${TreeNode.name}s - left exclusive border is a ${TreeNode.name} (via ${selectRight.name})`, () => {
-    // Arrange
-    const k = new KeyboardMemory();
-    insert(k, new DigitNode('1'));
-    insert(k, new DigitNode('2'));
-    moveLeft(k);
-    expectLatex('1▦2', k);
-    selectRight(k);
-    expectLatex(String.raw`1\colorbox{blue}{2}`, k);
-    // Act
-    deleteSelection(k);
-    // Assert
-    expectLatex('1▦', k);
   });
 });
