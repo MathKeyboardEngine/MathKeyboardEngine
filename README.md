@@ -89,7 +89,7 @@ Experimental: `.mjs`, `.d.mts` and `.d.ts` files have been added in `v0.2.1-beta
 
 Follow these steps to set up (and verify) a development environment for this repository:
 
-1. Install Node.js and VS Code.
+1. Install Node.js, Git and VS Code.
 2. Fork (or clone), checkout and then open the root folder of this repository in VS Code.
 3. Open the VS Code Terminal and run:<br/>
    `npm ci`<br/>
