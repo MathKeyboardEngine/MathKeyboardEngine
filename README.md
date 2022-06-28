@@ -83,6 +83,8 @@ Visit the [documentation](https://mathkeyboardengine.github.io/docs/0.1/) and (t
 
 \* If you use a version tag in the url like this: https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/v0.1.0-beta.11, you can see the git repository as it was for that version.
 
+Experimental: `.mjs`, `.d.mts` and `.d.ts` files have been added in `v0.2.1-beta`.
+
 ## How to use this repo
 
 Follow these steps to set up (and verify) a development environment for this repository:

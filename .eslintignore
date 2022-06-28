@@ -4,3 +4,4 @@ dist
 coverage
 examples
 register.js
+declarationbundler.js
