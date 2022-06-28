@@ -353,6 +353,7 @@
           } else if (pureLatexElement.innerText.length > 0) {
             if (key == 'Space' || key == 'Enter' || key == 'Escape') {
               const pureLatex = pureLatexElement.innerText;
+              // prettier-ignore
               const node = pureLatex == '\\frac' ? getFractionNode()
                   : pureLatex == '\\binom' ? getBinomialNode()
                   : pureLatex == '\\sqrt' ? getSquareRootNode()
@@ -589,8 +590,8 @@
       <div id="infty"></div>
     </div>
     <p>
-      Note: if you have a physical keyboard attached, you can use that too.<br/>
-      Use a backslash for pure LaTeX commands.<br/>
+      Note: if you have a physical keyboard attached, you can use that too.<br />
+      Use a backslash for pure LaTeX commands.<br />
       Use Shift + Left for selection mode.
     </p>
     <div class="footer">
