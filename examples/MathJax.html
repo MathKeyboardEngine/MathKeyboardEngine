@@ -126,10 +126,14 @@
       registerNodeKey('doubleLeftArrow', () => new mke.StandardLeafNode(String.raw`\Leftarrow`));
       registerNodeKey('cos-1', () => new mke.StandardLeafNode(String.raw`\cos^{-1}`));
       registerNodeKey('taninv', () => new mke.StandardLeafNode(String.raw`\tan^{inv}`));
-      registerNodeKey('integral', () => new mke.AscendingBranchingNode(String.raw`\int_{`, '}^{', '}'));
-      registerNodeKey('sum', () => new mke.AscendingBranchingNode(String.raw`\sum_{`, '}^{', '}'));
-      registerNodeKey('product', () => new mke.AscendingBranchingNode(String.raw`\prod_{`, '}^{', '}'));
-      registerNodeKey('limit', () => new mke.StandardBranchingNode(String.raw`\lim_{`, '}'));
+      const getIntegralNode = () => new mke.AscendingBranchingNode(String.raw`\int_{`, '}^{', '}');
+      registerNodeKey('integral', getIntegralNode);
+      const getSumNode = () => new mke.AscendingBranchingNode(String.raw`\sum_{`, '}^{', '}');
+      registerNodeKey('sum', getSumNode);
+      const getProductNode = () => new mke.AscendingBranchingNode(String.raw`\prod_{`, '}^{', '}');
+      registerNodeKey('product', getProductNode);
+      const getLimitNode = () => new mke.StandardBranchingNode(String.raw`\lim_{`, '}');
+      registerNodeKey('limit', getLimitNode);
 
       const matrixWidthInputElement = document.getElementById('matrixWidth');
       const matrixHeightInputElement = document.getElementById('matrixHeight');
@@ -249,13 +253,6 @@
         const key = e.code;
         if (key.startsWith('Shift')) {
           inShift = false;
-        } else if (key == 'ControlLeft') {
-          if (mke.inSelectionMode(keyboardMemory)) {
-            myLeaveSelectionMode(keyboardMemory);
-          } else {
-            myEnterSelectionMode(keyboardMemory);
-          }
-          displayResult();
         }
       };
 
@@ -273,6 +270,8 @@
         createHandler((key) => key == 'Digit1', (k, key) => mke.insert(k, new mke.StandardLeafNode('!'))),
         createHandler((key) => key == 'Digit5', (k, key) => mke.insert(k, new mke.StandardLeafNode(String.raw`\%`))),
         createHandler((key) => key.startsWith('Key'), (k, key) => mke.insert(k, new mke.StandardLeafNode(key[3]))),
+        createHandler((key) => key == 'ArrowLeft', (k, key) => mke.selectLeft(k)),
+        createHandler((key) => key == 'ArrowRight', (k, key) => mke.selectRight(k)),
         createHandler((key) => key == 'Backslash', (k, key) => mke.insert(k, getPipesNode())),
         createHandler((key) => key == 'BracketLeft', (k, key) => mke.insert(k, getCurlyBracketsNode())),
         createHandler((key) => key == 'BracketRight', (k, key) => mke.moveRight(k)),
@@ -310,19 +309,13 @@
         createHandler((key) => key == 'BracketRight', (k, key) => mke.moveRight(k)),
       ];
 
-      let nrKeysPressed = 0;
       document.onkeydown = (e) => {
         if (document.activeElement.classList.contains('disable-physical-keypress-math-input-when-focused')) {
           return;
         }
         const key = e.code;
-        if (++nrKeysPressed == 40) {
-          alert('That looks good!\nDid you know you can use the ctrl key to enter selection mode?');
-        }
         if (key.startsWith('Shift')) {
           inShift = true;
-        } else if (key == 'ControlLeft') {
-          return;
         } else if (mke.inSelectionMode(keyboardMemory)) {
           if (key == 'ArrowLeft') {
             mke.selectLeft(keyboardMemory);
@@ -353,13 +346,14 @@
             pureLatexElement.innerText = '\\';
           } else if (pureLatexElement.innerText.length > 0) {
             if (key == 'Space' || key == 'Enter' || key == 'Escape') {
-              const node =
-                pureLatexElement.innerText == '\\frac'
-                  ? getFractionNode()
-                  : pureLatexElement.innerText == '\\binom'
-                  ? getBinomialNode()
-                  : pureLatexElement.innerText == '\\sqrt'
-                  ? getSquareRootNode()
+              const pureLatex = pureLatexElement.innerText;
+              const node = pureLatex == '\\frac' ? getFractionNode()
+                  : pureLatex == '\\binom' ? getBinomialNode()
+                  : pureLatex == '\\sqrt' ? getSquareRootNode()
+                  : pureLatex == '\\int' ? getIntegralNode()
+                  : pureLatex == '\\sum' ? getSumNode()
+                  : pureLatex == '\\prod' ? getProductNode()
+                  : pureLatex == '\\lim' ? getLimitNode()
                   : new mke.StandardLeafNode(pureLatexElement.innerText);
               mke.insert(keyboardMemory, node);
               pureLatexElement.innerText = '';
@@ -465,7 +459,6 @@
         left: 0;
         top: 0;
         color: green;
-        text-align: right;
       }
     </style>
   </head>
@@ -589,6 +582,11 @@
       <div id="downarrow"></div>
       <div id="infty"></div>
     </div>
+    <p>
+      Note: if you have a physical keyboard attached, you can use that too.<br/>
+      Use a backslash for pure LaTeX commands.<br/>
+      Use Shift + Left for selection mode.
+    </p>
     <div class="footer">
       <a href="https://github.com/MathKeyboardEngine/MathKeyboardEngine">View on GitHub</a>
     </div>
