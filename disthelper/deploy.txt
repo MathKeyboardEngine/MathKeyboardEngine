@@ -1,4 +1,4 @@
-Deploy steps:
+Deploy steps (to NPM and jsDelivr):
 
 npm run clean
 npm test

@@ -1,6 +1,6 @@
-## [0.2.1-beta] 2022-06-28
+## [0.2.1-beta.*] 2022-06-28
 
-Add `MathKeyboardEngine.es2017.mjs`, `MathKeyboardEngine.es2017.d.mts` and `MathKeyboardEngine.es2017-esm.d.ts` to the package (experimental).
+Add `.mjs`, `.d.ts` and `.cts` files to the package (experimental).
 
 ## [0.2.0] 2022-03-27
 

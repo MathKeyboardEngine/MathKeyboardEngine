@@ -83,7 +83,26 @@ Visit the [documentation](https://mathkeyboardengine.github.io/docs/0.1/) and (t
 
 \* If you use a version tag in the url like this: https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/v0.1.0-beta.11, you can see the git repository as it was for that version.
 
+#### For Node.js:
+
 Experimental: `.mjs`, `.d.ts` and `.cjs` files have been added in `v0.2.1-beta.*`.
+
+After opening a folder in VS Code, run in the terminal:
+```
+npm i mathkeyboardengine
+```
+Verify that `mathkeyboardengine` has been added to the `node_modules` folder. Then you can choose:
+
+Using the CommonJS module (the `.cjs` file) in `myFile.js`:
+```js
+const mke = require('mathkeyboardengine');
+const k = new mke.KeyboardMemory();
+```
+Using the ESM module (the `.mjs` file) in `myFile.js` or `myFile.ts`:
+```js
+import * as mke from 'mathkeyboardengine';
+const k = new mke.KeyboardMemory();
+```
 
 ## How to use this repo
 
