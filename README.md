@@ -83,7 +83,7 @@ Visit the [documentation](https://mathkeyboardengine.github.io/docs/0.1/) and (t
 
 \* If you use a version tag in the url like this: https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/v0.1.0-beta.11, you can see the git repository as it was for that version.
 
-#### For Node.js:
+#### Node.js with types:
 
 Experimental: `.mjs`, `.d.ts` and `.cjs` files have been added in `v0.2.1-beta.*`.
 
@@ -103,6 +103,10 @@ Using the ESM module (the `.mjs` file) in `myFile.js` or `myFile.ts`:
 import * as mke from 'mathkeyboardengine';
 const k = new mke.KeyboardMemory();
 ```
+
+#### Deno
+
+Experimental: publication via https://deno.land
 
 ## How to use this repo
 
