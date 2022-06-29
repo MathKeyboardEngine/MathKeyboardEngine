@@ -5,7 +5,7 @@
     "lint": "npx eslint . --fix",
     "prettier": "npx prettier --write . --loglevel=warn",
     "clean": "npm run lint && npm run prettier",
-    "build": "npm run tsc && rimraf dist && esbuild src/bundle.ts --bundle --format=iife --target=es6 --global-name=mke --outfile=dist/MathKeyboardEngine.es2015-iife.js & esbuild src/bundle.ts --bundle --format=esm --target=es2017 --outfile=dist/MathKeyboardEngine.es2017-esm.js & esbuild src/bundle.ts --bundle --minify --format=iife --target=es6 --global-name=mke --outfile=dist/MathKeyboardEngine.es2015-iife.min.js & esbuild src/bundle.ts --bundle --minify --format=esm --target=es2017 --outfile=dist/MathKeyboardEngine.es2017-esm.min.js & esbuild src/bundle.ts --bundle --format=esm --target=es2020 --outfile=dist/MathKeyboardEngine.es2020-esm.js & esbuild src/bundle.ts --bundle --minify --format=esm --target=es2020 --outfile=dist/MathKeyboardEngine.es2020-esm.min.js && tsc --declaration --emitDeclarationOnly --outDir ./dist/declarations && node declarationbundler.js && rimraf dist/declarations",
+    "build": "npm run tsc && rimraf dist && esbuild disthelper/bundle.ts --bundle --format=iife --target=es6 --global-name=mke --outfile=dist/MathKeyboardEngine.es2015-iife.js & esbuild disthelper/bundle.ts --bundle --format=esm --target=es2017 --outfile=dist/MathKeyboardEngine.es2017-esm.js & esbuild disthelper/bundle.ts --bundle --minify --format=iife --target=es6 --global-name=mke --outfile=dist/MathKeyboardEngine.es2015-iife.min.js & esbuild disthelper/bundle.ts --bundle --minify --format=esm --target=es2017 --outfile=dist/MathKeyboardEngine.es2017-esm.min.js & esbuild disthelper/bundle.ts --bundle --format=esm --target=es2020 --outfile=dist/MathKeyboardEngine.es2020-esm.js & esbuild disthelper/bundle.ts --bundle --minify --format=esm --target=es2020 --outfile=dist/MathKeyboardEngine.es2020-esm.min.js && esbuild disthelper/bundle.ts --bundle --format=cjs --target=es2017 --outfile=dist/MathKeyboardEngine.es2017.cjs && tsc --declaration --emitDeclarationOnly --outDir ./dist/declarations && node disthelper/declarationbundler.js && rimraf dist/declarations && node disthelper/fileextensionsincreaser.js",
     "up-packages": "npx npm-check-updates -u",
     "up-vulnerable-packages": "npm audit fix"
   },
@@ -19,9 +19,15 @@
     "katex",
     "mathjax"
   ],
-  "version": "v0.2.1-beta",
-  "main": "./dist/MathKeyboardEngine.es2017.mjs",
-  "types": "./dist/MathKeyboardEngine.es2017.d.mts",
+  "version": "v0.2.1-beta.2",
+  "exports": {
+    "node": {
+      "import": "./dist/MathKeyboardEngine.es2017.mjs",
+      "require": "./dist/MathKeyboardEngine.es2017.cjs"
+    },
+    "default": "./dist/MathKeyboardEngine.es2017.min.mjs"
+  },
+  "types": "./dist/MathKeyboardEngine.d.ts",
   "files": [
     "dist/"
   ],
