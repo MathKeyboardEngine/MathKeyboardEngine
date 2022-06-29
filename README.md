@@ -85,8 +85,6 @@ Visit the [documentation](https://mathkeyboardengine.github.io/docs/0.1/) and (t
 
 #### Using Node.js with types:
 
-Experimental: `.mjs`, `.d.ts` and `.cjs` files have been added in `v0.2.1-beta.*`.
-
 After opening a folder in VS Code, run in the terminal:
 
 ```
@@ -108,6 +106,8 @@ Using the ESM module (the `.mjs` file) in `myFile.js` or `myFile.ts`:
 import * as mke from 'mathkeyboardengine';
 const k = new mke.KeyboardMemory();
 ```
+
+Note that a `.d.ts` file is shipped since `v0.2.1` (this lets your editor show the (TypeScript) types).
 
 #### Using Deno
 
