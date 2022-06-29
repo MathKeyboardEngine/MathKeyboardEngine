@@ -11,7 +11,7 @@ function getFiles(dir) {
   return Array.prototype.concat(...files);
 }
 
-const files = getFiles('./dist/declarations/src').filter(x => !x.endsWith('bundle.d.ts'));
+const files = getFiles('./dist/declarations/src').filter((x) => !x.endsWith('bundle.d.ts'));
 
 for (const file of files) {
   fs.readFile(file, 'utf8', (err, data) => {

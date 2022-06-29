@@ -1,4 +1,5 @@
-Deploy steps (to NPM and jsDelivr):
+Deploy steps:
+(For publishing to NPM and jsDelivr. Pushing a tag is sufficient for publishing to Deno.)
 
 npm run clean
 npm test

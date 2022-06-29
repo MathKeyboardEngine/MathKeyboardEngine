@@ -1,6 +1,7 @@
-## [0.2.1-beta.*] 2022-06-28
+## [0.2.1] 2022-06-29
 
-Add `.mjs`, `.d.ts` and `.cts` files to the package (experimental).
+- Add `.mjs`, `.d.ts` and `.cts` files to the package for Node.js.
+- Push a tag for publication to [Deno](https://deno.land) via a webhook.
 
 ## [0.2.0] 2022-03-27
 

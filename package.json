@@ -19,14 +19,13 @@
     "katex",
     "mathjax"
   ],
-  "version": "v0.2.1-beta.2",
+  "version": "v0.2.1",
   "types": "./dist/MathKeyboardEngine.d.ts",
   "exports": {
     "node": {
       "import": "./dist/MathKeyboardEngine.es2017.mjs",
       "require": "./dist/MathKeyboardEngine.es2017.cjs"
     },
-    "deno": "./dist/MathKeyboardEngine.es2017.mjs",
     "default": "./dist/MathKeyboardEngine.es2017.mjs"
   },
   "files": [
