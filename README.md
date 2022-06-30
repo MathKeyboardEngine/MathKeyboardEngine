@@ -39,6 +39,8 @@ Live examples can be tested at [MathKeyboardEngine.GitHub.io](https://mathkeyboa
 
 ## How to use this library
 
+#### Using a `<script>` element
+
 There is no need to download or install anything. Your website just needs to have a `<script>` element that results in getting one of the following files from [jsDelivr](https://www.jsdelivr.com/package/npm/mathkeyboardengine?path=dist):
 
 - MathKeyboardEngine.es2020-esm.js
@@ -79,11 +81,7 @@ A `<script>` element using the with-older-browsers-compatible "MathKeyboardEngin
 
 <i>Note: "mke" is an abbreviation of "MathKeyboardEngine". You can choose something different. (But the iife format forces you to use "mke".)</i>
 
-Visit the [documentation](https://mathkeyboardengine.github.io/docs/0.1/) and (the right version of)\* the [examples folder](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/examples) for more implementation details.
-
-\* If you use a version tag in the url like this: https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/v0.1.0-beta.11, you can see the git repository as it was for that version.
-
-#### Using Node.js with types:
+#### Using Node.js
 
 After opening a folder in VS Code, run in the terminal:
 
@@ -112,6 +110,12 @@ Note that a `.d.ts` file is shipped since `v0.2.1` (this lets your editor show t
 #### Using Deno
 
 MathKeyboardEngine has also been published to [Deno](https://deno.land).
+
+## Documentation
+
+Visit the [documentation](https://mathkeyboardengine.github.io/docs/0.1/) and (the right version of)\* the [examples folder](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/examples) for more implementation details.
+
+\* If you use a version tag in the url like this: https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/v0.1.0-beta.11, you can see the git repository as it was for that version.
 
 ## How to use this repo
 
