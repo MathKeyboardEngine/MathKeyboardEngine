@@ -124,7 +124,7 @@ Follow these steps to set up (and verify) a development environment for this rep
    This loads all the devDependencies from the tree as specified in package-lock.json.
 4. Compiling the library:<br/>
    All of the following commands run some script as defined in package.json:<br/>
-   `npm run tsc` to do type checking, to check whether a successful compilation is possible.<br/>
+   `npm run strictcheck` to do type checking, to check whether a successful compilation is possible.<br/>
    `npm run clean` to run eslint and prettier (performing auto-fixes of spacing etc.).<br/>
    `npm test` to run all unit tests from the 'tests' folder.<br/>
    `npm run build` creates a single-file library in different formats and language versions in the 'dist' folder. Note: the 'src' folder contains all the source code files. The file 'bundle.ts' does not add new code, but helps in compiling the library to a single file.
