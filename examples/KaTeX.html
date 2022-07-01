@@ -394,6 +394,11 @@
 
       html {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        user-select: none; /* supported by Chrome and Opera */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
       }
 
       h1 {
@@ -592,10 +597,11 @@
     <p>
       Note: if you have a physical keyboard attached, you can use that too.<br />
       Use a backslash for pure LaTeX commands.<br />
-      Use Shift + Left for selection mode.
+      Use Shift + Left for selection mode (or use the blue key).
     </p>
     <div class="footer">
-      <a href="https://github.com/MathKeyboardEngine/MathKeyboardEngine">View on GitHub</a>
+      <a href="https://github.com/MathKeyboardEngine/MathKeyboardEngine#readme">View on GitHub (JavaScript)</a>
+      <a href="https://github.com/MathKeyboardEngine/MathKeyboardEngine.CSharp#readme">View on GitHub (C#)</a>
     </div>
   </body>
 </html>
