@@ -1,6 +1,8 @@
 Deploy steps:
 (For publishing to NPM and jsDelivr. Pushing a tag is sufficient for publishing to Deno.)
 
+> make sure that CHANGELOG.md has been updated. 
+
 npm run clean
 npm test
 npm run build
