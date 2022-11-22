@@ -223,6 +223,11 @@
       }
 
       function displayResult() {
+        if (keyboardMemory.current instanceof mke.Placeholder && keyboardMemory.current.nodes.length == 0) {
+          latexConfiguration.activePlaceholderShape = String.raw`\blacksquare`;
+        } else {
+          latexConfiguration.activePlaceholderShape = '|';
+        }
         let editModeLatex = mke.getEditModeLatex(keyboardMemory, latexConfiguration);
         typesetLatexInOutputBox(editModeLatex, document.getElementById('typesetEditModeLatex'));
 
