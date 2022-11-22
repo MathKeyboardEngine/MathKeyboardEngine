@@ -10,7 +10,7 @@ export class LatexConfiguration {
     if (this.activePlaceholderColor == null) {
       return this.activePlaceholderShape;
     } else {
-      return String.raw`\color{${this.activePlaceholderColor}}{${this.activePlaceholderShape}}`;
+      return String.raw`{\color{${this.activePlaceholderColor}}${this.activePlaceholderShape}}`;
     }
   }
 
@@ -18,7 +18,7 @@ export class LatexConfiguration {
     if (this.passivePlaceholderColor == null) {
       return this.passivePlaceholderShape;
     } else {
-      return String.raw`\color{${this.passivePlaceholderColor}}{${this.passivePlaceholderShape}}`;
+      return String.raw`{\color{${this.passivePlaceholderColor}}${this.passivePlaceholderShape}}`;
     }
   }
 }

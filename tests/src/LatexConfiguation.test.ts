@@ -31,6 +31,6 @@ describe(LatexConfiguration.name, () => {
     myLatexConfiguration.activePlaceholderColor = 'orange';
     myLatexConfiguration.passivePlaceholderColor = 'gray';
     // Assert
-    expect(String.raw`\color{orange}{\blacksquare}^{\color{gray}{\blacksquare}}`).to.equal(getEditModeLatex(k, myLatexConfiguration));
+    expect(String.raw`{\color{orange}\blacksquare}^{{\color{gray}\blacksquare}}`).to.equal(getEditModeLatex(k, myLatexConfiguration));
   });
 });
