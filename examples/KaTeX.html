@@ -12,13 +12,29 @@
       crossorigin="anonymous"
     />
     <!-- KaTeX specific code END -->
-    <script type="module" type="text/javascript">
+    <script type="module">
       // KaTeX specific code START
       import katex from 'https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.mjs';
       // KaTeX specific code END
       import * as mke from '../../dist/MathKeyboardEngine.es2020-esm.js';
       let latexConfiguration = new mke.LatexConfiguration();
-      let keyboardMemory = new mke.KeyboardMemory();
+      let keyboardMemories = [];
+      function registerOutputBox(elementId) {
+        document.getElementById(elementId).onclick = () => setMathBoxById(elementId);
+        keyboardMemories.push({ elementId: elementId, keyboardMemory: new mke.KeyboardMemory() });
+      }
+      registerOutputBox('typesetLatexBox1');
+      registerOutputBox('typesetLatexBox2');
+      let keyboardMemory = keyboardMemories[0].keyboardMemory;
+      var currentOutputBoxElementId = keyboardMemories[0].elementId;
+
+      function setMathBoxById(id) {
+        displayResult({ typesetViewModeLatex: true });
+        keyboardMemory = keyboardMemories.find((x) => x.elementId == id).keyboardMemory;
+        currentOutputBoxElementId = id;
+        displayResult();
+      }
+
       const supportsSelectionMode = 'supportsSelectionMode';
       const darkSelectionModeColor = '#1668c7';
       const lightSelectionModeColor = '#add8e6';
@@ -230,14 +246,14 @@
         };
       }
 
-      function displayResult() {
+      function displayResult(config) {
         if (keyboardMemory.current instanceof mke.Placeholder && keyboardMemory.current.nodes.length == 0) {
           latexConfiguration.activePlaceholderShape = String.raw`\blacksquare`;
         } else {
           latexConfiguration.activePlaceholderShape = '|';
         }
-        let editModeLatex = mke.getEditModeLatex(keyboardMemory, latexConfiguration);
-        typesetLatexInOutputBox(editModeLatex, document.getElementById('typesetEditModeLatex'));
+        let latexToTypeSet = config?.typesetViewModeLatex ? mke.getViewModeLatex(keyboardMemory, latexConfiguration) : mke.getEditModeLatex(keyboardMemory, latexConfiguration);
+        typesetLatexInOutputBox(latexToTypeSet, document.getElementById(currentOutputBoxElementId));
 
         let viewModeLatex = mke.getViewModeLatex(keyboardMemory, latexConfiguration);
         document.getElementById('viewModeLatex').innerText = viewModeLatex;
@@ -415,7 +431,7 @@
         width: 2.5rem;
       }
 
-      #typesetEditModeLatex {
+      .typesetLatexBox {
         border: 1px solid gray;
         padding: 0.25rem;
         min-height: 2.5rem;
@@ -482,7 +498,8 @@
   <body class="dark">
     <h1>MathKeyboardEngine + KaTeX</h1>
     <div id="pureLatexFromPhysicalKeys"></div>
-    <div id="typesetEditModeLatex"></div>
+    <div id="typesetLatexBox1" class="typesetLatexBox"></div>
+    <div id="typesetLatexBox2" class="typesetLatexBox">This is a second textbox. Click me!</div>
     <div id="viewModeLatex"></div>
     <i>Example keys - to be styled - to help you design your virtual math keyboard</i>
     <div id="mathKeyboard">
