@@ -23,7 +23,7 @@ export function moveLeft(k: KeyboardMemory): void {
   } else {
     if (k.current instanceof BranchingNode) {
       const placeholder = last(k.current.placeholders);
-      k.current = last(placeholder.nodes) ?? placeholder;
+      k.current = lastOrNull(placeholder.nodes) ?? placeholder;
     } else {
       k.current = firstBeforeOrNull(k.current.parentPlaceholder.nodes, k.current) ?? k.current.parentPlaceholder;
     }
