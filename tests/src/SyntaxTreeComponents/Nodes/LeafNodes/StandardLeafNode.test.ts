@@ -6,7 +6,7 @@ import { expectLatex } from '../../../../helpers/expectLatex';
 import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
 
 describe(StandardLeafNode.name, () => {
-  it(`allows customizing the multiplication operator sign even if it is are already in the ${KeyboardMemory.name}'s syntax tree.`, () => {
+  it(`allows customizing the multiplication operator sign even if it is already in the ${KeyboardMemory.name}'s syntax tree.`, () => {
     // Arrange
     let myMultiplicationSignSetting = String.raw`\times`;
     const k = new KeyboardMemory();
