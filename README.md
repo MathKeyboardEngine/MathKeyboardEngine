@@ -115,7 +115,7 @@ Note that a `.d.ts` file is shipped since `v0.2.1` (this lets your editor show t
 MathKeyboardEngine has also been published to [Deno](https://deno.land). For using the pure TypeScript files in Deno:
 
 ```ts
-import * as mke from 'https://deno.land/x/mathkeyboardengine@0.2.3/x.ts';
+import * as mke from 'https://deno.land/x/mathkeyboardengine@v0.2.3/x.ts';
 const k = new mke.KeyboardMemory();
 ```
 
