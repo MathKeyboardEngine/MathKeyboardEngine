@@ -1,14 +1,6 @@
 import { describe } from 'mocha';
-import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { selectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/selectLeft';
-import { deleteSelection } from '../../../../../src/KeyboardEngine/Functions/Deletion/deleteSelection';
-import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft';
-import { selectRight } from '../../../../../src/KeyboardEngine/Functions/Selection/selectRight';
-import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/TreeNode';
-import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
+import { KeyboardMemory, insert, DigitNode, selectLeft, deleteSelection, moveLeft, selectRight, TreeNode, Placeholder } from '../../../../../src/x';
 
 describe(deleteSelection.name, () => {
   it(`can delete a single ${TreeNode.name} when the exclusive left border is a ${TreeNode.name}`, () => {

@@ -1,7 +1,5 @@
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { RoundBracketsNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
+import { insert, KeyboardMemory, RoundBracketsNode } from '../../../../../src/x';
 
 describe(RoundBracketsNode.name, () => {
   it(String.raw`Default round brackets are \left( and \right`, () => {

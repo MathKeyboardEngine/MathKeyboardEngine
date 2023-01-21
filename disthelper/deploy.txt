@@ -9,7 +9,7 @@ npm run build
 
 > manually test examples
 
-replace "v0.x.0-beta.old" by "0.x.0-beta.new"
+replace "0.x.0-beta.old" by "0.x.0-beta.new"
 
 npm pack
 > manually check zip contents

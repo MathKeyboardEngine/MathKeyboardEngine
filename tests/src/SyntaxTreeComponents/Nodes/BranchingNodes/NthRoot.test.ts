@@ -1,12 +1,6 @@
 import { describe } from 'mocha';
-import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
-import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveDown';
-import { moveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveUp';
+import { KeyboardMemory, insert, DescendingBranchingNode, DigitNode, moveRight, moveDown, moveUp } from '../../../../../src/x';
 
 describe('NthRoot', () => {
   it('basic test', () => {

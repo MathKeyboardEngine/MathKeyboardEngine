@@ -1,16 +1,6 @@
 import { describe } from 'mocha';
 import { expect } from 'chai';
-import { LatexConfiguration } from '../../../src/LatexConfiguration';
-import { KeyboardMemory } from '../../../src/KeyboardEngine/KeyboardMemory';
-import { insert } from '../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { getViewModeLatex } from '../../../src/GetLatex/getViewModeLatex';
-import { getEditModeLatex } from '../../../src/GetLatex/getEditModeLatex';
-import { DigitNode } from '../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { moveDown } from '../../../src/KeyboardEngine/Functions/Navigation/moveDown';
-import { DescendingBranchingNode } from '../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
-import { BranchingNode } from '../../../src/SyntaxTreeComponents/Nodes/Base/BranchingNode';
-import { LeafNode } from '../../../src/SyntaxTreeComponents/Nodes/Base/LeafNode';
-import { Placeholder } from '../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
+import { LatexConfiguration, KeyboardMemory, insert, getViewModeLatex, getEditModeLatex, DigitNode, moveDown, DescendingBranchingNode, BranchingNode, LeafNode, Placeholder } from '../../../src/x';
 
 const config = new LatexConfiguration();
 config.activePlaceholderShape = '▦';

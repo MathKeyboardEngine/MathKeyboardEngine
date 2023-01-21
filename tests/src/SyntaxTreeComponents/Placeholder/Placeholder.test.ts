@@ -1,9 +1,7 @@
 import { expectViewModeLatex } from '../../../helpers/expectLatex';
 import { nameof } from '../../../helpers/nameof';
 import { insert } from '../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { KeyboardMemory } from '../../../../src/KeyboardEngine/KeyboardMemory';
-import { StandardLeafNode } from '../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
-import { Placeholder } from '../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
+import { KeyboardMemory, StandardLeafNode, Placeholder } from '../../../../src/x';
 
 describe(Placeholder.name, () => {
   describe(String.raw`The minimum amount of required space is added by ${nameof<Placeholder>('getLatex')}`, () => {

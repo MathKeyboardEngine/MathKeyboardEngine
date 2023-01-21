@@ -1,3 +1,8 @@
+## [0.2.3] 2023-01-21
+
+- npm & jsDelivr: update readme.
+- Deno: add [x.ts](https://github.com/MathKeyboardEngine/MathKeyboardEngine/blob/main/src/x.ts) for accessing everything from a single module.
+
 ## [0.2.2] 2022-11-22
 
 - Fix only relevant if `LatexConfiguration`'s `activePlaceholderColor` and `passivePlaceholderColor` is used: use `{\color{my-color}x}` instead of `\color{my-color}{x}`.

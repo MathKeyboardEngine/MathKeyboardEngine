@@ -1,19 +1,8 @@
 import { describe } from 'mocha';
-import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { expectLatex } from '../../../../helpers/expectLatex';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft';
-import { selectRight } from '../../../../../src/KeyboardEngine/Functions/Selection/selectRight';
-import { selectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/selectLeft';
-import { inSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/inSelectionMode';
 import { assert } from 'chai';
-import { StandardBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/StandardBranchingNode';
-import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight';
-import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
-import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/TreeNode';
-import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
+import { expectLatex } from '../../../../helpers/expectLatex';
 import { nameof } from '../../../../helpers/nameof';
+import { KeyboardMemory, insert, DigitNode, moveLeft, selectRight, selectLeft, inSelectionMode, StandardBranchingNode, moveRight, StandardLeafNode, TreeNode, Placeholder } from '../../../../../src/x';
 
 describe(selectRight.name, () => {
   it(`can select a single ${TreeNode.name} and the selection is correctly displayed - case: the exclusive left border is a ${TreeNode.name}`, () => {

@@ -1,17 +1,8 @@
 import { describe } from 'mocha';
 import { assert, expect } from 'chai';
-import { KeyboardMemory } from '../../../src/KeyboardEngine/KeyboardMemory';
-import { Placeholder } from '../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
-import { deleteCurrent } from '../../../src/KeyboardEngine/Functions/Deletion/deleteCurrent';
-import { insert } from '../../../src/KeyboardEngine/Functions/Insertion/insert';
 import { expectLatex } from '../../helpers/expectLatex';
-import { moveLeft } from '../../../src/KeyboardEngine/Functions/Navigation/moveLeft';
-import { moveDown } from '../../../src/KeyboardEngine/Functions/Navigation/moveDown';
-import { moveUp } from '../../../src/KeyboardEngine/Functions/Navigation/moveUp';
-import { moveRight } from '../../../src/KeyboardEngine/Functions/Navigation/moveRight';
-import { DigitNode } from '../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { DescendingBranchingNode } from '../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
 import { nameof } from '../../helpers/nameof';
+import { KeyboardMemory, Placeholder, deleteCurrent, insert, moveLeft, moveDown, moveUp, moveRight, DigitNode, DescendingBranchingNode } from '../../../src/x';
 
 describe(KeyboardMemory.name, () => {
   describe(nameof<KeyboardMemory>('syntaxTreeRoot'), () => {

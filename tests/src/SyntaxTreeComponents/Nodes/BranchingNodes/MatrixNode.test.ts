@@ -1,17 +1,8 @@
 import { describe } from 'mocha';
 import { expect } from 'chai';
-import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { MatrixNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MatrixNode';
-import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight';
-import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveDown';
-import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { moveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveUp';
-import { deleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Deletion/deleteCurrent';
-import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
 import { nameof } from '../../../../helpers/nameof';
+import { KeyboardMemory, insert, MatrixNode, DigitNode, moveRight, moveDown, moveLeft, moveUp, deleteCurrent, Placeholder } from '../../../../../src/x';
 
 describe(MatrixNode.name, () => {
   it('pmatrix(width=2,height=3) 1 right 2 down 4 down 6', () => {

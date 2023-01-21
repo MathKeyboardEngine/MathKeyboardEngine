@@ -1,20 +1,22 @@
 import { describe } from 'mocha';
-import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { expectLatex } from '../../../../helpers/expectLatex';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { selectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/selectLeft';
-import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft';
-import { enterSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/enterSelectionMode';
-import { inSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/inSelectionMode';
-import { selectRight } from '../../../../../src/KeyboardEngine/Functions/Selection/selectRight';
-import { assert } from 'chai';
-import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
-import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insertion/insertWithEncapsulateCurrent';
-import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
-import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/TreeNode';
 import { nameof } from '../../../../helpers/nameof';
-import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
+import { expectLatex } from '../../../../helpers/expectLatex';
+import { assert } from 'chai';
+import {
+  KeyboardMemory,
+  insert,
+  DigitNode,
+  selectLeft,
+  moveLeft,
+  enterSelectionMode,
+  inSelectionMode,
+  selectRight,
+  AscendingBranchingNode,
+  insertWithEncapsulateCurrent,
+  Placeholder,
+  TreeNode,
+  StandardLeafNode,
+} from '../../../../../src/x';
 
 describe(selectLeft.name, () => {
   it(`can select a single ${TreeNode.name} and the selection is correctly displayed - case: the exclusive left border is a ${TreeNode.name}`, () => {

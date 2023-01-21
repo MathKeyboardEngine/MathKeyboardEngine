@@ -1,15 +1,6 @@
 import { describe } from 'mocha';
-import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight';
-import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveDown';
-import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insertion/insertWithEncapsulateCurrent';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { deleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Deletion/deleteCurrent';
-import { moveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveUp';
-import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft';
-import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
+import { KeyboardMemory, insert, DigitNode, moveRight, moveDown, insertWithEncapsulateCurrent, deleteCurrent, moveUp, moveLeft, DescendingBranchingNode } from '../../../../../src/x';
 
 describe('Fraction', () => {
   it('frac left right right right', () => {

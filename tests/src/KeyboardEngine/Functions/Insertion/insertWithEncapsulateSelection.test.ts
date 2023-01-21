@@ -1,15 +1,17 @@
 import { describe } from 'mocha';
-import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { selectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/selectLeft';
-import { enterSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/enterSelectionMode';
-import { insertWithEncapsulateSelection } from '../../../../../src/KeyboardEngine/Functions/Insertion/insertWithEncapsulateSelection';
-import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
-import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/TreeNode';
-import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
-import { inSelectionMode } from '../../../../../src/KeyboardEngine/Functions/Selection/inSelectionMode';
+import {
+  KeyboardMemory,
+  insert,
+  DigitNode,
+  selectLeft,
+  enterSelectionMode,
+  insertWithEncapsulateSelection,
+  DescendingBranchingNode,
+  TreeNode,
+  Placeholder,
+  inSelectionMode,
+} from '../../../../../src/x';
 
 describe(insertWithEncapsulateSelection.name, () => {
   it(`when a single ${TreeNode.name} is selected and the exclusive left border is a ${TreeNode.name}`, () => {

@@ -1,29 +1,31 @@
 import { describe } from 'mocha';
 import { assert } from 'chai';
-import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
-import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { moveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveUp';
-import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insertion/insertWithEncapsulateCurrent';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveDown';
-import { deleteCurrent } from '../../../../../src/KeyboardEngine/Functions/Deletion/deleteCurrent';
-import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
-import { DecimalSeparatorNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DecimalSeparatorNode';
-import { insertWithEncapsulateSelectionAndPrevious } from '../../../../../src/KeyboardEngine/Functions/Insertion/insertWithEncapsulateSelectionAndPrevious';
-import { selectLeft } from '../../../../../src/KeyboardEngine/Functions/Selection/selectLeft';
-import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
-import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight';
-import { MatrixNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MatrixNode';
-import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft';
-import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
-import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/TreeNode';
-import { BranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/BranchingNode';
-import { LeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/LeafNode';
 import { nameof } from '../../../../helpers/nameof';
-import { RoundBracketsNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
-import { StandardBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/StandardBranchingNode';
+import {
+  KeyboardMemory,
+  insert,
+  AscendingBranchingNode,
+  DigitNode,
+  moveUp,
+  insertWithEncapsulateCurrent,
+  moveDown,
+  deleteCurrent,
+  StandardLeafNode,
+  DecimalSeparatorNode,
+  insertWithEncapsulateSelectionAndPrevious,
+  selectLeft,
+  DescendingBranchingNode,
+  moveRight,
+  MatrixNode,
+  moveLeft,
+  Placeholder,
+  TreeNode,
+  BranchingNode,
+  LeafNode,
+  RoundBracketsNode,
+  StandardBranchingNode,
+} from '../../../../../src/x';
 
 describe(deleteCurrent.name, () => {
   it(`can also be used to "delete empty ${Placeholder.name}s in some cases" (in the experience of the user) - x`, () => {

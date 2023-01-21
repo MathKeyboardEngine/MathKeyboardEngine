@@ -1,14 +1,6 @@
 import { describe } from 'mocha';
-import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
-import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight';
-import { moveUp } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveUp';
-import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insertion/insertWithEncapsulateCurrent';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { moveDown } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveDown';
-import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft';
+import { KeyboardMemory, insert, AscendingBranchingNode, DigitNode, moveRight, moveUp, insertWithEncapsulateCurrent, moveDown, moveLeft } from '../../../../../src/x';
 
 describe('Power', () => {
   it('pow 3 right 4', () => {

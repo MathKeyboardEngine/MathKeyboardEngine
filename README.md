@@ -6,6 +6,7 @@
 MathKeyboardEngine for JavaScript provides the logic for a highly customizable virtual math keyboard. It is intended for use together with any LaTeX typesetting library (for example MathJax or KaTeX).
 
 Also available:
+
 - [MathKeyboardEngine for C#](https://github.com/MathKeyboardEngine/MathKeyboardEngine.CSharp#readme).
 - [MathKeyboardEngine for Python](https://github.com/MathKeyboardEngine/MathKeyboardEngine.Python#readme).
 
@@ -18,7 +19,7 @@ Also available:
 
 #### Let me test it now!
 
-Live examples can be tested at [MathKeyboardEngine.GitHub.io](https://mathkeyboardengine.github.io).
+Live examples can be tested at [mathkeyboardengine.github.io](https://mathkeyboardengine.github.io).
 
 #### Pros and cons?
 
@@ -59,7 +60,7 @@ A `<script>` element using the recommended "MathKeyboardEngine.es2017-esm.min.js
 
 ```html
 <script type="module" type="text/javascript">
-  import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.2.0/dist/MathKeyboardEngine.es2017-esm.min.js';
+  import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.2.3/dist/MathKeyboardEngine.es2017-esm.min.js';
   let latexConfiguration = new mke.LatexConfiguration();
   let keyboardMemory = new mke.KeyboardMemory();
 
@@ -70,7 +71,7 @@ A `<script>` element using the recommended "MathKeyboardEngine.es2017-esm.min.js
 A `<script>` element using the with-older-browsers-compatible "MathKeyboardEngine.es2015-iife.min.js":
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.2.0/dist/MathKeyboardEngine.es2015-iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.2.3/dist/MathKeyboardEngine.es2015-iife.min.js"></script>
 <script type="text/javascript">
   window.addEventListener('DOMContentLoaded', (event) => {
     let latexConfiguration = new mke.LatexConfiguration();
@@ -102,7 +103,7 @@ const k = new mke.KeyboardMemory();
 
 Using the ESM module (the `.mjs` file) in `myFile.js` or `myFile.ts`:
 
-```js
+```ts
 import * as mke from 'mathkeyboardengine';
 const k = new mke.KeyboardMemory();
 ```
@@ -111,19 +112,24 @@ Note that a `.d.ts` file is shipped since `v0.2.1` (this lets your editor show t
 
 #### Using Deno
 
-MathKeyboardEngine has also been published to [Deno](https://deno.land).
+MathKeyboardEngine has also been published to [Deno](https://deno.land). For using the pure TypeScript files in Deno:
+
+```ts
+import * as mke from 'https://deno.land/x/mathkeyboardengine@0.2.3/x.ts';
+const k = new mke.KeyboardMemory();
+```
 
 ## Documentation
 
 Visit the [documentation](https://mathkeyboardengine.github.io/docs/0.1/) and (the right version of)\* the [examples folder](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/examples) for more implementation details.
 
-\* If you use a version tag in the url like this: https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/v0.1.0-beta.11, you can see the git repository as it was for that version.
+\* If you use a version tag in the url like this: https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/v0.1.0-beta.11, you can see the git repository as it was for that version. That may not be needed if the [changelog](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/CHANGELOG.md) doesn't note any important changes.
 
 ## How to use this repo
 
 Follow these steps to set up (and verify) a development environment for this repository:
 
-1. Install Node.js, Git and VS Code.
+1. Install [Node.js](https://nodejs.org/en/download), [Git](https://git-scm.com/downloads) and [VS Code](https://code.visualstudio.com/download).
 2. Fork (or clone), checkout and then open the root folder of this repository in VS Code.
 3. Open the VS Code Terminal and run:<br/>
    `npm ci`<br/>

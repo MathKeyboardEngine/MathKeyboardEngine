@@ -1,9 +1,6 @@
 import { describe } from 'mocha';
-import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
+import { KeyboardMemory, insert, DigitNode, StandardLeafNode } from '../../../../../src/x';
 
 describe(StandardLeafNode.name, () => {
   it(`allows customizing the multiplication operator sign even if it is already in the ${KeyboardMemory.name}'s syntax tree.`, () => {

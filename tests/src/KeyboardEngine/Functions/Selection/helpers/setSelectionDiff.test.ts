@@ -1,11 +1,8 @@
 import { describe } from 'mocha';
 import { expect } from 'chai';
-import { KeyboardMemory } from '../../../../../../src/KeyboardEngine/KeyboardMemory';
 import { expectLatex } from '../../../../../helpers/expectLatex';
-import { insert } from '../../../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { DigitNode } from '../../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
+import { KeyboardMemory, insert, DigitNode, selectLeft } from '../../../../../../src/x';
 import { setSelectionDiff } from '../../../../../../src/KeyboardEngine/Functions/Selection/helpers/setSelectionDiff';
-import { selectLeft } from '../../../../../../src/KeyboardEngine/Functions/Selection/selectLeft';
 
 describe(setSelectionDiff.name, () => {
   it('throws at nonsensical request', () => {

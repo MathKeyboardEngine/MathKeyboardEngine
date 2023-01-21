@@ -1,11 +1,6 @@
 import { describe } from 'mocha';
 import { expect } from 'chai';
-import { KeyboardMemory } from '../../src/KeyboardEngine/KeyboardMemory';
-import { insert } from '../../src/KeyboardEngine/Functions/Insertion/insert';
-import { LatexConfiguration } from '../../src/LatexConfiguration';
-import { AscendingBranchingNode } from '../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
-import { getEditModeLatex } from '../../src/GetLatex/getEditModeLatex';
-import { Placeholder } from '../../src/SyntaxTreeComponents/Placeholder/Placeholder';
+import { KeyboardMemory, insert, LatexConfiguration, AscendingBranchingNode, getEditModeLatex, Placeholder } from '../../src/x';
 
 describe(LatexConfiguration.name, () => {
   it(`allows customizing the shape of the "cursor" and empty ${Placeholder.name}s`, () => {

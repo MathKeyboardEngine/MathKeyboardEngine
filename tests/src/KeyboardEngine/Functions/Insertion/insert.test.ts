@@ -1,13 +1,8 @@
 import { describe } from 'mocha';
 import { assert, expect } from 'chai';
-import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { moveLeft } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveLeft';
 import { nameof } from '../../../../helpers/nameof';
-import { TreeNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/TreeNode';
-import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
+import { KeyboardMemory, insert, DigitNode, moveLeft, TreeNode, Placeholder } from '../../../../../src/x';
 
 describe(insert.name, () => {
   it(`inserts at the start of a ${TreeNode.name}[] (it "prepends") if ${nameof<KeyboardMemory>('current')} is a ${Placeholder.name}`, () => {

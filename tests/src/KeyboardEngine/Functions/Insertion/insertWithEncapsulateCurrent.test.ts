@@ -1,21 +1,23 @@
 import { describe } from 'mocha';
 import { assert, expect } from 'chai';
-import { KeyboardMemory } from '../../../../../src/KeyboardEngine/KeyboardMemory';
-import { AscendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/AscendingBranchingNode';
-import { insertWithEncapsulateCurrent } from '../../../../../src/KeyboardEngine/Functions/Insertion/insertWithEncapsulateCurrent';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { Placeholder } from '../../../../../src/SyntaxTreeComponents/Placeholder/Placeholder';
-import { insert } from '../../../../../src/KeyboardEngine/Functions/Insertion/insert';
-import { MatrixNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MatrixNode';
-import { moveRight } from '../../../../../src/KeyboardEngine/Functions/Navigation/moveRight';
-import { DigitNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DigitNode';
-import { DecimalSeparatorNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/DecimalSeparatorNode';
-import { StandardLeafNode } from '../../../../../src/SyntaxTreeComponents/Nodes/LeafNodes/StandardLeafNode';
-import { RoundBracketsNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
-import { StandardBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/StandardBranchingNode';
-import { DescendingBranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/BranchingNodes/DescendingBranchingNode';
 import { nameof } from '../../../../helpers/nameof';
-import { BranchingNode } from '../../../../../src/SyntaxTreeComponents/Nodes/Base/BranchingNode';
+import {
+  KeyboardMemory,
+  AscendingBranchingNode,
+  insert,
+  insertWithEncapsulateCurrent,
+  Placeholder,
+  MatrixNode,
+  moveRight,
+  DigitNode,
+  DecimalSeparatorNode,
+  StandardBranchingNode,
+  StandardLeafNode,
+  DescendingBranchingNode,
+  BranchingNode,
+  RoundBracketsNode,
+} from '../../../../../src/x';
 
 describe(insertWithEncapsulateCurrent.name, () => {
   it(`does a regular insert if ${nameof<KeyboardMemory>('current')} is a ${Placeholder.name}`, () => {
