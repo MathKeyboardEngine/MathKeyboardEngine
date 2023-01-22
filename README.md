@@ -59,7 +59,7 @@ For each of those ".js" files there is a minified version (".min.js") - a smalle
 A `<script>` element using the recommended "MathKeyboardEngine.es2017-esm.min.js":
 
 ```html
-<script type="module" type="text/javascript">
+<script type="module">
   import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.2.3/dist/MathKeyboardEngine.es2017-esm.min.js';
   let latexConfiguration = new mke.LatexConfiguration();
   let keyboardMemory = new mke.KeyboardMemory();
