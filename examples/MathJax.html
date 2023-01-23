@@ -352,7 +352,8 @@
           if (!inShift && key == 'Backslash') {
             pureLatexElement.innerText = '\\';
           } else if (pureLatexElement.innerText.length > 0) {
-            if (key == 'Space' || key == 'Enter' || key == 'Escape') {
+            const roundBracketsRequested = key == 'Digit9' && inShift;
+            if (roundBracketsRequested || key == 'Space' || key == 'Enter' || key == 'Escape') {
               const pureLatex = pureLatexElement.innerText;
               // prettier-ignore
               const node = pureLatex == '\\frac' ? getFractionNode()
@@ -364,6 +365,9 @@
                   : pureLatex == '\\lim' ? getLimitNode()
                   : new mke.StandardLeafNode(pureLatexElement.innerText);
               mke.insert(keyboardMemory, node);
+              if (roundBracketsRequested) {
+                mke.insert(keyboardMemory, new mke.RoundBracketsNode());
+              }
               pureLatexElement.innerText = '';
             } else if (key == 'Backspace') {
               pureLatexElement.innerText = pureLatexElement.innerText.substring(0, pureLatexElement.innerText.length - 1);
