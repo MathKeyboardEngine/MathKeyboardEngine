@@ -120,7 +120,7 @@
         typesetLatexInKey('\\uparrow', document.getElementById('moveUp'));
         registerKey('moveDown', mke.moveDown);
         typesetLatexInKey(String.raw`\downarrow`, document.getElementById('moveDown'));
-        registerKey('deleteCurrent', mke.deleteCurrent);
+        registerKey('deleteLeft', mke.deleteLeft);
 
         function registerNodeKey(elementId, nodeGetter, onclickFuncForKeyboardMemoryAndNode = mke.insert) {
           let element = document.getElementById(elementId);
@@ -224,7 +224,7 @@
     <div id="viewModeLatex"></div>
     <i>A stripped down example</i>
     <div id="mathKeyboard">
-      <div id="deleteCurrent">&#128293;</div>
+      <div id="deleteLeft">&#128293;</div>
       <div id="moveUp">&#x25B2;</div>
       <br />
       <div id="moveLeft">&#x25C0;</div>

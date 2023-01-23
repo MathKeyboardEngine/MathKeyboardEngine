@@ -10,7 +10,7 @@ import {
   moveUp,
   insertWithEncapsulateCurrent,
   moveDown,
-  deleteCurrent,
+  deleteLeft,
   StandardLeafNode,
   DecimalSeparatorNode,
   insertWithEncapsulateSelectionAndPrevious,
@@ -27,7 +27,7 @@ import {
   StandardBranchingNode,
 } from '../../../../../src/x';
 
-describe(deleteCurrent.name, () => {
+describe(deleteLeft.name, () => {
   it(`can also be used to "delete empty ${Placeholder.name}s in some cases" (in the experience of the user) - x`, () => {
     // Arrange
     const k = new KeyboardMemory();
@@ -37,14 +37,14 @@ describe(deleteCurrent.name, () => {
     insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     insert(k, new DigitNode('3'));
     moveDown(k);
-    deleteCurrent(k); // trying to fix typo
+    deleteLeft(k); // trying to fix typo
     expectLatex('2x▦^{3}', k);
     moveUp(k);
     expectLatex('2x⬚^{3▦}', k); // Huh? Let's delete that empty placeholder!
     moveDown(k);
     expectLatex('2x▦^{3}', k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     moveUp(k);
     // Assert
     expectLatex('2x^{3▦}', k);
@@ -62,14 +62,14 @@ describe(deleteCurrent.name, () => {
     insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     insert(k, new DigitNode('3'));
     moveDown(k);
-    deleteCurrent(k); // trying to fix typo
+    deleteLeft(k); // trying to fix typo
     expectLatex('1+2.5▦^{3}', k);
     moveUp(k);
     expectLatex('1+2.5⬚^{3▦}', k); // Huh? Let's delete that empty placeholder!
     moveDown(k);
     expectLatex('1+2.5▦^{3}', k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     moveUp(k);
     // Assert
     expectLatex('1+2.5^{3▦}', k);
@@ -85,14 +85,14 @@ describe(deleteCurrent.name, () => {
     insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     insert(k, new DigitNode('3'));
     moveDown(k);
-    deleteCurrent(k); // trying to fix typo
+    deleteLeft(k); // trying to fix typo
     expectLatex('2.5▦^{3}', k);
     moveUp(k);
     expectLatex('2.5⬚^{3▦}', k); // Huh? Let's delete that empty placeholder!
     moveDown(k);
     expectLatex('2.5▦^{3}', k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     moveUp(k);
     // Assert
     expectLatex('2.5^{3▦}', k);
@@ -108,7 +108,7 @@ describe(deleteCurrent.name, () => {
     moveRight(k);
     expectLatex(String.raw`\begin{pmatrix}⬚ & ▦ \\ 3 & ⬚\end{pmatrix}`, k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex(String.raw`\begin{pmatrix}⬚ & ▦ \\ 3 & ⬚\end{pmatrix}`, k);
   });
@@ -122,7 +122,7 @@ describe(deleteCurrent.name, () => {
     moveRight(k);
     expectLatex(String.raw`\begin{pmatrix}12 & ▦ \\ ⬚ & ⬚\end{pmatrix}`, k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex(String.raw`\begin{pmatrix}1▦ & ⬚ \\ ⬚ & ⬚\end{pmatrix}`, k);
   });
@@ -138,10 +138,10 @@ describe(deleteCurrent.name, () => {
     insertWithEncapsulateCurrent(k, new AscendingBranchingNode('', '^{', '}'));
     expectLatex('2^{3^{▦}}', k);
     // Act & assert
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex('2^{3▦}', k);
     assert.isTrue(d3.parentPlaceholder == powerNode.placeholders[1]);
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex('2^{▦}', k);
   });
 
@@ -153,7 +153,7 @@ describe(deleteCurrent.name, () => {
     insert(k, new DigitNode('2'));
     expectLatex(String.raw`\frac{12▦}{⬚}`, k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex(String.raw`\frac{1▦}{⬚}`, k);
   });
@@ -172,7 +172,7 @@ describe(deleteCurrent.name, () => {
     moveDown(k);
     expectLatex('▦^{12}', k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex('12▦', k);
   });
@@ -187,7 +187,7 @@ describe(deleteCurrent.name, () => {
     moveRight(k);
     expectLatex('(1+x)▦', k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex('1+x▦', k);
   });
@@ -201,7 +201,7 @@ describe(deleteCurrent.name, () => {
     moveRight(k);
     expectLatex(String.raw`\frac{1}{x}▦`, k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex(String.raw`\frac{1}{▦}`, k);
   });
@@ -221,7 +221,7 @@ describe(deleteCurrent.name, () => {
     moveRight(k);
     expectLatex(String.raw`\frac{1}{\frac{1}{\frac{1}{x}}}▦`, k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex(String.raw`\frac{1}{\frac{1}{\frac{1}{▦}}}`, k);
   });
@@ -235,7 +235,7 @@ describe(deleteCurrent.name, () => {
     moveRight(k);
     expectLatex(String.raw`\frac{1}{⬚}▦`, k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex('1▦', k);
   });
@@ -248,7 +248,7 @@ describe(deleteCurrent.name, () => {
     insertWithEncapsulateCurrent(k, new DescendingBranchingNode('', '_{', '}'));
     expectLatex('12_{▦}', k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex('12▦', k);
   });
@@ -262,7 +262,7 @@ describe(deleteCurrent.name, () => {
     moveRight(k);
     expectLatex('12_{⬚}▦', k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex('12▦', k);
   });
@@ -278,7 +278,7 @@ describe(deleteCurrent.name, () => {
     moveLeft(k);
     expectLatex(String.raw`12_{⬚}▦\sqrt{⬚}`, k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex(String.raw`12▦\sqrt{⬚}`, k);
   });
@@ -294,7 +294,7 @@ describe(deleteCurrent.name, () => {
     moveRight(k);
     expectLatex(String.raw`\begin{pmatrix}12 \\ ⬚ \\ ⬚\end{pmatrix}▦`, k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex('12▦', k);
   });
@@ -312,7 +312,7 @@ describe(deleteCurrent.name, () => {
     moveLeft(k);
     expectLatex(String.raw`\frac{ab}{▦}\sqrt{⬚}`, k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex(String.raw`ab▦\sqrt{⬚}`, k);
   });
@@ -330,11 +330,11 @@ describe(deleteCurrent.name, () => {
     moveRight(k);
     expectLatex(String.raw`\begin{pmatrix}12 & ⬚ \\ 34 & ⬚\end{pmatrix}▦`, k);
     // Act & Assert
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex(String.raw`\begin{pmatrix}12 & ⬚ \\ 3▦ & ⬚\end{pmatrix}`, k);
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex(String.raw`\begin{pmatrix}12 & ⬚ \\ ▦ & ⬚\end{pmatrix}`, k);
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex(String.raw`\begin{pmatrix}1▦ & ⬚ \\ ⬚ & ⬚\end{pmatrix}`, k);
   });
 
@@ -351,7 +351,7 @@ describe(deleteCurrent.name, () => {
     moveUp(k);
     expectLatex(String.raw`\begin{pmatrix}▦ & 2 \\ ⬚ & 4\end{pmatrix}`, k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex(String.raw`\begin{pmatrix}▦ & 2 \\ ⬚ & 4\end{pmatrix}`, k);
   });
@@ -364,7 +364,7 @@ describe(deleteCurrent.name, () => {
     insert(k, new MatrixNode('pmatrix', 2, 2));
     expectLatex(String.raw`2\times\begin{pmatrix}▦ & ⬚ \\ ⬚ & ⬚\end{pmatrix}`, k);
     // Act
-    deleteCurrent(k);
+    deleteLeft(k);
     // Assert
     expectLatex(String.raw`2\times▦`, k);
   });

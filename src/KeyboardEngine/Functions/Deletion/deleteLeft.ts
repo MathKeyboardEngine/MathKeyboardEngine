@@ -9,8 +9,9 @@ import { BranchingNode } from '../../../SyntaxTreeComponents/Nodes/Base/Branchin
 import { last } from '../../../helpers/arrayhelpers/last';
 import { PartOfNumberWithDigits } from '../../../SyntaxTreeComponents/Nodes/LeafNodes/Base/PartOfNumberWithDigits';
 import { encapsulateAllPartsOfNumberWithDigitsLeftOfIndex } from '../helpers/encapsulateAllPartsOfNumberWithDigitsLeftOfIndex';
+import { deleteOuterBranchingNodeButNotItsContents } from './helpers/deleteOuterBranchingNodeButNotItsContents';
 
-export function deleteCurrent(k: KeyboardMemory): void {
+export function deleteLeft(k: KeyboardMemory): void {
   if (k.current instanceof Placeholder) {
     if (k.current.parentNode == null || k.current.nodes.length > 0) {
       return;
@@ -18,7 +19,8 @@ export function deleteCurrent(k: KeyboardMemory): void {
       const nonEmptyPlaceholderOnLeft: Placeholder | null = getFirstNonEmptyOnLeftOf(k.current.parentNode.placeholders, k.current);
       if (nonEmptyPlaceholderOnLeft) {
         if (k.current.parentNode.placeholders.length == 2 && k.current === k.current.parentNode.placeholders[1] && k.current.nodes.length == 0) {
-          deleteOuterBranchingNodeButNotItsContents(k, nonEmptyPlaceholderOnLeft);
+          deleteOuterBranchingNodeButNotItsContents(nonEmptyPlaceholderOnLeft);
+          k.current = last(nonEmptyPlaceholderOnLeft.nodes);
         } else {
           nonEmptyPlaceholderOnLeft.nodes.pop();
           k.current = lastOrNull(nonEmptyPlaceholderOnLeft.nodes) ?? nonEmptyPlaceholderOnLeft;
@@ -50,10 +52,12 @@ export function deleteCurrent(k: KeyboardMemory): void {
     }
   } else {
     if (k.current instanceof BranchingNode && k.current.placeholders[0].nodes.length > 0 && k.current.placeholders.slice(1).every((ph) => ph.nodes.length == 0)) {
-      deleteOuterBranchingNodeButNotItsContents(k, k.current.placeholders[0]);
+      const nonEmptyPlaceholder = k.current.placeholders[0];
+      deleteOuterBranchingNodeButNotItsContents(nonEmptyPlaceholder);
+      k.current = last(nonEmptyPlaceholder.nodes);
     } else if (k.current instanceof BranchingNode && k.current.placeholders.some((ph) => ph.nodes.length > 0)) {
       k.current = last(k.current.placeholders.flatMap((ph) => ph.nodes));
-      deleteCurrent(k);
+      deleteLeft(k);
     } else {
       const previousNode: TreeNode | null = firstBeforeOrNull(k.current.parentPlaceholder.nodes, k.current);
       remove(k.current.parentPlaceholder.nodes, k.current);
@@ -70,14 +74,4 @@ function encapsulatePreviousInto(previousNode: TreeNode, targetPlaceholder: Plac
   if (previousNode instanceof PartOfNumberWithDigits) {
     encapsulateAllPartsOfNumberWithDigitsLeftOfIndex(previousNodeOldParentPlaceholder.nodes.length - 1, previousNodeOldParentPlaceholder.nodes, targetPlaceholder);
   }
-}
-
-function deleteOuterBranchingNodeButNotItsContents(k: KeyboardMemory, nonEmptyPlaceholder: Placeholder) {
-  const outerBranchingNode = nonEmptyPlaceholder.parentNode!;
-  const indexOfOuterBranchingNode = outerBranchingNode.parentPlaceholder.nodes.indexOf(outerBranchingNode);
-  outerBranchingNode.parentPlaceholder.nodes.splice(indexOfOuterBranchingNode, 1, ...nonEmptyPlaceholder.nodes);
-  for (const node of nonEmptyPlaceholder.nodes) {
-    node.parentPlaceholder = outerBranchingNode.parentPlaceholder;
-  }
-  k.current = last(nonEmptyPlaceholder.nodes);
 }

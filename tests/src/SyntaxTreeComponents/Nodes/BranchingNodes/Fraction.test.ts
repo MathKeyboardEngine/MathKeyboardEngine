@@ -1,6 +1,6 @@
 import { describe } from 'mocha';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { KeyboardMemory, insert, DigitNode, moveRight, moveDown, insertWithEncapsulateCurrent, deleteCurrent, moveUp, moveLeft, DescendingBranchingNode } from '../../../../../src/x';
+import { KeyboardMemory, insert, DigitNode, moveRight, moveDown, insertWithEncapsulateCurrent, deleteLeft, moveUp, moveLeft, DescendingBranchingNode } from '../../../../../src/x';
 
 describe('Fraction', () => {
   it('frac left right right right', () => {
@@ -45,7 +45,7 @@ describe('Fraction', () => {
     const k = new KeyboardMemory();
     insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     expectLatex(String.raw`\frac{▦}{⬚}`, k);
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex('▦', k);
   });
 
@@ -54,7 +54,7 @@ describe('Fraction', () => {
     insert(k, new DescendingBranchingNode(String.raw`\frac{`, '}{', '}'));
     moveDown(k);
     expectLatex(String.raw`\frac{⬚}{▦}`, k);
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex('▦', k);
   });
 
@@ -64,7 +64,7 @@ describe('Fraction', () => {
     moveDown(k);
     moveRight(k);
     expectLatex(String.raw`\frac{⬚}{⬚}▦`, k);
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex('▦', k);
   });
 
@@ -78,9 +78,9 @@ describe('Fraction', () => {
     moveRight(k);
     expectLatex(String.raw`\frac{12}{3}▦`, k);
 
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex(String.raw`\frac{12}{▦}`, k);
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex('12▦', k);
   });
 

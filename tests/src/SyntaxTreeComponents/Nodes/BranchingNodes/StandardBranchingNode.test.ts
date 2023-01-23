@@ -1,6 +1,6 @@
 import { describe } from 'mocha';
 import { expectLatex } from '../../../../helpers/expectLatex';
-import { KeyboardMemory, insert, StandardBranchingNode, DigitNode, moveRight, moveLeft, deleteCurrent } from '../../../../../src/x';
+import { KeyboardMemory, insert, StandardBranchingNode, DigitNode, moveRight, moveLeft, deleteLeft } from '../../../../../src/x';
 
 describe(StandardBranchingNode.name, () => {
   it('sqrt 3 right left left left right', () => {
@@ -38,7 +38,7 @@ describe(StandardBranchingNode.name, () => {
     const k = new KeyboardMemory();
     insert(k, new StandardBranchingNode(String.raw`\sqrt{`, '}'));
     expectLatex(String.raw`\sqrt{▦}`, k);
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex('▦', k);
   });
 });

@@ -13,7 +13,7 @@ Also available:
 #### An execution timeline
 
 1. You load an html page with your customized virtual math keyboard (based on one of the examples). On load the LaTeX for each key is typeset (by KaTeX or MathJax) and a cursor is displayed in a textbox-look-a-like div.
-1. On your customized virtual math keyboard, you press a key. The key calls a MathKeyboardEngine function, for example `insert(someMatrixNode)` or `moveUp()`, `deleteCurrent()`, etc.
+1. On your customized virtual math keyboard, you press a key. The key calls a MathKeyboardEngine function, for example `insert(someMatrixNode)` or `moveUp()`, `deleteLeft()`, etc.
 1. Calling `getEditModeLatex()` outputs the total of LaTeX you typed, for example `\frac{3}{4}\blacksquare` (if `\blacksquare` is your cursor), which you then feed to KaTeX or MathJax for display.
 1. Calling `getViewModeLatex()` outputs the LaTeX without a cursor.
 
@@ -121,7 +121,7 @@ const k = new mke.KeyboardMemory();
 
 ## Documentation
 
-Visit the [documentation](https://mathkeyboardengine.github.io/docs/0.1/) and (the right version of)\* the [examples folder](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/examples) for more implementation details.
+Visit the [documentation](https://mathkeyboardengine.github.io/docs/latest/) and (the right version of)\* the [examples folder](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/examples) for more implementation details.
 
 \* If you use a version tag in the url like this: https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/v0.1.0-beta.11, you can see the git repository as it was for that version. That may not be needed if the [changelog](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/CHANGELOG.md) doesn't note any important changes.
 

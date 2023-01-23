@@ -2,7 +2,7 @@ import { describe } from 'mocha';
 import { expect } from 'chai';
 import { expectLatex } from '../../../../helpers/expectLatex';
 import { nameof } from '../../../../helpers/nameof';
-import { KeyboardMemory, insert, MatrixNode, DigitNode, moveRight, moveDown, moveLeft, moveUp, deleteCurrent, Placeholder } from '../../../../../src/x';
+import { KeyboardMemory, insert, MatrixNode, DigitNode, moveRight, moveDown, moveLeft, moveUp, deleteLeft, Placeholder } from '../../../../../src/x';
 
 describe(MatrixNode.name, () => {
   it('pmatrix(width=2,height=3) 1 right 2 down 4 down 6', () => {
@@ -83,15 +83,15 @@ describe(MatrixNode.name, () => {
     moveRight(k);
     insert(k, new DigitNode('4'));
     expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & 4▦\end{pmatrix}`, k);
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ 3 & ▦\end{pmatrix}`, k);
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex(String.raw`\begin{pmatrix}1 & 2 \\ ▦ & ⬚\end{pmatrix}`, k);
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex(String.raw`\begin{pmatrix}1 & ▦ \\ ⬚ & ⬚\end{pmatrix}`, k);
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex(String.raw`\begin{pmatrix}▦ & ⬚ \\ ⬚ & ⬚\end{pmatrix}`, k);
-    deleteCurrent(k);
+    deleteLeft(k);
     expectLatex(`▦`, k);
   });
 

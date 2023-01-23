@@ -161,7 +161,7 @@
       typesetLatexInKey('\\uparrow', document.getElementById('moveUp'));
       registerKey('moveDown', mke.moveDown);
       typesetLatexInKey(String.raw`\downarrow`, document.getElementById('moveDown'));
-      registerKey('deleteCurrent', mke.deleteCurrent, mke.deleteSelection);
+      registerKey('deleteLeft', mke.deleteLeft, mke.deleteSelection);
 
       registerKey('selectionModeToggle', (k) => {
         if (mke.inSelectionMode(k)) {
@@ -300,6 +300,7 @@
       // prettier-ignore
       const selectionModePhysicalKeydownHandlersNoShift = [
         createHandler((key) => key == 'Backspace', (k, key) => mke.deleteSelection(k)),
+        createHandler((key) => key == 'Delete', (k, key) => mke.deleteSelection(k)),
         createHandler((key) => key == 'BracketLeft', (k, key) => mke.insertWithEncapsulateSelection(k, getSquareBracketsNode())),
         createHandler((key) => key == 'Slash', (k, key) => mke.insertWithEncapsulateSelection(k, getFractionNode())),
       ];
@@ -307,7 +308,7 @@
       const physicalKeydownHandlersNoShift = [
         createHandler((key) => key.startsWith('Digit'), (k, key) => mke.insert(k, new mke.DigitNode(key[5]))),
         createHandler((key) => key.startsWith('Key'), (k, key) => mke.insert(k, new mke.StandardLeafNode(key[3].toLocaleLowerCase()))),
-        createHandler((key) => key == 'Backspace', (k, key) => mke.deleteCurrent(k)),
+        createHandler((key) => key == 'Backspace', (k, key) => mke.deleteLeft(k)),
         createHandler((key) => key == 'ArrowLeft', (k, key) => mke.moveLeft(k)),
         createHandler((key) => key == 'ArrowRight', (k, key) => mke.moveRight(k)),
         createHandler((key) => key == 'ArrowUp', (k, key) => mke.moveUp(k)),
@@ -318,6 +319,7 @@
         createHandler((key) => key == 'Period' || key == 'Comma', (k, key) => mke.insert(k, getDecimalSeparatorNode())),
         createHandler((key) => key == 'BracketLeft', (k, key) => mke.insert(k, getSquareBracketsNode())),
         createHandler((key) => key == 'BracketRight', (k, key) => mke.moveRight(k)),
+        createHandler((key) => key == 'Delete', (k, key) => mke.deleteRight(k)),
       ];
 
       document.onkeydown = (e) => {
@@ -491,7 +493,7 @@
     <div id="mathKeyboard">
       <div id="selectionModeToggle"></div>
       <div id="moveUp">&#x25B2;</div>
-      <div id="deleteCurrent">&#128293;</div>
+      <div id="deleteLeft">&#128293;</div>
       <br />
       <div id="moveLeft">&#x25C0;</div>
       <div id="moveDown">&#x25BC;</div>

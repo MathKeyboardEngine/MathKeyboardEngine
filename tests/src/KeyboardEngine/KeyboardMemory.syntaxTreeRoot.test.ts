@@ -2,7 +2,7 @@ import { describe } from 'mocha';
 import { assert, expect } from 'chai';
 import { expectLatex } from '../../helpers/expectLatex';
 import { nameof } from '../../helpers/nameof';
-import { KeyboardMemory, Placeholder, deleteCurrent, insert, moveLeft, moveDown, moveUp, moveRight, DigitNode, DescendingBranchingNode } from '../../../src/x';
+import { KeyboardMemory, Placeholder, deleteLeft, insert, moveLeft, moveDown, moveUp, moveRight, DigitNode, DescendingBranchingNode } from '../../../src/x';
 
 describe(KeyboardMemory.name, () => {
   describe(nameof<KeyboardMemory>('syntaxTreeRoot'), () => {
@@ -20,7 +20,7 @@ describe(KeyboardMemory.name, () => {
 
     it('cannot be deleted', () => {
       const k = new KeyboardMemory();
-      deleteCurrent(k);
+      deleteLeft(k);
       assert.isNotNull(k.current);
       assert.isTrue(k.current instanceof Placeholder);
     });

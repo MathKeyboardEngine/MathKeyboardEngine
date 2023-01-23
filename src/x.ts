@@ -4,8 +4,11 @@ export { getEditModeLatex };
 import { getViewModeLatex } from './GetLatex/getViewModeLatex';
 export { getViewModeLatex };
 
-import { deleteCurrent } from './KeyboardEngine/Functions/Deletion/deleteCurrent';
-export { deleteCurrent };
+import { deleteLeft } from './KeyboardEngine/Functions/Deletion/deleteLeft';
+export { deleteLeft };
+
+import { deleteRight } from './KeyboardEngine/Functions/Deletion/deleteRight';
+export { deleteRight };
 
 import { deleteSelection } from './KeyboardEngine/Functions/Deletion/deleteSelection';
 export { deleteSelection };

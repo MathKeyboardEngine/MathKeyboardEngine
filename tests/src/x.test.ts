@@ -20,7 +20,8 @@ describe('flat', () => {
     expect(mke.StandardBranchingNode).is.not.null;
     expect(mke.StandardLeafNode).is.not.null;
     expect(mke.TreeNode).is.not.null;
-    expect(mke.deleteCurrent).is.not.null;
+    expect(mke.deleteLeft).is.not.null;
+    expect(mke.deleteRight).is.not.null;
     expect(mke.deleteSelection).is.not.null;
     expect(mke.enterSelectionMode).is.not.null;
     expect(mke.getEditModeLatex).is.not.null;
