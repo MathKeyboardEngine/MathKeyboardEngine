@@ -60,7 +60,7 @@ A `<script>` element using the recommended "MathKeyboardEngine.es2017-esm.min.js
 
 ```html
 <script type="module">
-  import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.2.3/dist/MathKeyboardEngine.es2017-esm.min.js';
+  import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v1.0.0/dist/MathKeyboardEngine.es2017-esm.min.js';
   let latexConfiguration = new mke.LatexConfiguration();
   let keyboardMemory = new mke.KeyboardMemory();
 
@@ -71,7 +71,7 @@ A `<script>` element using the recommended "MathKeyboardEngine.es2017-esm.min.js
 A `<script>` element using the with-older-browsers-compatible "MathKeyboardEngine.es2015-iife.min.js":
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/mathkeyboardengine@v0.2.3/dist/MathKeyboardEngine.es2015-iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathkeyboardengine@v1.0.0/dist/MathKeyboardEngine.es2015-iife.min.js"></script>
 <script type="text/javascript">
   window.addEventListener('DOMContentLoaded', (event) => {
     let latexConfiguration = new mke.LatexConfiguration();
@@ -115,7 +115,7 @@ Note that a `.d.ts` file is shipped since `v0.2.1` (this lets your editor show t
 MathKeyboardEngine has also been published to [Deno](https://deno.land). For using the pure TypeScript files in Deno:
 
 ```ts
-import * as mke from 'https://deno.land/x/mathkeyboardengine@v0.2.3/x.ts';
+import * as mke from 'https://deno.land/x/mathkeyboardengine@v1.0.0/x.ts';
 const k = new mke.KeyboardMemory();
 ```
 
@@ -123,7 +123,7 @@ const k = new mke.KeyboardMemory();
 
 Visit the [documentation](https://mathkeyboardengine.github.io/docs/latest/) and (the right version of)\* the [examples folder](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/examples) for more implementation details.
 
-\* If you use a version tag in the url like this: https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/v0.1.0-beta.11, you can see the git repository as it was for that version. That may not be needed if the [changelog](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/CHANGELOG.md) doesn't note any important changes.
+\* If you use a version tag in the url like this: https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/v0.2.3, you can see the git repository as it was for that version. That may not be needed if the [changelog](https://github.com/MathKeyboardEngine/MathKeyboardEngine/tree/main/CHANGELOG.md) doesn't note any important changes.
 
 ## How to use this repo
 

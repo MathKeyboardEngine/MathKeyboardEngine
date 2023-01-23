@@ -19,7 +19,7 @@
     "katex",
     "mathjax"
   ],
-  "version": "v1.0.0-beta",
+  "version": "v1.0.0",
   "types": "./dist/MathKeyboardEngine.d.ts",
   "exports": {
     "node": {
