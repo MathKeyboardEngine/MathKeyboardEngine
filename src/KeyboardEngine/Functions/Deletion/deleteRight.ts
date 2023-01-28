@@ -43,7 +43,7 @@ export function deleteRight(k: KeyboardMemory): void {
   }
 }
 
-function handleDeletion(k: KeyboardMemory, nextNode: TreeNode) {
+function handleDeletion(k: KeyboardMemory, nextNode: TreeNode) : void {
   if (nextNode instanceof BranchingNode) {
     if (nextNode.placeholders.length == 1 && nextNode.placeholders[0].nodes.length > 0) {
       deleteOuterBranchingNodeButNotItsContents(nextNode.placeholders[0]);

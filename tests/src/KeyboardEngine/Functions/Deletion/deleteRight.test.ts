@@ -315,6 +315,18 @@ describe(deleteRight.name, () => {
     expectLatex('▦', k);
   });
 
+  it(`does not delete a ${MatrixNode.name} from an empty ${Placeholder.name} if a previous ${Placeholder.name} is not empty`, () => {
+    // Arrange
+    const k = new KeyboardMemory();
+    insert(k, new MatrixNode('pmatrix', 2, 2));
+    insert(k, new DigitNode('1'));
+    moveRight(k);
+    expectLatex(String.raw`\begin{pmatrix}1 & ▦ \\ ⬚ & ⬚\end{pmatrix}`, k);
+    // Act & assert
+    deleteRight(k)
+    expectLatex(String.raw`\begin{pmatrix}1 & ▦ \\ ⬚ & ⬚\end{pmatrix}`, k);
+  });
+
   it(`lets the cursor pull exponents and subscripts towards itself`, () => {
     // Arrange
     const k = new KeyboardMemory();
