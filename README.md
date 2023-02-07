@@ -141,7 +141,7 @@ Follow these steps to set up (and verify) a development environment for this rep
    `npm test` to run all unit tests from the 'tests' folder.<br/>
    `npm run build` creates a single-file library in different formats and language versions in the 'dist' folder. Note: the 'src' folder contains all the source code files.
 5. Testing localhost:<br/>
-   For testing localhost with live reload from VS Code, you could install the VS Code extension [Five Server](https://marketplace.visualstudio.com/items?itemName=yandeu.five-server) and click `> Go Live` in the bottom right corner of VS Code. The browser starts up automatically - navigate to the 'examples' folder and click the html file you'd like to test.
+   For testing localhost with live reload from VS Code, you could install the VS Code extension [Five Server](https://marketplace.visualstudio.com/items?itemName=yandeu.five-server). Then open 'examples/KaTeX.html' in VS Code and click `> Go Live` in the bottom right corner of VS Code. The browser starts up automatically.
 
 ## Ask or contribute
 

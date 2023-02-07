@@ -323,7 +323,7 @@ describe(deleteRight.name, () => {
     moveRight(k);
     expectLatex(String.raw`\begin{pmatrix}1 & ▦ \\ ⬚ & ⬚\end{pmatrix}`, k);
     // Act & assert
-    deleteRight(k)
+    deleteRight(k);
     expectLatex(String.raw`\begin{pmatrix}1 & ▦ \\ ⬚ & ⬚\end{pmatrix}`, k);
   });
 
