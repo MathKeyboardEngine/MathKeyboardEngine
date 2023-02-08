@@ -60,7 +60,7 @@ A `<script>` element using the recommended "MathKeyboardEngine.es2017-esm.min.js
 
 ```html
 <script type="module">
-  import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v1.0.0/dist/MathKeyboardEngine.es2017-esm.min.js';
+  import * as mke from 'https://cdn.jsdelivr.net/npm/mathkeyboardengine@v1.0.1/dist/MathKeyboardEngine.es2017-esm.min.js';
   let latexConfiguration = new mke.LatexConfiguration();
   let keyboardMemory = new mke.KeyboardMemory();
 
@@ -71,7 +71,7 @@ A `<script>` element using the recommended "MathKeyboardEngine.es2017-esm.min.js
 A `<script>` element using the with-older-browsers-compatible "MathKeyboardEngine.es2015-iife.min.js":
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/mathkeyboardengine@v1.0.0/dist/MathKeyboardEngine.es2015-iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathkeyboardengine@v1.0.1/dist/MathKeyboardEngine.es2015-iife.min.js"></script>
 <script type="text/javascript">
   window.addEventListener('DOMContentLoaded', (event) => {
     let latexConfiguration = new mke.LatexConfiguration();
@@ -115,7 +115,7 @@ Note that a `.d.ts` file is shipped since `v0.2.1` (this lets your editor show t
 MathKeyboardEngine has also been published to [Deno](https://deno.land). For using the pure TypeScript files in Deno:
 
 ```ts
-import * as mke from 'https://deno.land/x/mathkeyboardengine@v1.0.0/x.ts';
+import * as mke from 'https://deno.land/x/mathkeyboardengine@v1.0.1/x.ts';
 const k = new mke.KeyboardMemory();
 ```
 

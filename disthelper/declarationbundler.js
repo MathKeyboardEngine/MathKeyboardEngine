@@ -1,17 +1,17 @@
 const fs = require('fs');
-const { resolve } = require('path');
+const path = require('path');
 const { readdirSync } = require('fs');
 
 function getFiles(dir) {
   const dirents = readdirSync(dir, { withFileTypes: true });
   const files = dirents.map((dirent) => {
-    const res = resolve(dir, dirent.name);
+    const res = path.resolve(dir, dirent.name);
     return dirent.isDirectory() ? getFiles(res) : res;
   });
   return Array.prototype.concat(...files);
 }
 
-const files = getFiles('./dist/declarations/src').filter((x) => x.split('/').pop() !== 'x.d.ts');
+const files = getFiles('./dist/declarations/src').filter((x) => path.parse(x).base !== 'x.d.ts');
 
 for (const file of files) {
   fs.readFile(file, 'utf8', (err, data) => {
