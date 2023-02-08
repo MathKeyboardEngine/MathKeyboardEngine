@@ -1,3 +1,9 @@
+## [1.0.1] 2023-02-08
+
+## Fixed
+
+- Fix related to typechecking: the type declaration files `getEditModeLatex.d.ts` and `getViewModeLatex.d.ts` where missing in the distributed package (due to a bug in `declarationbundler.js` since version 0.2.3). Fixed by @boompikachu in [#7](https://github.com/MathKeyboardEngine/MathKeyboardEngine/pull/7).
+
 ## [1.0.0] 2023-01-23
 
 ### Changed
