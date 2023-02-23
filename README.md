@@ -10,6 +10,7 @@ Also available:
 - [MathKeyboardEngine for C#](https://github.com/MathKeyboardEngine/MathKeyboardEngine.CSharp#readme).
 - [MathKeyboardEngine for Python](https://github.com/MathKeyboardEngine/MathKeyboardEngine.Python#readme).
 
+
 #### An execution timeline
 
 1. You load an html page with your customized virtual math keyboard (based on one of the examples). On load the LaTeX for each key is typeset (by KaTeX or MathJax) and a cursor is displayed in a textbox-look-a-like div.
@@ -17,9 +18,11 @@ Also available:
 1. Calling `getEditModeLatex()` outputs the total of LaTeX you typed, for example `\frac{3}{4}\blacksquare` (if `\blacksquare` is your cursor), which you then feed to KaTeX or MathJax for display.
 1. Calling `getViewModeLatex()` outputs the LaTeX without a cursor.
 
+
 #### Let me test it now!
 
 Live examples can be tested at [mathkeyboardengine.github.io](https://mathkeyboardengine.github.io).
+
 
 #### Pros and cons?
 
@@ -39,6 +42,7 @@ Live examples can be tested at [mathkeyboardengine.github.io](https://mathkeyboa
 - customize the editor output at runtime: dot or comma as decimal separator, cross or dot for multiplication, cursor style, colors, etc.
 - this library also supports handling input from a physical keyboard, where - for example - the forward slash "/" key can be programmed to result in encapsulating a previously typed number as the numerator of a fraction. (See the examples.)
 - almost forgotten: it's open source, free to use, free to modify (please fork this repo)!
+
 
 ## How to use this library
 
@@ -142,6 +146,23 @@ Follow these steps to set up (and verify) a development environment for this rep
    `npm run build` creates a single-file library in different formats and language versions in the 'dist' folder. Note: the 'src' folder contains all the source code files.
 5. Testing localhost:<br/>
    For testing localhost with live reload from VS Code, you could install the VS Code extension [Five Server](https://marketplace.visualstudio.com/items?itemName=yandeu.five-server). Then open 'examples/KaTeX.html' in VS Code and click `> Go Live` in the bottom right corner of VS Code. The browser starts up automatically.
+
+
+## License
+
+The MathKeyboardEngine repositories use the most permissive licensing available. The "BSD Zero Clause License" ([0BSD](https://choosealicense.com/licenses/0bsd/)) allows for<br/>
+commercial + non-commercial use, closed + open source, with + without modifications, etc. and [is equivalent](https://github.com/github/choosealicense.com/issues/805) to licenses like:
+
+- "MIT No Attribution License" ([MIT-0](https://choosealicense.com/licenses/mit-0//)).
+- "The Unlicense" ([Unlicense](https://choosealicense.com/licenses/unlicense/)).
+- "CC0" ([CC0](https://choosealicense.com/licenses/cc0/)).
+
+The "BSD Zero Clause License" ([0BSD](https://choosealicense.com/licenses/0bsd/)) does not have the condition
+
+> (...), provided that the above copyright notice and this permission notice appear in all copies.
+
+which is part of the "MIT License" ([MIT](https://choosealicense.com/licenses/mit/)) and its shorter equivalent "ISC License" ([ISC](https://choosealicense.com/licenses/isc/)). Apart from that they are all equivalent.
+
 
 ## Ask or contribute
 
