@@ -1,3 +1,10 @@
+
+## [1.1.0-alpha] 2023-10-09
+
+## Added
+
+- Experimental: `parseLatex`. Developing this feature - parsing a LaTeX string for editing by MathKeyboardEngine - started after a [question thread](https://github.com/orgs/MathKeyboardEngine/discussions/1) was opened by [chengyi](https://github.com/WCY91).
+
 ## [1.0.1] 2023-02-08
 
 ## Fixed

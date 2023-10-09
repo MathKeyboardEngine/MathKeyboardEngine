@@ -52,6 +52,12 @@ export { selectLeft };
 import { selectRight } from './KeyboardEngine/Functions/Selection/selectRight';
 export { selectRight };
 
+import { parseLatex } from './LatexParser/parseLatex';
+export { parseLatex };
+
+import { LatexParserConfiguration } from './LatexParser/LatexParserConfiguration';
+export { LatexParserConfiguration };
+
 import { KeyboardMemory } from './KeyboardEngine/KeyboardMemory';
 export { KeyboardMemory };
 

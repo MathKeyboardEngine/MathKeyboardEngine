@@ -20,7 +20,7 @@
     "katex",
     "mathjax"
   ],
-  "version": "v1.0.1",
+  "version": "v1.1.0-alpha",
   "types": "./dist/MathKeyboardEngine.d.ts",
   "exports": {
     "node": {
@@ -55,7 +55,7 @@
     "url": "git+https://github.com/MathKeyboardEngine/MathKeyboardEngine.git"
   },
   "author": "MathKeyboardEngine",
-  "license": "ISC",
+  "license": "0BSD",
   "bugs": {
     "url": "https://github.com/MathKeyboardEngine/MathKeyboardEngine/issues"
   },

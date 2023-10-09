@@ -393,6 +393,33 @@
         displayResult();
       };
       // === Handle key presses of a physical keyboard END ===
+
+      // === Experimental feature: parsing a LaTeX string START ===
+      var parseButton = document.getElementById('parseButton');
+      var inputToParse = document.getElementById('inputToParse');
+      function onInputChanged() {
+        const display = inputToParse.value.length > 0 ? '' : 'none';
+        console.log(display);
+        parseButton.style.display = display;
+      };
+      inputToParse.oninput = onInputChanged;
+      inputToParse.onpaste = onInputChanged;
+    
+      var parserConfig = new mke.LatexParserConfiguration();
+      parserConfig.descendingBranchingNodeSlashCommandsWithTwoPairsOfBrackets = [
+        String.raw`\frac{}{}`, 
+        String.raw`\binom{}{}`, 
+        String.raw`sqrt[]{}`
+      ];
+      console.log(inputToParse);
+      parseButton.onclick = () => {
+        keyboardMemory = mke.parseLatex(inputToParse.value, latexConfiguration, parserConfig);
+        displayResult();
+        inputToParse.value = '';
+        parseButton.style.display = 'none';
+      };
+      // === Experimental feature: parsing a LaTeX string END ===
+
     </script>
     <style>
       :root {
@@ -485,6 +512,10 @@
         left: 0;
         top: 0;
         color: green;
+      }
+
+      #inputToParse {
+        width: 300px;
       }
     </style>
   </head>
@@ -613,6 +644,11 @@
       Use a backslash for pure LaTeX commands.<br />
       Use Shift + Left for selection mode (or use the blue key).
     </p>
+    
+    <h2>Experimental: parseLatex</h2>
+    <button id="parseButton" style="display: none" >Parse</button>
+    <input id="inputToParse" type="text" placeholder="Type or paste..." class="disable-physical-keypress-math-input-when-focused"  />
+    
     <div class="footer">
       <div>View on Github</div>
       <a href="https://github.com/MathKeyboardEngine/MathKeyboardEngine#readme">JavaScript</a>

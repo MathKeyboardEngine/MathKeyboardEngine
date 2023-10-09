@@ -12,7 +12,7 @@ describe('flat', () => {
     expect(mke.DigitNode).is.not.null;
     expect(mke.KeyboardMemory).is.not.null;
     expect(mke.LatexConfiguration).is.not.null;
-    expect(mke.LatexConfiguration).is.not.null;
+    expect(mke.LatexParserConfiguration).is.not.null;
     expect(mke.LeafNode).is.not.null;
     expect(mke.MatrixNode).is.not.null;
     expect(mke.Placeholder).is.not.null;
@@ -38,5 +38,6 @@ describe('flat', () => {
     expect(mke.moveUp).is.not.null;
     expect(mke.selectLeft).is.not.null;
     expect(mke.selectRight).is.not.null;
+    expect(mke.parseLatex).is.not.null;
   });
 });
