@@ -19,7 +19,7 @@ npm publish
 
 > commit changes with title "v0.x.0-beta.new"
 
-git tag -a v0.x.0-beta.new
+git tag v0.x.0-beta.new
 git push origin --tags
 
 > update the Live examples in the mathkeyboardengine.github.io repository

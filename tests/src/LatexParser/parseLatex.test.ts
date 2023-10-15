@@ -1,6 +1,6 @@
 import { describe } from 'mocha';
 import { expect, assert } from 'chai';
-import { insert, LatexConfiguration, DigitNode, parseLatex, insertWithEncapsulateCurrent, DescendingBranchingNode, StandardLeafNode, DecimalSeparatorNode, StandardBranchingNode, BranchingNode, AscendingBranchingNode, MatrixNode, RoundBracketsNode, getViewModeLatex } from '../../../src/x';
+import { insert, LatexConfiguration, DigitNode, parseLatex, insertWithEncapsulateCurrent, DescendingBranchingNode, StandardLeafNode, DecimalSeparatorNode, StandardBranchingNode, BranchingNode, AscendingBranchingNode, MatrixNode, RoundBracketsNode } from '../../../src/x';
 import { expectViewModeLatex } from '../../helpers/expectLatex';
 import { LatexParserConfiguration } from '../../../src/LatexParser/LatexParserConfiguration';
 import { nameof } from '../../helpers/nameof';
