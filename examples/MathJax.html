@@ -264,7 +264,7 @@
       function createHandler(matchingPredicateForKey, handleForKeyboardMemoryAndKey) {
         return { canHandle: matchingPredicateForKey, handle: handleForKeyboardMemoryAndKey };
       }
-      // prettier-ignore
+
       const physicalKeydownHandlersForShift = [
         createHandler((key) => key == 'Digit6', (k, key) => mke.insertWithEncapsulateCurrent(k, getPowerNode())),
         createHandler((key) => key == 'Digit9', (k, key) => mke.insert(k, new mke.RoundBracketsNode())),
@@ -284,21 +284,21 @@
         createHandler((key) => key == 'Period', (k, key) => mke.insert(k, new mke.StandardLeafNode('>'))),
         createHandler((key) => key == 'Semicolon', (k, key) => mke.insert(k, new mke.StandardLeafNode(':'))),
       ];
-      // prettier-ignore
+
       const selectionModePhysicalKeydownHandlersForShift = [
         createHandler((key) => key == 'Digit6', (k, key) => mke.insertWithEncapsulateSelectionAndPrevious(k, getPowerNode())),
         createHandler((key) => key == 'BracketLeft', (k, key) => mke.insertWithEncapsulateSelection(k, getCurlyBracketsNode())),
         createHandler((key) => key == 'Backslash', (k, key) => mke.insertWithEncapsulateSelection(k, getPipesNode())),
         createHandler((key) => key == 'Digit9', (k, key) => mke.insertWithEncapsulateSelection(k, new mke.RoundBracketsNode())),
       ];
-      // prettier-ignore
+
       const selectionModePhysicalKeydownHandlersNoShift = [
         createHandler((key) => key == 'Backspace', (k, key) => mke.deleteSelection(k)),
         createHandler((key) => key == 'Delete', (k, key) => mke.deleteSelection(k)),
         createHandler((key) => key == 'BracketLeft', (k, key) => mke.insertWithEncapsulateSelection(k, getSquareBracketsNode())),
         createHandler((key) => key == 'Slash', (k, key) => mke.insertWithEncapsulateSelection(k, getFractionNode())),
       ];
-      // prettier-ignore
+
       const physicalKeydownHandlersNoShift = [
         createHandler((key) => key.startsWith('Digit'), (k, key) => mke.insert(k, new mke.DigitNode(key[5]))),
         createHandler((key) => key.startsWith('Key'), (k, key) => mke.insert(k, new mke.StandardLeafNode(key[3].toLocaleLowerCase()))),

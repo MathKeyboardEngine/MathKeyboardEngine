@@ -2,9 +2,7 @@
   "scripts": {
     "strictcheck": "tsc --noEmit --strict",
     "test": "npm run strictcheck && nyc ./node_modules/.bin/_mocha 'tests/**/*.test.ts'",
-    "lint": "npx eslint . --fix",
-    "prettier": "npx prettier --write . --loglevel=warn",
-    "clean": "npm run lint && npm run prettier",
+    "clean": "npx eslint . --fix",
     "build": "rimraf dist && npm run strictcheck && esbuild src/x.ts --bundle --format=iife --target=es6 --global-name=mke --outfile=dist/MathKeyboardEngine.es2015-iife.js & esbuild src/x.ts --bundle --format=esm --target=es2017 --outfile=dist/MathKeyboardEngine.es2017-esm.js & esbuild src/x.ts --bundle --minify --format=iife --target=es6 --global-name=mke --outfile=dist/MathKeyboardEngine.es2015-iife.min.js & esbuild src/x.ts --bundle --minify --format=esm --target=es2017 --outfile=dist/MathKeyboardEngine.es2017-esm.min.js & esbuild src/x.ts --bundle --format=esm --target=es2020 --outfile=dist/MathKeyboardEngine.es2020-esm.js & esbuild src/x.ts --bundle --minify --format=esm --target=es2020 --outfile=dist/MathKeyboardEngine.es2020-esm.min.js && esbuild src/x.ts --bundle --format=cjs --target=es2017 --outfile=dist/MathKeyboardEngine.es2017.cjs && tsc --declaration --emitDeclarationOnly --outDir ./dist/declarations && node disthelper/declarationbundler.js && rimraf dist/declarations && node disthelper/fileextensionsincreaser.js",
     "up-packages": "npx npm-check-updates -u",
     "up-vulnerable-packages": "npm audit fix",
@@ -20,7 +18,7 @@
     "katex",
     "mathjax"
   ],
-  "version": "v1.1.0-alpha",
+  "version": "v1.1.0-alpha.2",
   "types": "./dist/MathKeyboardEngine.d.ts",
   "exports": {
     "node": {

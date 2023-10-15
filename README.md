@@ -143,7 +143,7 @@ Follow these steps to set up (and verify) a development environment for this rep
 4. Compiling the library:<br/>
    All of the following commands run some script as defined in package.json:<br/>
    `npm run strictcheck` to do type checking, to check whether a successful compilation is possible.<br/>
-   `npm run clean` to run eslint and prettier (performing auto-fixes of spacing etc.).<br/>
+   `npm run clean` to run eslint (performing auto-fixes).<br/>
    `npm test` to run all unit tests from the 'tests' folder.<br/>
    `npm run build` creates a single-file library in different formats and language versions in the 'dist' folder. Note: the 'src' folder contains all the source code files.
 5. Testing localhost:<br/>
@@ -172,4 +172,4 @@ which is part of the "MIT License" ([MIT](https://choosealicense.com/licenses/mi
 - [share](https://github.com/MathKeyboardEngine/MathKeyboardEngine/discussions) ideas or what you've made.
 - [report a bug](https://github.com/MathKeyboardEngine/MathKeyboardEngine/issues).
 - [request an enhancement](https://github.com/MathKeyboardEngine/MathKeyboardEngine/issues).
-- [open a pull request](https://github.com/MathKeyboardEngine/MathKeyboardEngine/pulls). (The command `npm run clean` runs eslint and prettier.)
+- [open a pull request](https://github.com/MathKeyboardEngine/MathKeyboardEngine/pulls). (The command `npm run clean` runs eslint.)

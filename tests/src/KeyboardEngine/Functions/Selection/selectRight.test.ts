@@ -88,7 +88,6 @@ describe(selectRight.name, () => {
     expectLatex(String.raw`\colorbox{blue}{1}`, k);
   });
 
-  // prettier-ignore
   it(`does nothing if all on-the-right-available ${TreeNode.name}s are selected and the exclusive left border is a ${TreeNode.name} and the ${nameof<TreeNode>('parentPlaceholder')} is the ${nameof<KeyboardMemory>('syntaxTreeRoot')}`, () => {
     // Arrange
     const k = new KeyboardMemory();
