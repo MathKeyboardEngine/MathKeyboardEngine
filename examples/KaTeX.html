@@ -326,6 +326,7 @@
         if (document.activeElement.classList.contains('disable-physical-keypress-math-input-when-focused')) {
           return;
         }
+        const shouldPreventDefault = true;
         const key = e.code;
         if (key.startsWith('Shift')) {
           inShift = true;
@@ -354,36 +355,9 @@
             }
           }
         } else {
-          let pureLatexElement = document.getElementById('pureLatexFromPhysicalKeys');
           if (!inShift && key == 'Backslash') {
-            pureLatexElement.innerText = '\\';
-          } else if (pureLatexElement.innerText.length > 0) {
-            const roundBracketsRequested = key == 'Digit9' && inShift;
-            if (roundBracketsRequested || key == 'Space' || key == 'Enter' || key == 'Escape') {
-              const pureLatex = pureLatexElement.innerText;
-              // prettier-ignore
-              const node = pureLatex == '\\frac' ? getFractionNode()
-                  : pureLatex == '\\binom' ? getBinomialNode()
-                  : pureLatex == '\\sqrt' ? getSquareRootNode()
-                  : pureLatex == '\\int' ? getIntegralNode()
-                  : pureLatex == '\\sum' ? getSumNode()
-                  : pureLatex == '\\prod' ? getProductNode()
-                  : pureLatex == '\\lim' ? getLimitNode()
-                  : new mke.StandardLeafNode(pureLatexElement.innerText);
-              mke.insert(keyboardMemory, node);
-              if (roundBracketsRequested) {
-                mke.insert(keyboardMemory, new mke.RoundBracketsNode());
-              }
-              pureLatexElement.innerText = '';
-            } else if (key == 'Backspace') {
-              pureLatexElement.innerText = pureLatexElement.innerText.substring(0, pureLatexElement.innerText.length - 1);
-            } else if (key.startsWith('Key')) {
-              if (inShift) {
-                pureLatexElement.innerText += key[3];
-              } else {
-                pureLatexElement.innerText += key[3].toLocaleLowerCase();
-              }
-            }
+            inputToParse.focus();
+            shouldPreventDefault = false;
           } else if (inShift) {
             physicalKeydownHandlersForShift.find((handler) => handler.canHandle(key))?.handle(keyboardMemory, key);
           } else {
@@ -391,19 +365,21 @@
           }
         }
         displayResult();
+        if (shouldPreventDefault) {
+          e.preventDefault(/* Prevent triggering a browser hot key. */);
+        }
       };
       // === Handle key presses of a physical keyboard END ===
 
       // === Experimental feature: parsing a LaTeX string START ===
-      var parseButton = document.getElementById('parseButton');
       var inputToParse = document.getElementById('inputToParse');
-      function onInputChanged() {
-        const display = inputToParse.value.length > 0 ? '' : 'none';
-        console.log(display);
-        parseButton.style.display = display;
-      };
-      inputToParse.oninput = onInputChanged;
-      inputToParse.onpaste = onInputChanged;
+      var inputMirror = document.getElementById('inputMirror');
+      inputToParse.oninput = 
+      inputToParse.onpaste =
+      () => {
+        const value = inputToParse.value;
+        inputMirror.innerText = value == '' ? '' : inputToParse.value + ' (press Enter)';
+      }
     
       var parserConfig = new mke.LatexParserConfiguration();
       parserConfig.descendingBranchingNodeSlashCommandsWithTwoPairsOfBrackets = [
@@ -412,11 +388,16 @@
         String.raw`sqrt[]{}`
       ];
       console.log(inputToParse);
-      parseButton.onclick = () => {
-        keyboardMemory = mke.parseLatex(inputToParse.value, latexConfiguration, parserConfig);
-        displayResult();
-        inputToParse.value = '';
-        parseButton.style.display = 'none';
+      inputToParse.onkeydown = (e) => {
+        if (e.code == 'Enter') {
+          const nodes = mke.parseLatex(inputToParse.value, latexConfiguration, parserConfig).syntaxTreeRoot.nodes;
+          mke.insert(keyboardMemory, nodes);
+          displayResult();
+          inputToParse.value = '';
+          inputMirror.innerText = '';
+          document.activeElement.blur();
+          window.scrollTo(0, 0);
+        }
       };
       // === Experimental feature: parsing a LaTeX string END ===
 
@@ -507,7 +488,7 @@
         padding: 0.25rem;
       }
 
-      #pureLatexFromPhysicalKeys {
+      #inputMirror {
         position: absolute;
         left: 0;
         top: 0;
@@ -517,11 +498,17 @@
       #inputToParse {
         width: 300px;
       }
+
+      kbd {
+        border: 2px solid gray;
+        font-size: 1rem;
+        padding: 2px;
+      }
     </style>
   </head>
   <body class="dark">
     <h1>MathKeyboardEngine + KaTeX</h1>
-    <div id="pureLatexFromPhysicalKeys"></div>
+    <div id="inputMirror"></div>
     <div id="typesetEditModeLatex"></div>
     <div id="viewModeLatex"></div>
     <i>Example keys - to be styled - to help you design your virtual math keyboard</i>
@@ -640,14 +627,12 @@
       <div id="infty"></div>
     </div>
     <p>
-      Note: if you have a physical keyboard attached, you can use that too.<br />
-      Use a backslash for pure LaTeX commands.<br />
+      Note: if you have a physical keyboard attached, you can use that too. For example, try <kbd>^</kbd>, <kbd>*</kbd>, <kbd>(</kbd> and <kbd>/</kbd>.<br />
       Use Shift + Left for selection mode (or use the blue key).
     </p>
     
     <h2>Experimental: parseLatex</h2>
-    <button id="parseButton" style="display: none" >Parse</button>
-    <input id="inputToParse" type="text" placeholder="Type or paste..." class="disable-physical-keypress-math-input-when-focused"  />
+    <input id="inputToParse" type="text" placeholder="Type or paste + press Enter" class="disable-physical-keypress-math-input-when-focused" />
     
     <div class="footer">
       <div>View on Github</div>

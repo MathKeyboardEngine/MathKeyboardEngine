@@ -108,8 +108,12 @@ describe(parseLatex.name, () => {
     String.raw`\pi`,
     String.raw`\left{`,
     String.raw`\left\{`,
+    String.raw`\right}`,
+    String.raw`\right\}`,
     String.raw`\right|`,
+    String.raw`\right\|`,
     String.raw`\right]`,
+    String.raw`\right\]`,
     String.raw`\left(`,
     String.raw`\right)`,
   ])
