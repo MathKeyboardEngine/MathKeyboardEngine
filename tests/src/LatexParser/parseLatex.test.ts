@@ -1,13 +1,15 @@
 import { describe } from 'mocha';
 import { expect, assert } from 'chai';
-import { insert, LatexConfiguration, DigitNode, parseLatex, insertWithEncapsulateCurrent, DescendingBranchingNode, StandardLeafNode, DecimalSeparatorNode, StandardBranchingNode, BranchingNode, AscendingBranchingNode, MatrixNode } from '../../../src/x';
+import { insert, LatexConfiguration, DigitNode, parseLatex, insertWithEncapsulateCurrent, DescendingBranchingNode, StandardLeafNode, DecimalSeparatorNode, StandardBranchingNode, BranchingNode, AscendingBranchingNode, MatrixNode, RoundBracketsNode, getViewModeLatex } from '../../../src/x';
 import { expectViewModeLatex } from '../../helpers/expectLatex';
 import { LatexParserConfiguration } from '../../../src/LatexParser/LatexParserConfiguration';
+import { nameof } from '../../helpers/nameof';
 
 describe(parseLatex.name, () => {
   const CONFIG = new LatexConfiguration();
   const PARSERCONFIG = new LatexParserConfiguration();
   PARSERCONFIG.descendingBranchingNodeSlashCommandsWithTwoPairsOfBrackets = [String.raw`\frac{}{}`, String.raw`\binom{}{}`, String.raw`sqrt[]{}` ];
+  PARSERCONFIG.useRoundBracketsNode = false;
 
   for(const testData of [ 
     { input: '', expected: '⬚'},
@@ -326,21 +328,38 @@ describe(parseLatex.name, () => {
   it(String.raw`parses \begin{cases} and \text{if }`, () => {
     // Arrange
     const latex = String.raw`x=\begin{cases}a & \text{if }b \\ c & \text{if }d\end{cases}`
-      // Act
-      const k = parseLatex(latex, CONFIG, PARSERCONFIG);
-      // Assert
-      const nodes = k.syntaxTreeRoot.nodes;
-      expect(nodes.length).to.equal(3);
-      assert.isTrue(nodes[2] instanceof MatrixNode);
-      const matrixNode = nodes[2] as MatrixNode;
-      expect(matrixNode.placeholders.length).to.equal(4);
-      const placeholder1 = matrixNode.placeholders[1];
-      expect(placeholder1.nodes.length).to.equal(2);
-      expectViewModeLatex(String.raw`\text{if }`, placeholder1.nodes[0]);
-      expectViewModeLatex(latex, k);
+    // Act
+    const k = parseLatex(latex, CONFIG, PARSERCONFIG);
+    // Assert
+    const nodes = k.syntaxTreeRoot.nodes;
+    expect(nodes.length).to.equal(3);
+    assert.isTrue(nodes[2] instanceof MatrixNode);
+    const matrixNode = nodes[2] as MatrixNode;
+    expect(matrixNode.placeholders.length).to.equal(4);
+    const placeholder1 = matrixNode.placeholders[1];
+    expect(placeholder1.nodes.length).to.equal(2);
+    expectViewModeLatex(String.raw`\text{if }`, placeholder1.nodes[0]);
+    expectViewModeLatex(latex, k);
   });
 
   it(String.raw`throws on \begin{__} where __ does not end with the word 'matrix' or 'cases'`, () => {
     expect(() => parseLatex(String.raw`\begin{test}12\\34\end{test}`, CONFIG, PARSERCONFIG)).to.throw();
-  })
+  });
+
+  for(const latex of ['(x-1)', String.raw`\left(x-1\right)`]) {
+    it(String.raw`Setting: ${nameof<LatexParserConfiguration>('useRoundBracketsNode')} = true`, () => {
+      // Arrange
+      const myParserConfig = new LatexParserConfiguration();
+      myParserConfig.useRoundBracketsNode = true;
+      // Act
+      const k = parseLatex(latex, CONFIG, myParserConfig);
+      // Assert
+      const nodes = k.syntaxTreeRoot.nodes;
+      expect(nodes.length).to.equal(1);
+      assert.isTrue(nodes[0] instanceof RoundBracketsNode);
+      const roundBracketsNode = nodes[0] as RoundBracketsNode;
+      expectViewModeLatex(latex, k);
+      expect(roundBracketsNode.placeholders[0].nodes.length).to.equal(3);
+    });
+  }
 });

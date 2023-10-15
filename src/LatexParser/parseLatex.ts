@@ -14,6 +14,7 @@ import { insertWithEncapsulateCurrent } from '../../src/KeyboardEngine/Functions
 import { moveRight } from '../../src/KeyboardEngine/Functions/Navigation/moveRight';
 import { getBracketPairContent } from './helpers/getBracketPairContent';
 import { MatrixNode } from '../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MatrixNode';
+import { RoundBracketsNode } from '../../src/SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
 
 export function parseLatex(latex : string | null, latexConfiguration: LatexConfiguration, latexParserConfiguration : LatexParserConfiguration): KeyboardMemory {
   let x = latex?.trim();
@@ -61,6 +62,19 @@ export function parseLatex(latex : string | null, latexConfiguration: LatexConfi
       }
       const matrixEnd = String.raw`\end{${matrixTypeAndRest.content}}`;
       x = x.slice(x.indexOf(matrixEnd) + matrixEnd.length);
+      continue;
+    }
+
+    if (latexParserConfiguration.useRoundBracketsNode && (x[0] =='(' || x.startsWith(String.raw`\left(`) )) {
+      const opening = x[0] =='(' ? '(' : String.raw`\left(`;
+      const closing = x[0] =='(' ? ')' : String.raw`\right)`;
+      const bracketsContentAndRest = getBracketPairContent(opening, closing, x);
+      const bracketsNode = new RoundBracketsNode(opening, closing);
+      insert(k, bracketsNode);
+      const bracketsContentNodes = parseLatex(bracketsContentAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
+      insert(k, bracketsContentNodes);
+      k.current = bracketsNode;
+      x = bracketsContentAndRest.rest;
       continue;
     }
 
