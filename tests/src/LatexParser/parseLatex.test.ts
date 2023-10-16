@@ -1,6 +1,6 @@
 import { describe } from 'mocha';
 import { expect, assert } from 'chai';
-import { insert, LatexConfiguration, DigitNode, parseLatex, insertWithEncapsulateCurrent, DescendingBranchingNode, StandardLeafNode, DecimalSeparatorNode, StandardBranchingNode, BranchingNode, AscendingBranchingNode, MatrixNode, RoundBracketsNode } from '../../../src/x';
+import { insert, LatexConfiguration, DigitNode, parseLatex, insertWithEncapsulateCurrent, DescendingBranchingNode, StandardLeafNode, DecimalSeparatorNode, StandardBranchingNode, BranchingNode, AscendingBranchingNode, MatrixNode, RoundBracketsNode, LeafNode } from '../../../src/x';
 import { expectViewModeLatex } from '../../helpers/expectLatex';
 import { LatexParserConfiguration } from '../../../src/LatexParser/LatexParserConfiguration';
 import { nameof } from '../../helpers/nameof';
@@ -8,8 +8,7 @@ import { nameof } from '../../helpers/nameof';
 describe(parseLatex.name, () => {
   const CONFIG = new LatexConfiguration();
   const PARSERCONFIG = new LatexParserConfiguration();
-  PARSERCONFIG.descendingBranchingNodeSlashCommandsWithTwoPairsOfBrackets = [String.raw`\frac{}{}`, String.raw`\binom{}{}`, String.raw`sqrt[]{}` ];
-  PARSERCONFIG.useRoundBracketsNode = false;
+  PARSERCONFIG.preferRoundBracketsNode = false;
 
   for(const testData of [ 
     { input: '', expected: '⬚'},
@@ -89,15 +88,11 @@ describe(parseLatex.name, () => {
   });
 
   it('allows commands with bracket-only difference', () => {
-    // Arrange
-    const myParserConfig = new LatexParserConfiguration();
-    myParserConfig.descendingBranchingNodeSlashCommandsWithTwoPairsOfBrackets = [ String.raw`\sqrt[]{}`, String.raw`\sqrt{}{}`, String.raw`\sqrt[][]`, String.raw`\sqrt{}[]`];
-
     // Act & Assert
-    expectViewModeLatex(String.raw`\sqrt[3]{27}`, parseLatex(String.raw`\sqrt[3]{27}`, CONFIG, myParserConfig));
-    expectViewModeLatex(String.raw`\sqrt{3}{27}`, parseLatex(String.raw`\sqrt{3}{27}`, CONFIG, myParserConfig));
-    expectViewModeLatex(String.raw`\sqrt[3][27]`, parseLatex(String.raw`\sqrt[3][27]`, CONFIG, myParserConfig));
-    expectViewModeLatex(String.raw`\sqrt{3}[27]`, parseLatex(String.raw`\sqrt{3}[27]`, CONFIG, myParserConfig));
+    expectViewModeLatex(String.raw`\sqrt[3]{27}`, parseLatex(String.raw`\sqrt[3]{27}`, CONFIG, PARSERCONFIG));
+    expectViewModeLatex(String.raw`\sqrt{3}{27}`, parseLatex(String.raw`\sqrt{3}{27}`, CONFIG, PARSERCONFIG));
+    expectViewModeLatex(String.raw`\sqrt[3][27]`, parseLatex(String.raw`\sqrt[3][27]`, CONFIG, PARSERCONFIG));
+    expectViewModeLatex(String.raw`\sqrt{3}[27]`, parseLatex(String.raw`\sqrt{3}[27]`, CONFIG, PARSERCONFIG));
   });
 
   it('throws on missing closing bracket', () => {
@@ -246,35 +241,38 @@ describe(parseLatex.name, () => {
     assert.isTrue(nodes[10] instanceof StandardLeafNode);
     expectViewModeLatex('=', nodes[10]);
 
-    assert.isTrue(nodes[11] instanceof AscendingBranchingNode);
-    expectViewModeLatex(String.raw`\sum_{n=0}^{\infty}`, nodes[11]);
+    assert.isTrue(nodes[11] instanceof StandardLeafNode);
+    expectViewModeLatex(String.raw`\sum`, nodes[11]);
 
-    assert.isTrue(nodes[12] instanceof DescendingBranchingNode);
-    expectViewModeLatex(String.raw`\frac{g^{n}}{n!}`, nodes[12]);
+    assert.isTrue(nodes[12] instanceof AscendingBranchingNode);
+    expectViewModeLatex(String.raw`_{n=0}^{\infty}`, nodes[12]);
 
-    assert.isTrue(nodes[13] instanceof StandardLeafNode);
-    expectViewModeLatex(String.raw`\left(`, nodes[13]);
+    assert.isTrue(nodes[13] instanceof DescendingBranchingNode);
+    expectViewModeLatex(String.raw`\frac{g^{n}}{n!}`, nodes[13]);
 
     assert.isTrue(nodes[14] instanceof StandardLeafNode);
-    expectViewModeLatex(String.raw`\int`, nodes[14]);
+    expectViewModeLatex(String.raw`\left(`, nodes[14]);
 
-    assert.isTrue(nodes[15] instanceof AscendingBranchingNode);
-    expectViewModeLatex('d^{4}', nodes[15]);
+    assert.isTrue(nodes[15] instanceof StandardLeafNode);
+    expectViewModeLatex(String.raw`\int`, nodes[15]);
 
-    assert.isTrue(nodes[16] instanceof StandardLeafNode);
-    expectViewModeLatex('x', nodes[16]);
+    assert.isTrue(nodes[16] instanceof AscendingBranchingNode);
+    expectViewModeLatex('d^{4}', nodes[16]);
 
     assert.isTrue(nodes[17] instanceof StandardLeafNode);
-    expectViewModeLatex(String.raw`\phi`, nodes[17]);
+    expectViewModeLatex('x', nodes[17]);
 
-    assert.isTrue(nodes[18] instanceof StandardBranchingNode);
-    expectViewModeLatex(String.raw`\bar{\psi}`, nodes[18]);
+    assert.isTrue(nodes[18] instanceof StandardLeafNode);
+    expectViewModeLatex(String.raw`\phi`, nodes[18]);
+
+    assert.isTrue(nodes[19] instanceof StandardBranchingNode);
+    expectViewModeLatex(String.raw`\bar{\psi}`, nodes[19]);
     
-    assert.isTrue(nodes[19] instanceof StandardLeafNode);
-    expectViewModeLatex(String.raw`\psi`, nodes[19]);
+    assert.isTrue(nodes[20] instanceof StandardLeafNode);
+    expectViewModeLatex(String.raw`\psi`, nodes[20]);
 
-    assert.isTrue(nodes[20] instanceof AscendingBranchingNode);
-    expectViewModeLatex(String.raw`\right)^{n}`, nodes[20]);
+    assert.isTrue(nodes[21] instanceof AscendingBranchingNode);
+    expectViewModeLatex(String.raw`\right)^{n}`, nodes[21]);
 
     expectViewModeLatex(latex, k);
   });
@@ -347,10 +345,10 @@ describe(parseLatex.name, () => {
   });
 
   for(const latex of ['(x-1)', String.raw`\left(x-1\right)`]) {
-    it(String.raw`Setting: ${nameof<LatexParserConfiguration>('useRoundBracketsNode')} = true`, () => {
+    it(String.raw`Setting: ${nameof<LatexParserConfiguration>('preferRoundBracketsNode')} = true`, () => {
       // Arrange
       const myParserConfig = new LatexParserConfiguration();
-      myParserConfig.useRoundBracketsNode = true;
+      myParserConfig.preferRoundBracketsNode = true;
       // Act
       const k = parseLatex(latex, CONFIG, myParserConfig);
       // Assert
@@ -362,4 +360,42 @@ describe(parseLatex.name, () => {
       expect(roundBracketsNode.placeholders[0].nodes.length).to.equal(3);
     });
   }
+
+  it(String.raw`parses \lim_{x\rightarrow\infty}x as two (outer) nodes`, () => {
+    // Arrange
+    const latex = String.raw`\lim_{x\rightarrow\infty}x`;
+    // Act
+    const k = parseLatex(latex, CONFIG, PARSERCONFIG);
+    // Assert
+    const nodes = k.syntaxTreeRoot.nodes;
+    expect(nodes.length).to.equal(2);
+
+    assert.isTrue(nodes[0] instanceof DescendingBranchingNode);
+    const limitNode = nodes[0] as DescendingBranchingNode;
+    expect(limitNode.placeholders.length).to.equal(2);
+
+    assert.isTrue(nodes[1] instanceof StandardLeafNode);
+
+    expectViewModeLatex(latex, k);
+  });
+  
+
+  it(String.raw`parses \sum_{0}^{\infty} as: ${LeafNode.name} \sum, followed by an ${AscendingBranchingNode.name} _{}^{} with 2 ${LeafNode.name}s in it`, () => {
+    // Arrange
+    const latex = String.raw`\sum_{0}^{\infty}`;
+    // Act
+    const k = parseLatex(latex, CONFIG, PARSERCONFIG);
+    // Assert
+    const nodes = k.syntaxTreeRoot.nodes;
+    expect(nodes.length).to.equal(2);
+    assert.isTrue(nodes[0] instanceof StandardLeafNode);
+    expectViewModeLatex(String.raw`\sum`, nodes[0]);
+    assert.isTrue(nodes[1] instanceof AscendingBranchingNode);
+    const sumNode = nodes[1] as AscendingBranchingNode;
+    expectViewModeLatex(String.raw`_{0}^{\infty}`, nodes[1]);
+    expect(sumNode.placeholders.length).to.equal(2);
+    assert.isTrue(sumNode.placeholders[0].nodes[0] instanceof DigitNode);
+    assert.isTrue(sumNode.placeholders[1].nodes[0] instanceof StandardLeafNode);
+    expectViewModeLatex(latex, k);
+  });
 });

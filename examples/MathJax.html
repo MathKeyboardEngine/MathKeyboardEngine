@@ -376,12 +376,8 @@
       }
     
       var parserConfig = new mke.LatexParserConfiguration();
-      parserConfig.descendingBranchingNodeSlashCommandsWithTwoPairsOfBrackets = [
-        String.raw`\frac{}{}`, 
-        String.raw`\binom{}{}`, 
-        String.raw`sqrt[]{}`
-      ];
-      console.log(inputToParse);
+      parserConfig.preferRoundBracketsNode = true;
+      parserConfig.decimalSeparator = '.';
       inputToParse.onkeydown = (e) => {
         if (e.code == 'Enter') {
           const nodes = mke.parseLatex(inputToParse.value, latexConfiguration, parserConfig).syntaxTreeRoot.nodes;

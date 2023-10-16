@@ -65,12 +65,12 @@ export function parseLatex(latex : string | null, latexConfiguration: LatexConfi
       continue;
     }
 
-    if (latexParserConfiguration.useRoundBracketsNode && (x[0] =='(' || x.startsWith(String.raw`\left(`) )) {
+    if (latexParserConfiguration.preferRoundBracketsNode && (x[0] =='(' || x.startsWith(String.raw`\left(`) )) {
       const opening = x[0] =='(' ? '(' : String.raw`\left(`;
       const closing = x[0] =='(' ? ')' : String.raw`\right)`;
-      const bracketsContentAndRest = getBracketPairContent(opening, closing, x);
       const bracketsNode = new RoundBracketsNode(opening, closing);
       insert(k, bracketsNode);
+      const bracketsContentAndRest = getBracketPairContent(opening, closing, x);
       const bracketsContentNodes = parseLatex(bracketsContentAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
       insert(k, bracketsContentNodes);
       k.current = bracketsNode;
@@ -80,42 +80,9 @@ export function parseLatex(latex : string | null, latexConfiguration: LatexConfi
 
     if (x.startsWith('\\')) {
       for (const prefix of ['\\left\\', '\\right\\', String.raw`\left`, String.raw`\right`]) {
-        if (x.startsWith(prefix)) {
+        if (x.startsWith(prefix) && !isLetter(x.slice(prefix.length)[0])) {
           insert(k, new StandardLeafNode(prefix + x[prefix.length]));
           x = x.slice(prefix.length + 1);
-          handled = true;
-          break;
-        }
-      }
-      if (handled) {
-        continue;
-      }
-
-      for (const commandWithBrackets of latexParserConfiguration.descendingBranchingNodeSlashCommandsWithTwoPairsOfBrackets) {
-        const opening = commandWithBrackets.slice(0, -3);
-        const closingBracket1 = commandWithBrackets.slice(-3, -2);
-        const openingBracket2 = commandWithBrackets.slice(-2, -1);
-        const closingBracket2 = commandWithBrackets.slice(-1);
-
-        if (x.startsWith(opening)) {
-          const numeratorAndRest = getBracketPairContent(opening, closingBracket1, x);
-          if (numeratorAndRest.rest[0] != openingBracket2) {
-            continue;
-          }
-          
-          const node = new DescendingBranchingNode(opening, closingBracket1 + openingBracket2, closingBracket2);
-          insert(k, node);
-
-          const numeratorNodes = parseLatex(numeratorAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
-          insert(k, numeratorNodes);
-          moveRight(k);
-  
-          const denominatorAndRest = getBracketPairContent(openingBracket2, closingBracket2, numeratorAndRest.rest);
-          const denominatorNodes = parseLatex(denominatorAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
-          insert(k, denominatorNodes);
-          
-          k.current = node;
-          x = denominatorAndRest.rest;
           handled = true;
           break;
         }
@@ -143,16 +110,28 @@ export function parseLatex(latex : string | null, latexConfiguration: LatexConfi
           const character = x[i];
           if (isLetter(character)) {
             command += character;
-          } else if (character == '{') {
-            command += character;
-            const opening = command;
-            const bracketPairContentAndRest = getBracketPairContent(opening, '}', x);
-            const placeholderContent = parseLatex(bracketPairContentAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
-            const branchingNode = new StandardBranchingNode(opening, '}');
-            insert(k, branchingNode);
-            insert(k, placeholderContent);
-            k.current = branchingNode;
-            x = bracketPairContentAndRest.rest;
+          } else if (character == '{' || character == '[') {
+            const opening = command + character;
+            const closingBracket1 = character == '{' ? '}' : ']';
+            const bracketPair1ContentAndRest = getBracketPairContent(opening, closingBracket1, x);
+            const placeholder1Nodes = parseLatex(bracketPair1ContentAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
+            if (bracketPair1ContentAndRest.rest[0] == '{') {
+              const multiPlaceholderBranchingNode = new DescendingBranchingNode(opening, closingBracket1 + '{', '}');
+              insert(k, multiPlaceholderBranchingNode);
+              insert(k, placeholder1Nodes);
+              moveRight(k);
+              const bracketPair2ContentAndRest = getBracketPairContent('{', '}', bracketPair1ContentAndRest.rest);
+              const placeholder2Nodes = parseLatex(bracketPair2ContentAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
+              insert(k, placeholder2Nodes);
+              k.current = multiPlaceholderBranchingNode;
+              x = bracketPair2ContentAndRest.rest;
+            } else {
+              const singlePlaceholderBranchingNode = new StandardBranchingNode(opening, closingBracket1);
+              insert(k, singlePlaceholderBranchingNode);
+              insert(k, placeholder1Nodes);
+              k.current = singlePlaceholderBranchingNode;
+              x = bracketPair1ContentAndRest.rest;
+            }
             handled = true;
             break;
           }
@@ -172,6 +151,25 @@ export function parseLatex(latex : string | null, latexConfiguration: LatexConfi
       continue;
     }
 
+    if (x.startsWith('_{')) {
+      const opening = '_{';
+      const closingBracket1 = '}';
+      const bracketPair1ContentAndRest = getBracketPairContent(opening, closingBracket1, x);
+      if (bracketPair1ContentAndRest.rest.startsWith('^{')) {
+        const ascendingBranchingNode = new AscendingBranchingNode(opening, '}^{', '}');
+        insert(k, ascendingBranchingNode);
+        const placeholder1Nodes = parseLatex(bracketPair1ContentAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
+        insert(k, placeholder1Nodes);
+        moveRight(k);
+        const bracketPair2ContentAndRest = getBracketPairContent('^{', '}', bracketPair1ContentAndRest.rest);
+        const placeholder2Nodes = parseLatex(bracketPair2ContentAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
+        insert(k, placeholder2Nodes);
+        k.current = ascendingBranchingNode;
+        x = bracketPair2ContentAndRest.rest;
+        continue;
+      }
+    }
+    
     const various : [string, () => BranchingNode][] = [
       ['^{', () => new AscendingBranchingNode('', '^{', '}')],
       ['_{', () => new DescendingBranchingNode('', '_{', '}')]
