@@ -6,9 +6,6 @@ import { LatexParserConfiguration } from '../../../src/LatexParser/LatexParserCo
 import { nameof } from '../../helpers/nameof';
 
 describe(parseLatex.name, () => {
-  const PARSERCONFIG = new LatexParserConfiguration();
-  PARSERCONFIG.preferRoundBracketsNode = false;
-
   for(const testData of [ 
     { input: '', expected: '⬚'},
     { input: null, expected: '⬚'},
@@ -16,7 +13,7 @@ describe(parseLatex.name, () => {
    ])
   it(`should return EditMode Latex '${testData.expected}' for input '${testData.input}'`, () => {
     // Act
-    const k = parseLatex(testData.input, PARSERCONFIG);
+    const k = parseLatex(testData.input);
     // Assert
     expectViewModeLatex(testData.expected, k);
   });
@@ -65,7 +62,7 @@ describe(parseLatex.name, () => {
    ])
   it(`should return ViewMode Latex '${testData}' for input '${testData}'`, () => {
     // Act
-    const k = parseLatex(testData, PARSERCONFIG);
+    const k = parseLatex(testData);
     // Assert
     expectViewModeLatex(testData, k);
   });
@@ -88,14 +85,14 @@ describe(parseLatex.name, () => {
 
   it('allows commands with bracket-only difference', () => {
     // Act & Assert
-    expectViewModeLatex(String.raw`\sqrt[3]{27}`, parseLatex(String.raw`\sqrt[3]{27}`, PARSERCONFIG));
-    expectViewModeLatex(String.raw`\sqrt{3}{27}`, parseLatex(String.raw`\sqrt{3}{27}`, PARSERCONFIG));
-    expectViewModeLatex(String.raw`\sqrt[3][27]`, parseLatex(String.raw`\sqrt[3][27]`, PARSERCONFIG));
-    expectViewModeLatex(String.raw`\sqrt{3}[27]`, parseLatex(String.raw`\sqrt{3}[27]`, PARSERCONFIG));
+    expectViewModeLatex(String.raw`\sqrt[3]{27}`, parseLatex(String.raw`\sqrt[3]{27}`));
+    expectViewModeLatex(String.raw`\sqrt{3}{27}`, parseLatex(String.raw`\sqrt{3}{27}`));
+    expectViewModeLatex(String.raw`\sqrt[3][27]`, parseLatex(String.raw`\sqrt[3][27]`));
+    expectViewModeLatex(String.raw`\sqrt{3}[27]`, parseLatex(String.raw`\sqrt{3}[27]`));
   });
 
   it('throws on missing closing bracket', () => {
-    expect(() => parseLatex(String.raw`\frac{1}{2`, PARSERCONFIG)).to.throw();
+    expect(() => parseLatex(String.raw`\frac{1}{2`)).to.throw();
   })
 
   for(const testData of [
@@ -114,8 +111,10 @@ describe(parseLatex.name, () => {
     String.raw`\right)`,
   ])
   it(String.raw`inserts ${testData} as ${StandardLeafNode.name}`, () => {
+    const myParserConfig = new LatexParserConfiguration();
+    myParserConfig.preferRoundBracketsNode = false;
     // Act
-    const k = parseLatex(testData, PARSERCONFIG);
+    const k = parseLatex(testData, myParserConfig);
     // Assert
     const nodes = k.syntaxTreeRoot.nodes;
     expect(nodes.length).to.equal(1);
@@ -126,7 +125,7 @@ describe(parseLatex.name, () => {
   for (const testData of [ String.raw`\sin6`, String.raw`\sin 6`]) {
     it(String.raw`interprets ${testData} as two LeafNodes`, () => {
       // Act
-      const k = parseLatex(testData, PARSERCONFIG);   
+      const k = parseLatex(testData);   
       // Assert 
       const nodes = k.syntaxTreeRoot.nodes;
       expect(nodes.length).to.equal(2);
@@ -140,7 +139,7 @@ describe(parseLatex.name, () => {
     // Arrange
     const latex = String.raw`\sin{6}`;
     // Act
-    const k = parseLatex(latex, PARSERCONFIG);   
+    const k = parseLatex(latex);   
     // Assert 
     const nodes = k.syntaxTreeRoot.nodes;
     expect(nodes.length).to.equal(1);
@@ -155,10 +154,9 @@ describe(parseLatex.name, () => {
   for (const separator of [ '.','{,}']) {
     it(String.raw`understands the decimal separator ${separator} by default`, () => {
       // Arrange
-      const myParserConfig = new LatexParserConfiguration();
       const latex = `1${separator}2`;
       // Act
-      const k = parseLatex(latex, myParserConfig);
+      const k = parseLatex(latex);
       // Assert
       const nodes = k.syntaxTreeRoot.nodes;
       expect(nodes.length).to.equal(3);
@@ -189,7 +187,7 @@ describe(parseLatex.name, () => {
     // Arrange
     const latex = String.raw`a_{12}\times a_{34}`;
     // Act
-    const k = parseLatex(latex, PARSERCONFIG);   
+    const k = parseLatex(latex);   
     // Assert 
     const nodes = k.syntaxTreeRoot.nodes;
     expect(nodes.length).to.equal(3);
@@ -217,7 +215,9 @@ describe(parseLatex.name, () => {
     // Arrange
     const latex = String.raw`\exp\left[\int d^{4}xg\phi\bar{\psi}\psi\right]=\sum_{n=0}^{\infty}\frac{g^{n}}{n!}\left(\int d^{4}x\phi\bar{\psi}\psi\right)^{n}`;
     // Act
-    const k = parseLatex(latex, PARSERCONFIG);   
+    const myParserConfig = new LatexParserConfiguration();
+    myParserConfig.preferRoundBracketsNode = false;
+    const k = parseLatex(latex, myParserConfig);   
     // Assert 
     const nodes = k.syntaxTreeRoot.nodes;
 
@@ -295,7 +295,7 @@ describe(parseLatex.name, () => {
       // Arrange
       const latex = String.raw`3\begin{${matrixType}}1+2 & x^{3} \\ \frac{4}{5} & x \\ \pi & x\left(x+6\right)\end{${matrixType}}=`;
       // Act
-      const k = parseLatex(latex, PARSERCONFIG);
+      const k = parseLatex(latex);
       // Assert
       const nodes = k.syntaxTreeRoot.nodes;
       expect(nodes.length).to.equal(3);
@@ -329,7 +329,7 @@ describe(parseLatex.name, () => {
       expectViewModeLatex(String.raw`\pi`, placeholder4);
 
       const placeholder5 = matrixNode.placeholders[5];
-      expect(placeholder5.nodes.length).to.equal(6);
+      expect(placeholder5.nodes.length).to.equal(2);
       expectViewModeLatex(String.raw`x\left(x+6\right)`, placeholder5);
 
       expectViewModeLatex(latex, k);
@@ -340,7 +340,7 @@ describe(parseLatex.name, () => {
     // Arrange
     const latex = String.raw`x=\begin{cases}a & \text{if }b \\ c & \text{if }d\end{cases}`
     // Act
-    const k = parseLatex(latex, PARSERCONFIG);
+    const k = parseLatex(latex);
     // Assert
     const nodes = k.syntaxTreeRoot.nodes;
     expect(nodes.length).to.equal(3);
@@ -354,7 +354,7 @@ describe(parseLatex.name, () => {
   });
 
   it(String.raw`throws on \begin{__} where __ does not end with the word 'matrix' or 'cases'`, () => {
-    expect(() => parseLatex(String.raw`\begin{test}12\\34\end{test}`, PARSERCONFIG)).to.throw();
+    expect(() => parseLatex(String.raw`\begin{test}12\\34\end{test}`)).to.throw();
   });
 
   for(const latex of ['(x-1)', String.raw`\left(x-1\right)`]) {
@@ -378,7 +378,7 @@ describe(parseLatex.name, () => {
     // Arrange
     const latex = String.raw`\lim_{x\rightarrow\infty}x`;
     // Act
-    const k = parseLatex(latex, PARSERCONFIG);
+    const k = parseLatex(latex);
     // Assert
     const nodes = k.syntaxTreeRoot.nodes;
     expect(nodes.length).to.equal(2);
@@ -397,7 +397,7 @@ describe(parseLatex.name, () => {
     // Arrange
     const latex = String.raw`\sum_{0}^{\infty}`;
     // Act
-    const k = parseLatex(latex, PARSERCONFIG);
+    const k = parseLatex(latex);
     // Assert
     const nodes = k.syntaxTreeRoot.nodes;
     expect(nodes.length).to.equal(2);

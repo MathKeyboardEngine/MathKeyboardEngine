@@ -1,5 +1,4 @@
 import { KeyboardMemory } from '../KeyboardEngine/KeyboardMemory';
-import { LatexConfiguration } from '../LatexConfiguration';
 import { isLetter } from '../helpers/stringhelpers/isLetter';
 import { LatexParserConfiguration } from './LatexParserConfiguration';
 import { insert } from '../../src/KeyboardEngine/Functions/Insertion/insert';
@@ -16,7 +15,7 @@ import { getBracketPairContent } from './helpers/getBracketPairContent';
 import { MatrixNode } from '../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MatrixNode';
 import { RoundBracketsNode } from '../../src/SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
 
-export function parseLatex(latex : string | null, latexParserConfiguration : LatexParserConfiguration): KeyboardMemory {
+export function parseLatex(latex : string | null, latexParserConfiguration : LatexParserConfiguration = new LatexParserConfiguration()): KeyboardMemory {
   if (latex == null) {
     return new KeyboardMemory();
   }

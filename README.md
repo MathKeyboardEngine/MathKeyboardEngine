@@ -20,6 +20,8 @@ Also available:
 1. Calling `getEditModeLatex()` outputs the total of LaTeX you typed, for example `\frac{3}{4}\blacksquare` (if `\blacksquare` is your cursor), which you then feed to KaTeX or MathJax for display.
 1. Calling `getViewModeLatex()` outputs the LaTeX without a cursor.
 
+Note: you can use `parseLatex(latexString)` for pre-filling the textbox or for allowing users to also use raw LaTeX commands.
+
 
 #### Let me test it now!
 
