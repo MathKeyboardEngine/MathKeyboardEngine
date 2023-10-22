@@ -387,7 +387,7 @@
       parserConfig.decimalSeparatorSetting = getDecimalSeparatorPreference;
       inputToParse.onkeydown = (e) => {
         if (e.code == 'Enter') {
-          const nodes = mke.parseLatex(inputToParse.value, latexConfiguration, parserConfig).syntaxTreeRoot.nodes;
+          const nodes = mke.parseLatex(inputToParse.value, parserConfig).syntaxTreeRoot.nodes;
           mke.insert(keyboardMemory, nodes);
           displayResult();
           inputToParse.value = '';
@@ -397,7 +397,6 @@
         }
       };
       // === Experimental feature: parsing a LaTeX string END ===
-
     </script>
     <style>
       :root {
@@ -628,7 +627,7 @@
       Use Shift + Left for selection mode (or use the blue key).
     </p>
     
-    <h2>Experimental: parseLatex</h2>
+    <h2>Parse a LaTeX string</h2>
     <input id="inputToParse" type="text" placeholder="Type or paste + press Enter" class="disable-physical-keypress-math-input-when-focused" />
     
     <div class="footer">

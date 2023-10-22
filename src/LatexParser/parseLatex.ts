@@ -16,7 +16,7 @@ import { getBracketPairContent } from './helpers/getBracketPairContent';
 import { MatrixNode } from '../../src/SyntaxTreeComponents/Nodes/BranchingNodes/MatrixNode';
 import { RoundBracketsNode } from '../../src/SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
 
-export function parseLatex(latex : string | null, latexConfiguration: LatexConfiguration, latexParserConfiguration : LatexParserConfiguration): KeyboardMemory {
+export function parseLatex(latex : string | null, latexParserConfiguration : LatexParserConfiguration): KeyboardMemory {
   if (latex == null) {
     return new KeyboardMemory();
   }
@@ -55,7 +55,7 @@ export function parseLatex(latex : string | null, latexConfiguration: LatexConfi
       insert(k, new MatrixNode(matrixTypeAndRest.content, lines[0].split('&').length, lines.length));
       for (const line of lines) {
         for (const latex of line.split('&')) {
-          const nodes = parseLatex(latex, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
+          const nodes = parseLatex(latex, latexParserConfiguration).syntaxTreeRoot.nodes;
           insert(k, nodes);
           moveRight(k);
         }
@@ -71,7 +71,7 @@ export function parseLatex(latex : string | null, latexConfiguration: LatexConfi
       const bracketsNode = new RoundBracketsNode(opening, closing);
       insert(k, bracketsNode);
       const bracketsContentAndRest = getBracketPairContent(opening, closing, x);
-      const bracketsContentNodes = parseLatex(bracketsContentAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
+      const bracketsContentNodes = parseLatex(bracketsContentAndRest.content, latexParserConfiguration).syntaxTreeRoot.nodes;
       insert(k, bracketsContentNodes);
       k.current = bracketsNode;
       x = bracketsContentAndRest.rest;
@@ -114,14 +114,14 @@ export function parseLatex(latex : string | null, latexConfiguration: LatexConfi
             const opening = command + character;
             const closingBracket1 = character == '{' ? '}' : ']';
             const bracketPair1ContentAndRest = getBracketPairContent(opening, closingBracket1, x);
-            const placeholder1Nodes = parseLatex(bracketPair1ContentAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
+            const placeholder1Nodes = parseLatex(bracketPair1ContentAndRest.content, latexParserConfiguration).syntaxTreeRoot.nodes;
             if (bracketPair1ContentAndRest.rest[0] == '{') {
               const multiPlaceholderBranchingNode = new DescendingBranchingNode(opening, closingBracket1 + '{', '}');
               insert(k, multiPlaceholderBranchingNode);
               insert(k, placeholder1Nodes);
               moveRight(k);
               const bracketPair2ContentAndRest = getBracketPairContent('{', '}', bracketPair1ContentAndRest.rest);
-              const placeholder2Nodes = parseLatex(bracketPair2ContentAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
+              const placeholder2Nodes = parseLatex(bracketPair2ContentAndRest.content, latexParserConfiguration).syntaxTreeRoot.nodes;
               insert(k, placeholder2Nodes);
               k.current = multiPlaceholderBranchingNode;
               x = bracketPair2ContentAndRest.rest;
@@ -158,11 +158,11 @@ export function parseLatex(latex : string | null, latexConfiguration: LatexConfi
       if (bracketPair1ContentAndRest.rest.startsWith('^{')) {
         const ascendingBranchingNode = new AscendingBranchingNode(opening, '}^{', '}');
         insert(k, ascendingBranchingNode);
-        const placeholder1Nodes = parseLatex(bracketPair1ContentAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
+        const placeholder1Nodes = parseLatex(bracketPair1ContentAndRest.content, latexParserConfiguration).syntaxTreeRoot.nodes;
         insert(k, placeholder1Nodes);
         moveRight(k);
         const bracketPair2ContentAndRest = getBracketPairContent('^{', '}', bracketPair1ContentAndRest.rest);
-        const placeholder2Nodes = parseLatex(bracketPair2ContentAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
+        const placeholder2Nodes = parseLatex(bracketPair2ContentAndRest.content, latexParserConfiguration).syntaxTreeRoot.nodes;
         insert(k, placeholder2Nodes);
         k.current = ascendingBranchingNode;
         x = bracketPair2ContentAndRest.rest;
@@ -180,7 +180,7 @@ export function parseLatex(latex : string | null, latexConfiguration: LatexConfi
         const node = opening_getTreeNode[1]();
         insertWithEncapsulateCurrent(k, node);
         const bracketPairContentAndRest = getBracketPairContent(opening, '}', x);
-        const secondPlaceholderNodes = parseLatex(bracketPairContentAndRest.content, latexConfiguration, latexParserConfiguration).syntaxTreeRoot.nodes;
+        const secondPlaceholderNodes = parseLatex(bracketPairContentAndRest.content, latexParserConfiguration).syntaxTreeRoot.nodes;
         insert(k, secondPlaceholderNodes);      
         k.current = node;
         x = bracketPairContentAndRest.rest;

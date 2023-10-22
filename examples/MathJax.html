@@ -70,7 +70,8 @@
         }
         displayResult();
       };
-      const getDecimalSeparatorNode = () => new mke.DecimalSeparatorNode(() => (decimalSeparatorTypeElement.innerText == 'decimal comma' ? '{,}' : '.'));
+      const getDecimalSeparatorPreference = () => (decimalSeparatorTypeElement.innerText == 'decimal comma' ? '{,}' : '.');
+      const getDecimalSeparatorNode = () => new mke.DecimalSeparatorNode(getDecimalSeparatorPreference);
       registerNodeKey('decimalSeparator', getDecimalSeparatorNode);
       registerNodeKey('equal', () => new mke.StandardLeafNode('='));
       registerNodeKey('notEqual', () => new mke.StandardLeafNode(String.raw`\neq`));
@@ -372,15 +373,15 @@
       inputToParse.onpaste =
       () => {
         const value = inputToParse.value;
-        inputMirror.innerText = value == '' ? '' : inputToParse.value + ' (press Enter)';
+        inputMirror.innerText = value == '' ? '' : inputToParse.value + ' ----> press Enter';
       }
     
       var parserConfig = new mke.LatexParserConfiguration();
       parserConfig.preferRoundBracketsNode = true;
-      parserConfig.decimalSeparator = '.';
+      parserConfig.decimalSeparatorSetting = getDecimalSeparatorPreference;
       inputToParse.onkeydown = (e) => {
         if (e.code == 'Enter') {
-          const nodes = mke.parseLatex(inputToParse.value, latexConfiguration, parserConfig).syntaxTreeRoot.nodes;
+          const nodes = mke.parseLatex(inputToParse.value, parserConfig).syntaxTreeRoot.nodes;
           mke.insert(keyboardMemory, nodes);
           displayResult();
           inputToParse.value = '';
@@ -620,7 +621,7 @@
       Use Shift + Left for selection mode (or use the blue key).
     </p>
     
-    <h2>Experimental: parseLatex</h2>
+    <h2>Parse a LaTeX string</h2>
     <input id="inputToParse" type="text" placeholder="Type or paste + press Enter" class="disable-physical-keypress-math-input-when-focused" />
     
     <div class="footer">
