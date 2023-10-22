@@ -1,8 +1,8 @@
-## [1.1.0-alpha.x] 2023-10-15
+## [1.1.0] 2023-10-22
 
 ## Added
 
-- Experimental: `parseLatex`. Developing this feature - parsing a LaTeX string for editing by MathKeyboardEngine - started after a [question thread](https://github.com/orgs/MathKeyboardEngine/discussions/1) was opened by [chengyi](https://github.com/WCY91).
+- `parseLatex`. Developing this feature - parsing a LaTeX string for editing by MathKeyboardEngine - started after a [question thread](https://github.com/orgs/MathKeyboardEngine/discussions/1) was opened by [chengyi](https://github.com/WCY91).
 - `insert` previously only accepted a single `TreeNode`, but it can now handle a `TreeNode[]` too.
 
 ## [1.0.1] 2023-02-08
