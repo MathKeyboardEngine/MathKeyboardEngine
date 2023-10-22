@@ -378,7 +378,7 @@
     
       var parserConfig = new mke.LatexParserConfiguration();
       parserConfig.preferRoundBracketsNode = true;
-      parserConfig.decimalSeparatorSetting = getDecimalSeparatorPreference;
+      parserConfig.preferredDecimalSeparator = getDecimalSeparatorPreference;
       inputToParse.onkeydown = (e) => {
         if (e.code == 'Enter') {
           const nodes = mke.parseLatex(inputToParse.value, parserConfig).syntaxTreeRoot.nodes;

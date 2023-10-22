@@ -1,6 +1,6 @@
 export class LatexParserConfiguration {
   additionalDigits: string[] | null = null;
   decimalSeparatorMatchers : string[] = [ '.', '{,}' ];
-  decimalSeparatorSetting? : (() => string) | string | null;
+  preferredDecimalSeparator? : (() => string) | string | null;
   preferRoundBracketsNode = true;
 }

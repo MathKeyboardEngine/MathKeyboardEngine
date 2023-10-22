@@ -32,7 +32,7 @@ export function parseLatex(latex : string | null, latexParserConfiguration : Lat
 
     const decimalSeparatorMatch = latexParserConfiguration.decimalSeparatorMatchers.find(pattern => x.startsWith(pattern));
     if (decimalSeparatorMatch != null) {
-      insert(k, new DecimalSeparatorNode(latexParserConfiguration.decimalSeparatorSetting ?? decimalSeparatorMatch));
+      insert(k, new DecimalSeparatorNode(latexParserConfiguration.preferredDecimalSeparator ?? decimalSeparatorMatch));
       x = x.slice(decimalSeparatorMatch.length);
       continue;
     } 

@@ -172,15 +172,15 @@ describe(parseLatex.name, () => {
 
   it(String.raw`allows modifying the decimal separator even after parsing`, () => {
     // Arrange
-    let decimalSeparatorSetting = '{,}';
+    let preferredDecimalSeparator = '{,}';
     const myParserConfig = new LatexParserConfiguration();
-    myParserConfig.decimalSeparatorSetting = () => decimalSeparatorSetting;
+    myParserConfig.preferredDecimalSeparator = () => preferredDecimalSeparator;
     // Act 1
     const k = parseLatex('1.2', myParserConfig);
     // Assert 1
     expectViewModeLatex('1{,}2', k);
     // Act 2
-    decimalSeparatorSetting = ',';
+    preferredDecimalSeparator = ',';
     // Assert 2
     expectViewModeLatex('1,2', k);
   });
