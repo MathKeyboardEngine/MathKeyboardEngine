@@ -78,7 +78,8 @@
         }
         displayResult();
       };
-      const getDecimalSeparatorNode = () => new mke.DecimalSeparatorNode(() => (decimalSeparatorTypeElement.innerText == 'decimal comma' ? '{,}' : '.'));
+      const getDecimalSeparatorPreference = () => (decimalSeparatorTypeElement.innerText == 'decimal comma' ? '{,}' : '.');
+      const getDecimalSeparatorNode = () => new mke.DecimalSeparatorNode(getDecimalSeparatorPreference);
       registerNodeKey('decimalSeparator', getDecimalSeparatorNode);
       registerNodeKey('equal', () => new mke.StandardLeafNode('='));
       registerNodeKey('notEqual', () => new mke.StandardLeafNode(String.raw`\neq`));
@@ -383,7 +384,7 @@
     
       var parserConfig = new mke.LatexParserConfiguration();
       parserConfig.preferRoundBracketsNode = true;
-      parserConfig.decimalSeparator = '.';
+      parserConfig.decimalSeparatorSetting = getDecimalSeparatorPreference;
       inputToParse.onkeydown = (e) => {
         if (e.code == 'Enter') {
           const nodes = mke.parseLatex(inputToParse.value, latexConfiguration, parserConfig).syntaxTreeRoot.nodes;

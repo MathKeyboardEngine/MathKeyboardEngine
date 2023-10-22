@@ -154,10 +154,9 @@ describe(parseLatex.name, () => {
   });
 
   for (const separator of [ '.','{,}']) {
-    it(String.raw`understands the decimal separator ${separator}`, () => {
+    it(String.raw`understands the decimal separator ${separator} by default`, () => {
       // Arrange
       const myParserConfig = new LatexParserConfiguration();
-      myParserConfig.decimalSeparator = separator;
       const latex = `1${separator}2`;
       // Act
       const k = parseLatex(latex, CONFIG, myParserConfig);
@@ -171,6 +170,21 @@ describe(parseLatex.name, () => {
       expectViewModeLatex(latex, k);
     });
   }
+
+  it(String.raw`allows modifying the decimal separator even after parsing`, () => {
+    // Arrange
+    let decimalSeparatorSetting = '{,}';
+    const myParserConfig = new LatexParserConfiguration();
+    myParserConfig.decimalSeparatorSetting = () => decimalSeparatorSetting;
+    // Act 1
+    const k = parseLatex('1.2', CONFIG, myParserConfig);
+    // Assert 1
+    expectViewModeLatex('1{,}2', k);
+    // Act 2
+    decimalSeparatorSetting = ',';
+    // Assert 2
+    expectViewModeLatex('1,2', k);
+  });
 
   it(String.raw`understands that a_{12}\times a_{34} has ${DescendingBranchingNode.name}s`, () => {
     // Arrange

@@ -17,11 +17,10 @@ import { MatrixNode } from '../../src/SyntaxTreeComponents/Nodes/BranchingNodes/
 import { RoundBracketsNode } from '../../src/SyntaxTreeComponents/Nodes/BranchingNodes/RoundBracketsNode';
 
 export function parseLatex(latex : string | null, latexConfiguration: LatexConfiguration, latexParserConfiguration : LatexParserConfiguration): KeyboardMemory {
-  let x = latex?.trim();
-
-  if (x == null || x == '') {
+  if (latex == null) {
     return new KeyboardMemory();
   }
+  let x = latex.trim();
 
   const k = new KeyboardMemory();
 
@@ -31,9 +30,10 @@ export function parseLatex(latex : string | null, latexConfiguration: LatexConfi
       continue;
     }
 
-    if (x.startsWith(latexParserConfiguration.decimalSeparator)) {
-      insert(k, new DecimalSeparatorNode(latexParserConfiguration.decimalSeparator));
-      x = x.slice(latexParserConfiguration.decimalSeparator.length);
+    const decimalSeparatorMatch = latexParserConfiguration.decimalSeparatorMatchers.find(pattern => x.startsWith(pattern));
+    if (decimalSeparatorMatch != null) {
+      insert(k, new DecimalSeparatorNode(latexParserConfiguration.decimalSeparatorSetting ?? decimalSeparatorMatch));
+      x = x.slice(decimalSeparatorMatch.length);
       continue;
     } 
     
