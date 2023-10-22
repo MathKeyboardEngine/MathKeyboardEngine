@@ -373,7 +373,7 @@
       inputToParse.onpaste =
       () => {
         const value = inputToParse.value;
-        inputMirror.innerText = value == '' ? '' : inputToParse.value + ' ----> press Enter';
+        inputMirror.innerText = value.length > 2 ? inputToParse.value + ' ----> press Enter' : value;
       }
     
       var parserConfig = new mke.LatexParserConfiguration();
