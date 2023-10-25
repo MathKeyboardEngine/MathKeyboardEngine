@@ -187,7 +187,7 @@ export function parseLatex(latex : string | null, latexParserConfiguration : Lat
         break;
       }
     }
-    if (handled == true) {
+    if (handled) {
       continue;
     }
 
