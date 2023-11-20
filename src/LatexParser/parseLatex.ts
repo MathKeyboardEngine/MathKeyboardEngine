@@ -79,7 +79,7 @@ export function parseLatex(latex : string | null, latexParserConfiguration : Lat
 
     if (x.startsWith('\\')) {
       for (const prefix of ['\\left\\', '\\right\\', String.raw`\left`, String.raw`\right`]) {
-        if (x.startsWith(prefix) && !isLetter(x.slice(prefix.length)[0])) {
+        if (x.startsWith(prefix) && !isLetter(x[prefix.length])) {
           insert(k, new StandardLeafNode(prefix + x[prefix.length]));
           x = x.slice(prefix.length + 1);
           handled = true;
