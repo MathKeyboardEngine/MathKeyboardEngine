@@ -20,6 +20,8 @@
   ],
   "version": "v1.1.0",
   "types": "./dist/MathKeyboardEngine.d.ts",
+  "main": "./dist/MathKeyboardEngine.cjs.js",
+  "module": "./dist/MathKeyboardEngine.es2017.mjs",
   "exports": {
     ".": {
       "types": "./dist/MathKeyboardEngine.d.ts",
