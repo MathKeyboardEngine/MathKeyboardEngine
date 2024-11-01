@@ -1,13 +1,19 @@
+## [1.1.1] 2024-11-1
+
+### Fixed
+
+- An import error that some environments had (for example React with Vite and Typescript), was `Could not find a declaration file for module 'mathkeyboardengine'.`. Fixed by [rmathis](https://github.com/rmathis) in [#11](https://github.com/MathKeyboardEngine/MathKeyboardEngine/pull/11).
+
 ## [1.1.0] 2023-10-22
 
-## Added
+### Added
 
 - `parseLatex`. Developing this feature - parsing a LaTeX string for editing by MathKeyboardEngine - started after a [question thread](https://github.com/orgs/MathKeyboardEngine/discussions/1) was opened by [chengyi](https://github.com/WCY91).
 - `insert` previously only accepted a single `TreeNode`, but it can now handle a `TreeNode[]` too.
 
 ## [1.0.1] 2023-02-08
 
-## Fixed
+### Fixed
 
 - Bug related to type checking: the [type declarations](https://www.typescriptlang.org/docs/handbook/2/type-declarations.html) of `getEditModeLatex` and `getViewModeLatex` were not copied into `dist/MathKeyboardEngine.d.ts` due to a bug in `declarationbundler.js` since version 0.2.3. Fixed by [boompikachu](https://github.com/boompikachu) in [#7](https://github.com/MathKeyboardEngine/MathKeyboardEngine/pull/7).
 
