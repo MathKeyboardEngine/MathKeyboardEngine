@@ -20,12 +20,14 @@
   ],
   "version": "v1.1.0",
   "types": "./dist/MathKeyboardEngine.d.ts",
+  "main": "./dist/MathKeyboardEngine.es2017.cjs",
   "exports": {
-    "node": {
+    ".": {
+      "types": "./dist/MathKeyboardEngine.d.ts",
+      "require": "./dist/MathKeyboardEngine.es2017.cjs",
       "import": "./dist/MathKeyboardEngine.es2017.mjs",
-      "require": "./dist/MathKeyboardEngine.es2017.cjs"
-    },
-    "default": "./dist/MathKeyboardEngine.es2017.mjs"
+      "default": "./dist/MathKeyboardEngine.es2017.mjs"
+    }
   },
   "files": [
     "dist/"
