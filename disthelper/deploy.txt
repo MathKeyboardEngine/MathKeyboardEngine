@@ -12,7 +12,7 @@ npm run build
 replace "0.x.0-beta.old" by "0.x.0-beta.new"
 
 npm pack
-> manually check zip contents
+> manually check zip contents (use a diff tool!)
 
 npm login
 npm publish
