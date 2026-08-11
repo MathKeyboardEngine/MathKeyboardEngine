@@ -3,6 +3,7 @@
     "target": "es2019",
     "module": "ES2015",
     "strict": true,
+    "skipLibCheck": true,
     "noEmitOnError": true,
     "outDir": "./dist"
   },
